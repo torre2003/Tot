@@ -29,19 +29,16 @@ namespace SistemaExpertoLib
         
         /// <summary>
         /// Opciones de condición para tipo de hecho BOOLEANO
-        ///     0         1
         /// {"FALSO","VERDADERO"};
         /// </summary>
         public const string[] OPCIONES_BOOLEANO  = new string[] {"FALSO","VERDADERO"};
         /// <summary>
         /// Opciones de condición para tipo de hecho NUMERICO
-        ///      0         1            2           3             4
         /// ["MENOR","MENOR O IGUAL","IGUAL","MAYOR O IGUAL", "MAYOR"]
         /// </summary>
         public const string[] OPCIONES_NUMERICO  = new string[] {"MENOR","MENOR O IGUAL","IGUAL","MAYOR O IGUAL", "MAYOR"};
         /// <summary>
         /// Opciones de condición para tipo de hecho LISTA
-        ///   0     1
         /// {"ES","NO ES"};
         /// </summary>
         public const string[] OPCIONES_LISTA  = new string[] {"ES","NO ES"};
@@ -62,7 +59,7 @@ namespace SistemaExpertoLib
         public string id_variable
         {
             get{return _id_variable;}
-            set{_id_variable = value;}
+            //set{_id_variable = value;}
         }
         string _id_variable;
 
@@ -72,9 +69,19 @@ namespace SistemaExpertoLib
         public int tipo_variable
         {
             get{return _tipo_variable;}
-            set{_tipo_variable = value;}
+            //set{_tipo_variable = value;}
         }
         int _tipo_variable;
+
+        /// <summary>
+        /// nombre de la variable
+        /// </summary>
+        public string nombre_variable
+        {
+            get { return _nombre_variable; }
+            //set{_tipo_variable = value;}
+        }
+        string _nombre_variable;
 
 
         /// <summary>
@@ -143,8 +150,9 @@ namespace SistemaExpertoLib
         public Hecho(string id_hecho, Variable variable_hecho) 
         {
             this.id_hecho = id_hecho;
-            this.id_variable = variable_hecho.id_variable;
-            this.tipo_variable = variable_hecho.tipo_variable;
+            this._id_variable = variable_hecho.id_variable;
+            this._tipo_variable = variable_hecho.tipo_variable;
+            this._nombre_variable = variable_hecho.nombre_variable;
         }
 
 
@@ -227,7 +235,11 @@ namespace SistemaExpertoLib
 
 
 
-        
+        /// <summary>
+        /// Método para evaluar tipo de hecho con variable numerica
+        /// </summary>
+        /// <param name="estado_variable">Estado de la variable a evaluar</param>
+        /// <returns>TRUE si la condición se cumple, FALSE en caso contrario. Exception si no corresponde al tipo de hecho</returns>
         public bool evaluarHechoNumerico(int estado_variable)
         {
             if (this.condicion == null)
@@ -245,34 +257,72 @@ namespace SistemaExpertoLib
             else
             {
                 _estado_hecho = false;
+                _hecho_evaluado = true;
                 switch (_condicion)
                 {
                     case "MENOR":
-                        if (estado_variable<)
+                        if (estado_variable < valor_numerico_hecho)
+                            _estado_hecho = true;
                         break;
                     case "MENOR O IGUAL":
-
+                        if (estado_variable <= valor_numerico_hecho)
+                            _estado_hecho = true;
                         break;
                     case "IGUAL":
-
+                        if (estado_variable == valor_numerico_hecho)
+                            _estado_hecho = true;
                         break;
                     case "MAYOR O IGUAL":
-
+                        if (estado_variable >= valor_numerico_hecho)
+                            _estado_hecho = true;
                         break;
                     case "MAYOR":
-
+                        if (estado_variable > valor_numerico_hecho)
+                            _estado_hecho = true;
                         break;
                 }
-
-
             }
-
-
             return this.estado_hecho;
         }
 
-
-
+        /// <summary>
+        /// Método para evaluar un hecho con tipo de variable LISTA
+        /// </summary>
+        /// <param name="estado_variable">Estado de la variable a evaluar</param>
+        /// <returns>TRUE si la condición se cumple, FALSE en caso contrario. Exception si no corresponde al tipo de hecho</returns>
+        public bool evaluarHechoNumerico(string estado_variable)
+        {
+            estado_variable = estado_variable.ToLower();
+            if (this.condicion == null)
+            {
+                try { }
+                catch (Exception e)
+                { e = new Exception("La condición del hecho no ha sido establecida"); throw; }
+            }
+            if (tipo_variable != LISTA)
+            {
+                try { }
+                catch (Exception e)
+                { e = new Exception("El hecho no es de tipo LISTA"); throw; }
+            }
+            else
+            {
+                _estado_hecho = false;
+                _hecho_evaluado = true;
+                switch (_condicion)
+                {
+                    case "ES":
+                        if (estado_variable.Equals(valor_lista_hecho))
+                            _estado_hecho = true;
+                        break;
+                    case "NO ES":
+                        if (!estado_variable.Equals(valor_lista_hecho))
+                            _estado_hecho = true;
+                        break;
+                }
+            }
+            return this.estado_hecho;
+        }
 
 
 
@@ -280,10 +330,24 @@ namespace SistemaExpertoLib
         /// <summary>
         /// Override toString
         /// </summary>
-        /// <returns></returns>
+        /// <returns>VARIABLE + CONDICION + VALOR</returns>
         public override string ToString()
         {
-            return base.ToString();
+            string retorno = "  "+ nombre_variable;
+            if (condicion == null)
+            {
+                retorno += " CONDICIÓN NO ESTABLECIDA";
+            }
+            else
+            {
+                retorno += " " + condicion;
+                if (tipo_variable == NUMERICO)
+                    retorno += " " + valor_numerico_hecho;
+                else
+                    if (tipo_variable == LISTA)
+                        retorno += " " + valor_lista_hecho;
+            }
+            return retorno;
         }
 
 
