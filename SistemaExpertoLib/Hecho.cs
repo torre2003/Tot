@@ -94,13 +94,29 @@ namespace SistemaExpertoLib
         string _condicion = null;
 
         /// <summary>
+        /// Valor Lista del hecho en la condición
+        /// </summary>
+        public string valor_lista
+        {
+            get { return valor_lista_hecho; }
+        }
+
+        /// <summary>
+        /// Valor Numerico del hecho en la condición
+        /// </summary>
+        public double valor_numerico
+        {
+            get { return valor_numerico; }
+        }
+
+        /// <summary>
         /// Valor del hecho en la condicion
         /// </summary>
         bool valor_booleano_hecho;
         /// <summary>
         /// Valor del hecho en la condicion
         /// </summary>
-        int valor_numerico_hecho;
+        double valor_numerico_hecho;
         /// <summary>
         /// Valor del hecho en la condicion
         /// </summary>
@@ -110,7 +126,7 @@ namespace SistemaExpertoLib
         /// <summary>
         /// Establece si el hecho es preguntable al usuario
         /// </summary>
-        bool hecho_preguntable_al_usuario
+        public bool hecho_preguntable_al_usuario
         {
             get{return _hecho_preguntable_al_usuario;}
             set{_hecho_preguntable_al_usuario = value;}
@@ -118,9 +134,9 @@ namespace SistemaExpertoLib
         bool _hecho_preguntable_al_usuario = false;
 
         /// <summary>
-        /// Indica si el hecho fue evaluado en su condición
+        /// Indica si el hecho fue evaluado en su condición, por la inferencia 
         /// </summary>
-        bool hecho_evaluado
+        public bool hecho_evaluado
         {
             get { return _hecho_evaluado; }
             //set { _hecho_evaluado = value; }
@@ -130,12 +146,24 @@ namespace SistemaExpertoLib
         /// <summary>
         /// Si el hecho esta evaluado, indica TRUE si cumple la condición FALSE en caso contrario
         /// </summary>
-        bool estado_hecho
+        public bool estado_hecho
         {
             get { return _estado_hecho; }
             //set { _estado_hecho = value; }
         }
         bool _estado_hecho = false;
+
+        /// <summary>
+        /// Atributo que indica si el hecho es consistente en la base de conocimiento
+        /// </summary>
+        public bool chequeo_de_consistencia
+        {
+            get { return _chequeo_de_consistencia;}
+            set { _chequeo_de_consistencia = value; }
+        }
+        bool _chequeo_de_consistencia = true;
+
+
 
         //todo para el comprobador de concordancia, preguntar si el hecho es accesible desde las reglas, al acmbiar variables revizar hechos
         //********************************************************************************************
@@ -155,12 +183,69 @@ namespace SistemaExpertoLib
             this._nombre_variable = variable_hecho.nombre_variable;
         }
 
+        /// <summary>
+        /// Establece la condición para el tipo de hecho BOOLEANO
+        /// </summary>
+        /// <param name="opcion_condicion">Opcion a cotejar según CONSTANTE OPCIONES_BOOLEANO {VERDADERO , FALSO}</param>
+        public void establecerCondicion(string opcion_condicion)
+        {
+            if (comprobarCondicion(opcion_condicion))
+            {
+                _condicion = opcion_condicion;
+                if (opcion_condicion.Equals(OPCIONES_BOOLEANO[0]))
+                    valor_booleano_hecho = false;
+                else
+                    valor_booleano_hecho = true;
+            }
+            else
+            {
+                throw new System.ArgumentException("Opcion no coincide con el tipo de hecho o no reconocida", opcion_condicion);
+            }
+        }
 
         /// <summary>
-        /// Método para establecer la condición del hecho
+        /// Establece la condición para el tipo de hecho NUMERICO
+        /// </summary>
+        /// <param name="opcion_condicion">Opcion de de la condición según constante OPCIONES_NUMERICO {"MENOR","MENOR O IGUAL","IGUAL","MAYOR O IGUAL", "MAYOR"}</param>
+        /// <param name="valor">Valor a comparar según corresponda la condicion impuesta</param>
+        public void establecerCondicion(string opcion_condicion, double valor)
+        {
+            if (comprobarCondicion(opcion_condicion))
+            {
+                _condicion = opcion_condicion;
+                valor_numerico_hecho = valor;
+            }
+            else
+            {
+                throw new System.ArgumentException("Opcion no coincide con el tipo de hecho o no reconocida", opcion_condicion);
+            }
+        }
+
+        /// <summary>
+        /// Establece la condición para el tipo de hecho LISTA
+        /// </summary>
+        /// <param name="opcion_condicion">Opción de la condición según constante OPCIONES_LISTA {"ES","NO ES"}</param>
+        /// <param name="valor_en_variable">Valor a comparar según corresponda la condicion impuesta</param>
+        public void establecerCondicion(string opcion_condicion, string valor_en_variable)
+        {
+            if (comprobarCondicion(opcion_condicion))
+            {
+                _condicion = opcion_condicion;
+                valor_lista_hecho = valor_en_variable;
+            }
+            else
+            {
+                throw new System.ArgumentException("Opcion no coincide con el tipo de hecho o no reconocida", opcion_condicion);
+            }
+        }
+
+
+        /// <summary>
+        /// Método que comprueba la condicion según el tipo de variable del objeto
         /// </summary>
         /// <param name="opcion_condicion">condicion según los valores de las constantes OPCIONES_BOOLEANO,OPCIONES_NUMERICO,OPCIONES_LISTA</param>
-        public void establecerCondicion(string opcion_condicion)
+        /// <returns>TRUE si el hecho concuerda con el tipo de variable</returns>
+        public bool comprobarCondicion(string opcion_condicion)
         {
             string[] condiciones = null;
             switch (_tipo_variable)
@@ -181,13 +266,8 @@ namespace SistemaExpertoLib
                 if (condiciones[i].Equals(opcion_condicion))
                     flag = true;
             }
-            if (!flag)
-            {
-                try { }
-                catch (Exception e)
-                { e = new Exception("Opcion no coincide con el tipo de hecho o no reconocida"); throw; }
-            }
-
+            
+            return flag;
         }
 
 
@@ -202,15 +282,11 @@ namespace SistemaExpertoLib
         {
             if (this.condicion == null)
             {
-                try { }
-                catch (Exception e)
-                { e = new Exception("La condición del hecho no ha sido establecida"); throw; }
+                throw new System.ArgumentException("La condición del hecho no ha sido establecida", "");
             }
             if (tipo_variable != BOOLEANO)
             {
-                try { }
-                catch (Exception e)
-                { e = new Exception("El hecho no es BOOLEANO"); throw; }    
+                throw new System.ArgumentException("El hecho no es BOOLEANO", "");
             }
             else
             {
@@ -244,15 +320,11 @@ namespace SistemaExpertoLib
         {
             if (this.condicion == null)
             {
-                try { }
-                catch (Exception e)
-                { e = new Exception("La condición del hecho no ha sido establecida"); throw; }
+                throw new System.ArgumentException("La condición del hecho no ha sido establecida", "");
             }
             if (tipo_variable != NUMERICO)
             {
-                try { }
-                catch (Exception e)
-                { e = new Exception("El hecho no es NUMERICO"); throw; }
+                throw new System.ArgumentException("El hecho no es NUMERICO", "");
             }
             else
             {
@@ -290,20 +362,16 @@ namespace SistemaExpertoLib
         /// </summary>
         /// <param name="estado_variable">Estado de la variable a evaluar</param>
         /// <returns>TRUE si la condición se cumple, FALSE en caso contrario. Exception si no corresponde al tipo de hecho</returns>
-        public bool evaluarHechoNumerico(string estado_variable)
+        public bool evaluarHechoLista(string estado_variable)
         {
             estado_variable = estado_variable.ToLower();
             if (this.condicion == null)
             {
-                try { }
-                catch (Exception e)
-                { e = new Exception("La condición del hecho no ha sido establecida"); throw; }
+                throw new System.ArgumentException("La condición del hecho no ha sido establecida", "");
             }
             if (tipo_variable != LISTA)
             {
-                try { }
-                catch (Exception e)
-                { e = new Exception("El hecho no es de tipo LISTA"); throw; }
+                throw new System.ArgumentException("El hecho no es de tipo LISTA", "");
             }
             else
             {
@@ -324,6 +392,14 @@ namespace SistemaExpertoLib
             return this.estado_hecho;
         }
 
+        /// <summary>
+        /// Método que marca el falso el estado del Hecho
+        /// </summary>
+        public void limpiarEstadoHecho ()
+        {
+            _estado_hecho = false;
+
+        }
 
 
 
