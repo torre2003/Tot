@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace SistemaExpertoLib
 {
+    [Serializable()]
     class Variable
     {
 
@@ -92,7 +93,7 @@ namespace SistemaExpertoLib
         /// <summary>
         /// Valor NUMERICO actual en la memoria de trabajo
         /// </summary>
-        int valor_numerico_actual
+        double valor_numerico_actual
         {
             get
             {
@@ -103,7 +104,7 @@ namespace SistemaExpertoLib
                 _valor_numerico_actual = value;
             }
         }
-        int _valor_numerico_actual;
+        double _valor_numerico_actual;
         /// <summary>
         /// Valor LISTA actual en la memoria de trabajo
         /// </summary>
@@ -115,6 +116,8 @@ namespace SistemaExpertoLib
             }
             set
             {
+                if (!elementoExistente(value))
+                    throw new System.ArgumentException("La cadena no pertenece a la lista de la variable", value);
                 _valor_lista_actual = value;
             }
         }
@@ -128,7 +131,7 @@ namespace SistemaExpertoLib
         /// <summary>
         /// Texto con el cual se consultara la variable del sistema experto
         /// </summary>
-        string texto_consulta_variable
+        public string texto_consulta_variable
         {
             get
             {
@@ -144,7 +147,7 @@ namespace SistemaExpertoLib
         /// <summary>
         /// Ruta Texto descriptivo de la variable
         /// </summary>
-        string ruta_texto_descriptivo
+        public string ruta_texto_descriptivo
         {
             get
             {
@@ -160,7 +163,7 @@ namespace SistemaExpertoLib
         /// <summary>
         /// Ruta Imagen descriptiva de la variable
         /// </summary>
-        string ruta_imagen_descriptiva
+        public string ruta_imagen_descriptiva
         {
             get
             {
@@ -176,7 +179,7 @@ namespace SistemaExpertoLib
         /// <summary>
         /// Establece si la variable es solicitado al inicio de la inferencia 
         /// </summary>
-        bool variable_de_inicio
+        public bool variable_de_inicio
         {
             get
             {
@@ -197,8 +200,8 @@ namespace SistemaExpertoLib
         /// <summary>
         /// Constructor
         /// </summary>
-        public Variable (){
-
+        public Variable (string id_variable){
+            this.id_variable = id_variable;
         }
 
         /// <summary>
@@ -215,9 +218,7 @@ namespace SistemaExpertoLib
             }
             else
             {
-                try{}
-                catch (Exception e)
-                {e = new Exception("El tipo de variable no corresponde a LISTA");throw;}
+                throw new System.ArgumentException("El tipo de variable no corresponde a LISTA", "");
             }
         }
 
