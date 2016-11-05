@@ -12,4 +12,5 @@ namespace SistemaExpertoLib
 
 
     }
+    //todo limpiarObjeto  variable, hecho y regla
 }
