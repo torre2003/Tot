@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 namespace SistemaExpertoLib
 {
     [Serializable()]
-    class Variable
+    public class Variable
     {
-
+        //todo habilitar la utilizacion de rangos 
+        //todo habilitar variable numerica cardinal
         //********************************************************************************************
         //   Atributos
         //********************************************************************************************
@@ -124,6 +125,58 @@ namespace SistemaExpertoLib
         string _valor_lista_actual;
 
         /// <summary>
+        /// Valor que establece la Variable como Cardinal (solo si la variable es de tipo numerica)
+        /// </summary>
+        public bool cardinal
+        {
+            get
+            {
+                return _cardinal;
+            }
+            set
+            {
+                _cardinal = value;
+            }
+        }
+        bool _cardinal = false;
+        
+        /// <summary>
+        /// Si la variable es de tipo numerica, la propiedad especifica si tiene un rango limitado
+        /// </summary>
+        public bool rango_limitado
+        {   
+            get
+            {
+                return _rango_limitado;
+            }
+        }
+        bool _rango_limitado = false;
+
+        /// <summary>
+        /// Numero menor que puede tomar la variable (Si la variable es numerica y con rango limitado)
+        /// </summary>
+        public double rango_limite_inferior
+        {
+            get
+            {
+                return _rango_limite_inferior;
+            }
+        }
+        double _rango_limite_inferior;
+
+        /// <summary>
+        /// Numero mayor que puede tomar la variable (Si la variable es numerica y con rango limitado)
+        /// </summary>
+        public double rango_limite_superior
+        {
+            get
+            {
+                return _rango_limite_superior;
+            }
+        }
+        double _rango_limite_superior;
+        
+        /// <summary>
         /// ArrayList con las opciones posibles para la variable
         /// </summary>
         ArrayList lista_de_opciones = new ArrayList();
@@ -192,9 +245,27 @@ namespace SistemaExpertoLib
         }
         bool _variable_de_inicio = false;
 
+        /// <summary>
+        /// Atributo que indica si la variable es consistene en la base de conocimiento
+        /// </summary>
+        public bool chequeo_de_consistencia
+        {
+            get { return _chequeo_de_consistencia; }
+            set { _chequeo_de_consistencia = value; }
+        }
+        bool _chequeo_de_consistencia = true;
+
         //********************************************************************************************
         //   Métodos
         //********************************************************************************************
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public Variable()
+        {
+
+        }
 
 
         /// <summary>
@@ -228,14 +299,17 @@ namespace SistemaExpertoLib
         /// <param name="elemento">Elemento a eliminar</param>
         public void eliminarElemento(string elemento)
         {
-            foreach (string item in lista_de_opciones)
+            object aux_eliminacion = null;
+            foreach (object item in lista_de_opciones)
             {
-                if (item.Equals(elemento))
-                    lista_de_opciones.Remove(item);
+                string aux = (string)item;
+                if (aux.Equals(elemento))
+                    aux_eliminacion = aux;
             }
+            if (aux_eliminacion != null)
+                lista_de_opciones.Remove(aux_eliminacion);
         }
-
-
+        
         /// <summary>
         /// Metodo que comprueba la existencia de un elemento en la lista de opciones
         /// </summary>
@@ -252,6 +326,49 @@ namespace SistemaExpertoLib
             }
             return flag;
         }
+
+        /// <summary>
+        /// Método que establece un rango a la variable de tipo NUMERICO
+        /// </summary>
+        /// <param name="limite_inferior">Limite inferior de la variable</param>
+        /// <param name="limite_superior">Limite mayor de la variable</param>
+        public void limitarRangoVariable(double limite_inferior, double limite_superior)
+        {
+            if (tipo_variable ==  NUMERICO)
+            {
+                if (limite_inferior <= limite_superior)
+                {
+                    _rango_limitado = true;
+                    _rango_limite_inferior = limite_inferior;
+                    _rango_limite_superior = limite_superior;
+                }
+                else
+                {
+                    throw new System.ArgumentException("Limite inferior mayor a limite superior", "");
+                }
+            }
+            else
+            {
+                throw new System.ArgumentException("El tipo de variable no corresponde a NUMERICO", "");
+            }
+        }
+
+        /// <summary>
+        /// Método que quita el rango establecio para la variable
+        /// </summary>
+        public void quitarRangosVariables()
+        {
+            if (tipo_variable == NUMERICO)
+            {
+                _rango_limitado = false;
+            }
+            else
+            {
+                throw new System.ArgumentException("El tipo de variable no corresponde a NUMERICO", "");
+            }
+        }
+
+
 
         /// <summary>
         /// Opciones posible de la variable
