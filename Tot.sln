@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tot", "Tot\Tot.csproj", "{B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaExpertoLib", "SistemaExpertoLib\SistemaExpertoLib.csproj", "{CC17B513-73D1-4FAE-9824-3DDF51B9D217}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KnowledgeControl", "KnowledgeControl\KnowledgeControl.csproj", "{E28E1502-9460-4D56-A0BF-5AEE7ED7DADF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "C-Editor", "C-Editor\C-Editor.csproj", "{E60625F8-5B99-4EE3-BCA5-22C544F712EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,10 +24,10 @@ Global
 		{CC17B513-73D1-4FAE-9824-3DDF51B9D217}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC17B513-73D1-4FAE-9824-3DDF51B9D217}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC17B513-73D1-4FAE-9824-3DDF51B9D217}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E28E1502-9460-4D56-A0BF-5AEE7ED7DADF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E28E1502-9460-4D56-A0BF-5AEE7ED7DADF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E28E1502-9460-4D56-A0BF-5AEE7ED7DADF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E28E1502-9460-4D56-A0BF-5AEE7ED7DADF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E60625F8-5B99-4EE3-BCA5-22C544F712EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E60625F8-5B99-4EE3-BCA5-22C544F712EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E60625F8-5B99-4EE3-BCA5-22C544F712EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E60625F8-5B99-4EE3-BCA5-22C544F712EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
