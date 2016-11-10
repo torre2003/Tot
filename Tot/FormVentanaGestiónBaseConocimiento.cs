@@ -22,7 +22,9 @@ namespace Tot
             this.base_conocimiento = base_conocimiento;
             control_gestion_variables.base_conocimiento = this.base_conocimiento;
             control_gestion_variables.actualizarListaDeVariables();
+            control_gestion_de_reglas.base_conocimiento = base_conocimiento;
         }
+
 
 
     }

@@ -41,8 +41,6 @@
             this.checkBox_variable_de_inicio = new System.Windows.Forms.CheckBox();
             this.button_cancelar = new System.Windows.Forms.Button();
             this.button_aceptar = new System.Windows.Forms.Button();
-            this.button_selecion_imagen = new System.Windows.Forms.Button();
-            this.button_seleccion_documento = new System.Windows.Forms.Button();
             this.textBox_ruta_imagen = new System.Windows.Forms.TextBox();
             this.textBox_ruta_RTF = new System.Windows.Forms.TextBox();
             this.textBox_texto_consulta = new System.Windows.Forms.TextBox();
@@ -52,8 +50,6 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel_opciones_lista = new System.Windows.Forms.Panel();
-            this.button_agregar_elemento_lista_a_variable = new System.Windows.Forms.Button();
-            this.button_eliminar_elemento_lista_variable = new System.Windows.Forms.Button();
             this.textBox_ingreso_elemento_lista_variable = new System.Windows.Forms.TextBox();
             this.listBox_lista_de_elementos_variables = new System.Windows.Forms.ListBox();
             this.panel_opciones_numerico = new System.Windows.Forms.Panel();
@@ -76,6 +72,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.openFileDialog_archivos_RTF = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialog_imagenes = new System.Windows.Forms.OpenFileDialog();
+            this.button_selecion_imagen = new System.Windows.Forms.Button();
+            this.button_seleccion_documento = new System.Windows.Forms.Button();
+            this.button_agregar_elemento_lista_a_variable = new System.Windows.Forms.Button();
+            this.button_eliminar_elemento_lista_variable = new System.Windows.Forms.Button();
+            this.checkBox_variable_preguntable_al_usuario = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel_1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -192,6 +193,7 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.checkBox_variable_preguntable_al_usuario);
             this.panel3.Controls.Add(this.checkBox_variable_de_inicio);
             this.panel3.Controls.Add(this.button_cancelar);
             this.panel3.Controls.Add(this.button_aceptar);
@@ -218,12 +220,13 @@
             // checkBox_variable_de_inicio
             // 
             this.checkBox_variable_de_inicio.AutoSize = true;
-            this.checkBox_variable_de_inicio.Location = new System.Drawing.Point(249, 58);
+            this.checkBox_variable_de_inicio.Location = new System.Drawing.Point(175, 60);
             this.checkBox_variable_de_inicio.Name = "checkBox_variable_de_inicio";
             this.checkBox_variable_de_inicio.Size = new System.Drawing.Size(106, 17);
             this.checkBox_variable_de_inicio.TabIndex = 17;
             this.checkBox_variable_de_inicio.Text = "Variable de inicio";
             this.checkBox_variable_de_inicio.UseVisualStyleBackColor = true;
+            this.checkBox_variable_de_inicio.CheckedChanged += new System.EventHandler(this.checkBox_variable_de_inicio_CheckedChanged);
             // 
             // button_cancelar
             // 
@@ -244,26 +247,6 @@
             this.button_aceptar.Text = "Aceptar";
             this.button_aceptar.UseVisualStyleBackColor = true;
             this.button_aceptar.Click += new System.EventHandler(this.button_aceptar_Click);
-            // 
-            // button_selecion_imagen
-            // 
-            this.button_selecion_imagen.Image = global::Tot.Properties.Resources.lupa_imagenes___32x_32;
-            this.button_selecion_imagen.Location = new System.Drawing.Point(382, 509);
-            this.button_selecion_imagen.Name = "button_selecion_imagen";
-            this.button_selecion_imagen.Size = new System.Drawing.Size(46, 37);
-            this.button_selecion_imagen.TabIndex = 14;
-            this.button_selecion_imagen.UseVisualStyleBackColor = true;
-            this.button_selecion_imagen.Click += new System.EventHandler(this.button_selecion_imagen_Click);
-            // 
-            // button_seleccion_documento
-            // 
-            this.button_seleccion_documento.Image = global::Tot.Properties.Resources.lupa_documentos___32_x_32;
-            this.button_seleccion_documento.Location = new System.Drawing.Point(382, 443);
-            this.button_seleccion_documento.Name = "button_seleccion_documento";
-            this.button_seleccion_documento.Size = new System.Drawing.Size(46, 37);
-            this.button_seleccion_documento.TabIndex = 13;
-            this.button_seleccion_documento.UseVisualStyleBackColor = true;
-            this.button_seleccion_documento.Click += new System.EventHandler(this.button_seleccion_documento_Click);
             // 
             // textBox_ruta_imagen
             // 
@@ -350,36 +333,6 @@
             this.panel_opciones_lista.Size = new System.Drawing.Size(296, 179);
             this.panel_opciones_lista.TabIndex = 9;
             this.panel_opciones_lista.Visible = false;
-            // 
-            // button_agregar_elemento_lista_a_variable
-            // 
-            this.button_agregar_elemento_lista_a_variable.BackColor = System.Drawing.Color.White;
-            this.button_agregar_elemento_lista_a_variable.Image = global::Tot.Properties.Resources.add60x60;
-            this.button_agregar_elemento_lista_a_variable.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button_agregar_elemento_lista_a_variable.Location = new System.Drawing.Point(158, 3);
-            this.button_agregar_elemento_lista_a_variable.Name = "button_agregar_elemento_lista_a_variable";
-            this.button_agregar_elemento_lista_a_variable.Size = new System.Drawing.Size(129, 74);
-            this.button_agregar_elemento_lista_a_variable.TabIndex = 3;
-            this.button_agregar_elemento_lista_a_variable.Text = "Agregar Elemento";
-            this.button_agregar_elemento_lista_a_variable.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button_agregar_elemento_lista_a_variable.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button_agregar_elemento_lista_a_variable.UseVisualStyleBackColor = false;
-            this.button_agregar_elemento_lista_a_variable.Click += new System.EventHandler(this.button_agregar_elemento_lista_a_variable_Click);
-            // 
-            // button_eliminar_elemento_lista_variable
-            // 
-            this.button_eliminar_elemento_lista_variable.BackColor = System.Drawing.Color.White;
-            this.button_eliminar_elemento_lista_variable.Image = global::Tot.Properties.Resources.remove60x60;
-            this.button_eliminar_elemento_lista_variable.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button_eliminar_elemento_lista_variable.Location = new System.Drawing.Point(158, 93);
-            this.button_eliminar_elemento_lista_variable.Name = "button_eliminar_elemento_lista_variable";
-            this.button_eliminar_elemento_lista_variable.Size = new System.Drawing.Size(129, 72);
-            this.button_eliminar_elemento_lista_variable.TabIndex = 2;
-            this.button_eliminar_elemento_lista_variable.Text = "Eliminar Elemento";
-            this.button_eliminar_elemento_lista_variable.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button_eliminar_elemento_lista_variable.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button_eliminar_elemento_lista_variable.UseVisualStyleBackColor = false;
-            this.button_eliminar_elemento_lista_variable.Click += new System.EventHandler(this.button_eliminar_elemento_lista_variable_Click);
             // 
             // textBox_ingreso_elemento_lista_variable
             // 
@@ -585,6 +538,66 @@
             this.openFileDialog_imagenes.Filter = "\"Archivo de imagen JPEG (*.jpeg)|*.jpeg|Archivo de imagen JPG(*.jpg)|*.jpg|Archiv" +
     "o de imagen PNG(*.png)|*.png\"";
             // 
+            // button_selecion_imagen
+            // 
+            this.button_selecion_imagen.Image = global::Tot.Properties.Resources.lupa_imagenes___32x_32;
+            this.button_selecion_imagen.Location = new System.Drawing.Point(382, 509);
+            this.button_selecion_imagen.Name = "button_selecion_imagen";
+            this.button_selecion_imagen.Size = new System.Drawing.Size(46, 37);
+            this.button_selecion_imagen.TabIndex = 14;
+            this.button_selecion_imagen.UseVisualStyleBackColor = true;
+            this.button_selecion_imagen.Click += new System.EventHandler(this.button_selecion_imagen_Click);
+            // 
+            // button_seleccion_documento
+            // 
+            this.button_seleccion_documento.Image = global::Tot.Properties.Resources.lupa_documentos___32_x_32;
+            this.button_seleccion_documento.Location = new System.Drawing.Point(382, 443);
+            this.button_seleccion_documento.Name = "button_seleccion_documento";
+            this.button_seleccion_documento.Size = new System.Drawing.Size(46, 37);
+            this.button_seleccion_documento.TabIndex = 13;
+            this.button_seleccion_documento.UseVisualStyleBackColor = true;
+            this.button_seleccion_documento.Click += new System.EventHandler(this.button_seleccion_documento_Click);
+            // 
+            // button_agregar_elemento_lista_a_variable
+            // 
+            this.button_agregar_elemento_lista_a_variable.BackColor = System.Drawing.Color.White;
+            this.button_agregar_elemento_lista_a_variable.Image = global::Tot.Properties.Resources.add60x60;
+            this.button_agregar_elemento_lista_a_variable.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button_agregar_elemento_lista_a_variable.Location = new System.Drawing.Point(158, 3);
+            this.button_agregar_elemento_lista_a_variable.Name = "button_agregar_elemento_lista_a_variable";
+            this.button_agregar_elemento_lista_a_variable.Size = new System.Drawing.Size(129, 74);
+            this.button_agregar_elemento_lista_a_variable.TabIndex = 3;
+            this.button_agregar_elemento_lista_a_variable.Text = "Agregar Elemento";
+            this.button_agregar_elemento_lista_a_variable.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button_agregar_elemento_lista_a_variable.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.button_agregar_elemento_lista_a_variable.UseVisualStyleBackColor = false;
+            this.button_agregar_elemento_lista_a_variable.Click += new System.EventHandler(this.button_agregar_elemento_lista_a_variable_Click);
+            // 
+            // button_eliminar_elemento_lista_variable
+            // 
+            this.button_eliminar_elemento_lista_variable.BackColor = System.Drawing.Color.White;
+            this.button_eliminar_elemento_lista_variable.Image = global::Tot.Properties.Resources.remove60x60;
+            this.button_eliminar_elemento_lista_variable.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button_eliminar_elemento_lista_variable.Location = new System.Drawing.Point(158, 93);
+            this.button_eliminar_elemento_lista_variable.Name = "button_eliminar_elemento_lista_variable";
+            this.button_eliminar_elemento_lista_variable.Size = new System.Drawing.Size(129, 72);
+            this.button_eliminar_elemento_lista_variable.TabIndex = 2;
+            this.button_eliminar_elemento_lista_variable.Text = "Eliminar Elemento";
+            this.button_eliminar_elemento_lista_variable.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button_eliminar_elemento_lista_variable.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.button_eliminar_elemento_lista_variable.UseVisualStyleBackColor = false;
+            this.button_eliminar_elemento_lista_variable.Click += new System.EventHandler(this.button_eliminar_elemento_lista_variable_Click);
+            // 
+            // checkBox_variable_preguntable_al_usuario
+            // 
+            this.checkBox_variable_preguntable_al_usuario.AutoSize = true;
+            this.checkBox_variable_preguntable_al_usuario.Location = new System.Drawing.Point(297, 61);
+            this.checkBox_variable_preguntable_al_usuario.Name = "checkBox_variable_preguntable_al_usuario";
+            this.checkBox_variable_preguntable_al_usuario.Size = new System.Drawing.Size(171, 17);
+            this.checkBox_variable_preguntable_al_usuario.TabIndex = 18;
+            this.checkBox_variable_preguntable_al_usuario.Text = "Variable preguntable al usuario";
+            this.checkBox_variable_preguntable_al_usuario.UseVisualStyleBackColor = true;
+            // 
             // ControlGestionVariables
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -663,6 +676,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog_imagenes;
         private System.Windows.Forms.Button button_cancelar;
         private System.Windows.Forms.CheckBox checkBox_variable_de_inicio;
+        private System.Windows.Forms.CheckBox checkBox_variable_preguntable_al_usuario;
 
 
     }

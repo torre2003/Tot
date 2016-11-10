@@ -44,6 +44,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControlEdicionReglas.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ControlEdicionReglas.Designer.cs">
+      <DependentUpon>ControlEdicionReglas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ControlGestionReglas.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ControlGestionReglas.Designer.cs">
+      <DependentUpon>ControlGestionReglas.cs</DependentUpon>
+    </Compile>
     <Compile Include="ControlGestionVariables.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -64,6 +76,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ControlEdicionReglas.resx">
+      <DependentUpon>ControlEdicionReglas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ControlGestionReglas.resx">
+      <DependentUpon>ControlGestionReglas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ControlGestionVariables.resx">
       <DependentUpon>ControlGestionVariables.cs</DependentUpon>
     </EmbeddedResource>
@@ -122,6 +140,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\remove60x60.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\basurero 32x32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

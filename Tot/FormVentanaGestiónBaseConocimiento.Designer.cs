@@ -33,9 +33,11 @@
             this.control_gestion_variables = new Tot.ControlGestionVariables();
             this.tabPage_hechos = new System.Windows.Forms.TabPage();
             this.tabPage_reglas = new System.Windows.Forms.TabPage();
+            this.control_gestion_de_reglas = new Tot.ControlGestionReglas();
             this.button1 = new System.Windows.Forms.Button();
             this.tabControl_gestion_conocimiento.SuspendLayout();
             this.tabPage_variables.SuspendLayout();
+            this.tabPage_reglas.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl_gestion_conocimiento
@@ -80,6 +82,7 @@
             this.control_gestion_variables.TabIndex = 0;
             this.control_gestion_variables.texto_consulta = "";
             this.control_gestion_variables.variable_de_inicio = false;
+            this.control_gestion_variables.variable_preguntable_al_usuario = false;
             // 
             // tabPage_hechos
             // 
@@ -93,6 +96,7 @@
             // 
             // tabPage_reglas
             // 
+            this.tabPage_reglas.Controls.Add(this.control_gestion_de_reglas);
             this.tabPage_reglas.Location = new System.Drawing.Point(4, 22);
             this.tabPage_reglas.Name = "tabPage_reglas";
             this.tabPage_reglas.Padding = new System.Windows.Forms.Padding(3);
@@ -100,6 +104,17 @@
             this.tabPage_reglas.TabIndex = 2;
             this.tabPage_reglas.Text = "Reglas";
             this.tabPage_reglas.UseVisualStyleBackColor = true;
+            // 
+            // control_gestion_de_reglas
+            // 
+            this.control_gestion_de_reglas.AutoScroll = true;
+            this.control_gestion_de_reglas.AutoSize = true;
+            this.control_gestion_de_reglas.base_conocimiento = null;
+            this.control_gestion_de_reglas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.control_gestion_de_reglas.Location = new System.Drawing.Point(3, 3);
+            this.control_gestion_de_reglas.Name = "control_gestion_de_reglas";
+            this.control_gestion_de_reglas.Size = new System.Drawing.Size(775, 639);
+            this.control_gestion_de_reglas.TabIndex = 0;
             // 
             // button1
             // 
@@ -123,6 +138,8 @@
             this.tabControl_gestion_conocimiento.ResumeLayout(false);
             this.tabPage_variables.ResumeLayout(false);
             this.tabPage_variables.PerformLayout();
+            this.tabPage_reglas.ResumeLayout(false);
+            this.tabPage_reglas.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -135,6 +152,7 @@
         private System.Windows.Forms.TabPage tabPage_reglas;
         private System.Windows.Forms.Button button1;
         private ControlGestionVariables control_gestion_variables;
+        private ControlGestionReglas control_gestion_de_reglas;
 
     }
 }

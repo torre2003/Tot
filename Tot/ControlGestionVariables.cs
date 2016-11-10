@@ -146,6 +146,20 @@ namespace Tot
             }
         }
         /// <summary>
+        /// obtiene o estable si al varaible es preguntable al usuario
+        /// </summary>
+        public bool variable_preguntable_al_usuario
+        {
+            get
+            {
+                return checkBox_variable_preguntable_al_usuario.Checked;
+            }
+            set
+            {
+                checkBox_variable_preguntable_al_usuario.Checked = value;
+            }
+        }
+        /// <summary>
         /// Obtiene o establece el valor minimo de una variable NUMERICA
         /// </summary>
         public string rango_min
@@ -173,7 +187,9 @@ namespace Tot
                 textBox_max_rango.Text = value;
             }
         }
-
+        /// <summary>
+        /// Establece la ruta por defecto del FileChoser
+        /// </summary>
         public string directorio_inicial_OpenFileChooser
         {
             set
@@ -228,6 +244,7 @@ namespace Tot
         public void controlesHabilitados(bool habilitado,bool modificando = false)
         {
             checkBox_variable_de_inicio.Enabled = habilitado;
+            checkBox_variable_preguntable_al_usuario.Enabled = habilitado;
             textBox_nombre.Enabled = habilitado;
             radioButton_tipo_booleano.Enabled = habilitado;
             radioButton_tipo_numerico.Enabled = habilitado;
@@ -284,6 +301,7 @@ namespace Tot
             radioButton_tipo_lista.Checked = false;
             rango_limitado = false;
             variable_de_inicio = false;
+            variable_preguntable_al_usuario = false;
             radioButton_cardinal.Checked = false;
             radioButton_Continuo.Checked = false;
             cambiarEstadoPanelesTipoVariable();
@@ -402,7 +420,6 @@ namespace Tot
                 marcarControl(NOMBRE, true);
                 retorno += "No se ha especificado el nombre de la variable";
             }
-
             if (base_conocimiento.comprobarNombreVariable(nombre) && chequear_nombre)
             {
                 marcarControl(NOMBRE, true);
@@ -410,8 +427,6 @@ namespace Tot
                     retorno += "|";
                 retorno += "El nombre ya se encuentra en la base de conocimiento";
             }
-
-
             if (radioButton_tipo_booleano.Checked == false && radioButton_tipo_numerico.Checked == false && radioButton_tipo_lista.Checked == false)
             {
                 if (!retorno.Equals(""))
@@ -480,9 +495,6 @@ namespace Tot
                 retorno += "La lista de elementos esta vacia";
                 marcarControl(LISTA_DE_ELEMENTOS, true);
             }
-
-
-
             //todo termianr chequeo de variables
             if (retorno.Equals(""))
                 return null;
@@ -547,8 +559,8 @@ namespace Tot
                         ruta_rtf = this.ruta_archivo_rtf;
                     if (!this.ruta_archivo_imagen.Equals(""))
                         ruta_imagen = this.ruta_archivo_imagen;
-
-                    base_conocimiento.modificarMetadatosVariable(id_nueva_variable, variable_de_inicio, texto_consulta, ruta_archivo_rtf, ruta_imagen);
+                    
+                    base_conocimiento.modificarMetadatosVariable(id_nueva_variable, variable_de_inicio, variable_preguntable_al_usuario,texto_consulta:texto_consulta,ruta_texto_descriptivo: ruta_archivo_rtf, ruta_imagen_descriptiva:ruta_imagen);
                     MessageBox.Show("Variable Agregada correctamente", "Agregando variable", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return true;
                 }
@@ -559,12 +571,7 @@ namespace Tot
                 return false;
             }
             return false;
-            
         }
-
-
-
-
 
         /// <summary>
         /// Métod que agrega elementos a la lista de elementos de la variable
@@ -643,7 +650,6 @@ namespace Tot
             }
         }
 
-
         /// <summary>
         /// Método que muestra la información de una variable en el control
         /// </summary>
@@ -656,6 +662,7 @@ namespace Tot
             id = variable.id_variable;
             nombre = variable.nombre_variable;
             variable_de_inicio = variable.variable_de_inicio;
+            variable_preguntable_al_usuario = variable.variable_preguntable_al_usuario;
             switch (variable.tipo_variable)
             {
                 case Variable.BOOLEANO:
@@ -697,8 +704,6 @@ namespace Tot
             if (variable.ruta_imagen_descriptiva != null && !variable.ruta_imagen_descriptiva.Equals(""))
                 ruta_archivo_imagen = variable.ruta_imagen_descriptiva;
         }
-
-
 
         /// <summary>
         /// método para la eliminacion de la varaible de la base de conocimiento 
@@ -822,7 +827,7 @@ namespace Tot
             else
                 if (1 != preguntasSiNoCancelar("Modificando variable", "Se modificara la variable,\n ¿Usted desea continuar?"))
                     return false;
-            base_conocimiento.modificarMetadatosVariable(id_variable, variable_de_inicio, nombre, texto_consulta, ruta_archivo_rtf, ruta_archivo_imagen);
+            base_conocimiento.modificarMetadatosVariable(id_variable, variable_de_inicio,variable_preguntable_al_usuario, nombre, texto_consulta, ruta_archivo_rtf, ruta_archivo_imagen);
             if (variable.tipo_variable == Variable.NUMERICO)
             {
                 base_conocimiento.modificarAtributosVariableNumerica(id_variable, radioButton_cardinal.Checked);
@@ -1142,6 +1147,14 @@ namespace Tot
             else
             {
                 MessageBox.Show("No se ha seleccionado ninguna variable", "Eliminando variable", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void checkBox_variable_de_inicio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox_variable_de_inicio.Checked)
+            {
+                checkBox_variable_preguntable_al_usuario.Checked = true;
             }
         }
 
