@@ -83,6 +83,16 @@ namespace Tot.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap basurero_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("basurero 32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Folder_Page_White {
             get {
                 object obj = ResourceManager.GetObject("Folder-Page-White", resourceCulture);

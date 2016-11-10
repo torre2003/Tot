@@ -123,12 +123,12 @@ namespace SistemaExpertoLib
                
 
         /// <summary>
-        /// Establece si el hecho es preguntable al usuario
+        /// Obtiene si el hecho es preguntable al usuario
         /// </summary>
         public bool hecho_preguntable_al_usuario
         {
             get{return _hecho_preguntable_al_usuario;}
-            set{_hecho_preguntable_al_usuario = value;}
+        
         }
         bool _hecho_preguntable_al_usuario = false;
 
@@ -180,7 +180,7 @@ namespace SistemaExpertoLib
             this._id_variable = variable_hecho.id_variable;
             this._tipo_variable = variable_hecho.tipo_variable;
             this._nombre_variable = variable_hecho.nombre_variable;
-
+            this._hecho_preguntable_al_usuario = variable_hecho.variable_preguntable_al_usuario;
         }
 
         /// <summary>

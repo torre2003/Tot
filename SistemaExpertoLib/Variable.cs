@@ -246,6 +246,17 @@ namespace SistemaExpertoLib
         bool _variable_de_inicio = false;
 
         /// <summary>
+        /// Establece si el variable es preguntable al usuario
+        /// </summary>
+        public bool variable_preguntable_al_usuario
+        {
+            get { return _variable_preguntable_al_usuario; }
+            set { _variable_preguntable_al_usuario = value; }
+        }
+        bool _variable_preguntable_al_usuario = false;
+
+
+        /// <summary>
         /// Atributo que indica si la variable es consistene en la base de conocimiento
         /// </summary>
         public bool chequeo_de_consistencia

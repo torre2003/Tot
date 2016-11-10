@@ -208,17 +208,19 @@ namespace SistemaExpertoLib
         /// </summary>
         /// <param name="id_variable">identificador de la variable</param>
         /// <param name="variable_de_inicio">Establece si la varaible será preguntada al inicio de la inferencia</param> 
+        /// <param name="variable_preguntable_al_usuario">Establece si la variable puede ser preguntada al usuario</param> 
         /// <param name="nombre_variable">modifica en nombre de la variable</param> 
         /// <param name="texto_consulta">Texto con el cual se va a mostrar la variable</param>
         /// <param name="ruta_texto_descriptivo">ruta del archivo con la descripcion de la variable</param>
         /// <param name="ruta_imagen_descriptiva">ruta de la imagen descriptiva de la variable</param>
         /// <returns></returns>
-        public bool modificarMetadatosVariable(string id_variable,bool variable_de_inicio,string nombre_variable = null, string texto_consulta = null, string ruta_texto_descriptivo = null,string ruta_imagen_descriptiva = null)
+        public bool modificarMetadatosVariable(string id_variable,bool variable_de_inicio,bool variable_preguntable_al_usuario,string nombre_variable = null, string texto_consulta = null, string ruta_texto_descriptivo = null,string ruta_imagen_descriptiva = null)
         {
             Variable variable = manejador_archivos.extraerVariable(id_variable);
             if (variable == null)
                 return false;
             variable.variable_de_inicio = variable_de_inicio;
+            variable.variable_preguntable_al_usuario = variable_preguntable_al_usuario;
             if (nombre_variable != null)
                 variable.nombre_variable = nombre_variable;
             if (texto_consulta != null)
