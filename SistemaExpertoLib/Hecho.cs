@@ -26,22 +26,21 @@ namespace SistemaExpertoLib
         /// Tipo de hecho asociado a la variable
         /// </summary>
         public const int LISTA = 3;
-        
         /// <summary>
         /// Opciones de condición para tipo de hecho BOOLEANO
         /// {"FALSO","VERDADERO"};
         /// </summary>
-        public const string[] OPCIONES_BOOLEANO  = new string[] {"FALSO","VERDADERO"};
+        public static string[] OPCIONES_BOOLEANO = new string[] {"FALSO","VERDADERO"};
         /// <summary>
         /// Opciones de condición para tipo de hecho NUMERICO
         /// ["MENOR","MENOR O IGUAL","IGUAL","MAYOR O IGUAL", "MAYOR"]
         /// </summary>
-        public const string[] OPCIONES_NUMERICO  = new string[] {"MENOR","MENOR O IGUAL","IGUAL","MAYOR O IGUAL", "MAYOR"};
+        public static string[] OPCIONES_NUMERICO = new string[] {"MENOR","MENOR O IGUAL","IGUAL","MAYOR O IGUAL", "MAYOR"};
         /// <summary>
         /// Opciones de condición para tipo de hecho LISTA
         /// {"ES","NO ES"};
         /// </summary>
-        public const string[] OPCIONES_LISTA  = new string[] {"ES","NO ES"};
+        public static string[] OPCIONES_LISTA = new string[] {"ES","NO ES"};
        
         /// <summary>
         /// string identificador del Hecho
@@ -124,12 +123,12 @@ namespace SistemaExpertoLib
                
 
         /// <summary>
-        /// Establece si el hecho es preguntable al usuario
+        /// Obtiene si el hecho es preguntable al usuario
         /// </summary>
         public bool hecho_preguntable_al_usuario
         {
             get{return _hecho_preguntable_al_usuario;}
-            set{_hecho_preguntable_al_usuario = value;}
+        
         }
         bool _hecho_preguntable_al_usuario = false;
 
@@ -181,6 +180,7 @@ namespace SistemaExpertoLib
             this._id_variable = variable_hecho.id_variable;
             this._tipo_variable = variable_hecho.tipo_variable;
             this._nombre_variable = variable_hecho.nombre_variable;
+            this._hecho_preguntable_al_usuario = variable_hecho.variable_preguntable_al_usuario;
         }
 
         /// <summary>
