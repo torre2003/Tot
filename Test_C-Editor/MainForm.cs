@@ -1,28 +1,24 @@
 ﻿/*
  * Creado por SharpDevelop.
  * Usuario: ${Ivan Araya}
- * Fecha: 06-11-2016
- * Hora: 2:33
+ * Fecha: 08-11-2016
+ * Hora: 2:41
  * 
  * Para cambiar esta plantilla use Herramientas | Opciones | Codificación | Editar Encabezados Estándar
  */
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace CEditor
+namespace Test_C_Editor
 {
 	/// <summary>
-	/// Visualizador de las reglas en formato grafico
+	/// Description of MainForm.
 	/// </summary>
-	public partial class Visualizador : UserControl
+	public partial class MainForm : Form
 	{
-		
-		public int Propiedad{get;set;}
-		
-		public Visualizador()
+		public MainForm()
 		{
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
@@ -32,12 +28,6 @@ namespace CEditor
 			//
 			// TODO: Add constructor code after the InitializeComponent() call.
 			//
-		}
-		/// <summary>
-		/// Grafica las reglas.
-		/// </summary>
-		public void Graficar(){
-		
 		}
 	}
 }
