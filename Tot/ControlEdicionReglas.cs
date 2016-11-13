@@ -292,6 +292,7 @@ namespace Tot
                     texto_retorno += aux;
                 }
             }
+            bool flag_valores_en_blanco = false;
             {
                 string aux = comprobarValoresEnBlanco();
                 if (!aux.Equals(""))
@@ -299,6 +300,7 @@ namespace Tot
                     if (!texto_retorno.Equals(""))
                         texto_retorno += "\n";
                     texto_retorno += aux;
+                    flag_valores_en_blanco = true;
                 }
             }
             {
@@ -321,7 +323,7 @@ namespace Tot
                     flag_variables__numericas = true;
                 }
             }
-            if (!flag_variables__numericas)
+            if (!flag_variables__numericas && !flag_valores_en_blanco)
             {
                 string aux = comprobadorDeCoherenciaDeVariablesRepetidas();
                 if (!aux.Equals(""))
@@ -545,7 +547,7 @@ namespace Tot
             }
             return texto_retorno;
         }
-
+        
         /// <summary>
         /// Método que extraer la id de la variable correspondiente a una fila de controles
         /// </summary>
@@ -570,11 +572,6 @@ namespace Tot
             return null;
         }
 
-
-
-
-
-        //---------------------------------------
         /// <summary>
         /// Método que comprueba que la variable del consecuente no se encuentre en el antecedente
         /// </summary>
@@ -839,17 +836,146 @@ namespace Tot
         /// <returns></returns>
         public string comprobadorDeVariablesNumerica(string id_variable, string nombre_variable, int conteo_variable)
         {
-
+            string condicion_a = null;
+            string condicion_b = null;
+            double valor_a = -666666666;
+            double valor_b = -666666666;
+            
+            
             if (conteo_variable > 2)
             {
                 return "- Una variable (" + nombre_variable + ") de tipo NUMERICA no puede estar mas de 2 veces en el antecedente";
             }
-            
 
+            bool flag_condicion_igual = false;
+            foreach (ComboBox combo_variable in lista_de_combo_box_variable)
+            {
+                ElementoComboBox elemento = (ElementoComboBox)combo_variable.SelectedItem;
+                if (elemento.id.Equals(id_variable))
+                {
+                    foreach (ComboBox combo_condicion in lista_de_combo_box_condicion)
+                    {
+                        if (combo_condicion.Name.Equals(combo_variable.Name))
+                        {
+                            string condicion = (string)combo_condicion.SelectedItem;
+                            if (condicion.Equals(""))
+                            {
+                                return "";
+                            }
+                            else
+                            if (condicion.Equals("IGUAL"))
+                            {
+                                flag_condicion_igual = true;
+                            }
+                            else
+                            {
+                                if (condicion_a == null)
+                                    condicion_a = condicion;
+                                else
+                                    condicion_b = condicion;
+                                foreach (object control in lista_de_object_valor_condicion)
+                                {
+                                    string tipo_control = ""+control.GetType();
+                                    double valor = -666666666;
+                                    if (tipo_control.Equals("System.Windows.Forms.TextBox"))
+                                    {
+                                        TextBox aux = (TextBox)control;
+                                        if (aux.Name.Equals(combo_variable.Name))
+                                        {
+                                            valor = Double.Parse(aux.Text);
+                                        }
+                                    }
+                                    else
+                                    if (tipo_control.Equals("System.Windows.Forms.NumericUpDown"))
+                                    {
+                                        NumericUpDown aux = (NumericUpDown)control;
+                                        if (aux.Name.Equals(combo_variable.Name))
+                                        {
+                                            valor = (double)aux.Value;
+                                        }
+                                    }
+                                    if (valor != -666666666)
+                                    {
+                                        if (condicion_b == null)
+                                            valor_a = valor;
+                                        else
+                                            valor_b = valor;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (flag_condicion_igual)
+            {
+                marcarControlByID(id_variable,true);
+                return " -  Si la variable \"" + nombre_variable + "\", aparece mas de una vez, no puede contener la condición IGUAL";
+            }
 
-            return "";
+            bool flag_interseccion = false;
+            //comprobando interseccion
+            if (
+                   (
+                       (
+                           condicion_a.Equals("MENOR") || condicion_a.Equals("MENOR O IGUAL")
+                       )
+                       &&
+                       (
+                           condicion_b.Equals("MAYOR O IGUAL") || condicion_b.Equals("MAYOR")
+                       )
+                   )
+                   ||
+                   (
+                       (
+                           condicion_b.Equals("MENOR") || condicion_b.Equals("MENOR O IGUAL")
+                       )
+                       &&
+                       (
+                           condicion_a.Equals("MAYOR O IGUAL") || condicion_a.Equals("MAYOR")
+                       )
+                   )
+               )
+                flag_interseccion = true;
+            if (!flag_interseccion)
+            {
+                marcarControlByID(id_variable, true);
+                return " - Las condiciones para una variable \"" + nombre_variable + "\"tipo NUMERICA repetida deben ser MENOR, MENOR O IGUAL en una y MAYOR, MAYOR O IGUAL en la otra, sin importar el orden.";
+            }
+                
+            if (valor_a == valor_b)
+            {
+                marcarControlByID(id_variable, true);
+                return " - Los valores de las variable \"" + nombre_variable + "\" deben establecer un RANGO no pueden ser iguales";
+            }
+
+            if (valor_a == -666666666 || valor_b == -666666666)
+            {
+                marcarControlByID(id_variable, true);
+                MessageBox.Show("Error en la comprobación de errores");
+                return " - Error en la comprobación de errores \"" + nombre_variable + "\"";
+            }
+                
+            bool flag_valores = false;
+            if (condicion_a.Equals("MENOR") || condicion_a.Equals("MENOR O IGUAL"))
+            {
+                if (!(valor_a > valor_b))
+                    flag_valores = true;
+            }
+            else
+            {
+                if (!(valor_b > valor_a))
+                    flag_valores = true;
+            }
+            if (flag_valores)
+            {
+                marcarControlByID(id_variable, true);
+                return " - Las valores de \"" + nombre_variable + "\" deben establecer un conjunto cerrado \nEjemplo var MAYOR que 2 y var MENOR que 5   (2 < var < 5)";
+            }
+             return "";
         }
 
+        //todo terminar
 
         /// <summary>
         /// Método que desmarca todos los controles en la regla 
