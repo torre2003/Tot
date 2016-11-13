@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SistemaExpertoLib
 {
-
+    //todo comprobacion en minuscula y eliminar espacios en blanco al final de linea
     public class GestionadorBaseConocimiento
     {
         //*************************************************************************
@@ -17,18 +17,18 @@ namespace SistemaExpertoLib
         public const int VARIABLE = 1;
         public const int HECHO = 2;
         public const int REGLA = 3;
-        
-        int cantidad_de_variables = 0; 
+
+        int cantidad_de_variables = 0;
         int cantidad_de_hechos = 0;
         int cantidad_de_reglas = 0;
 
         int ultima_id_variables = 0;
         int ultima_id_hecho = 0;
         int ultima_id_regla = 0;
-        
+
         public string ruta_carpeta_archivos;
         AccesoDatos manejador_archivos;
-        
+
 
         //*************************************************************************
         // Métodos
@@ -57,9 +57,9 @@ namespace SistemaExpertoLib
         /// </summary>
         private void actualizarEstadisticas()
         {
-            string[] lista_de_variables     = manejador_archivos.listarArchivosEnDirectorio(AccesoDatos.VARIABLE);
-            string[] lista_de_hechos        = manejador_archivos.listarArchivosEnDirectorio(AccesoDatos.HECHO);
-            string[] lista_de_reglas        = manejador_archivos.listarArchivosEnDirectorio(AccesoDatos.REGLA);
+            string[] lista_de_variables = manejador_archivos.listarArchivosEnDirectorio(AccesoDatos.VARIABLE);
+            string[] lista_de_hechos = manejador_archivos.listarArchivosEnDirectorio(AccesoDatos.HECHO);
+            string[] lista_de_reglas = manejador_archivos.listarArchivosEnDirectorio(AccesoDatos.REGLA);
 
             cantidad_de_variables = lista_de_variables.Length;
             cantidad_de_hechos = lista_de_hechos.Length;
@@ -76,18 +76,18 @@ namespace SistemaExpertoLib
                 }
                 catch (Exception) { }
             }
-            
+
             for (int i = 0; i < lista_de_hechos.Length; i++)
             {
-                try 
-	            {	        
+                try
+                {
                     int numero_hecho = Int32.Parse(lista_de_hechos[i].Split('_')[1]);
                     if (ultima_id_hecho < numero_hecho)
                         ultima_id_hecho = numero_hecho;
-	            }
-	            catch (Exception){}
+                }
+                catch (Exception) { }
             }
-            
+
             for (int i = 0; i < lista_de_reglas.Length; i++)
             {
                 try
@@ -131,10 +131,10 @@ namespace SistemaExpertoLib
                 throw new System.ArgumentException("Tipo de variable invalida", nombre_variable);
             if (comprobarNombreVariable(nombre_variable))
                 return null;
-            
+
             ultima_id_variables++;
             string id_nueva_variable = "V_" + ultima_id_variables;
-            Variable variable= new Variable(id_nueva_variable);
+            Variable variable = new Variable(id_nueva_variable);
             variable.nombre_variable = nombre_variable;
             variable.tipo_variable = tipo_de_variable;
             if (tipo_de_variable == Variable.LISTA)
@@ -152,7 +152,7 @@ namespace SistemaExpertoLib
         {
             Variable variable = manejador_archivos.extraerVariable(id_variable);
             if (variable.tipo_variable != Variable.NUMERICO)
-                throw new System.ArgumentException("La variable no es de tipo NUMERICO",variable.id_variable + " "+ variable.nombre_variable );
+                throw new System.ArgumentException("La variable no es de tipo NUMERICO", variable.id_variable + " " + variable.nombre_variable);
             variable.cardinal = cardinal;
             manejador_archivos.actualizarVariable(variable);
         }
@@ -194,7 +194,7 @@ namespace SistemaExpertoLib
         {
             string[] lista_de_variable = manejador_archivos.listarArchivosEnDirectorio(AccesoDatos.VARIABLE);
             bool flag = false;
-            for (int i = 0; i < lista_de_variable.Length  && !flag ; i++)
+            for (int i = 0; i < lista_de_variable.Length && !flag; i++)
             {
                 Variable variable = manejador_archivos.extraerVariable(lista_de_variable[i]);
                 if (nombre_variable.Equals(variable.nombre_variable))
@@ -214,7 +214,7 @@ namespace SistemaExpertoLib
         /// <param name="ruta_texto_descriptivo">ruta del archivo con la descripcion de la variable</param>
         /// <param name="ruta_imagen_descriptiva">ruta de la imagen descriptiva de la variable</param>
         /// <returns></returns>
-        public bool modificarMetadatosVariable(string id_variable,bool variable_de_inicio,bool variable_preguntable_al_usuario,string nombre_variable = null, string texto_consulta = null, string ruta_texto_descriptivo = null,string ruta_imagen_descriptiva = null)
+        public bool modificarMetadatosVariable(string id_variable, bool variable_de_inicio, bool variable_preguntable_al_usuario, string nombre_variable = null, string texto_consulta = null, string ruta_texto_descriptivo = null, string ruta_imagen_descriptiva = null)
         {
             Variable variable = manejador_archivos.extraerVariable(id_variable);
             if (variable == null)
@@ -224,7 +224,7 @@ namespace SistemaExpertoLib
             if (nombre_variable != null)
                 variable.nombre_variable = nombre_variable;
             if (texto_consulta != null)
-            variable.texto_consulta_variable = texto_consulta;
+                variable.texto_consulta_variable = texto_consulta;
             if (ruta_imagen_descriptiva != null)
                 variable.ruta_texto_descriptivo = ruta_texto_descriptivo;
             if (ruta_imagen_descriptiva != null)
@@ -233,7 +233,7 @@ namespace SistemaExpertoLib
             return true;
         }
 
-        
+
 
         /// <summary>
         /// Método para eliminar una varaible de la base de conocimiento,
@@ -256,7 +256,7 @@ namespace SistemaExpertoLib
             Variable variable = manejador_archivos.extraerVariable(id_variable);
             if (variable.tipo_variable != Variable.LISTA)
             {
-                throw new System.ArgumentException("La variable no es de tipo LISTA", id_variable);  
+                throw new System.ArgumentException("La variable no es de tipo LISTA", id_variable);
             }
             variable.agregarElementoALista(elemento_variable);
             manejador_archivos.actualizarVariable(variable);
@@ -274,7 +274,7 @@ namespace SistemaExpertoLib
             {
                 throw new System.ArgumentException("La variable no es de tipo LISTA", id_variable);
             }
-            desmarcarChequeoDeConsistenciaEnHechosYReglas(id_variable,false,elemento_variable);
+            desmarcarChequeoDeConsistenciaEnHechosYReglas(id_variable, false, elemento_variable);
             variable.eliminarElemento(elemento_variable);
             manejador_archivos.actualizarVariable(variable);
         }
@@ -285,7 +285,7 @@ namespace SistemaExpertoLib
         /// </summary>
         /// <param name="id_variable">ID de la variable a buscar</param>
         /// <param name="eliminar_hecho">Indica si los hechos encontrados deben ser eliminados en el proceso</param>
-        public void desmarcarChequeoDeConsistenciaEnHechosYReglas(string id_variable,bool eliminar_hecho = false, string valor_lista_especifico = null)
+        public void desmarcarChequeoDeConsistenciaEnHechosYReglas(string id_variable, bool eliminar_hecho = false, string valor_lista_especifico = null)
         {
             //Todas los hecho y reglas afectadas deben ser maracadas 
             string[] hechos_que_contienen_la_variable = null;
@@ -376,12 +376,12 @@ namespace SistemaExpertoLib
         /// <param name="id_variable">Id de la variable a ingresar en el hecho</param>
         /// <param name="condicion">Opcion a cotejar según CONSTANTE OPCIONES_BOOLEANO {VERDADERO , FALSO}</param>
         /// <returns>Id del hecho creado</returns>
-        public string agregarNuevoHecho(string id_variable,string condicion)
+        public string agregarNuevoHecho(string id_variable, string condicion)
         {
             ultima_id_hecho++;
             string id_nuevo_hecho = "H_" + ultima_id_hecho;
             Variable variable = manejador_archivos.extraerVariable(id_variable);
-            Hecho nuevo_hecho = new Hecho(""+ultima_id_hecho, variable);
+            Hecho nuevo_hecho = new Hecho("" + ultima_id_hecho, variable);
             nuevo_hecho.establecerCondicion(condicion);
             manejador_archivos.ingresarNuevoHecho(nuevo_hecho);
             return id_nuevo_hecho;
@@ -416,7 +416,7 @@ namespace SistemaExpertoLib
             string id_nuevo_hecho = "H_" + ultima_id_hecho;
             Variable variable = manejador_archivos.extraerVariable(id_variable);
             Hecho nuevo_hecho = new Hecho("" + ultima_id_hecho, variable);
-            nuevo_hecho.establecerCondicion(condicion,valor_lista_variable);
+            nuevo_hecho.establecerCondicion(condicion, valor_lista_variable);
             manejador_archivos.ingresarNuevoHecho(nuevo_hecho);
         }
 
@@ -439,14 +439,14 @@ namespace SistemaExpertoLib
 
         #region REGLA
 
-       /// <summary>
+        /// <summary>
         /// Método que agrega una nueva regla vacia a la base de conosimiento
-       /// </summary>
-       /// <returns>Id de la regla creada</returns>
+        /// </summary>
+        /// <returns>Id de la regla creada</returns>
         public string agregarNuevaRegla()
         {
             ultima_id_regla++;
-            string id_nueva_regla = "R_"+ultima_id_regla;
+            string id_nueva_regla = "R_" + ultima_id_regla;
             Regla regla = new Regla(id_nueva_regla);
             manejador_archivos.ingresarNuevaRegla(regla);
             return id_nueva_regla;
@@ -510,8 +510,8 @@ namespace SistemaExpertoLib
             regla.eliminarConsecuente();
             manejador_archivos.actualizarRegla(regla);
         }
-        
-        
+
+
         #endregion
 
         /// <summary>
@@ -524,7 +524,7 @@ namespace SistemaExpertoLib
             Variable variable = manejador_archivos.extraerVariable(id_variable);
             if (variable == null)
                 throw new System.ArgumentException("La variable no existe", "");
-            return listarHechosConVariable(id_variable,null,-99999999, 99999999);
+            return listarHechosConVariable(id_variable, null, -99999999, 99999999);
         }
 
         /// <summary>
@@ -538,9 +538,9 @@ namespace SistemaExpertoLib
             Variable variable = manejador_archivos.extraerVariable(id_variable);
             if (variable == null)
                 throw new System.ArgumentException("La variable no existe", "");
-            if(variable.tipo_variable != Variable.LISTA)
+            if (variable.tipo_variable != Variable.LISTA)
                 throw new System.ArgumentException("La variable no es de tipo LISTA", variable.id_variable + " " + variable.nombre_variable);
-            return listarHechosConVariable(id_variable,valor_lista_especifico,-99999999, 99999999);
+            return listarHechosConVariable(id_variable, valor_lista_especifico, -99999999, 99999999);
         }
 
         /// <summary>
@@ -553,9 +553,9 @@ namespace SistemaExpertoLib
         public string[] listarHechosConVariable(string id_variable, double rango_min, double rango_max)
         {
             Variable variable = manejador_archivos.extraerVariable(id_variable);
-            if(variable == null)
-                throw new System.ArgumentException("La variable no existe","");
-            if ( variable.tipo_variable != Variable.NUMERICO)
+            if (variable == null)
+                throw new System.ArgumentException("La variable no existe", "");
+            if (variable.tipo_variable != Variable.NUMERICO)
                 throw new System.ArgumentException("La variable no es de tipo NUMERICO", variable.id_variable + " " + variable.nombre_variable);
             return listarHechosConVariable(id_variable, null, rango_min, rango_max);
         }
@@ -577,24 +577,24 @@ namespace SistemaExpertoLib
                 Hecho hecho = manejador_archivos.extraerHecho(lista_de_hechos[i]);
                 if (hecho.id_variable.Equals(id_variable))
                 {
-                    if(valor_lista_especifico != null && hecho.tipo_variable == Hecho.LISTA)
+                    if (valor_lista_especifico != null && hecho.tipo_variable == Hecho.LISTA)
                     {
-                       if(hecho.valor_lista.Equals(valor_lista_especifico))
-                           hechos_encontrados.Add(lista_de_hechos[i]);
+                        if (hecho.valor_lista.Equals(valor_lista_especifico))
+                            hechos_encontrados.Add(lista_de_hechos[i]);
                     }
                     else
-                    if(rango_min != -99999999 && hecho.tipo_variable == Hecho.NUMERICO)
-                    {
-                       if(hecho.valor_numerico < rango_min || rango_max < hecho.valor_numerico)
-                           hechos_encontrados.Add(lista_de_hechos[i]);
-                    }
-                    else
-                    {
-                        hechos_encontrados.Add(lista_de_hechos[i]);
-                    }
-                    
+                        if (rango_min != -99999999 && hecho.tipo_variable == Hecho.NUMERICO)
+                        {
+                            if (hecho.valor_numerico < rango_min || rango_max < hecho.valor_numerico)
+                                hechos_encontrados.Add(lista_de_hechos[i]);
+                        }
+                        else
+                        {
+                            hechos_encontrados.Add(lista_de_hechos[i]);
+                        }
+
                 }
-                
+
             }
             if (hechos_encontrados.Count == 0)
                 return null;
