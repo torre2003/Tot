@@ -14,7 +14,7 @@ namespace Tot
     {
         struct ElementoListBox
         {
-            public string id ;
+            public string id;
             public string nombre;
             public string prefijo;
             public string sufijo;
@@ -31,7 +31,7 @@ namespace Tot
                 retorno += nombre;
                 if (nombre != null && !nombre.Equals(""))
                     retorno += "\t";
-                if (sufijo  != null )
+                if (sufijo != null)
                     retorno += sufijo;
                 return retorno;
             }
@@ -212,7 +212,7 @@ namespace Tot
         //*************************************************************************
         // Métodos
         //*************************************************************************
-        
+
         /// <summary>
         /// Constructor
         /// </summary>        
@@ -241,7 +241,7 @@ namespace Tot
         /// Método que habilita o deshabilita los controles de edición
         /// </summary>
         /// <param name="habilitado">Estado de los controles</param>
-        public void controlesHabilitados(bool habilitado,bool modificando = false)
+        public void controlesHabilitados(bool habilitado, bool modificando = false)
         {
             checkBox_variable_de_inicio.Enabled = habilitado;
             checkBox_variable_preguntable_al_usuario.Enabled = habilitado;
@@ -249,7 +249,7 @@ namespace Tot
             radioButton_tipo_booleano.Enabled = habilitado;
             radioButton_tipo_numerico.Enabled = habilitado;
             radioButton_tipo_lista.Enabled = habilitado;
-            
+
             radioButton_cardinal.Enabled = habilitado;
             radioButton_Continuo.Enabled = habilitado;
             button_agregar_elemento_lista_a_variable.Enabled = habilitado;
@@ -259,7 +259,7 @@ namespace Tot
             {
                 radioButton_tipo_booleano.Enabled = !habilitado;
                 radioButton_tipo_numerico.Enabled = !habilitado;
-                radioButton_tipo_lista.Enabled =    !habilitado;
+                radioButton_tipo_lista.Enabled = !habilitado;
             }
             listBox_lista_de_elementos_variables.Enabled = habilitado;
             button_seleccion_documento.Enabled = habilitado;
@@ -277,7 +277,7 @@ namespace Tot
             textBox_max_rango.Enabled = false;
             textBox_min_rango.Enabled = false;
 
-            
+
         }
 
         /// <summary>
@@ -313,7 +313,7 @@ namespace Tot
         /// </summary>
         public void desmarcarCampos()
         {
-            marcarControl(NOMBRE,false);
+            marcarControl(NOMBRE, false);
             marcarControl(TIPOS_DE_VARIABLE, false);
             marcarControl(TEXTO_CONSULTA, false);
             marcarControl(TIPO_NUMERICO, false);
@@ -404,24 +404,27 @@ namespace Tot
             }
         }
 
-        
+
         /// <summary>
         /// Método que chequea los atributos de ingreso de una variable a la base de conocimiento
         /// </summary>
         /// <param name="chequear_nombre">Debe chequearse el nombre de la variable en el porceso</param>
         /// <returns>NULL si el chequeo es correcto o lista de errores</returns>
-        public string[] chequeoVariable(bool chequear_nombre = false)
+        public string[] chequeoVariable(bool chequear_nombre)
         {
             string retorno = "";
-            
-            
-            if (nombre.Equals("") )
+            if (nombre.Equals(""))
             {
                 marcarControl(NOMBRE, true);
                 retorno += "No se ha especificado el nombre de la variable";
             }
+            if (chequear_nombre)
+            {
+                nombre = procesarTexto(nombre);
+            }
             if (base_conocimiento.comprobarNombreVariable(nombre) && chequear_nombre)
             {
+
                 marcarControl(NOMBRE, true);
                 if (!retorno.Equals(""))
                     retorno += "|";
@@ -434,14 +437,15 @@ namespace Tot
                 retorno += "No se ha selecionado el tipo de variable";
                 marcarControl(TIPOS_DE_VARIABLE, true);
             }
-            if (variable_de_inicio && texto_consulta.Equals(""))
+            if ((variable_de_inicio || variable_preguntable_al_usuario) && texto_consulta.Equals(""))
             {
                 if (!retorno.Equals(""))
                     retorno += "|";
                 retorno += "El texto para la consulta de la variable no ha sido completado";
                 marcarControl(TEXTO_CONSULTA, true);
             }
-            if (radioButton_tipo_numerico.Checked && (!radioButton_cardinal.Checked && !radioButton_Continuo.Checked)){
+            if (radioButton_tipo_numerico.Checked && (!radioButton_cardinal.Checked && !radioButton_Continuo.Checked))
+            {
                 if (!retorno.Equals(""))
                     retorno += "|";
                 retorno += "No se ha selecionado el tipo de variable NUMERICA";
@@ -453,10 +457,10 @@ namespace Tot
                 {
                     rango_min = rango_min.Replace('.', ',');
                     rango_max = rango_max.Replace('.', ',');
-                    
+
                     double min = Double.Parse(rango_min);
                     double max = Double.Parse(rango_max);
-                    
+
                     if (radioButton_Continuo.Checked && min >= max)
                     {
                         if (!retorno.Equals(""))
@@ -465,20 +469,20 @@ namespace Tot
                         marcarControl(RANGOS, true);
                     }
                     else
-                    if (radioButton_cardinal.Checked)
-                    {
-                        int min_int = (int)min;
-                        int max_int = (int)max;
-                        rango_min = "" + min_int;
-                        rango_max = "" + max_int;
-                        if (min_int >= max_int)
+                        if (radioButton_cardinal.Checked)
                         {
-                            if (!retorno.Equals(""))
-                                retorno += "|";
-                            retorno += "El rango minimo es mayor o igual al maximo";
-                            marcarControl(RANGOS, true);
+                            int min_int = (int)min;
+                            int max_int = (int)max;
+                            rango_min = "" + min_int;
+                            rango_max = "" + max_int;
+                            if (min_int >= max_int)
+                            {
+                                if (!retorno.Equals(""))
+                                    retorno += "|";
+                                retorno += "El rango minimo es mayor o igual al maximo";
+                                marcarControl(RANGOS, true);
+                            }
                         }
-                    }
                 }
                 catch (Exception)
                 {
@@ -499,6 +503,34 @@ namespace Tot
             if (retorno.Equals(""))
                 return null;
             return retorno.Split('|');
+        }
+
+
+        /// <summary>
+        /// Método que elimina el espaciones en blanco demás, tabulaciones, y saltos de linea de la cadena
+        /// </summary>
+        /// <param name="texto_a_procesar">Cadena a procesar</param>
+        /// <returns>Texto procesado</returns>
+        public string procesarTexto(string texto_a_procesar)
+        {
+            string texto = texto_a_procesar;
+            texto = texto.ToLower();
+            texto = texto.Replace('\t', ' ');
+            texto = texto.Replace('\r', ' ');
+            texto = texto.Replace('\n', ' ');
+            //texto = texto.Replace('\"', ' ');
+            string[] palabras = texto.Split(' ');
+            string texto_de_retorno = "";
+            for (int i = 0; i < palabras.Length; i++)
+            {
+                if (!palabras[i].Equals(""))
+                {
+                    if (texto_de_retorno != "")
+                        texto_de_retorno += " ";
+                    texto_de_retorno += palabras[i];
+                }
+            }
+            return texto_de_retorno;
         }
 
         /// <summary>
@@ -545,10 +577,7 @@ namespace Tot
                             double max = Double.Parse(rango_max);
                             base_conocimiento.modificarAtributosVariableNumerica(id_nueva_variable, true, min, max);
                         }
-                        
                     }
-
-
                     string texto_consulta = null;
                     string ruta_rtf = null;
                     string ruta_imagen = null;
@@ -559,15 +588,15 @@ namespace Tot
                         ruta_rtf = this.ruta_archivo_rtf;
                     if (!this.ruta_archivo_imagen.Equals(""))
                         ruta_imagen = this.ruta_archivo_imagen;
-                    
-                    base_conocimiento.modificarMetadatosVariable(id_nueva_variable, variable_de_inicio, variable_preguntable_al_usuario,texto_consulta:texto_consulta,ruta_texto_descriptivo: ruta_archivo_rtf, ruta_imagen_descriptiva:ruta_imagen);
+
+                    base_conocimiento.modificarMetadatosVariable(id_nueva_variable, variable_de_inicio, variable_preguntable_al_usuario, texto_consulta: texto_consulta, ruta_texto_descriptivo: ruta_archivo_rtf, ruta_imagen_descriptiva: ruta_imagen);
                     MessageBox.Show("Variable Agregada correctamente", "Agregando variable", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return true;
                 }
             }
             catch (Exception e)
             {
-                MessageBox.Show("Problemas al ingresar la variable \n"+e, "Agregando variable", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Problemas al ingresar la variable \n" + e, "Agregando variable", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             return false;
@@ -588,10 +617,10 @@ namespace Tot
             }
             bool flag = true;
             string elemento_a_ingresar = textBox_ingreso_elemento_lista_variable.Text;
-            elemento_a_ingresar = elemento_a_ingresar.ToLower();
+            elemento_a_ingresar = procesarTexto(elemento_a_ingresar);
             foreach (ElementoListBox item in listBox_lista_de_elementos_variables.Items)
             {
-                if(item.nombre.Equals(elemento_a_ingresar))
+                if (item.nombre.Equals(elemento_a_ingresar))
                     flag = false;
             }
             if (!flag)
@@ -616,7 +645,7 @@ namespace Tot
         {
             marcarControl(INGRESO_ELEMENTO, false);
             marcarControl(LISTA_DE_ELEMENTOS, false);
-            if(listBox_lista_de_elementos_variables.SelectedItem == null)
+            if (listBox_lista_de_elementos_variables.SelectedItem == null)
             {
                 MessageBox.Show("No se ha seleccionado elemento en la lista", "Eliminando elemento a lista variable", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 marcarControl(LISTA_DE_ELEMENTOS, true);
@@ -632,7 +661,7 @@ namespace Tot
                 if (tipo_tarea == MODIFICANDO)
                 {
                     ElementoListBox aux = (ElementoListBox)elemento_seleciondado;
-                    string[] hechos_que_contienen_el_elemento_de_la_varaible = base_conocimiento.listarHechosConVariable(id,aux.nombre);
+                    string[] hechos_que_contienen_el_elemento_de_la_varaible = base_conocimiento.listarHechosConVariable(id, aux.nombre);
                     if (hechos_que_contienen_el_elemento_de_la_varaible != null)
                     {
                         if (preguntasSiNoCancelar("Eliminando elemento en variable", "El elemento de la variable se encuentra seleccionado en una o varias reglas\n ¿Usted desea continuar?") == 1)
@@ -646,7 +675,7 @@ namespace Tot
                         listBox_lista_de_elementos_variables.Items.Remove(elemento_seleciondado);
                     }
                 }
-                
+
             }
         }
 
@@ -674,7 +703,7 @@ namespace Tot
                         radioButton_cardinal.Checked = true;
                     else
                         radioButton_Continuo.Checked = true;
-                 
+
                     rango_limitado = variable.rango_limitado;
                     if (rango_limitado)
                     {
@@ -731,12 +760,12 @@ namespace Tot
                         return true;
                     }
                     else
-                    if (opcion == 0)
-                    {
-                        base_conocimiento.desmarcarChequeoDeConsistenciaEnHechosYReglas(id_variable);
-                        MessageBox.Show("La variable ha sido eliminada correctamente,\n Se han marcado las reglas afectadas", "Eliminando variable", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return true;
-                    }
+                        if (opcion == 0)
+                        {
+                            base_conocimiento.desmarcarChequeoDeConsistenciaEnHechosYReglas(id_variable);
+                            MessageBox.Show("La variable ha sido eliminada correctamente,\n Se han marcado las reglas afectadas", "Eliminando variable", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return true;
+                        }
                 }
             }
             return false;
@@ -764,7 +793,7 @@ namespace Tot
                 {
                     double min = Double.Parse(rango_min);
                     double max = Double.Parse(rango_max);
-                    string[] lista_de_hechos = base_conocimiento.listarHechosConVariable(id_variable,min,max);
+                    string[] lista_de_hechos = base_conocimiento.listarHechosConVariable(id_variable, min, max);
                     if (lista_de_hechos != null)
                         flag = true;
                 }
@@ -781,45 +810,45 @@ namespace Tot
                 }
             }
             else
-            if (variable.tipo_variable == Variable.LISTA)
-            {
-                opciones_nuevas = new string[listBox_lista_de_elementos_variables.Items.Count];
-                int i = 0;
-                foreach (ElementoListBox item in listBox_lista_de_elementos_variables.Items)
+                if (variable.tipo_variable == Variable.LISTA)
                 {
-                    opciones_nuevas[i] = item.nombre;
-                    i++;
-                }
-                opciones_antiguas = variable.listarOpciones();
-                for (int j = 0; j < opciones_antiguas.Length; j++)//buscando las opciones eliminadas
-                {
-                    bool flag_2 = false;
-                    for (int k = 0; k < opciones_nuevas.Length; k++)
+                    opciones_nuevas = new string[listBox_lista_de_elementos_variables.Items.Count];
+                    int i = 0;
+                    foreach (ElementoListBox item in listBox_lista_de_elementos_variables.Items)
                     {
-                        if (opciones_antiguas[j].Equals(opciones_nuevas[k]))
+                        opciones_nuevas[i] = item.nombre;
+                        i++;
+                    }
+                    opciones_antiguas = variable.listarOpciones();
+                    for (int j = 0; j < opciones_antiguas.Length; j++)//buscando las opciones eliminadas
+                    {
+                        bool flag_2 = false;
+                        for (int k = 0; k < opciones_nuevas.Length; k++)
                         {
-                            flag_2 = true;
-                            opciones_nuevas[k] = "";
-                        }
-                            
-                    }
-                    if (flag_2)
-                        opciones_antiguas[j] = "";
-                }//solo quedan las opciones agregadas en opciones nuevas y eliminadas en opciones antiguas
+                            if (opciones_antiguas[j].Equals(opciones_nuevas[k]))
+                            {
+                                flag_2 = true;
+                                opciones_nuevas[k] = "";
+                            }
 
-                for (int q = 0; q < opciones_antiguas.Length && !flag; q++) //buscando si algun elemento eliminado influye en un hecho
-                {
-                    if (!opciones_antiguas.Equals(""))
+                        }
+                        if (flag_2)
+                            opciones_antiguas[j] = "";
+                    }//solo quedan las opciones agregadas en opciones nuevas y eliminadas en opciones antiguas
+
+                    for (int q = 0; q < opciones_antiguas.Length && !flag; q++) //buscando si algun elemento eliminado influye en un hecho
                     {
-                        string[] lista_de_hechos_con_elemento = base_conocimiento.listarHechosConVariable(id_variable, opciones_antiguas[q]);
-                        if (lista_de_hechos_con_elemento != null)
-                            flag = true;
+                        if (!opciones_antiguas.Equals(""))
+                        {
+                            string[] lista_de_hechos_con_elemento = base_conocimiento.listarHechosConVariable(id_variable, opciones_antiguas[q]);
+                            if (lista_de_hechos_con_elemento != null)
+                                flag = true;
+                        }
                     }
                 }
-            }
 
 
-            if (flag )
+            if (flag)
             {
                 if (1 != preguntasSiNoCancelar("Modificando variable", "Las modificaciones afectarán hechos y reglas,\n ¿Usted desea continuar?"))
                     return false;
@@ -827,7 +856,7 @@ namespace Tot
             else
                 if (1 != preguntasSiNoCancelar("Modificando variable", "Se modificara la variable,\n ¿Usted desea continuar?"))
                     return false;
-            base_conocimiento.modificarMetadatosVariable(id_variable, variable_de_inicio,variable_preguntable_al_usuario, nombre, texto_consulta, ruta_archivo_rtf, ruta_archivo_imagen);
+            base_conocimiento.modificarMetadatosVariable(id_variable, variable_de_inicio, variable_preguntable_al_usuario, nombre, texto_consulta, ruta_archivo_rtf, ruta_archivo_imagen);
             if (variable.tipo_variable == Variable.NUMERICO)
             {
                 base_conocimiento.modificarAtributosVariableNumerica(id_variable, radioButton_cardinal.Checked);
@@ -923,7 +952,7 @@ namespace Tot
         {
             marcarControl(NOMBRE, false);
             marcarControl(TIPOS_DE_VARIABLE, false);
-            marcarControl(TEXTO_CONSULTA, false); 
+            marcarControl(TEXTO_CONSULTA, false);
             marcarControl(TIPO_NUMERICO, false);
             marcarControl(RANGOS, false);
             marcarControl(INGRESO_ELEMENTO, false);
@@ -960,23 +989,23 @@ namespace Tot
                 panel_opciones_numerico.Visible = false;
             }
             else
-            if (radioButton_tipo_numerico.Checked)
-            {
-                panel_opciones_lista.Visible = false;
-                panel_opciones_numerico.Visible = true;
-            }
-            else
-            if (radioButton_tipo_lista.Checked)
-            {
-                panel_opciones_lista.Visible = true;
-                panel_opciones_numerico.Visible = false;
-            }
-            else
-            {
-                panel_opciones_lista.Visible = false;
-                panel_opciones_numerico.Visible = false;
-                
-            }
+                if (radioButton_tipo_numerico.Checked)
+                {
+                    panel_opciones_lista.Visible = false;
+                    panel_opciones_numerico.Visible = true;
+                }
+                else
+                    if (radioButton_tipo_lista.Checked)
+                    {
+                        panel_opciones_lista.Visible = true;
+                        panel_opciones_numerico.Visible = false;
+                    }
+                    else
+                    {
+                        panel_opciones_lista.Visible = false;
+                        panel_opciones_numerico.Visible = false;
+
+                    }
         }
 
         private void button_seleccion_documento_Click(object sender, EventArgs e)
@@ -997,7 +1026,7 @@ namespace Tot
 
         private void button_agregar_variable_Click(object sender, EventArgs e)
         {
-            
+
             controlesHabilitados(true);
             limpiarCampos();
             desmarcarCampos();
@@ -1019,8 +1048,8 @@ namespace Tot
             if (tipo_tarea == AGREGANDO)
             {
                 limpiarMarcasControl();
-                string[] errores_de_chequeo = chequeoVariable();
-                if ( errores_de_chequeo == null)
+                string[] errores_de_chequeo = chequeoVariable(true);
+                if (errores_de_chequeo == null)
                 {
                     if (agregarNuevaVariable())
                     {
@@ -1043,37 +1072,37 @@ namespace Tot
                 }
             }
             else
-            if (tipo_tarea == MODIFICANDO)
-            {
-                string[] errores_de_chequeo = null;
-                if (nombre_variable_en_tarea.Equals(nombre))
-                    errores_de_chequeo = chequeoVariable(false);
-                else
-                    errores_de_chequeo = chequeoVariable(true);
-                if (errores_de_chequeo == null)
+                if (tipo_tarea == MODIFICANDO)
                 {
-                    if (modificandoVariable(id_variable_en_tarea))
+                    string[] errores_de_chequeo = null;
+                    if (nombre_variable_en_tarea.Equals(nombre))
+                        errores_de_chequeo = chequeoVariable(false);
+                    else
+                        errores_de_chequeo = chequeoVariable(true);
+                    if (errores_de_chequeo == null)
                     {
-                        limpiarCampos();
-                        limpiarMarcasControl();
-                        controlesHabilitados(false);
-                        tipo_tarea = DESABILITADO;
-                        actualizarListaDeVariables();
-                        id_variable_en_tarea = null;
+                        if (modificandoVariable(id_variable_en_tarea))
+                        {
+                            limpiarCampos();
+                            limpiarMarcasControl();
+                            controlesHabilitados(false);
+                            tipo_tarea = DESABILITADO;
+                            actualizarListaDeVariables();
+                            id_variable_en_tarea = null;
+                        }
+                    }
+                    else
+                    {
+                        string mensaje = "";
+                        for (int i = 0; i < errores_de_chequeo.Length; i++)
+                        {
+                            if (i != 0)
+                                mensaje += "\n";
+                            mensaje += errores_de_chequeo[i];
+                        }
+                        MessageBox.Show(mensaje, "Modificando variable", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                else
-                {
-                    string mensaje = "";
-                    for (int i = 0; i < errores_de_chequeo.Length; i++)
-                    {
-                        if (i != 0)
-                            mensaje += "\n";
-                        mensaje += errores_de_chequeo[i];
-                    }
-                    MessageBox.Show(mensaje, "Modificando variable", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
         }
 
         private void checkBox_rango_CheckedChanged(object sender, EventArgs e)
