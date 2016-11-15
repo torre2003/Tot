@@ -381,7 +381,7 @@ namespace SistemaExpertoLib
             ultima_id_hecho++;
             string id_nuevo_hecho = "H_" + ultima_id_hecho;
             Variable variable = manejador_archivos.extraerVariable(id_variable);
-            Hecho nuevo_hecho = new Hecho("" + ultima_id_hecho, variable);
+            Hecho nuevo_hecho = new Hecho(id_nuevo_hecho, variable);
             nuevo_hecho.establecerCondicion(condicion);
             manejador_archivos.ingresarNuevoHecho(nuevo_hecho);
             return id_nuevo_hecho;
@@ -394,14 +394,16 @@ namespace SistemaExpertoLib
         /// <param name="id_variable">Id de la variable a ingresar en el hecho</param>
         /// <param name="condicion">Opcion de de la condición según constante OPCIONES_NUMERICO {"MENOR","MENOR O IGUAL","IGUAL","MAYOR O IGUAL", "MAYOR"}</param>
         /// <param name="valor">Valor a comparar según corresponda la condicion impuesta</param>
-        public void agregarNuevoHecho(string id_variable, string condicion, int valor)
+        /// <returns>Id del hecho creado</returns>
+        public string agregarNuevoHecho(string id_variable, string condicion, double valor)
         {
             ultima_id_hecho++;
             string id_nuevo_hecho = "H_" + ultima_id_hecho;
             Variable variable = manejador_archivos.extraerVariable(id_variable);
-            Hecho nuevo_hecho = new Hecho("" + ultima_id_hecho, variable);
+            Hecho nuevo_hecho = new Hecho(id_nuevo_hecho, variable);
             nuevo_hecho.establecerCondicion(condicion, valor);
             manejador_archivos.ingresarNuevoHecho(nuevo_hecho);
+            return id_nuevo_hecho;
         }
 
         /// <summary>
@@ -410,16 +412,86 @@ namespace SistemaExpertoLib
         /// <param name="id_variable">Id de la variable a ingresar en el hecho</param>
         /// <param name="condicion">Opción de la condición según constante OPCIONES_LISTA {"ES","NO ES"}</param>
         /// <param name="valor_lista_variable">Valor a comparar según corresponda la condicion impuesta</param>
-        public void agregarNuevoHecho(string id_variable, string condicion, string valor_lista_variable)
+        /// <returns>Id del hecho creado</returns>
+        public string agregarNuevoHecho(string id_variable, string condicion, string valor_lista_variable)
         {
             ultima_id_hecho++;
             string id_nuevo_hecho = "H_" + ultima_id_hecho;
             Variable variable = manejador_archivos.extraerVariable(id_variable);
-            Hecho nuevo_hecho = new Hecho("" + ultima_id_hecho, variable);
+            Hecho nuevo_hecho = new Hecho(id_nuevo_hecho, variable);
             nuevo_hecho.establecerCondicion(condicion, valor_lista_variable);
             manejador_archivos.ingresarNuevoHecho(nuevo_hecho);
+            return id_nuevo_hecho;
         }
 
+        /// <summary>
+        /// Método que busca un Hecho por comparacion de atributos
+        /// </summary>
+        /// <param name="hecho_buscado">Hecho a buscar</param>
+        /// <returns>Id del hecho encontrado, null si no se encuentra</returns>
+        public string buscarHecho(Hecho hecho_buscado)
+        {
+            string[] ids_hechos = manejador_archivos.listarArchivosEnDirectorio(AccesoDatos.HECHO);
+            for (int i = 0; i < ids_hechos.Length; i++)
+            {
+                Hecho hecho_existente = manejador_archivos.extraerHecho(ids_hechos[i]);
+                if (hecho_buscado.Equals(hecho_existente))
+                    return hecho_existente.id_hecho;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Método que busca un hecho según su variable y condicion
+        /// </summary>
+        /// <param name="id_variable">Identificador variable de tipo BOOOLEANO</param>
+        /// <param name="condicion">Condicion de la variable en el hecho</param>
+        /// <returns>Id del hecho encontrado, null si no se encuentra</returns>
+        public string buscarHecho(string id_variable, string condicion)
+        {
+            Variable variable = manejador_archivos.extraerVariable(id_variable);
+            if(variable.tipo_variable != Variable.BOOLEANO)
+                throw new System.ArgumentException("La variable no es de tipo BOOLEANO", id_variable);
+            Hecho hecho_buscado = new Hecho("aux", variable);
+            hecho_buscado.establecerCondicion(condicion);
+            return buscarHecho(hecho_buscado);
+        }
+
+        /// <summary>
+        /// Método que busca un hecho según su variable, condicion y valor
+        /// </summary>
+        /// <param name="id_variable">Identificador variable de tipo NUMERICO</param>
+        /// <param name="condicion">Condicion de la variable en el hecho</param>
+        /// <param name="valor">valor de la variable en la condición</param>
+        /// <returns>Id del hecho encontrado, null si no se encuentra</returns>
+        public string buscarHecho(string id_variable, string condicion, double valor)
+        {
+            Variable variable = manejador_archivos.extraerVariable(id_variable);
+            if (variable.tipo_variable != Variable.NUMERICO)
+                throw new System.ArgumentException("La variable no es de tipo NUMERICO", id_variable);
+            Hecho hecho_buscado = new Hecho("aux", variable);
+            hecho_buscado.establecerCondicion(condicion, valor);
+            return buscarHecho(hecho_buscado);
+        }
+
+        /// <summary>
+        /// Método que busca un hecho según su variable, condicion y valor
+        /// </summary>
+        /// <param name="id_variable">Identificador variable de tipo LISTA</param>
+        /// <param name="condicion">Condicion de la variable en el hecho</param>
+        /// <param name="valor_lista_variable">valor de la variable en la condición</param>
+        /// <returns>Id del hecho encontrado, null si no se encuentra</returns>
+        public string buscarHecho(string id_variable, string condicion, string valor_lista_variable)
+        {
+            Variable variable = manejador_archivos.extraerVariable(id_variable);
+            if (variable.tipo_variable != Variable.LISTA)
+                throw new System.ArgumentException("La variable no es de tipo LISTA", id_variable);
+            Hecho hecho_buscado = new Hecho("aux", variable);
+            hecho_buscado.establecerCondicion(condicion, valor_lista_variable);
+            return buscarHecho(hecho_buscado);
+        }
+
+        
         /// <summary>
         /// Método que elimina un hecho especifico de una regla
         /// </summary>
@@ -438,6 +510,15 @@ namespace SistemaExpertoLib
 
 
         #region REGLA
+        /// <summary>
+        /// Método para leer una regla de la base de conocimiento
+        /// </summary>
+        /// <param name="id_regla">Id de la regla a extraer</param>
+        /// <returns>Objeto Regla encontrado, NULL si no encuentra en la base de conocimientop</returns>
+        public Regla leerRegla(string id_regla)
+        {
+            return manejador_archivos.extraerRegla(id_regla);
+        }
 
         /// <summary>
         /// Método que agrega una nueva regla vacia a la base de conosimiento
@@ -451,6 +532,334 @@ namespace SistemaExpertoLib
             manejador_archivos.ingresarNuevaRegla(regla);
             return id_nueva_regla;
         }
+
+        /// <summary>
+        /// Método que ingresa una nueva regla creando los hechos correspondientes 
+        /// </summary>
+        /// <param name="antecedentes">Se debe completar segun corresponda la variableArrayList[ArrayList[id_variable string ,codicion string ],ArrayList[id_variable string ,codicion string ,valor double],ArrayList[id_variable string ,codicion string ,valor string] ]</param>
+        /// <param name="consecuente">Se debe completar solo un array list correspondiente a la variable consecuente</param>
+        /// <returns>null si la regla ya se encuentra en la base de conocimiento </returns>
+        public string agregarNuevaRegla (ArrayList antecedentes, ArrayList consecuente)
+        {
+            if (antecedentes.Count == 0 || consecuente == null || consecuente.Count == 0)
+                throw new System.ArgumentException("Error en la especificacion de Antecedentes o Consecuentes ");
+
+            string[] ids_hechos_antecedente = new string[antecedentes.Count];
+            string id_hecho_consecuente = null;
+            bool flag_regla = true;
+            //completando ids de los hechos antecedentes
+            for (int i = 0; i < antecedentes.Count; i++)
+            {
+                ArrayList aux_hecho = (ArrayList)antecedentes[i];
+                if(aux_hecho.Count < 1 || aux_hecho.Count > 3)
+                    throw new System.ArgumentException("Error en la especificacion del hecho",""+aux_hecho);
+                if (aux_hecho.Count == 2)
+                {
+                    string id_hecho = buscarHecho((string)aux_hecho[0], (string)aux_hecho[1]);
+                    if (id_hecho == null)
+                    {
+                        id_hecho = agregarNuevoHecho((string)aux_hecho[0], (string)aux_hecho[1]);
+                        flag_regla = false;
+                    }
+                    ids_hechos_antecedente[i] = id_hecho;
+                }
+                if (aux_hecho.Count == 3)
+                {
+                    string tipo_valor = aux_hecho[2].GetType()+"";
+                    if (tipo_valor.Equals("System.String"))
+                    {
+                        string id_hecho = buscarHecho((string)aux_hecho[0], (string)aux_hecho[1], (string)aux_hecho[2]);
+                        if (id_hecho == null)
+                        {
+                            id_hecho = agregarNuevoHecho((string)aux_hecho[0], (string)aux_hecho[1], (string)aux_hecho[2]);
+                            flag_regla = false;
+                        }
+                        ids_hechos_antecedente[i] = id_hecho;
+                    }
+                    else
+                    if (tipo_valor.Equals("System.Double"))
+                    {
+                        string id_hecho = buscarHecho((string)aux_hecho[0], (string)aux_hecho[1], (double)aux_hecho[2]);
+                        if (id_hecho == null)
+                        {
+                            id_hecho = agregarNuevoHecho((string)aux_hecho[0], (string)aux_hecho[1], (double)aux_hecho[2]);
+                            flag_regla = false;
+                        }
+                        ids_hechos_antecedente[i] = id_hecho;
+                    }
+                    else
+                    {
+                        throw new System.ArgumentException("Error en la especificacion del hecho", "" + aux_hecho);
+                    }
+                }
+            }
+            //completando ids de los hechos consecuentes
+            {
+                if (consecuente.Count < 1 || consecuente.Count > 3)
+                    throw new System.ArgumentException("Error en la especificacion del hecho", "" + consecuente);
+                if (consecuente.Count == 2)
+                {
+                    string id_hecho = buscarHecho((string)consecuente[0], (string)consecuente[1]);
+                    if (id_hecho == null)
+                    {
+                        id_hecho = agregarNuevoHecho((string)consecuente[0], (string)consecuente[1]);
+                        flag_regla = false;
+                    }
+                    id_hecho_consecuente = id_hecho;
+                }
+                if (consecuente.Count == 3)
+                {
+                    string tipo_valor = consecuente[2].GetType() + "";
+                    if (tipo_valor.Equals("System.String"))
+                    {
+                        string id_hecho = buscarHecho((string)consecuente[0], (string)consecuente[1], (string)consecuente[2]);
+                        if (id_hecho == null)
+                        {
+                            id_hecho = agregarNuevoHecho((string)consecuente[0], (string)consecuente[1], (string)consecuente[2]);
+                            flag_regla = false;
+                        }
+                        id_hecho_consecuente = id_hecho;
+                    }
+                    else
+                    if (tipo_valor.Equals("System.Double"))
+                    {
+                        string id_hecho = buscarHecho((string)consecuente[0], (string)consecuente[1], (double)consecuente[2]);
+                        if (id_hecho == null)
+                        {
+                            id_hecho = agregarNuevoHecho((string)consecuente[0], (string)consecuente[1], (double)consecuente[2]);
+                            flag_regla = false;
+                        }
+                        id_hecho_consecuente = id_hecho;
+                    }
+                    else
+                    {
+                        throw new System.ArgumentException("Error en la especificacion del hecho", "" + consecuente);
+                    }
+                }
+            }
+
+            //Creando nueva regla
+            string id_regla = null;
+            if (flag_regla)
+                id_regla = comprobarReglaExistente(ids_hechos_antecedente, id_hecho_consecuente);
+            if (id_regla != null)
+                return null;
+            id_regla = agregarNuevaRegla();
+            for (int i = 0; i < ids_hechos_antecedente.Length; i++)
+                agregarHechoAlAntecedenteDeRegla(id_regla, ids_hechos_antecedente[i]);
+            
+            agregarHechoAlConsecuente(id_regla, id_hecho_consecuente);
+            return id_regla;
+        }
+
+
+        /// <summary>
+        /// Método que ingresa una nueva regla creando los hechos correspondientes 
+        /// </summary>
+        /// <param name="ids_hechos_antecedente">Identificador de los hechos antecedentes</param>
+        /// <param name="id_hecho_consecuente">Identificador de los hehos consecuentes</param>
+        /// <returns>null si la regla ya se encuentra en la base de conocimiento </returns>
+        public string agregarNuevaRegla(string[] ids_hechos_antecedente,string id_hecho_consecuente)
+        {
+            for (int i = 0; i < ids_hechos_antecedente.Length; i++)
+            {
+                Hecho hecho = manejador_archivos.extraerHecho(ids_hechos_antecedente[i]);
+                if (hecho == null)
+                    throw new System.ArgumentException("Error no existe el hecho especificado", "" + ids_hechos_antecedente[i]);
+            }
+            Hecho hecho_c = manejador_archivos.extraerHecho(id_hecho_consecuente);
+            if (hecho_c == null)
+                throw new System.ArgumentException("Error no existe el hecho especificado", "" + id_hecho_consecuente);
+
+            //Creando nueva regla
+            string id_regla = null;
+            id_regla = comprobarReglaExistente(ids_hechos_antecedente, id_hecho_consecuente);
+            if (id_regla != null)
+                return null;
+            id_regla = agregarNuevaRegla();
+            for (int i = 0; i < ids_hechos_antecedente.Length; i++)
+                agregarHechoAlAntecedenteDeRegla(id_regla, ids_hechos_antecedente[i]);
+           agregarHechoAlConsecuente(id_regla, id_hecho_consecuente);
+            return id_regla;
+        }
+
+
+
+
+        /// <summary>
+        /// Método que comprueba la existencia de una regla en la base de conocimiento
+        /// </summary>
+        /// <param name="regla_buscada">Regla a buscar</param>
+        /// <returns>id de la regla encontrada, null si hay una regla igual en la base de conocimiento</returns>
+        public string comprobarReglaExistente(Regla regla_buscada)
+        {
+            string[] ids_reglas = manejador_archivos.listarArchivosEnDirectorio(AccesoDatos.REGLA);
+            for (int i = 0; i < ids_reglas.Length; i++)
+            {
+                Regla regla_existente = manejador_archivos.extraerRegla(ids_reglas[i]);
+                if (regla_buscada.Equals(regla_existente))
+                    return regla_existente.id_regla;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Método que comprueba la existencia de una regla en la base de conocimiento
+        /// </summary>
+        /// <param name="hechos_antecedente">Lista de hechos en el antecedente</param>
+        /// <param name="hecho_consecuente">Lista de hechos en el consecuente</param>
+        /// <returns>id de la regla encontrada, null si hay una regla igual en la base de conocimiento</returns>
+        public string comprobarReglaExistente(Hecho[] hechos_antecedente,Hecho hecho_consecuente)
+        {
+            Regla regla = new Regla("aux");
+            for (int i = 0; i < hechos_antecedente.Length; i++)
+                regla.agregarHechoAlAntecedente(hechos_antecedente[i]);
+            regla.agregarHechoAlConsecuente(hecho_consecuente);
+            return comprobarReglaExistente(regla);
+        }
+
+
+        /// <summary>
+        /// Método que comprueba la existencia de una regla en la base de conocimiento
+        /// </summary>
+        /// <param name="antecedentes">Se debe completar segun corresponda la variableArrayList[ArrayList[id_variable string ,codicion string ],ArrayList[id_variable string ,codicion string ,valor double],ArrayList[id_variable string ,codicion string ,valor string] ]</param>
+        /// <param name="consecuente">Se debe completar solo un array list correspondiente a la variable consecuente</param>
+        /// <returns>null si la regla ya se encuentra en la base de conocimiento </returns>
+        public string comprobarReglaExistente(ArrayList antecedentes, ArrayList consecuente)
+        {
+            if (antecedentes.Count == 0 || consecuente == null || consecuente.Count == 0)
+                throw new System.ArgumentException("Error en la especificacion de Antecedentes o Consecuentes ");
+
+            string[] ids_hechos_antecedente = new string[antecedentes.Count];
+            string id_hecho_consecuente = null;
+            
+            //completando ids de los hechos antecedentes
+            for (int i = 0; i < antecedentes.Count; i++)
+            {
+                ArrayList aux_hecho = (ArrayList)antecedentes[i];
+                if(aux_hecho.Count < 1 || aux_hecho.Count > 3)
+                    throw new System.ArgumentException("Error en la especificacion del hecho",""+aux_hecho);
+                if (aux_hecho.Count == 2)
+                {
+                    string id_hecho = buscarHecho((string)aux_hecho[0], (string)aux_hecho[1]);
+                    if (id_hecho == null)
+                    {
+                        return null;
+                    }
+                    ids_hechos_antecedente[i] = id_hecho;
+                }
+                if (aux_hecho.Count == 3)
+                {
+                    string tipo_valor = aux_hecho[2].GetType()+"";
+                    if (tipo_valor.Equals("System.String"))
+                    {
+                        string id_hecho = buscarHecho((string)aux_hecho[0], (string)aux_hecho[1], (string)aux_hecho[2]);
+                        if (id_hecho == null)
+                        {
+                            return null;
+                        }
+                        ids_hechos_antecedente[i] = id_hecho;
+                    }
+                    else
+                    if (tipo_valor.Equals("System.Double"))
+                    {
+                        string id_hecho = buscarHecho((string)aux_hecho[0], (string)aux_hecho[1], (double)aux_hecho[2]);
+                        if (id_hecho == null)
+                        {
+                            return null;
+                        }
+                        ids_hechos_antecedente[i] = id_hecho;
+                    }
+                    else
+                    {
+                        throw new System.ArgumentException("Error en la especificacion del hecho", "" + aux_hecho);
+                    }
+                }
+            }
+            //completando ids de los hechos consecuentes
+            {
+                if (consecuente.Count < 1 || consecuente.Count > 3)
+                    throw new System.ArgumentException("Error en la especificacion del hecho", "" + consecuente);
+                if (consecuente.Count == 2)
+                {
+                    string id_hecho = buscarHecho((string)consecuente[0], (string)consecuente[1]);
+                    if (id_hecho == null)
+                    {
+                        return null;
+                    }
+                    id_hecho_consecuente = id_hecho;
+                }
+                if (consecuente.Count == 3)
+                {
+                    string tipo_valor = consecuente[2].GetType() + "";
+                    if (tipo_valor.Equals("System.String"))
+                    {
+                        string id_hecho = buscarHecho((string)consecuente[0], (string)consecuente[1], (string)consecuente[2]);
+                        if (id_hecho == null)
+                        {
+                            return null;
+                        }
+                        id_hecho_consecuente = id_hecho;
+                    }
+                    else
+                    if (tipo_valor.Equals("System.Double"))
+                    {
+                        string id_hecho = buscarHecho((string)consecuente[0], (string)consecuente[1], (double)consecuente[2]);
+                        if (id_hecho == null)
+                        {
+                            return null;
+                        }
+                        id_hecho_consecuente = id_hecho;
+                    }
+                    else
+                    {
+                        throw new System.ArgumentException("Error en la especificacion del hecho", "" + consecuente);
+                    }
+                }
+            }
+            //Creando nueva regla
+            Hecho[] hechos_antecedentes = new Hecho[ids_hechos_antecedente.Length];
+            for (int i = 0; i < hechos_antecedentes.Length; i++)
+                hechos_antecedentes[i] = manejador_archivos.extraerHecho(ids_hechos_antecedente[i]);
+            Hecho hecho_consecuente = manejador_archivos.extraerHecho(id_hecho_consecuente);
+            return comprobarReglaExistente(hechos_antecedentes, hecho_consecuente);
+        }
+
+
+        /// <summary>
+        /// Método que comprueba la existencia de una regla en la base de conocimiento
+        /// </summary>
+        /// <param name="antecedentes">Se debe completar segun corresponda la variableArrayList[ArrayList[id_variable string ,codicion string ],ArrayList[id_variable string ,codicion string ,valor double],ArrayList[id_variable string ,codicion string ,valor string] ]</param>
+        /// <param name="consecuente">Se debe completar solo un array list correspondiente a la variable consecuente</param>
+        /// <returns>null si la regla ya se encuentra en la base de conocimiento </returns>
+
+
+        /// <summary>
+        /// Método que comprueba la existencia de una regla en la base de conocimiento
+        /// </summary>
+        /// <param name="ids_hechos_antecedente">Ids de los hechos antecedentes</param>
+        /// <param name="id_hecho_consecuente">Id del hecho consecuente</param>
+        /// <returns>Id de la regla enconrtada, null si la regla no se ha encontrado</returns>
+        public string comprobarReglaExistente(string[] ids_hechos_antecedente,string id_hecho_consecuente)
+        {
+            
+            Hecho[] hechos_antecedentes = new Hecho[ids_hechos_antecedente.Length];
+            for (int i = 0; i < hechos_antecedentes.Length; i++)
+            {
+                hechos_antecedentes[i] = manejador_archivos.extraerHecho(ids_hechos_antecedente[i]);
+                if (hechos_antecedentes[i] == null)
+                    return null;
+            }
+            Hecho hecho_consecuente = manejador_archivos.extraerHecho(id_hecho_consecuente);
+            if (hecho_consecuente == null)
+                return null;
+            return comprobarReglaExistente(hechos_antecedentes, hecho_consecuente);
+        }
+
+
+
+
+
 
         /// <summary>
         /// Método para eliminar una regla de la base de conocimiento
@@ -579,7 +988,7 @@ namespace SistemaExpertoLib
                 {
                     if (valor_lista_especifico != null && hecho.tipo_variable == Hecho.LISTA)
                     {
-                        if (hecho.valor_lista.Equals(valor_lista_especifico))
+                        if (hecho.valor_lista_hecho.Equals(valor_lista_especifico))
                             hechos_encontrados.Add(lista_de_hechos[i]);
                     }
                     else

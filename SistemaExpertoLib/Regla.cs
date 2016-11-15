@@ -224,7 +224,29 @@ namespace SistemaExpertoLib
             return retorno;
         }
 
+        /// <summary>
+        /// Equals modificado, compara dos reglas en base a sus hechos sin importar la ID
+        /// </summary>
+        /// <param name="obj">Objeto de tipo regla</param>
+        /// <returns>TRUE si todos sus hechos son iguales, FALSE en caso contrario</returns>
+        public override bool Equals(object obj)
+        {
+            string tipo_obj = obj.GetType()+"";
+            if (!tipo_obj.Equals("SistemaExpertoLib.Regla"))
+                return false;
+            Regla regla = (Regla)obj;
+            if (this.antecedentes.Count != regla.antecedentes.Count)
+                return false;
+            if (!this.consecuente.id_hecho.Equals(regla.consecuente.id_hecho))
+                return false;
+            string[] lista_de_hechos_regla = regla.listarAntecedentes();
+            bool flag = true;
+            for (int i = 0; i < lista_de_hechos_regla.Length && flag; i++)
+                flag = this.consultarAntecendente(lista_de_hechos_regla[i]);
+            return flag;
+        }
 
+        [Serializable()]
         struct DatosHechos 
         {
             //**********************************************************************************************
