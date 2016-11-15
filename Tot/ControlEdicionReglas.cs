@@ -158,7 +158,8 @@ namespace Tot
         /// <summary>
         /// Metodo que agrega un nuevo combobox de seleccion de variable y su respectivo boton de eliminado
         /// </summary>
-        private void agregarComboBoxVariable()
+        /// <returns>Id interna del control</returns>
+        private string agregarComboBoxVariable()
         {
             ComboBox combo_box = new ComboBox();
             combo_box.Name = ultima_id_interna + "";
@@ -180,6 +181,7 @@ namespace Tot
             lista_de_button_eliminar.Add(boton_eliminar);
 
             ultima_id_interna++;
+            return combo_box.Name;
         }
         
         /// <summary>
@@ -288,7 +290,125 @@ namespace Tot
                 }
             }
         }
-        
+
+        /// <summary>
+        /// Método que agrega una fila de controles en base a lectura de un hecho
+        /// </summary>
+        /// <param name="id_hecho">Identificador del hecho a mostrar</param>
+        public void agregarFilaDeControlesEstablecidaAntecedentes(string id_hecho)
+        {
+            Hecho hecho = base_conocimiento.leerHecho(id_hecho);
+            if (hecho == null)
+                return;
+            string id_controles = agregarComboBoxVariable();
+            agregarControlesTipoVariable(hecho.id_variable, id_controles);
+            
+            foreach (ComboBox combo in lista_de_combo_box_variable)
+                if (combo.Name.Equals(id_controles))
+                    foreach (ElementoComboBox elemento in combo.Items)
+                        if (hecho.id_variable.Equals(elemento.id))
+                            combo.SelectedItem = elemento;
+            foreach (ComboBox combo in lista_de_combo_box_condicion)
+                if (combo.Name.Equals(id_controles))
+                    foreach (string elemento in combo.Items)
+                        if (hecho.condicion.Equals(elemento))
+                            combo.SelectedItem = elemento;
+            if (hecho.tipo_variable == Variable.LISTA || hecho.tipo_variable == Variable.NUMERICO)
+            {
+                foreach (object control in lista_de_object_valor_condicion)
+                {
+                    string tipo_control = ""+control.GetType();
+                    if (tipo_control.Equals("System.Windows.Forms.TextBox"))
+                    {
+                        TextBox text_box = (TextBox)control;
+                        if (text_box.Name.Equals(id_controles))
+                            text_box.Text = "" + hecho.valor_numerico;
+                    }
+                    else
+                    if (tipo_control.Equals("System.Windows.Forms.NumericUpDown"))
+                    {
+                        NumericUpDown numeric_up_down = (NumericUpDown)control;
+                        if (numeric_up_down.Name.Equals(id_controles))
+                            numeric_up_down.Value = (decimal)hecho.valor_numerico;
+                    }
+                    else
+                    if (tipo_control.Equals("System.Windows.Forms.ComboBox"))
+                    {
+                        ComboBox combo_box = (ComboBox)control;
+                        if (combo_box.Name.Equals(id_controles))
+                            foreach (string elemento in combo_box.Items)
+                                if (hecho.valor_lista_hecho.Equals(elemento))
+                                    combo_box.SelectedItem = elemento;
+                    }
+                }
+            }
+                     
+        }
+
+        /// <summary>
+        /// Método que agrega los controles al antecedente en base a hecho
+        /// </summary>
+        /// <param name="id_hecho">Identificador del hecho a mostrar</param>
+        public void agregarFilaDeControlesEstablecidaConsecuente(string id_hecho)
+        {
+            Hecho hecho = base_conocimiento.leerHecho(id_hecho);
+            if (hecho == null)
+                return;
+            mostrarControlesTipoEntonces(hecho.id_variable);
+            foreach (ElementoComboBox elemento in comboBox_var_entonces.Items)
+                if (hecho.id_variable.Equals(elemento.id))
+                    comboBox_var_entonces.SelectedItem = elemento;
+
+            foreach (string elemento in comboBox_condicion_entonces.Items)
+                if (hecho.condicion.Equals(elemento))
+                    comboBox_condicion_entonces.SelectedItem = elemento;
+
+            if (hecho.tipo_variable == Variable.LISTA)
+                foreach (string elemento in comboBox_lista_entonces.Items)
+                    if (hecho.valor_lista_hecho.Equals(elemento))
+                        comboBox_lista_entonces.SelectedItem = elemento;
+            
+            if (hecho.tipo_variable == Variable.NUMERICO)
+            {
+                if (textBox_entonces != null)
+                {
+                    if (hecho.valor_numerico != null)
+                        textBox_entonces.Text = "" + hecho.valor_numerico;
+                }
+                else
+                if (numericUpDown_entonces != null)
+                {
+                    if (hecho.valor_numerico != null)
+                        numericUpDown_entonces.Value = (decimal)hecho.valor_numerico;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Método que mmuestra la regla de la base de conocimiento
+        /// </summary>
+        /// <param name="id_regla">Id de la regla a mostrar</param>
+        /// <param name="controles_habilitados">establece si los controles estaran habilitados para su edición</param>
+        public void mostrarRegla(string id_regla, bool controles_habilitados = false)
+        {
+            limpiarControles();
+            this.Visible = true;
+            actualizarListaDeVariables();
+            completarControlEntonces();
+
+            Regla regla = base_conocimiento.leerRegla(id_regla);
+            if (regla == null)
+            {
+                MessageBox.Show("La regla no existe", "Gestión de reglas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            textBox_id_regla.Text = regla.id_regla;
+            string[] antecedentes = regla.listarAntecedentes();
+            for (int i = 0; i < antecedentes.Length; i++)
+                agregarFilaDeControlesEstablecidaAntecedentes(antecedentes[i]);
+            agregarFilaDeControlesEstablecidaConsecuente(regla.id_consecuente);
+            habilitarEdicionDeControles(controles_habilitados);
+        }
         /// <summary>
         /// Metodo para eliminar una fila de controles pertenenciente a una varaible
         /// </summary>
@@ -472,27 +592,27 @@ namespace Tot
                     }
                 }
                 else
-                    if (tipo_elemento.Equals("System.Windows.Forms.TextBox"))
+                if (tipo_elemento.Equals("System.Windows.Forms.TextBox"))
+                {
+                    TextBox aux = (TextBox)item;
+                    if (aux.Name.Equals(id))
                     {
-                        TextBox aux = (TextBox)item;
-                        if (aux.Name.Equals(id))
-                        {
-                            aux.Location = new System.Drawing.Point(430, ultima_posicion_y);
-                            aux.Refresh();
-                            this.Controls.Add(aux);
-                        }
+                        aux.Location = new System.Drawing.Point(430, ultima_posicion_y);
+                        aux.Refresh();
+                        this.Controls.Add(aux);
                     }
-                    else
-                        if (tipo_elemento.Equals("System.Windows.Forms.NumericUpDown"))
-                        {
-                            NumericUpDown aux = (NumericUpDown)item;
-                            if (aux.Name.Equals(id))
-                            {
-                                aux.Location = new System.Drawing.Point(430, ultima_posicion_y);
-                                aux.Refresh();
-                                this.Controls.Add(aux);
-                            }
-                        }
+                }
+                else
+                if (tipo_elemento.Equals("System.Windows.Forms.NumericUpDown"))
+                {
+                    NumericUpDown aux = (NumericUpDown)item;
+                    if (aux.Name.Equals(id))
+                    {
+                        aux.Location = new System.Drawing.Point(430, ultima_posicion_y);
+                        aux.Refresh();
+                        this.Controls.Add(aux);
+                    }
+                }
             }
             //label rango
             foreach (Label item in lista_label_rangos)
@@ -540,7 +660,7 @@ namespace Tot
                 };
                 lista_de_variables[i] = elemento;
             }
-            actualizarListaComboBoxEntonces();
+            
         }
 
         /// <summary>
@@ -554,6 +674,22 @@ namespace Tot
                 comboBox_var_entonces.Items.Add(lista_de_variables[i]);
         }
 
+
+        public void completarControlEntonces()
+        {
+            if (comboBox_var_entonces == null)
+            {
+                this.comboBox_var_entonces = new ComboBox();
+                this.comboBox_var_entonces.FormattingEnabled = true;
+                this.comboBox_var_entonces.Location = new System.Drawing.Point(65, 11);
+                this.comboBox_var_entonces.Name = "comboBox_var_entonces";
+                this.comboBox_var_entonces.Size = new System.Drawing.Size(217, 21);
+                this.comboBox_var_entonces.TabIndex = 3;
+                this.comboBox_var_entonces.SelectedIndexChanged += new System.EventHandler(this.comboBox_var_entonces_SelectedIndexChanged);
+                this.panel_entonces.Controls.Add(this.comboBox_var_entonces);
+            }
+            actualizarListaComboBoxEntonces();
+        }
 
         /// <summary>
         /// Metodo para mostrar los controles de Entonces segun el tipo de variable seleccionada
@@ -697,6 +833,102 @@ namespace Tot
 
         }
 
+        /// <summary>
+        /// Método que elimina los controles asociados a entonces
+        /// </summary>
+        public void eliminarControlesEntonces()
+        {
+            this.panel_entonces.Controls.Remove(comboBox_var_entonces);
+            this.panel_entonces.Controls.Remove(comboBox_lista_entonces);
+            this.panel_entonces.Controls.Remove(textBox_entonces);
+            this.panel_entonces.Controls.Remove(numericUpDown_entonces);
+            label_rango_entonces.Visible = false;
+            this.panel_entonces.Controls.Remove(comboBox_condicion_entonces);
+
+            if (comboBox_var_entonces != null)
+                comboBox_var_entonces.Dispose();
+            if (comboBox_lista_entonces != null)
+                comboBox_lista_entonces.Dispose();
+            if (textBox_entonces != null)
+                textBox_entonces.Dispose();
+            if (numericUpDown_entonces != null)
+                numericUpDown_entonces.Dispose();
+            if (comboBox_condicion_entonces != null)
+                comboBox_condicion_entonces.Dispose();
+            comboBox_var_entonces = null;
+            comboBox_lista_entonces = null;
+            textBox_entonces = null;
+            numericUpDown_entonces = null;
+            comboBox_condicion_entonces = null;
+        }
+
+
+        /// <summary>
+        /// Método que habilita o desabilita los controles para edicion
+        /// </summary>
+        /// <param name="habilitado">True para habilitar controles</param>
+        public void habilitarEdicionDeControles(bool habilitado)
+        {
+            button_aceptar.Visible = habilitado;
+            button_cancelar.Visible = habilitado;
+            button_agregar.Visible = habilitado;
+
+            foreach (ComboBox combo in lista_de_combo_box_variable)
+                combo.Enabled = habilitado;
+            foreach (ComboBox combo in lista_de_combo_box_condicion)
+                combo.Enabled = habilitado;
+            foreach (object control in lista_de_object_valor_condicion)
+            {
+                string tipo_control = control.GetType()+"";
+                if (tipo_control.Equals("System.Windows.Forms.ComboBox"))
+                {
+                    ComboBox aux = (ComboBox)control;
+                    aux.Enabled = habilitado;
+                }
+                else
+                if (tipo_control.Equals("System.Windows.Forms.TextBox"))
+                {
+                    TextBox aux = (TextBox)control;
+                    aux.Enabled = habilitado;
+                }
+                else
+                if (tipo_control.Equals("System.Windows.Forms.NumericUpDown"))
+                {
+                    NumericUpDown aux = (NumericUpDown)control;
+                    aux.Enabled = habilitado;
+                }
+            }
+            foreach (Button button in lista_de_button_eliminar)
+                button.Visible = habilitado;
+            if (comboBox_var_entonces != null)
+                comboBox_var_entonces.Enabled = habilitado;
+            if (comboBox_condicion_entonces != null)
+                comboBox_condicion_entonces.Enabled = habilitado;
+            if (comboBox_lista_entonces != null)
+                comboBox_lista_entonces.Enabled = habilitado;
+            if (textBox_entonces != null)
+                textBox_entonces.Enabled = habilitado;
+            if (numericUpDown_entonces != null)
+                numericUpDown_entonces.Enabled = habilitado;
+        }
+
+
+
+        /// <summary>
+        /// método que limpia el control de todos los controles generados por las variables
+        /// </summary>
+        public void limpiarControles()
+        {
+            textBox_id_regla.Text = "";
+            ArrayList ids_controles = new ArrayList();
+            foreach (ComboBox item in lista_de_combo_box_variable)
+	            ids_controles.Add(item.Name);
+            foreach (string item in ids_controles)
+                eliminarFilaDeControlesVariable(item);
+            eliminarControlesEntonces();
+            ultima_id_interna = 0;
+            dibujarControles();
+        }
 
 
         #endregion
@@ -1622,6 +1854,18 @@ namespace Tot
                 return 0;
             return -1;
         }
+
+        public void iniciarTareaAgregado()
+        {
+            limpiarControles();
+            actualizarListaDeVariables();
+            completarControlEntonces();
+            habilitarEdicionDeControles(true);
+            Visible = true;
+            tipo_tarea = ControlEdicionReglas.AGREGANDO;
+
+        }
+
         //*************************************************************************
         // Eventos
         //*************************************************************************
@@ -1684,6 +1928,9 @@ namespace Tot
                     MessageBox.Show("La regla fue ingresada correctamente.\n (Id regla: \""+id_regla+"\")", "Gestión de reglas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (evento_cambio_reglas != null)
                         evento_cambio_reglas();
+                    limpiarControles();
+                    tipo_tarea = DESABILITADO;
+                    this.Visible = false;
                 }
             }
         }
@@ -1720,6 +1967,13 @@ namespace Tot
                 e.Handled = true;
             }
             
+        }
+
+        private void button_cancelar_Click(object sender, EventArgs e)
+        {
+            limpiarControles();
+            this.Visible = false;
+            tipo_tarea = DESABILITADO;
         }
     }
 }

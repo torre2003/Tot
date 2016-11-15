@@ -1136,17 +1136,6 @@ namespace Tot
             eliminarElementoALista();
         }
 
-        private void listBox_variables_DoubleClick(object sender, EventArgs e)
-        {
-            if (listBox_variables.SelectedItem != null && tipo_tarea == DESABILITADO)
-            {
-                ElementoListBox elemento = (ElementoListBox)listBox_variables.SelectedItem;
-                mostrarInformaciónVariable(elemento.id);
-                id_variable_en_tarea = elemento.id;
-                nombre_variable_en_tarea = elemento.nombre;
-            }
-        }
-
         private void button_eliminar_variable_Click(object sender, EventArgs e)
         {
             if (tipo_tarea == DESABILITADO && id_variable_en_tarea != null)
@@ -1184,6 +1173,17 @@ namespace Tot
             if (checkBox_variable_de_inicio.Checked)
             {
                 checkBox_variable_preguntable_al_usuario.Checked = true;
+            }
+        }
+
+        private void listBox_variables_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBox_variables.SelectedItem != null && tipo_tarea == DESABILITADO)
+            {
+                ElementoListBox elemento = (ElementoListBox)listBox_variables.SelectedItem;
+                mostrarInformaciónVariable(elemento.id);
+                id_variable_en_tarea = elemento.id;
+                nombre_variable_en_tarea = elemento.nombre;
             }
         }
 

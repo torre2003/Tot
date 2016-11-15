@@ -113,14 +113,22 @@ namespace Tot
 
         private void button_agregar_Click(object sender, EventArgs e)
         {
-            control_edicion_de_reglas.actualizarListaDeVariables();
-            control_edicion_de_reglas.Visible = true;
-            control_edicion_de_reglas.tipo_tarea = ControlEdicionReglas.AGREGANDO;
+            control_edicion_de_reglas.iniciarTareaAgregado();
         }
 
         private void actualizarListaReglas()
         {
             actualizarListaDeReglas();
+        }
+
+        private void listBox_reglas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBox_reglas.SelectedItem != null && control_edicion_de_reglas.tipo_tarea == ControlEdicionReglas.DESABILITADO)
+            {
+                ElementoListBox elemento = (ElementoListBox)listBox_reglas.SelectedItem;
+                control_edicion_de_reglas.mostrarRegla(elemento.id);
+            }
+            
         }
     }
 }

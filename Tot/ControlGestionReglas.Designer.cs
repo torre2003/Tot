@@ -46,6 +46,7 @@
             this.listBox_reglas.Name = "listBox_reglas";
             this.listBox_reglas.Size = new System.Drawing.Size(563, 173);
             this.listBox_reglas.TabIndex = 0;
+            this.listBox_reglas.SelectedIndexChanged += new System.EventHandler(this.listBox_reglas_SelectedIndexChanged);
             // 
             // button_agregar
             // 

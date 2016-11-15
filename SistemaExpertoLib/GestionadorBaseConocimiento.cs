@@ -271,9 +271,7 @@ namespace SistemaExpertoLib
         {
             Variable variable = manejador_archivos.extraerVariable(id_variable);
             if (variable.tipo_variable != Variable.LISTA)
-            {
                 throw new System.ArgumentException("La variable no es de tipo LISTA", id_variable);
-            }
             desmarcarChequeoDeConsistenciaEnHechosYReglas(id_variable, false, elemento_variable);
             variable.eliminarElemento(elemento_variable);
             manejador_archivos.actualizarVariable(variable);
@@ -577,12 +575,20 @@ namespace SistemaExpertoLib
                         ids_hechos_antecedente[i] = id_hecho;
                     }
                     else
-                    if (tipo_valor.Equals("System.Double"))
+                    if (tipo_valor.Equals("System.Double") || tipo_valor.Equals("System.Decimal"))
                     {
-                        string id_hecho = buscarHecho((string)aux_hecho[0], (string)aux_hecho[1], (double)aux_hecho[2]);
+                        double valor = 0;
+                        if (tipo_valor.Equals("System.Decimal"))
+                        {
+                            decimal d = (decimal)aux_hecho[2];
+                            valor = (double)d;
+                        }
+                        else
+                            valor = (double)aux_hecho[2];
+                        string id_hecho = buscarHecho((string)aux_hecho[0], (string)aux_hecho[1], valor);
                         if (id_hecho == null)
                         {
-                            id_hecho = agregarNuevoHecho((string)aux_hecho[0], (string)aux_hecho[1], (double)aux_hecho[2]);
+                            id_hecho = agregarNuevoHecho((string)aux_hecho[0], (string)aux_hecho[1], valor);
                             flag_regla = false;
                         }
                         ids_hechos_antecedente[i] = id_hecho;
@@ -621,12 +627,21 @@ namespace SistemaExpertoLib
                         id_hecho_consecuente = id_hecho;
                     }
                     else
-                    if (tipo_valor.Equals("System.Double"))
+                    if (tipo_valor.Equals("System.Double") || tipo_valor.Equals("System.Decimal"))
                     {
-                        string id_hecho = buscarHecho((string)consecuente[0], (string)consecuente[1], (double)consecuente[2]);
+                        double valor = 0;
+                        if (tipo_valor.Equals("System.Decimal"))
+                        {
+                            decimal d = (decimal)consecuente[2];
+                            valor = (double)d;
+                        }
+                        else
+                            valor = (double)consecuente[2];
+                        
+                        string id_hecho = buscarHecho((string)consecuente[0], (string)consecuente[1], valor);
                         if (id_hecho == null)
                         {
-                            id_hecho = agregarNuevoHecho((string)consecuente[0], (string)consecuente[1], (double)consecuente[2]);
+                            id_hecho = agregarNuevoHecho((string)consecuente[0], (string)consecuente[1], valor);
                             flag_regla = false;
                         }
                         id_hecho_consecuente = id_hecho;
@@ -761,9 +776,18 @@ namespace SistemaExpertoLib
                         ids_hechos_antecedente[i] = id_hecho;
                     }
                     else
-                    if (tipo_valor.Equals("System.Double"))
+                    if (tipo_valor.Equals("System.Double") || tipo_valor.Equals("System.Decimal"))
                     {
-                        string id_hecho = buscarHecho((string)aux_hecho[0], (string)aux_hecho[1], (double)aux_hecho[2]);
+                        double valor = 0;
+                        if (tipo_valor.Equals("System.Decimal"))
+                        {
+                            decimal d = (decimal)aux_hecho[2];
+                            valor = (double)d;
+                        }
+                        else
+                            valor = (double)aux_hecho[2];
+
+                        string id_hecho = buscarHecho((string)aux_hecho[0], (string)aux_hecho[1], valor);
                         if (id_hecho == null)
                         {
                             return null;
@@ -802,9 +826,17 @@ namespace SistemaExpertoLib
                         id_hecho_consecuente = id_hecho;
                     }
                     else
-                    if (tipo_valor.Equals("System.Double"))
+                    if (tipo_valor.Equals("System.Double") || tipo_valor.Equals("System.Decimal"))
                     {
-                        string id_hecho = buscarHecho((string)consecuente[0], (string)consecuente[1], (double)consecuente[2]);
+                        double valor = 0;
+                        if (tipo_valor.Equals("System.Decimal"))
+                        {
+                            decimal d = (decimal)consecuente[2];
+                            valor = (double)d;
+                        }
+                        else
+                            valor = (double)consecuente[2];
+                        string id_hecho = buscarHecho((string)consecuente[0], (string)consecuente[1], valor);
                         if (id_hecho == null)
                         {
                             return null;
