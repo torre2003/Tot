@@ -164,7 +164,7 @@ namespace SistemaExpertoLib
 
 
 
-        //todo para el comprobador de concordancia, preguntar si el hecho es accesible desde las reglas, al acmbiar variables revizar hechos
+        
         //********************************************************************************************
         //   Métodos
         //********************************************************************************************

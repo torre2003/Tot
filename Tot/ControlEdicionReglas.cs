@@ -12,7 +12,7 @@ using System.Collections;
 
 namespace Tot
 {
-
+    public delegate void DelegadoHabilitarControles(bool habilitar);
     public delegate void DelegadoCambioEnReglas ();
 
     public partial class ControlEdicionReglas : UserControl
@@ -54,6 +54,7 @@ namespace Tot
         int ultima_id_interna = 0;
 
         public event DelegadoCambioEnReglas evento_cambio_reglas;
+        public event DelegadoHabilitarControles evento_habilitar_controles;
         //*************************************************************************
         // Métodos
         //*************************************************************************
@@ -556,8 +557,8 @@ namespace Tot
 
             this.Size = new System.Drawing.Size(678, ultima_posicion_y + 140);
 
-            this.button_aceptar.Location = new System.Drawing.Point(537, ultima_posicion_y + 20 + 86);
-            this.button_cancelar.Location = new System.Drawing.Point(411, ultima_posicion_y + 20 + 86);
+            this.button_aceptar.Location = new System.Drawing.Point(507, ultima_posicion_y + 20 + 86);
+            this.button_cancelar.Location = new System.Drawing.Point(381, ultima_posicion_y + 20 + 86);
         }
 
         /// <summary>
@@ -934,7 +935,7 @@ namespace Tot
         #endregion
 
         #region comprobadores de internos
-        //todo comprobaciones reglas
+
         /*
          
          
@@ -1161,7 +1162,7 @@ namespace Tot
             return texto_retorno;
         }
 
-        //todo terminar
+        
         /// <summary>
         /// Método que comprueba el ingreso de las variables numericas
         /// </summary>
@@ -1855,6 +1856,9 @@ namespace Tot
             return -1;
         }
 
+        /// <summary>
+        /// Método que inicia el control para agregar una nueva regla
+        /// </summary>
         public void iniciarTareaAgregado()
         {
             limpiarControles();
@@ -1866,6 +1870,34 @@ namespace Tot
 
         }
 
+        public void iniciarTareaModificaciónRegla(string id_regla)
+        {
+            tipo_tarea = ControlEdicionReglas.MODIFICANDO;
+            mostrarRegla(id_regla, true);
+
+        }
+        
+        /// <summary>
+        /// Método que inicia el control para agregar una nueva regla
+        /// </summary>
+        /// <param name="id_regla">Identificador de la regla a eliminar</param>
+        public void iniciarTareaEliminarRegla(string id_regla)
+        {
+            tipo_tarea = ControlEdicionReglas.ELIMINANDO;
+            Regla regla = base_conocimiento.leerRegla(id_regla);
+            if (preguntasSiNoCancelar("Gestión de reglas", "Esta seguro de elminar la regla ID:" + id_regla + "\n" + regla) == 1)
+            {
+                base_conocimiento.eliminarRegla(id_regla);
+                limpiarControles();
+                Visible = false;
+                MessageBox.Show("La regla se ha eliminado correctamente.", "Gestión de reglas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (evento_cambio_reglas != null)
+                    evento_cambio_reglas();
+            }
+            tipo_tarea = ControlEdicionReglas.DESABILITADO;
+            if (evento_habilitar_controles != null)
+                evento_habilitar_controles(true);
+        }
         //*************************************************************************
         // Eventos
         //*************************************************************************
@@ -1932,6 +1964,32 @@ namespace Tot
                     tipo_tarea = DESABILITADO;
                     this.Visible = false;
                 }
+                if (evento_habilitar_controles != null)
+                    evento_habilitar_controles(true);
+            }
+            if (tipo_tarea == MODIFICANDO)
+            {
+                ArrayList antecedentes = agruparHechosAntecedenteEnArrayList();
+                ArrayList consecuente = agruparHechoConsecuenteEnArrayList();
+                string id_regla = textBox_id_regla.Text;
+                string aux_id_regla = base_conocimiento.modificarRegla(id_regla,antecedentes, consecuente);
+                if (!aux_id_regla.Equals(""))
+                {
+                    Regla aux_regla = base_conocimiento.leerRegla(aux_id_regla);
+                    MessageBox.Show("La regla ya existe en la base de conocimiento\n ID regla: " + aux_id_regla + "\n" + aux_regla, "Gestión de reglas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    Regla regla = base_conocimiento.leerRegla(id_regla);
+                    MessageBox.Show("La regla fue ingresada correctamente.\n (Id regla: " + id_regla + "\n"+regla, "Gestión de reglas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (evento_cambio_reglas != null)
+                        evento_cambio_reglas();
+                    limpiarControles();
+                    tipo_tarea = DESABILITADO;
+                    this.Visible = false;
+                    if (evento_habilitar_controles != null)
+                        evento_habilitar_controles(true);
+                }
             }
         }
         private void numeric_KeyPress(object sender, KeyPressEventArgs e)
@@ -1974,6 +2032,8 @@ namespace Tot
             limpiarControles();
             this.Visible = false;
             tipo_tarea = DESABILITADO;
+            if (evento_habilitar_controles != null)
+                evento_habilitar_controles(true);
         }
     }
 }

@@ -71,10 +71,21 @@ namespace Tot
             InitializeComponent();
             control_edicion_de_reglas.Visible = false;
             control_edicion_de_reglas.evento_cambio_reglas += new DelegadoCambioEnReglas(actualizarListaDeReglas);
+            control_edicion_de_reglas.evento_habilitar_controles += control_edicion_de_reglas_evento_habilitar_controles;
         }
-        
         /// <summary>
-        /// Método que actualiz la lista de variables en el listbox
+        /// Constructor
+        /// </summary>
+        /// <param name="base_conocimiento">Objeto base conocimiento a trabajar en el control</param>
+        public ControlGestionReglas(GestionadorBaseConocimiento base_conocimiento)
+        {
+            InitializeComponent();
+            this.base_conocimiento = base_conocimiento;
+            actualizarListaDeReglas();
+        }
+
+        /// <summary>
+        /// Método que actualiza la lista de variables en el listbox
         /// </summary>
         public void actualizarListaDeReglas()
         {
@@ -100,25 +111,53 @@ namespace Tot
             listBox_reglas.Refresh();
         }
 
+        /// <summary>
+        /// Método que habilita o desabilita los controles
+        /// </summary>
+        /// <param name="habilitar">Estable la habilitacion de los controles</param>
+        public void habilitarControles(bool habilitar)
+        {
+            button_agregar.Enabled = habilitar;
+            button_modificar.Enabled = habilitar;
+            button_eliminar.Enabled = habilitar;
+        }
+
         //*************************************************************************************************
         //  Eventos
         //*************************************************************************************************
 
-        public ControlGestionReglas(GestionadorBaseConocimiento base_conocimiento)
-        {
-            InitializeComponent();
-            this.base_conocimiento = base_conocimiento;
-            actualizarListaDeReglas();
-        }
+        
 
         private void button_agregar_Click(object sender, EventArgs e)
         {
-            control_edicion_de_reglas.iniciarTareaAgregado();
+            if (control_edicion_de_reglas.tipo_tarea == ControlEdicionReglas.DESABILITADO)
+            {
+                listBox_reglas.SelectedItem = null;
+                control_edicion_de_reglas.iniciarTareaAgregado();
+                habilitarControles(false);
+            }
         }
 
         private void actualizarListaReglas()
         {
             actualizarListaDeReglas();
+        }
+
+       
+
+        private void button_eliminar_Click(object sender, EventArgs e)
+        {
+            if (listBox_reglas.SelectedItem != null && control_edicion_de_reglas.tipo_tarea == ControlEdicionReglas.DESABILITADO)
+            {
+                habilitarControles(false);
+                ElementoListBox elemento = (ElementoListBox)listBox_reglas.SelectedItem;
+                control_edicion_de_reglas.iniciarTareaEliminarRegla(elemento.id);
+                listBox_reglas.SelectedItem = null;
+            }
+            else
+            {
+                MessageBox.Show("No se ha seleccionado ninguna regla.", "Gestión de reglas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void listBox_reglas_SelectedIndexChanged(object sender, EventArgs e)
@@ -128,7 +167,25 @@ namespace Tot
                 ElementoListBox elemento = (ElementoListBox)listBox_reglas.SelectedItem;
                 control_edicion_de_reglas.mostrarRegla(elemento.id);
             }
-            
+        }
+        void control_edicion_de_reglas_evento_habilitar_controles(bool habilitar)
+        {
+            habilitarControles(habilitar);
+        }
+
+        private void button_modificar_Click(object sender, EventArgs e)
+        {
+            if (listBox_reglas.SelectedItem != null && control_edicion_de_reglas.tipo_tarea == ControlEdicionReglas.DESABILITADO)
+            {
+                habilitarControles(false);
+                ElementoListBox elemento = (ElementoListBox)listBox_reglas.SelectedItem;
+                control_edicion_de_reglas.iniciarTareaModificaciónRegla(elemento.id);
+                listBox_reglas.SelectedItem = null;
+            }
+            else
+            {
+                MessageBox.Show("No se ha seleccionado ninguna regla.", "Gestión de reglas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

@@ -10,8 +10,6 @@ namespace SistemaExpertoLib
     [Serializable()]
     public class Variable
     {
-        //todo habilitar la utilizacion de rangos 
-        //todo habilitar variable numerica cardinal
         //********************************************************************************************
         //   Atributos
         //********************************************************************************************

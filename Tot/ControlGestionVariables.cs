@@ -499,7 +499,7 @@ namespace Tot
                 retorno += "La lista de elementos esta vacia";
                 marcarControl(LISTA_DE_ELEMENTOS, true);
             }
-            //todo termianr chequeo de variables
+          
             if (retorno.Equals(""))
                 return null;
             return retorno.Split('|');

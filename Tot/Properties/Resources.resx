@@ -124,6 +124,9 @@
   <data name="add60x60" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\add60x60.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="basurero 32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\basurero 32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="lupa_imagenes - 32x 32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\lupa_imagenes - 32x 32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -139,7 +142,7 @@
   <data name="remove60x60" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\remove60x60.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="basurero 32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\basurero 32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="update_256x256" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\update_256x256.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -84,7 +84,7 @@ namespace SistemaExpertoLib
         }
         
         /// <summary>
-        /// Se agrega un nuevo Hecho a lista de consecuentes
+        /// Estaqblece un  nuevo Hecho en el consecuentes
         /// </summary>
         /// <param name="hecho">Objeto tipo hecho que se va a agregar</param>
         public void agregarHechoAlConsecuente(Hecho hecho)

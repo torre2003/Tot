@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SistemaExpertoLib
 {
-    //todo comprobacion en minuscula y eliminar espacios en blanco al final de linea
+
     public class GestionadorBaseConocimiento
     {
         //*************************************************************************
@@ -698,6 +698,176 @@ namespace SistemaExpertoLib
             return id_regla;
         }
 
+   
+
+        /// <summary>
+        /// Método que modifica una regla existen en la base de conocimiento 
+        /// </summary>
+        /// <param name="id_regla">Identificador de la regla</param>
+        /// <param name="antecedentes">Se debe completar segun corresponda la variableArrayList[ArrayList[id_variable string ,codicion string ],ArrayList[id_variable string ,codicion string ,valor double],ArrayList[id_variable string ,codicion string ,valor string] ]</param>
+        /// <param name="consecuente">Se debe completar solo un array list correspondiente a la variable consecuente</param>
+        /// <returns>null si actualizo correctamente, id de la regla existente en caso contrario</returns>
+        public string modificarRegla(string id_regla, ArrayList antecedentes, ArrayList consecuente)
+        {
+            if (antecedentes.Count == 0 || consecuente == null || consecuente.Count == 0)
+                throw new System.ArgumentException("Error en la especificacion de Antecedentes o Consecuentes ");
+            Regla regla = manejador_archivos.extraerRegla(id_regla);
+            if(regla == null)
+                throw new System.ArgumentException("No existe la regla en la base de conocimiento");
+
+            string[] ids_hechos_antecedente = new string[antecedentes.Count];
+            string id_hecho_consecuente = null;
+            bool flag_regla = true;
+            //completando ids de los hechos antecedentes
+            for (int i = 0; i < antecedentes.Count; i++)
+            {
+                ArrayList aux_hecho = (ArrayList)antecedentes[i];
+                if (aux_hecho.Count < 1 || aux_hecho.Count > 3)
+                    throw new System.ArgumentException("Error en la especificacion del hecho", "" + aux_hecho);
+                if (aux_hecho.Count == 2)
+                {
+                    string id_hecho = buscarHecho((string)aux_hecho[0], (string)aux_hecho[1]);
+                    if (id_hecho == null)
+                    {
+                        id_hecho = agregarNuevoHecho((string)aux_hecho[0], (string)aux_hecho[1]);
+                        flag_regla = false;
+                    }
+                    ids_hechos_antecedente[i] = id_hecho;
+                }
+                if (aux_hecho.Count == 3)
+                {
+                    string tipo_valor = aux_hecho[2].GetType() + "";
+                    if (tipo_valor.Equals("System.String"))
+                    {
+                        string id_hecho = buscarHecho((string)aux_hecho[0], (string)aux_hecho[1], (string)aux_hecho[2]);
+                        if (id_hecho == null)
+                        {
+                            id_hecho = agregarNuevoHecho((string)aux_hecho[0], (string)aux_hecho[1], (string)aux_hecho[2]);
+                            flag_regla = false;
+                        }
+                        ids_hechos_antecedente[i] = id_hecho;
+                    }
+                    else
+                        if (tipo_valor.Equals("System.Double") || tipo_valor.Equals("System.Decimal"))
+                        {
+                            double valor = 0;
+                            if (tipo_valor.Equals("System.Decimal"))
+                            {
+                                decimal d = (decimal)aux_hecho[2];
+                                valor = (double)d;
+                            }
+                            else
+                                valor = (double)aux_hecho[2];
+                            string id_hecho = buscarHecho((string)aux_hecho[0], (string)aux_hecho[1], valor);
+                            if (id_hecho == null)
+                            {
+                                id_hecho = agregarNuevoHecho((string)aux_hecho[0], (string)aux_hecho[1], valor);
+                                flag_regla = false;
+                            }
+                            ids_hechos_antecedente[i] = id_hecho;
+                        }
+                        else
+                        {
+                            throw new System.ArgumentException("Error en la especificacion del hecho", "" + aux_hecho);
+                        }
+                }
+            }
+            //completando ids de los hechos consecuentes
+            {
+                if (consecuente.Count < 1 || consecuente.Count > 3)
+                    throw new System.ArgumentException("Error en la especificacion del hecho", "" + consecuente);
+                if (consecuente.Count == 2)
+                {
+                    string id_hecho = buscarHecho((string)consecuente[0], (string)consecuente[1]);
+                    if (id_hecho == null)
+                    {
+                        id_hecho = agregarNuevoHecho((string)consecuente[0], (string)consecuente[1]);
+                        flag_regla = false;
+                    }
+                    id_hecho_consecuente = id_hecho;
+                }
+                if (consecuente.Count == 3)
+                {
+                    string tipo_valor = consecuente[2].GetType() + "";
+                    if (tipo_valor.Equals("System.String"))
+                    {
+                        string id_hecho = buscarHecho((string)consecuente[0], (string)consecuente[1], (string)consecuente[2]);
+                        if (id_hecho == null)
+                        {
+                            id_hecho = agregarNuevoHecho((string)consecuente[0], (string)consecuente[1], (string)consecuente[2]);
+                            flag_regla = false;
+                        }
+                        id_hecho_consecuente = id_hecho;
+                    }
+                    else
+                        if (tipo_valor.Equals("System.Double") || tipo_valor.Equals("System.Decimal"))
+                        {
+                            double valor = 0;
+                            if (tipo_valor.Equals("System.Decimal"))
+                            {
+                                decimal d = (decimal)consecuente[2];
+                                valor = (double)d;
+                            }
+                            else
+                                valor = (double)consecuente[2];
+
+                            string id_hecho = buscarHecho((string)consecuente[0], (string)consecuente[1], valor);
+                            if (id_hecho == null)
+                            {
+                                id_hecho = agregarNuevoHecho((string)consecuente[0], (string)consecuente[1], valor);
+                                flag_regla = false;
+                            }
+                            id_hecho_consecuente = id_hecho;
+                        }
+                        else
+                        {
+                            throw new System.ArgumentException("Error en la especificacion del hecho", "" + consecuente);
+                        }
+                }
+            }
+
+
+            
+            string[] ids_hechos_antecedente_regla_antigua = regla.listarAntecedentes();
+
+            for (int i = 0; i < ids_hechos_antecedente.Length ;i++)
+                for (int j = 0; j  < ids_hechos_antecedente_regla_antigua.Length; j ++)
+                    if (ids_hechos_antecedente[i].Equals(ids_hechos_antecedente_regla_antigua[j]))
+                    {
+                        ids_hechos_antecedente[i] = "";
+                        ids_hechos_antecedente_regla_antigua[j] ="";
+                    }
+
+            for (int j = 0; j < ids_hechos_antecedente_regla_antigua.Length; j++)
+                if (!ids_hechos_antecedente_regla_antigua[j].Equals(""))
+                    regla.eliminarAntecedente(ids_hechos_antecedente_regla_antigua[j]);
+
+            for (int i = 0; i < ids_hechos_antecedente.Length; i++)
+            {
+                if (!ids_hechos_antecedente[i].Equals(""))
+                {
+                    Hecho hecho = manejador_archivos.extraerHecho(ids_hechos_antecedente[i]);
+                    regla.agregarHechoAlAntecedente(hecho);
+                }
+            }
+
+            if (!(regla.id_consecuente.Equals(id_hecho_consecuente)))
+            {
+                Hecho hecho = manejador_archivos.extraerHecho(id_hecho_consecuente);
+                regla.agregarHechoAlConsecuente(hecho);
+            }
+                
+            //Creando nueva regla
+            string id_regla_aux = null;
+            if (flag_regla)
+                id_regla_aux = comprobarReglaExistente(regla,id_regla);
+            if (id_regla_aux != null)
+                return id_regla_aux;
+            manejador_archivos.actualizarRegla(regla);
+            return "";
+        }
+
+
 
 
 
@@ -705,15 +875,20 @@ namespace SistemaExpertoLib
         /// Método que comprueba la existencia de una regla en la base de conocimiento
         /// </summary>
         /// <param name="regla_buscada">Regla a buscar</param>
+        /// <param name="id_omitir_regla">OPCIONAL: id de una regla a omitir</param>
         /// <returns>id de la regla encontrada, null si hay una regla igual en la base de conocimiento</returns>
-        public string comprobarReglaExistente(Regla regla_buscada)
+        public string comprobarReglaExistente(Regla regla_buscada,string id_omitir_regla = null)
         {
             string[] ids_reglas = manejador_archivos.listarArchivosEnDirectorio(AccesoDatos.REGLA);
             for (int i = 0; i < ids_reglas.Length; i++)
             {
                 Regla regla_existente = manejador_archivos.extraerRegla(ids_reglas[i]);
-                if (regla_buscada.Equals(regla_existente))
-                    return regla_existente.id_regla;
+                if (id_omitir_regla == null || !(id_omitir_regla.Equals(ids_reglas[i])))
+                {
+                    if (regla_buscada.Equals(regla_existente))
+                        return regla_existente.id_regla;
+                }
+                    
             }
             return null;
         }
@@ -723,14 +898,15 @@ namespace SistemaExpertoLib
         /// </summary>
         /// <param name="hechos_antecedente">Lista de hechos en el antecedente</param>
         /// <param name="hecho_consecuente">Lista de hechos en el consecuente</param>
+        /// <param name="id_omitir_regla">OPCIONAL: id de una regla a omitir</param>
         /// <returns>id de la regla encontrada, null si hay una regla igual en la base de conocimiento</returns>
-        public string comprobarReglaExistente(Hecho[] hechos_antecedente,Hecho hecho_consecuente)
+        public string comprobarReglaExistente(Hecho[] hechos_antecedente, Hecho hecho_consecuente, string id_omitir_regla = null)
         {
             Regla regla = new Regla("aux");
             for (int i = 0; i < hechos_antecedente.Length; i++)
                 regla.agregarHechoAlAntecedente(hechos_antecedente[i]);
             regla.agregarHechoAlConsecuente(hecho_consecuente);
-            return comprobarReglaExistente(regla);
+            return comprobarReglaExistente(regla,id_omitir_regla);
         }
 
 
@@ -739,8 +915,9 @@ namespace SistemaExpertoLib
         /// </summary>
         /// <param name="antecedentes">Se debe completar segun corresponda la variableArrayList[ArrayList[id_variable string ,codicion string ],ArrayList[id_variable string ,codicion string ,valor double],ArrayList[id_variable string ,codicion string ,valor string] ]</param>
         /// <param name="consecuente">Se debe completar solo un array list correspondiente a la variable consecuente</param>
+        /// <param name="id_omitir_regla">OPCIONAL: id de una regla a omitir</param>
         /// <returns>null si la regla ya se encuentra en la base de conocimiento </returns>
-        public string comprobarReglaExistente(ArrayList antecedentes, ArrayList consecuente)
+        public string comprobarReglaExistente(ArrayList antecedentes, ArrayList consecuente, string id_omitir_regla = null)
         {
             if (antecedentes.Count == 0 || consecuente == null || consecuente.Count == 0)
                 throw new System.ArgumentException("Error en la especificacion de Antecedentes o Consecuentes ");
@@ -854,16 +1031,9 @@ namespace SistemaExpertoLib
             for (int i = 0; i < hechos_antecedentes.Length; i++)
                 hechos_antecedentes[i] = manejador_archivos.extraerHecho(ids_hechos_antecedente[i]);
             Hecho hecho_consecuente = manejador_archivos.extraerHecho(id_hecho_consecuente);
-            return comprobarReglaExistente(hechos_antecedentes, hecho_consecuente);
+            return comprobarReglaExistente(hechos_antecedentes, hecho_consecuente,id_omitir_regla);
         }
 
-
-        /// <summary>
-        /// Método que comprueba la existencia de una regla en la base de conocimiento
-        /// </summary>
-        /// <param name="antecedentes">Se debe completar segun corresponda la variableArrayList[ArrayList[id_variable string ,codicion string ],ArrayList[id_variable string ,codicion string ,valor double],ArrayList[id_variable string ,codicion string ,valor string] ]</param>
-        /// <param name="consecuente">Se debe completar solo un array list correspondiente a la variable consecuente</param>
-        /// <returns>null si la regla ya se encuentra en la base de conocimiento </returns>
 
 
         /// <summary>
@@ -871,8 +1041,9 @@ namespace SistemaExpertoLib
         /// </summary>
         /// <param name="ids_hechos_antecedente">Ids de los hechos antecedentes</param>
         /// <param name="id_hecho_consecuente">Id del hecho consecuente</param>
+        /// <param name="id_omitir_regla">OPCIONAL: id de una regla a omitir</param>
         /// <returns>Id de la regla enconrtada, null si la regla no se ha encontrado</returns>
-        public string comprobarReglaExistente(string[] ids_hechos_antecedente,string id_hecho_consecuente)
+        public string comprobarReglaExistente(string[] ids_hechos_antecedente,string id_hecho_consecuente, string id_omitir_regla = null)
         {
             
             Hecho[] hechos_antecedentes = new Hecho[ids_hechos_antecedente.Length];
@@ -885,14 +1056,10 @@ namespace SistemaExpertoLib
             Hecho hecho_consecuente = manejador_archivos.extraerHecho(id_hecho_consecuente);
             if (hecho_consecuente == null)
                 return null;
-            return comprobarReglaExistente(hechos_antecedentes, hecho_consecuente);
+            return comprobarReglaExistente(hechos_antecedentes, hecho_consecuente, id_omitir_regla);
         }
 
-
-
-
-
-
+        
         /// <summary>
         /// Método para eliminar una regla de la base de conocimiento
         /// </summary>
