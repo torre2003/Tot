@@ -330,7 +330,9 @@ namespace Tot
                     {
                         NumericUpDown numeric_up_down = (NumericUpDown)control;
                         if (numeric_up_down.Name.Equals(id_controles))
-                            numeric_up_down.Value = (decimal)hecho.valor_numerico;
+                            if (hecho.valor_numerico != null)
+                                if (numeric_up_down.Minimum <= (decimal)hecho.valor_numerico && (decimal)hecho.valor_numerico <= numeric_up_down.Maximum)
+                                    numeric_up_down.Value = (decimal)hecho.valor_numerico;
                     }
                     else
                     if (tipo_control.Equals("System.Windows.Forms.ComboBox"))
@@ -380,7 +382,8 @@ namespace Tot
                 if (numericUpDown_entonces != null)
                 {
                     if (hecho.valor_numerico != null)
-                        numericUpDown_entonces.Value = (decimal)hecho.valor_numerico;
+                        if (numericUpDown_entonces.Minimum <= (decimal)hecho.valor_numerico && (decimal)hecho.valor_numerico <= numericUpDown_entonces.Maximum)
+                            numericUpDown_entonces.Value = (decimal)hecho.valor_numerico;
                 }
             }
         }

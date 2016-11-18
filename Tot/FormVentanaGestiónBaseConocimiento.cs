@@ -74,6 +74,21 @@ namespace Tot
             listarHechos();
         }
 
+        private void tabPage_reglas_Enter(object sender, EventArgs e)
+        {
+            control_gestion_de_reglas.actualizarListaDeReglas();
+        }
+
+        private void tabPage_hechos_Enter(object sender, EventArgs e)
+        {
+            listarHechos();
+        }
+
+        private void tabPage_variables_Enter(object sender, EventArgs e)
+        {
+            control_gestion_variables.actualizarListaDeVariables();
+        }
+
 
 
     }

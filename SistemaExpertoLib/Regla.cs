@@ -143,7 +143,7 @@ namespace SistemaExpertoLib
         public bool consultarConsecuente(string id_hecho)
         {
             if (!consecuente.id_hecho.Equals(""))
-                if (consecuente.id_hecho.Equals(""))
+                if (consecuente.id_hecho.Equals(id_hecho))
                     return true;
             return false;
         }

@@ -303,19 +303,20 @@ namespace SistemaExpertoLib
                         manejador_archivos.actualizarHecho(hecho);
                     }
                     string[] reglas_que_contienen_al_hecho = listarReglasConHecho(hechos_que_contienen_la_variable[i]);
-                    for (int j = 0; j < reglas_que_contienen_al_hecho.Length; j++)
-                    {
-                        Regla regla = manejador_archivos.extraerRegla(reglas_que_contienen_al_hecho[j]);
-                        regla.chequeo_de_consistencia = false;
-                        if (eliminar_hecho)
+                    if (reglas_que_contienen_al_hecho!= null)
+                        for (int j = 0; j < reglas_que_contienen_al_hecho.Length; j++)
                         {
-                            if (regla.consultarConsecuente(hechos_que_contienen_la_variable[i]))
-                                regla.eliminarConsecuente();
-                            else
-                                regla.eliminarAntecedente(hechos_que_contienen_la_variable[i]);
+                            Regla regla = manejador_archivos.extraerRegla(reglas_que_contienen_al_hecho[j]);
+                            regla.chequeo_de_consistencia = false;
+                            if (eliminar_hecho)
+                            {
+                                if (regla.consultarConsecuente(hechos_que_contienen_la_variable[i]))
+                                    regla.eliminarConsecuente();
+                                else
+                                    regla.eliminarAntecedente(hechos_que_contienen_la_variable[i]);
+                            }
+                            manejador_archivos.actualizarRegla(regla);
                         }
-                        manejador_archivos.actualizarRegla(regla);
-                    }
                 }
         }
 
@@ -851,7 +852,7 @@ namespace SistemaExpertoLib
                 }
             }
 
-            if (!(regla.id_consecuente.Equals(id_hecho_consecuente)))
+            if (regla.id_consecuente == null ||  (!(regla.id_consecuente.Equals(id_hecho_consecuente))))
             {
                 Hecho hecho = manejador_archivos.extraerHecho(id_hecho_consecuente);
                 regla.agregarHechoAlConsecuente(hecho);
@@ -863,6 +864,7 @@ namespace SistemaExpertoLib
                 id_regla_aux = comprobarReglaExistente(regla,id_regla);
             if (id_regla_aux != null)
                 return id_regla_aux;
+            regla.chequeo_de_consistencia = true;
             manejador_archivos.actualizarRegla(regla);
             return "";
         }

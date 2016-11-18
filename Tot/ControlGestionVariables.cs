@@ -274,10 +274,16 @@ namespace Tot
             button_eliminar_variable.Enabled = !habilitado;
 
             checkBox_rango.Enabled = habilitado;
-            textBox_max_rango.Enabled = false;
-            textBox_min_rango.Enabled = false;
-
-
+            if (modificando)
+            {
+                textBox_max_rango.Enabled = checkBox_rango.Checked;
+                textBox_min_rango.Enabled = checkBox_rango.Checked;
+            }
+            else
+            {
+                textBox_max_rango.Enabled = false;
+                textBox_min_rango.Enabled = false;
+            }
         }
 
         /// <summary>
@@ -667,6 +673,7 @@ namespace Tot
                         if (preguntasSiNoCancelar("Eliminando elemento en variable", "El elemento de la variable se encuentra seleccionado en una o varias reglas\n ¿Usted desea continuar?") == 1)
                         {
                             listBox_lista_de_elementos_variables.Items.Remove(elemento_seleciondado);
+                            
                             MessageBox.Show("Los cambios se concretaran al apretar aceptar", "Eliminando elemento a lista variable", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
@@ -752,10 +759,16 @@ namespace Tot
             {
                 if (1 == preguntasSiNoCancelar("Elimando variable", "La eliminación afectara algunas reglas y hechos de la base de conocimiento.\n ¿Usted desea continuar?"))
                 {
+                    base_conocimiento.desmarcarChequeoDeConsistenciaEnHechosYReglas(id_variable, true);
+                    base_conocimiento.eliminarVariable(id_variable);
+                    MessageBox.Show("La variable ha sido eliminada correctamente,\n Se han marcado las reglas afectadas", "Eliminando variable", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return true;
+                    /*
                     int opcion = preguntasSiNoCancelar("Eliminando variables", "¿Desea eliminar los hechos asociados a la variable?");
                     if (opcion == 1)
                     {
                         base_conocimiento.desmarcarChequeoDeConsistenciaEnHechosYReglas(id_variable, true);
+                        base_conocimiento.eliminarVariable(id_variable);
                         MessageBox.Show("La variable ha sido eliminada correctamente,\n Se han marcado las reglas afectadas", "Eliminando variable", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return true;
                     }
@@ -763,9 +776,11 @@ namespace Tot
                         if (opcion == 0)
                         {
                             base_conocimiento.desmarcarChequeoDeConsistenciaEnHechosYReglas(id_variable);
+                            base_conocimiento.eliminarVariable(id_variable);
                             MessageBox.Show("La variable ha sido eliminada correctamente,\n Se han marcado las reglas afectadas", "Eliminando variable", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             return true;
                         }
+                     */ 
                 }
             }
             return false;
