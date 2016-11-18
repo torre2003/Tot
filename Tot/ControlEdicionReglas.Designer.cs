@@ -42,6 +42,8 @@
             this.label_rango_entonces = new System.Windows.Forms.Label();
             this.numericUpDown_entonces = new System.Windows.Forms.NumericUpDown();
             this.textBox_entonces = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBox_id_regla = new System.Windows.Forms.TextBox();
             this.panel_entonces.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_entonces)).BeginInit();
             this.SuspendLayout();
@@ -60,7 +62,7 @@
             // 
             this.comboBox_var_entonces.FormattingEnabled = true;
             this.comboBox_var_entonces.Location = new System.Drawing.Point(87, 14);
-            this.comboBox_var_entonces.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBox_var_entonces.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBox_var_entonces.Name = "comboBox_var_entonces";
             this.comboBox_var_entonces.Size = new System.Drawing.Size(288, 24);
             this.comboBox_var_entonces.TabIndex = 3;
@@ -91,7 +93,7 @@
             // 
             this.comboBox_condicion_entonces.FormattingEnabled = true;
             this.comboBox_condicion_entonces.Location = new System.Drawing.Point(416, 17);
-            this.comboBox_condicion_entonces.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBox_condicion_entonces.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBox_condicion_entonces.Name = "comboBox_condicion_entonces";
             this.comboBox_condicion_entonces.Size = new System.Drawing.Size(103, 24);
             this.comboBox_condicion_entonces.TabIndex = 7;
@@ -111,7 +113,7 @@
             // 
             this.comboBox_lista_entonces.FormattingEnabled = true;
             this.comboBox_lista_entonces.Location = new System.Drawing.Point(549, 17);
-            this.comboBox_lista_entonces.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBox_lista_entonces.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBox_lista_entonces.Name = "comboBox_lista_entonces";
             this.comboBox_lista_entonces.Size = new System.Drawing.Size(185, 24);
             this.comboBox_lista_entonces.TabIndex = 10;
@@ -120,8 +122,8 @@
             // button_agregar
             // 
             this.button_agregar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.button_agregar.Location = new System.Drawing.Point(827, 28);
-            this.button_agregar.Margin = new System.Windows.Forms.Padding(4);
+            this.button_agregar.Location = new System.Drawing.Point(688, 21);
+            this.button_agregar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button_agregar.Name = "button_agregar";
             this.button_agregar.Size = new System.Drawing.Size(52, 159);
             this.button_agregar.TabIndex = 12;
@@ -131,20 +133,21 @@
             // 
             // button_cancelar
             // 
-            this.button_cancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_cancelar.Location = new System.Drawing.Point(551, 194);
-            this.button_cancelar.Margin = new System.Windows.Forms.Padding(4);
+            this.button_cancelar.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.button_cancelar.Location = new System.Drawing.Point(489, 188);
+            this.button_cancelar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button_cancelar.Name = "button_cancelar";
             this.button_cancelar.Size = new System.Drawing.Size(160, 28);
             this.button_cancelar.TabIndex = 13;
             this.button_cancelar.Text = "Cancelar";
             this.button_cancelar.UseVisualStyleBackColor = true;
+            this.button_cancelar.Click += new System.EventHandler(this.button_cancelar_Click);
             // 
             // button_aceptar
             // 
-            this.button_aceptar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_aceptar.Location = new System.Drawing.Point(719, 194);
-            this.button_aceptar.Margin = new System.Windows.Forms.Padding(4);
+            this.button_aceptar.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.button_aceptar.Location = new System.Drawing.Point(657, 188);
+            this.button_aceptar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button_aceptar.Name = "button_aceptar";
             this.button_aceptar.Size = new System.Drawing.Size(160, 28);
             this.button_aceptar.TabIndex = 15;
@@ -164,14 +167,14 @@
             this.panel_entonces.Controls.Add(this.comboBox_condicion_entonces);
             this.panel_entonces.Controls.Add(this.comboBox_lista_entonces);
             this.panel_entonces.Location = new System.Drawing.Point(21, 122);
-            this.panel_entonces.Margin = new System.Windows.Forms.Padding(4);
+            this.panel_entonces.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel_entonces.Name = "panel_entonces";
             this.panel_entonces.Size = new System.Drawing.Size(796, 64);
             this.panel_entonces.TabIndex = 16;
             // 
             // label_rango_entonces
             // 
-            this.label_rango_entonces.Location = new System.Drawing.Point(546, 43);
+            this.label_rango_entonces.Location = new System.Drawing.Point(547, 43);
             this.label_rango_entonces.Name = "label_rango_entonces";
             this.label_rango_entonces.Size = new System.Drawing.Size(188, 17);
             this.label_rango_entonces.TabIndex = 13;
@@ -182,6 +185,7 @@
             // numericUpDown_entonces
             // 
             this.numericUpDown_entonces.Location = new System.Drawing.Point(549, 17);
+            this.numericUpDown_entonces.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDown_entonces.Name = "numericUpDown_entonces";
             this.numericUpDown_entonces.Size = new System.Drawing.Size(185, 22);
             this.numericUpDown_entonces.TabIndex = 12;
@@ -190,23 +194,45 @@
             // textBox_entonces
             // 
             this.textBox_entonces.Location = new System.Drawing.Point(549, 18);
+            this.textBox_entonces.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox_entonces.Name = "textBox_entonces";
             this.textBox_entonces.Size = new System.Drawing.Size(185, 22);
             this.textBox_entonces.TabIndex = 11;
             this.textBox_entonces.Visible = false;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(4, 0);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(59, 17);
+            this.label4.TabIndex = 17;
+            this.label4.Text = "Id regla:";
+            // 
+            // textBox_id_regla
+            // 
+            this.textBox_id_regla.Location = new System.Drawing.Point(68, 0);
+            this.textBox_id_regla.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox_id_regla.Name = "textBox_id_regla";
+            this.textBox_id_regla.ReadOnly = true;
+            this.textBox_id_regla.Size = new System.Drawing.Size(79, 22);
+            this.textBox_id_regla.TabIndex = 18;
+            // 
             // ControlEdicionReglas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.button_agregar);
+            this.Controls.Add(this.textBox_id_regla);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.panel_entonces);
             this.Controls.Add(this.button_aceptar);
             this.Controls.Add(this.button_cancelar);
-            this.Controls.Add(this.button_agregar);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "ControlEdicionReglas";
             this.Size = new System.Drawing.Size(907, 247);
             this.panel_entonces.ResumeLayout(false);
@@ -233,5 +259,7 @@
         private System.Windows.Forms.TextBox textBox_entonces;
         private System.Windows.Forms.NumericUpDown numericUpDown_entonces;
         private System.Windows.Forms.Label label_rango_entonces;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBox_id_regla;
     }
 }
