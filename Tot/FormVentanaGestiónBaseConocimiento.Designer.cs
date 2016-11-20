@@ -62,7 +62,7 @@
             this.tabPage_variables.Controls.Add(this.control_gestion_variables);
             this.tabPage_variables.Location = new System.Drawing.Point(4, 22);
             this.tabPage_variables.Name = "tabPage_variables";
-            this.tabPage_variables.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage_variables.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage_variables.Size = new System.Drawing.Size(781, 645);
             this.tabPage_variables.TabIndex = 0;
             this.tabPage_variables.Text = "Variables";
@@ -75,7 +75,7 @@
             this.control_gestion_variables.Dock = System.Windows.Forms.DockStyle.Fill;
             this.control_gestion_variables.id = "";
             this.control_gestion_variables.Location = new System.Drawing.Point(3, 3);
-            this.control_gestion_variables.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.control_gestion_variables.Margin = new System.Windows.Forms.Padding(4);
             this.control_gestion_variables.MinimumSize = new System.Drawing.Size(780, 640);
             this.control_gestion_variables.Name = "control_gestion_variables";
             this.control_gestion_variables.nombre = "";
@@ -97,7 +97,7 @@
             this.tabPage_hechos.Controls.Add(this.listBox_hechos);
             this.tabPage_hechos.Location = new System.Drawing.Point(4, 22);
             this.tabPage_hechos.Name = "tabPage_hechos";
-            this.tabPage_hechos.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage_hechos.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage_hechos.Size = new System.Drawing.Size(781, 645);
             this.tabPage_hechos.TabIndex = 1;
             this.tabPage_hechos.Text = "Hechos";
@@ -108,7 +108,7 @@
             // 
             this.button_update.Image = global::Tot.Properties.Resources.update_256x256;
             this.button_update.Location = new System.Drawing.Point(398, 141);
-            this.button_update.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button_update.Margin = new System.Windows.Forms.Padding(2);
             this.button_update.Name = "button_update";
             this.button_update.Size = new System.Drawing.Size(288, 304);
             this.button_update.TabIndex = 2;
@@ -129,7 +129,7 @@
             // 
             this.listBox_hechos.FormattingEnabled = true;
             this.listBox_hechos.Location = new System.Drawing.Point(22, 28);
-            this.listBox_hechos.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.listBox_hechos.Margin = new System.Windows.Forms.Padding(2);
             this.listBox_hechos.Name = "listBox_hechos";
             this.listBox_hechos.Size = new System.Drawing.Size(282, 576);
             this.listBox_hechos.TabIndex = 0;
@@ -139,7 +139,7 @@
             this.tabPage_reglas.Controls.Add(this.control_gestion_de_reglas);
             this.tabPage_reglas.Location = new System.Drawing.Point(4, 22);
             this.tabPage_reglas.Name = "tabPage_reglas";
-            this.tabPage_reglas.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage_reglas.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage_reglas.Size = new System.Drawing.Size(781, 645);
             this.tabPage_reglas.TabIndex = 2;
             this.tabPage_reglas.Text = "Reglas";
@@ -153,7 +153,7 @@
             this.control_gestion_de_reglas.base_conocimiento = null;
             this.control_gestion_de_reglas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.control_gestion_de_reglas.Location = new System.Drawing.Point(3, 3);
-            this.control_gestion_de_reglas.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.control_gestion_de_reglas.Margin = new System.Windows.Forms.Padding(4);
             this.control_gestion_de_reglas.Name = "control_gestion_de_reglas";
             this.control_gestion_de_reglas.Size = new System.Drawing.Size(775, 639);
             this.control_gestion_de_reglas.TabIndex = 0;

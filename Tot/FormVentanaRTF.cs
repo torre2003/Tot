@@ -23,7 +23,7 @@ namespace Tot
             get { return editor_avanzado_rtf._ruta_obligatoria_guardado; }
             set { editor_avanzado_rtf._ruta_obligatoria_guardado = value; }
         }
-        
+        public bool cancelar_apertura_archivo = false;
 
         //*************************************************************************
         //         Métodos
@@ -45,5 +45,16 @@ namespace Tot
             
         }
 
+
+        public void abrirArchivo(string ruta)
+        {
+            editor_avanzado_rtf.abrirArchivo(ruta);
+        }
+
+        private void FormVentanaRTF_Shown(object sender, EventArgs e)
+        {
+            if (!cancelar_apertura_archivo)
+                editor_avanzado_rtf.abrirArchivo(ruta_archivo);
+        }
     }
 }

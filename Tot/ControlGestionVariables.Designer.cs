@@ -42,12 +42,8 @@
             this.checkBox_variable_de_inicio = new System.Windows.Forms.CheckBox();
             this.button_cancelar = new System.Windows.Forms.Button();
             this.button_aceptar = new System.Windows.Forms.Button();
-            this.button_selecion_imagen = new System.Windows.Forms.Button();
             this.button_seleccion_documento = new System.Windows.Forms.Button();
-            this.textBox_ruta_imagen = new System.Windows.Forms.TextBox();
-            this.textBox_ruta_RTF = new System.Windows.Forms.TextBox();
             this.textBox_texto_consulta = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -154,7 +150,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(100, 5);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(102, 15);
+            this.label1.Size = new System.Drawing.Size(89, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Lista de variables";
             // 
@@ -197,12 +193,8 @@
             this.panel3.Controls.Add(this.checkBox_variable_de_inicio);
             this.panel3.Controls.Add(this.button_cancelar);
             this.panel3.Controls.Add(this.button_aceptar);
-            this.panel3.Controls.Add(this.button_selecion_imagen);
             this.panel3.Controls.Add(this.button_seleccion_documento);
-            this.panel3.Controls.Add(this.textBox_ruta_imagen);
-            this.panel3.Controls.Add(this.textBox_ruta_RTF);
             this.panel3.Controls.Add(this.textBox_texto_consulta);
-            this.panel3.Controls.Add(this.label11);
             this.panel3.Controls.Add(this.label10);
             this.panel3.Controls.Add(this.label9);
             this.panel3.Controls.Add(this.panel4);
@@ -220,9 +212,9 @@
             // checkBox_variable_preguntable_al_usuario
             // 
             this.checkBox_variable_preguntable_al_usuario.AutoSize = true;
-            this.checkBox_variable_preguntable_al_usuario.Location = new System.Drawing.Point(297, 61);
+            this.checkBox_variable_preguntable_al_usuario.Location = new System.Drawing.Point(297, 73);
             this.checkBox_variable_preguntable_al_usuario.Name = "checkBox_variable_preguntable_al_usuario";
-            this.checkBox_variable_preguntable_al_usuario.Size = new System.Drawing.Size(200, 19);
+            this.checkBox_variable_preguntable_al_usuario.Size = new System.Drawing.Size(171, 17);
             this.checkBox_variable_preguntable_al_usuario.TabIndex = 18;
             this.checkBox_variable_preguntable_al_usuario.Text = "Variable preguntable al usuario";
             this.checkBox_variable_preguntable_al_usuario.UseVisualStyleBackColor = true;
@@ -230,9 +222,9 @@
             // checkBox_variable_de_inicio
             // 
             this.checkBox_variable_de_inicio.AutoSize = true;
-            this.checkBox_variable_de_inicio.Location = new System.Drawing.Point(175, 60);
+            this.checkBox_variable_de_inicio.Location = new System.Drawing.Point(175, 72);
             this.checkBox_variable_de_inicio.Name = "checkBox_variable_de_inicio";
-            this.checkBox_variable_de_inicio.Size = new System.Drawing.Size(123, 19);
+            this.checkBox_variable_de_inicio.Size = new System.Drawing.Size(106, 17);
             this.checkBox_variable_de_inicio.TabIndex = 17;
             this.checkBox_variable_de_inicio.Text = "Variable de inicio";
             this.checkBox_variable_de_inicio.UseVisualStyleBackColor = true;
@@ -258,73 +250,39 @@
             this.button_aceptar.UseVisualStyleBackColor = true;
             this.button_aceptar.Click += new System.EventHandler(this.button_aceptar_Click);
             // 
-            // button_selecion_imagen
-            // 
-            this.button_selecion_imagen.Image = global::Tot.Properties.Resources.lupa_imagenes___32x_32;
-            this.button_selecion_imagen.Location = new System.Drawing.Point(382, 509);
-            this.button_selecion_imagen.Name = "button_selecion_imagen";
-            this.button_selecion_imagen.Size = new System.Drawing.Size(46, 37);
-            this.button_selecion_imagen.TabIndex = 14;
-            this.button_selecion_imagen.UseVisualStyleBackColor = true;
-            this.button_selecion_imagen.Click += new System.EventHandler(this.button_selecion_imagen_Click);
-            // 
             // button_seleccion_documento
             // 
             this.button_seleccion_documento.Image = global::Tot.Properties.Resources.lupa_documentos___32_x_32;
-            this.button_seleccion_documento.Location = new System.Drawing.Point(382, 443);
+            this.button_seleccion_documento.Location = new System.Drawing.Point(223, 493);
             this.button_seleccion_documento.Name = "button_seleccion_documento";
             this.button_seleccion_documento.Size = new System.Drawing.Size(46, 37);
             this.button_seleccion_documento.TabIndex = 13;
             this.button_seleccion_documento.UseVisualStyleBackColor = true;
             this.button_seleccion_documento.Click += new System.EventHandler(this.button_seleccion_documento_Click);
             // 
-            // textBox_ruta_imagen
-            // 
-            this.textBox_ruta_imagen.Enabled = false;
-            this.textBox_ruta_imagen.Location = new System.Drawing.Point(29, 518);
-            this.textBox_ruta_imagen.Name = "textBox_ruta_imagen";
-            this.textBox_ruta_imagen.Size = new System.Drawing.Size(346, 20);
-            this.textBox_ruta_imagen.TabIndex = 12;
-            // 
-            // textBox_ruta_RTF
-            // 
-            this.textBox_ruta_RTF.Enabled = false;
-            this.textBox_ruta_RTF.Location = new System.Drawing.Point(29, 452);
-            this.textBox_ruta_RTF.Name = "textBox_ruta_RTF";
-            this.textBox_ruta_RTF.Size = new System.Drawing.Size(346, 20);
-            this.textBox_ruta_RTF.TabIndex = 11;
-            // 
             // textBox_texto_consulta
             // 
-            this.textBox_texto_consulta.Location = new System.Drawing.Point(29, 389);
+            this.textBox_texto_consulta.Location = new System.Drawing.Point(21, 416);
+            this.textBox_texto_consulta.Multiline = true;
             this.textBox_texto_consulta.Name = "textBox_texto_consulta";
-            this.textBox_texto_consulta.Size = new System.Drawing.Size(346, 20);
+            this.textBox_texto_consulta.Size = new System.Drawing.Size(420, 60);
             this.textBox_texto_consulta.TabIndex = 10;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(18, 487);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(152, 15);
-            this.label11.TabIndex = 9;
-            this.label11.Text = "Archivo imagen descriptivo";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(18, 425);
+            this.label10.Location = new System.Drawing.Point(26, 505);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(133, 15);
+            this.label10.Size = new System.Drawing.Size(180, 13);
             this.label10.TabIndex = 8;
-            this.label10.Text = "Archivo RTF descriptivo";
+            this.label10.Text = "Descripción especifica de la variable";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(18, 362);
+            this.label9.Location = new System.Drawing.Point(18, 400);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(86, 15);
+            this.label9.Size = new System.Drawing.Size(77, 13);
             this.label9.TabIndex = 7;
             this.label9.Text = "Texto consulta";
             // 
@@ -336,7 +294,7 @@
             this.panel4.Controls.Add(this.radioButton_tipo_numerico);
             this.panel4.Controls.Add(this.radioButton_tipo_booleano);
             this.panel4.Controls.Add(this.label5);
-            this.panel4.Location = new System.Drawing.Point(13, 130);
+            this.panel4.Location = new System.Drawing.Point(13, 167);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(455, 212);
             this.panel4.TabIndex = 6;
@@ -432,7 +390,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(105, 119);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(11, 15);
+            this.label8.Size = new System.Drawing.Size(10, 13);
             this.label8.TabIndex = 7;
             this.label8.Text = "-";
             // 
@@ -441,7 +399,7 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(128, 100);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(33, 15);
+            this.label7.Size = new System.Drawing.Size(30, 13);
             this.label7.TabIndex = 6;
             this.label7.Text = "MAX";
             // 
@@ -450,7 +408,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(61, 100);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(30, 15);
+            this.label6.Size = new System.Drawing.Size(27, 13);
             this.label6.TabIndex = 5;
             this.label6.Text = "MIN";
             // 
@@ -473,7 +431,7 @@
             this.checkBox_rango.AutoSize = true;
             this.checkBox_rango.Location = new System.Drawing.Point(19, 70);
             this.checkBox_rango.Name = "checkBox_rango";
-            this.checkBox_rango.Size = new System.Drawing.Size(66, 19);
+            this.checkBox_rango.Size = new System.Drawing.Size(58, 17);
             this.checkBox_rango.TabIndex = 2;
             this.checkBox_rango.Text = "Rango";
             this.checkBox_rango.UseVisualStyleBackColor = true;
@@ -484,7 +442,7 @@
             this.radioButton_cardinal.AutoSize = true;
             this.radioButton_cardinal.Location = new System.Drawing.Point(121, 25);
             this.radioButton_cardinal.Name = "radioButton_cardinal";
-            this.radioButton_cardinal.Size = new System.Drawing.Size(74, 19);
+            this.radioButton_cardinal.Size = new System.Drawing.Size(63, 17);
             this.radioButton_cardinal.TabIndex = 1;
             this.radioButton_cardinal.TabStop = true;
             this.radioButton_cardinal.Text = "Cardinal";
@@ -495,7 +453,7 @@
             this.radioButton_Continuo.AutoSize = true;
             this.radioButton_Continuo.Location = new System.Drawing.Point(40, 25);
             this.radioButton_Continuo.Name = "radioButton_Continuo";
-            this.radioButton_Continuo.Size = new System.Drawing.Size(54, 19);
+            this.radioButton_Continuo.Size = new System.Drawing.Size(47, 17);
             this.radioButton_Continuo.TabIndex = 0;
             this.radioButton_Continuo.TabStop = true;
             this.radioButton_Continuo.Text = "Real";
@@ -506,7 +464,7 @@
             this.radioButton_tipo_lista.AutoSize = true;
             this.radioButton_tipo_lista.Location = new System.Drawing.Point(19, 142);
             this.radioButton_tipo_lista.Name = "radioButton_tipo_lista";
-            this.radioButton_tipo_lista.Size = new System.Drawing.Size(132, 19);
+            this.radioButton_tipo_lista.Size = new System.Drawing.Size(113, 17);
             this.radioButton_tipo_lista.TabIndex = 7;
             this.radioButton_tipo_lista.TabStop = true;
             this.radioButton_tipo_lista.Text = "Lista de elementos";
@@ -518,7 +476,7 @@
             this.radioButton_tipo_numerico.AutoSize = true;
             this.radioButton_tipo_numerico.Location = new System.Drawing.Point(19, 93);
             this.radioButton_tipo_numerico.Name = "radioButton_tipo_numerico";
-            this.radioButton_tipo_numerico.Size = new System.Drawing.Size(82, 19);
+            this.radioButton_tipo_numerico.Size = new System.Drawing.Size(70, 17);
             this.radioButton_tipo_numerico.TabIndex = 6;
             this.radioButton_tipo_numerico.TabStop = true;
             this.radioButton_tipo_numerico.Text = "Númerico";
@@ -530,7 +488,7 @@
             this.radioButton_tipo_booleano.AutoSize = true;
             this.radioButton_tipo_booleano.Location = new System.Drawing.Point(19, 48);
             this.radioButton_tipo_booleano.Name = "radioButton_tipo_booleano";
-            this.radioButton_tipo_booleano.Size = new System.Drawing.Size(81, 19);
+            this.radioButton_tipo_booleano.Size = new System.Drawing.Size(70, 17);
             this.radioButton_tipo_booleano.TabIndex = 5;
             this.radioButton_tipo_booleano.TabStop = true;
             this.radioButton_tipo_booleano.Text = "Booleano";
@@ -542,14 +500,14 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(16, 17);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(96, 15);
+            this.label5.Size = new System.Drawing.Size(84, 13);
             this.label5.TabIndex = 4;
             this.label5.Text = "Tipo de Variable";
             // 
             // textBox_nombre
             // 
             this.textBox_nombre.BackColor = System.Drawing.SystemColors.Window;
-            this.textBox_nombre.Location = new System.Drawing.Point(99, 93);
+            this.textBox_nombre.Location = new System.Drawing.Point(99, 118);
             this.textBox_nombre.Name = "textBox_nombre";
             this.textBox_nombre.Size = new System.Drawing.Size(350, 20);
             this.textBox_nombre.TabIndex = 5;
@@ -557,16 +515,16 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(18, 93);
+            this.label4.Location = new System.Drawing.Point(18, 118);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(52, 15);
+            this.label4.Size = new System.Drawing.Size(44, 13);
             this.label4.TabIndex = 3;
             this.label4.Text = "Nombre";
             // 
             // textBox_id_variable
             // 
             this.textBox_id_variable.Enabled = false;
-            this.textBox_id_variable.Location = new System.Drawing.Point(99, 58);
+            this.textBox_id_variable.Location = new System.Drawing.Point(99, 70);
             this.textBox_id_variable.Name = "textBox_id_variable";
             this.textBox_id_variable.Size = new System.Drawing.Size(70, 20);
             this.textBox_id_variable.TabIndex = 2;
@@ -574,9 +532,9 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(18, 58);
+            this.label3.Location = new System.Drawing.Point(18, 70);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(17, 15);
+            this.label3.Size = new System.Drawing.Size(16, 13);
             this.label3.TabIndex = 1;
             this.label3.Text = "Id";
             // 
@@ -585,7 +543,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(18, 30);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(94, 15);
+            this.label2.Size = new System.Drawing.Size(81, 13);
             this.label2.TabIndex = 0;
             this.label2.Text = "Detalle Variable";
             // 
@@ -664,13 +622,9 @@
         private System.Windows.Forms.RadioButton radioButton_tipo_numerico;
         private System.Windows.Forms.RadioButton radioButton_tipo_booleano;
         private System.Windows.Forms.Button button_seleccion_documento;
-        private System.Windows.Forms.TextBox textBox_ruta_imagen;
-        private System.Windows.Forms.TextBox textBox_ruta_RTF;
         private System.Windows.Forms.TextBox textBox_texto_consulta;
-        private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button button_selecion_imagen;
         private System.Windows.Forms.Button button_aceptar;
         private System.Windows.Forms.OpenFileDialog openFileDialog_archivos_RTF;
         private System.Windows.Forms.OpenFileDialog openFileDialog_imagenes;

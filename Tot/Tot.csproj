@@ -62,12 +62,6 @@
     <Compile Include="ControlGestionVariables.Designer.cs">
       <DependentUpon>ControlGestionVariables.cs</DependentUpon>
     </Compile>
-    <Compile Include="ControlRTF.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ControlRTF.Designer.cs">
-      <DependentUpon>ControlRTF.cs</DependentUpon>
-    </Compile>
     <Compile Include="FormVentanaGestiónBaseConocimiento.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,9 +90,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ControlGestionVariables.resx">
       <DependentUpon>ControlGestionVariables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ControlRTF.resx">
-      <DependentUpon>ControlRTF.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormVentanaGestiónBaseConocimiento.resx">
       <DependentUpon>FormVentanaGestiónBaseConocimiento.cs</DependentUpon>

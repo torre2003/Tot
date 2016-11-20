@@ -21,7 +21,7 @@ namespace SistemaExpertoLib
         public const int HECHO = 2;
         public const int REGLA = 3;
 
-        string ruta_carpeta_archivos = "base conocimiento\\";
+        public string ruta_carpeta_archivos = "base conocimiento\\";
 
 
 
