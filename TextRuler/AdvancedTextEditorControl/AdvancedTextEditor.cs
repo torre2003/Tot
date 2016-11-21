@@ -17,6 +17,28 @@ namespace TextRuler.AdvancedTextEditorControl
         public string _ruta_obligatoria_guardado = "";
         int checkPrint = 0;        
 
+        public bool modo_lectura 
+        {
+            get
+            {
+                return _modo_lectura;
+            }
+            set
+            {
+                _modo_lectura = value;
+                habilitarEdicion(!value);
+            }
+        }
+        bool _modo_lectura = false;
+
+        private void habilitarEdicion(bool habilitado)
+        {
+            Toolbox_Formatting.Enabled = habilitado;
+            Toolbox_Main.Enabled = habilitado;
+            TextEditorMenu.Enabled = habilitado;
+            TextEditor.Enabled = habilitado;
+        }
+
         private string GetFilePath()
         {
             OpenFileDialog o = new OpenFileDialog();
@@ -128,6 +150,37 @@ namespace TextRuler.AdvancedTextEditorControl
 
             this.TextEditor.SelectionListType = pls;
         }
+
+
+        public void abrirArchivo(string file)
+        {
+            try
+            {
+                if (file != "")
+                {
+                    Clear();
+                    try
+                    {
+                        this.TextEditor.Rtf = System.IO.File.ReadAllText(file, System.Text.Encoding.Default);
+                        this.TextEditor.Refresh();
+                    }
+                    catch (Exception) //error occured, that means we loaded invalid RTF, so load as plain text
+                    {
+                        MessageBox.Show("Error al abrir el archivo", "Editor rtf", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        this.TextEditor.Text = System.IO.File.ReadAllText(file, System.Text.Encoding.Default);
+                    }
+                    _path = file;
+                }
+                file = null;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No se pudo abrir el archivo", "Editor rtf", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Clear();
+            }
+        }
+
+
         private void Open()
         {
             try
@@ -155,11 +208,12 @@ namespace TextRuler.AdvancedTextEditorControl
             }
         }
 
-        private void GuardadoObligaorio()
+        public void GuardadoObligatorio()
         {
             try
             {
-                if (_path == "")
+                if (_ruta_obligatoria_guardado == "")
+
                 {
                     MessageBox.Show("No se ha establecido la ruta del archivo RTF","Guardando Archivo",MessageBoxButtons.OK,MessageBoxIcon.Error);
                     /*
@@ -175,11 +229,14 @@ namespace TextRuler.AdvancedTextEditorControl
                 }
                 else
                 {
-                    this.TextEditor.SaveFile(_path, RichTextBoxStreamType.RichText);
+
+                    this.TextEditor.SaveFile(_ruta_obligatoria_guardado, RichTextBoxStreamType.RichText);
+                    MessageBox.Show("Archivo guardado correctamente.", "Editor rtf", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception)
             {
+                MessageBox.Show("No se pudo guardar el archivo", "Editor rtf", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         
@@ -982,19 +1039,20 @@ namespace TextRuler.AdvancedTextEditorControl
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            GuardadoObligaorio();
+            GuardadoObligatorio();
             //Save(false);
         }
 
         private void mnuSave_Click(object sender, EventArgs e)
         {
-            GuardadoObligaorio();
+
+            GuardadoObligatorio();
             //Save(false);
         }
 
         private void mnuSaveAs_Click(object sender, EventArgs e)
         {
-            GuardadoObligaorio();
+            GuardadoObligatorio();
             //Save(false);
         }
 

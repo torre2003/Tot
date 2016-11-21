@@ -26,7 +26,11 @@ namespace SistemaExpertoLib
         int ultima_id_hecho = 0;
         int ultima_id_regla = 0;
 
-        public string ruta_carpeta_archivos;
+        public string ruta_carpeta_archivos
+        {
+            get{return manejador_archivos.ruta_carpeta_archivos;}
+        }
+
         AccesoDatos manejador_archivos;
 
 

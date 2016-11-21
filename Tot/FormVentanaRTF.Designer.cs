@@ -38,6 +38,8 @@
             this.MinimumSize = new System.Drawing.Size(596, 623);
             this.Name = "FormVentanaRTF";
             this.Text = "Editor de contenido Variable ";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormVentanaRTF_FormClosing);
+            this.Shown += new System.EventHandler(this.FormVentanaRTF_Shown);
             this.ResumeLayout(false);
 
         }

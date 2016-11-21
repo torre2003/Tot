@@ -52,6 +52,8 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnNumberedList = new System.Windows.Forms.ToolStripButton();
             this.btnBulletedList = new System.Windows.Forms.ToolStripButton();
+            this.TextEditor = new ExtendedRichTextBox();
+            this.Ruler = new TextRuler.TextRulerControl.TextRuler();
             this.TextEditorMenu = new System.Windows.Forms.MenuStrip();
             this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuNew = new System.Windows.Forms.ToolStripMenuItem();
@@ -323,6 +325,64 @@
             this.btnBulletedList.Size = new System.Drawing.Size(23, 23);
             this.btnBulletedList.Click += new System.EventHandler(this.btnBulletedList_Click);
             // 
+            // TextEditor
+            // 
+            this.TextEditor.AcceptsTab = true;
+            this.TextEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TextEditor.EnableAutoDragDrop = true;
+            this.TextEditor.HideSelection = false;
+            this.TextEditor.Location = new System.Drawing.Point(30, 102);
+            this.TextEditor.Name = "TextEditor";
+            charStyle2.Bold = false;
+            charStyle2.Italic = false;
+            charStyle2.Link = false;
+            charStyle2.Strikeout = false;
+            charStyle2.Underline = false;
+            this.TextEditor.SelectionCharStyle = charStyle2;
+            this.TextEditor.SelectionFont2 = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Inch);
+            paraLineSpacing2.ExactSpacing = 0;
+            paraLineSpacing2.SpacingStyle = ExtendedRichTextBox.ParaLineSpacing.LineSpacingStyle.Unknown;
+            this.TextEditor.SelectionLineSpacing = paraLineSpacing2;
+            paraListStyle2.BulletCharCode = ((short)(0));
+            paraListStyle2.NumberingStart = ((short)(0));
+            paraListStyle2.Style = ExtendedRichTextBox.ParaListStyle.ListStyle.NumberAndParenthesis;
+            paraListStyle2.Type = ExtendedRichTextBox.ParaListStyle.ListType.None;
+            this.TextEditor.SelectionListType = paraListStyle2;
+            this.TextEditor.SelectionOffsetType = ExtendedRichTextBox.OffsetType.None;
+            this.TextEditor.SelectionSpaceAfter = 0;
+            this.TextEditor.SelectionSpaceBefore = 0;
+            this.TextEditor.Size = new System.Drawing.Size(654, 397);
+            this.TextEditor.TabIndex = 5;
+            this.TextEditor.Text = "";
+            this.TextEditor.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.TextEditor_LinkClicked);
+            this.TextEditor.SelectionChanged += new System.EventHandler(this.TextEditor_SelectionChanged);
+            this.TextEditor.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TextEditor_MouseMove);
+            this.TextEditor.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TextEditor_MouseUp);
+            // 
+            // Ruler
+            // 
+            this.Ruler.BackColor = System.Drawing.Color.Transparent;
+            this.Ruler.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.Ruler.Font = new System.Drawing.Font("Arial", 7.25F);
+            this.Ruler.LeftHangingIndent = 19;
+            this.Ruler.LeftIndent = 19;
+            this.Ruler.LeftMargin = 1;
+            this.Ruler.Location = new System.Drawing.Point(30, 78);
+            this.Ruler.Name = "Ruler";
+            this.Ruler.NoMargins = true;
+            this.Ruler.RightIndent = 14;
+            this.Ruler.RightMargin = 1;
+            this.Ruler.Size = new System.Drawing.Size(654, 20);
+            this.Ruler.TabIndex = 8;
+            this.Ruler.TabsEnabled = true;
+            this.Ruler.LeftHangingIndentChanging += new TextRuler.TextRulerControl.TextRuler.IndentChangedEventHandler(this.Ruler_LeftHangingIndentChanging);
+            this.Ruler.LeftIndentChanging += new TextRuler.TextRulerControl.TextRuler.IndentChangedEventHandler(this.Ruler_LeftIndentChanging);
+            this.Ruler.RightIndentChanging += new TextRuler.TextRulerControl.TextRuler.IndentChangedEventHandler(this.Ruler_RightIndentChanging);
+            this.Ruler.BothLeftIndentsChanged += new TextRuler.TextRulerControl.TextRuler.MultiIndentChangedEventHandler(this.Ruler_BothLeftIndentsChanged);
+            this.Ruler.TabAdded += new TextRuler.TextRulerControl.TextRuler.TabChangedEventHandler(this.Ruler_TabAdded);
+            this.Ruler.TabRemoved += new TextRuler.TextRulerControl.TextRuler.TabChangedEventHandler(this.Ruler_TabRemoved);
+            this.Ruler.TabChanged += new TextRuler.TextRulerControl.TextRuler.TabChangedEventHandler(this.Ruler_TabChanged);
+            // 
             // TextEditorMenu
             // 
             this.TextEditorMenu.BackColor = System.Drawing.Color.Transparent;
@@ -509,14 +569,14 @@
             // mnuRuler
             // 
             this.mnuRuler.Name = "mnuRuler";
-            this.mnuRuler.Size = new System.Drawing.Size(152, 22);
+            this.mnuRuler.Size = new System.Drawing.Size(142, 22);
             this.mnuRuler.Text = "Regla";
             this.mnuRuler.Click += new System.EventHandler(this.mnuRuler_Click);
             // 
             // mnuMainToolbar
             // 
             this.mnuMainToolbar.Name = "mnuMainToolbar";
-            this.mnuMainToolbar.Size = new System.Drawing.Size(152, 22);
+            this.mnuMainToolbar.Size = new System.Drawing.Size(142, 22);
             this.mnuMainToolbar.Text = "Main toolbar";
             this.mnuMainToolbar.Visible = false;
             this.mnuMainToolbar.Click += new System.EventHandler(this.mnuMainToolbar_Click);
@@ -524,7 +584,7 @@
             // mnuFormatting
             // 
             this.mnuFormatting.Name = "mnuFormatting";
-            this.mnuFormatting.Size = new System.Drawing.Size(152, 22);
+            this.mnuFormatting.Size = new System.Drawing.Size(142, 22);
             this.mnuFormatting.Text = "Formatting";
             this.mnuFormatting.Visible = false;
             this.mnuFormatting.Click += new System.EventHandler(this.mnuFormatting_Click);
@@ -532,7 +592,7 @@
             // lineNumbersToolStripMenuItem
             // 
             this.lineNumbersToolStripMenuItem.Name = "lineNumbersToolStripMenuItem";
-            this.lineNumbersToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.lineNumbersToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.lineNumbersToolStripMenuItem.Text = "Line number";
             this.lineNumbersToolStripMenuItem.Visible = false;
             // 
@@ -549,7 +609,7 @@
             // 
             this.mnuInsertPicture.Image = ((System.Drawing.Image)(resources.GetObject("mnuInsertPicture.Image")));
             this.mnuInsertPicture.Name = "mnuInsertPicture";
-            this.mnuInsertPicture.Size = new System.Drawing.Size(152, 22);
+            this.mnuInsertPicture.Size = new System.Drawing.Size(130, 22);
             this.mnuInsertPicture.Text = "Imagen";
             this.mnuInsertPicture.Click += new System.EventHandler(this.mnuInsertPicture_Click);
             // 
@@ -561,7 +621,7 @@
             this.txtCustom});
             this.mnuInsertDateTime.Image = ((System.Drawing.Image)(resources.GetObject("mnuInsertDateTime.Image")));
             this.mnuInsertDateTime.Name = "mnuInsertDateTime";
-            this.mnuInsertDateTime.Size = new System.Drawing.Size(152, 22);
+            this.mnuInsertDateTime.Size = new System.Drawing.Size(130, 22);
             this.mnuInsertDateTime.Text = "Date/Time";
             this.mnuInsertDateTime.Visible = false;
             this.mnuInsertDateTime.DropDownOpening += new System.EventHandler(this.mnuInsertDateTime_DropDownOpening);
@@ -627,7 +687,7 @@
             // 
             this.mnuTextColor.Image = ((System.Drawing.Image)(resources.GetObject("mnuTextColor.Image")));
             this.mnuTextColor.Name = "mnuTextColor";
-            this.mnuTextColor.Size = new System.Drawing.Size(152, 22);
+            this.mnuTextColor.Size = new System.Drawing.Size(144, 22);
             this.mnuTextColor.Text = "Texto";
             this.mnuTextColor.Click += new System.EventHandler(this.mnuTextColor_Click);
             // 
@@ -635,7 +695,7 @@
             // 
             this.mnuHighlightColor.Image = ((System.Drawing.Image)(resources.GetObject("mnuHighlightColor.Image")));
             this.mnuHighlightColor.Name = "mnuHighlightColor";
-            this.mnuHighlightColor.Size = new System.Drawing.Size(152, 22);
+            this.mnuHighlightColor.Size = new System.Drawing.Size(144, 22);
             this.mnuHighlightColor.Text = "Resaltar texto";
             this.mnuHighlightColor.Click += new System.EventHandler(this.mnuHighlightColor_Click);
             // 
@@ -656,14 +716,14 @@
             // mnuULineDashDotDot
             // 
             this.mnuULineDashDotDot.Name = "mnuULineDashDotDot";
-            this.mnuULineDashDotDot.Size = new System.Drawing.Size(152, 22);
+            this.mnuULineDashDotDot.Size = new System.Drawing.Size(144, 22);
             this.mnuULineDashDotDot.Text = "Dash Dot Dot";
             this.mnuULineDashDotDot.Click += new System.EventHandler(this.mnuULineSolid_Click);
             // 
             // mnuULWave
             // 
             this.mnuULWave.Name = "mnuULWave";
-            this.mnuULWave.Size = new System.Drawing.Size(152, 22);
+            this.mnuULWave.Size = new System.Drawing.Size(144, 22);
             this.mnuULWave.Text = "Wave";
             this.mnuULWave.Click += new System.EventHandler(this.mnuULWave_Click);
             // 
@@ -684,7 +744,7 @@
             // mnuAbout
             // 
             this.mnuAbout.Name = "mnuAbout";
-            this.mnuAbout.Size = new System.Drawing.Size(152, 22);
+            this.mnuAbout.Size = new System.Drawing.Size(107, 22);
             this.mnuAbout.Text = "About";
             this.mnuAbout.Click += new System.EventHandler(this.mnuAbout_Click);
             // 
