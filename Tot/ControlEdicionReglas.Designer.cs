@@ -59,6 +59,7 @@
             // 
             // comboBox_var_entonces
             // 
+            this.comboBox_var_entonces.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.comboBox_var_entonces.FormattingEnabled = true;
             this.comboBox_var_entonces.Location = new System.Drawing.Point(65, 11);
             this.comboBox_var_entonces.Name = "comboBox_var_entonces";
@@ -175,7 +176,7 @@
             // numericUpDown_entonces
             // 
             this.numericUpDown_entonces.Location = new System.Drawing.Point(412, 14);
-            this.numericUpDown_entonces.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.numericUpDown_entonces.Margin = new System.Windows.Forms.Padding(2);
             this.numericUpDown_entonces.Name = "numericUpDown_entonces";
             this.numericUpDown_entonces.Size = new System.Drawing.Size(139, 20);
             this.numericUpDown_entonces.TabIndex = 12;
@@ -184,7 +185,7 @@
             // textBox_entonces
             // 
             this.textBox_entonces.Location = new System.Drawing.Point(412, 15);
-            this.textBox_entonces.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox_entonces.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_entonces.Name = "textBox_entonces";
             this.textBox_entonces.Size = new System.Drawing.Size(140, 20);
             this.textBox_entonces.TabIndex = 11;

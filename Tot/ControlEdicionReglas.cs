@@ -703,6 +703,7 @@ namespace Tot
             if (comboBox_var_entonces == null)
             {
                 this.comboBox_var_entonces = new ComboBox();
+                this.comboBox_var_entonces.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
                 this.comboBox_var_entonces.FormattingEnabled = true;
                 this.comboBox_var_entonces.Location = new System.Drawing.Point(65, 11);
                 this.comboBox_var_entonces.Name = "comboBox_var_entonces";
