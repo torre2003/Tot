@@ -750,6 +750,12 @@ namespace Tot
                 ruta_archivo_rtf = variable.ruta_texto_descriptivo;
             if (variable.ruta_imagen_descriptiva != null && !variable.ruta_imagen_descriptiva.Equals(""))
                 ruta_archivo_imagen = variable.ruta_imagen_descriptiva;
+            string ruta_rtf = base_conocimiento.ruta_carpeta_archivos + "rtf"+ "\\" + id_variable + ".rtf";
+            if (File.Exists(ruta_rtf))
+                button_seleccion_documento.Enabled = true;
+            else
+                button_seleccion_documento.Enabled = false;
+            
         }
 
         /// <summary>
@@ -1096,22 +1102,34 @@ namespace Tot
 
                     }
         }
+        
 
         private void button_seleccion_documento_Click(object sender, EventArgs e)
         {
-            FormVentanaRTF ventana_editor_rtf = new FormVentanaRTF();
-            if (ruta_rtf_actual == null)
+            if(tipo_tarea == DESABILITADO)
             {
-                ruta_rtf_actual = base_conocimiento.ruta_carpeta_archivos + "rtf";
-                if (id_variable_en_tarea == null)
-                    ruta_rtf_actual += "\\temporal.rtf";
-                else
-                    ruta_rtf_actual += "\\" + id_variable_en_tarea + ".rtf";
+                FormVentanaRTF ventana_editor_rtf = new FormVentanaRTF(true);
+                string ruta_rtf = base_conocimiento.ruta_carpeta_archivos + "rtf"+ "\\" + id_variable_en_tarea + ".rtf";
+                ventana_editor_rtf.ruta_archivo = ruta_rtf;
+                ventana_editor_rtf.ShowDialog(this);
             }
-            ventana_editor_rtf.ruta_archivo = ruta_rtf_actual;
-            if (!File.Exists(ruta_rtf_actual))
-                ventana_editor_rtf.cancelar_apertura_archivo  = true;
-            ventana_editor_rtf.ShowDialog(this);
+            else
+            {
+                FormVentanaRTF ventana_editor_rtf = new FormVentanaRTF();
+                if (ruta_rtf_actual == null)
+                {
+                    ruta_rtf_actual = base_conocimiento.ruta_carpeta_archivos + "rtf";
+                    if (id_variable_en_tarea == null)
+                        ruta_rtf_actual += "\\temporal.rtf";
+                    else
+                        ruta_rtf_actual += "\\" + id_variable_en_tarea + ".rtf";
+                }
+                ventana_editor_rtf.ruta_archivo = ruta_rtf_actual;
+                if (!File.Exists(ruta_rtf_actual))
+                    ventana_editor_rtf.cancelar_apertura_archivo  = true;
+                ventana_editor_rtf.ShowDialog(this);
+            }
+            
         }
 
 

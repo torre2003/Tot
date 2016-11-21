@@ -41,6 +41,7 @@ namespace Tot
         {
             InitializeComponent();
             iniciarEditorAvanzado(modo_lectura);
+            this.modo_lectura = modo_lectura;
         }
 
 
@@ -52,6 +53,7 @@ namespace Tot
             editor_avanzado_rtf.Name = "advancedTextEditor1";
             editor_avanzado_rtf.Size = new System.Drawing.Size(745, 562);
             editor_avanzado_rtf.TabIndex = 0;
+            editor_avanzado_rtf.modo_lectura = modo_lectura;
             this.Controls.Add(editor_avanzado_rtf);
             
         }

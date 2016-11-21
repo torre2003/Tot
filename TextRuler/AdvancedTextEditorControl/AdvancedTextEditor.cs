@@ -25,6 +25,7 @@ namespace TextRuler.AdvancedTextEditorControl
             set
             {
                 _modo_lectura = value;
+                habilitarEdicion(!value);
             }
         }
         bool _modo_lectura = false;
@@ -32,7 +33,10 @@ namespace TextRuler.AdvancedTextEditorControl
 
         private void habilitarEdicion(bool habilitado)
         {
-
+            Toolbox_Formatting.Enabled = habilitado;
+            Toolbox_Main.Enabled = habilitado;
+            TextEditorMenu.Enabled = habilitado;
+            TextEditor.Enabled = habilitado;
         }
 
 
