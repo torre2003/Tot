@@ -41,20 +41,19 @@
             // listBox_reglas
             // 
             this.listBox_reglas.FormattingEnabled = true;
-            this.listBox_reglas.ItemHeight = 16;
-            this.listBox_reglas.Location = new System.Drawing.Point(57, 54);
-            this.listBox_reglas.Margin = new System.Windows.Forms.Padding(4);
+            this.listBox_reglas.HorizontalExtent = 1400;
+            this.listBox_reglas.HorizontalScrollbar = true;
+            this.listBox_reglas.Location = new System.Drawing.Point(43, 44);
             this.listBox_reglas.Name = "listBox_reglas";
-            this.listBox_reglas.Size = new System.Drawing.Size(902, 212);
+            this.listBox_reglas.Size = new System.Drawing.Size(678, 173);
             this.listBox_reglas.TabIndex = 0;
             this.listBox_reglas.SelectedIndexChanged += new System.EventHandler(this.listBox_reglas_SelectedIndexChanged);
             // 
             // button_agregar
             // 
-            this.button_agregar.Location = new System.Drawing.Point(567, 297);
-            this.button_agregar.Margin = new System.Windows.Forms.Padding(4);
+            this.button_agregar.Location = new System.Drawing.Point(425, 241);
             this.button_agregar.Name = "button_agregar";
-            this.button_agregar.Size = new System.Drawing.Size(100, 28);
+            this.button_agregar.Size = new System.Drawing.Size(75, 23);
             this.button_agregar.TabIndex = 7;
             this.button_agregar.Text = "Agregar ";
             this.button_agregar.UseVisualStyleBackColor = true;
@@ -62,10 +61,9 @@
             // 
             // button_modificar
             // 
-            this.button_modificar.Location = new System.Drawing.Point(713, 297);
-            this.button_modificar.Margin = new System.Windows.Forms.Padding(4);
+            this.button_modificar.Location = new System.Drawing.Point(535, 241);
             this.button_modificar.Name = "button_modificar";
-            this.button_modificar.Size = new System.Drawing.Size(100, 28);
+            this.button_modificar.Size = new System.Drawing.Size(75, 23);
             this.button_modificar.TabIndex = 6;
             this.button_modificar.Text = "Modificar";
             this.button_modificar.UseVisualStyleBackColor = true;
@@ -73,10 +71,9 @@
             // 
             // button_eliminar
             // 
-            this.button_eliminar.Location = new System.Drawing.Point(855, 297);
-            this.button_eliminar.Margin = new System.Windows.Forms.Padding(4);
+            this.button_eliminar.Location = new System.Drawing.Point(641, 241);
             this.button_eliminar.Name = "button_eliminar";
-            this.button_eliminar.Size = new System.Drawing.Size(100, 28);
+            this.button_eliminar.Size = new System.Drawing.Size(75, 23);
             this.button_eliminar.TabIndex = 5;
             this.button_eliminar.Text = "Eliminar";
             this.button_eliminar.UseVisualStyleBackColor = true;
@@ -89,44 +86,45 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.AutoScroll = true;
             this.panel2.Controls.Add(this.control_edicion_de_reglas);
-            this.panel2.Location = new System.Drawing.Point(23, 350);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4);
+            this.panel2.Location = new System.Drawing.Point(17, 284);
+            this.panel2.MinimumSize = new System.Drawing.Size(714, 271);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(936, 358);
+            this.panel2.Size = new System.Drawing.Size(714, 271);
             this.panel2.TabIndex = 10;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(66, 30);
+            this.label1.Location = new System.Drawing.Point(50, 24);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(105, 17);
+            this.label1.Size = new System.Drawing.Size(78, 13);
             this.label1.TabIndex = 11;
             this.label1.Text = "Lista de reglas:";
             // 
             // control_edicion_de_reglas
             // 
-            this.control_edicion_de_reglas.Location = new System.Drawing.Point(4, 4);
-            this.control_edicion_de_reglas.Margin = new System.Windows.Forms.Padding(5);
+            this.control_edicion_de_reglas.Location = new System.Drawing.Point(14, 22);
+            this.control_edicion_de_reglas.Margin = new System.Windows.Forms.Padding(4);
             this.control_edicion_de_reglas.Name = "control_edicion_de_reglas";
-            this.control_edicion_de_reglas.Size = new System.Drawing.Size(928, 247);
+            this.control_edicion_de_reglas.Size = new System.Drawing.Size(696, 201);
             this.control_edicion_de_reglas.TabIndex = 0;
             // 
             // ControlGestionReglas
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.AutoSize = true;
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.button_agregar);
             this.Controls.Add(this.button_modificar);
             this.Controls.Add(this.button_eliminar);
             this.Controls.Add(this.listBox_reglas);
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximumSize = new System.Drawing.Size(789, 584);
+            this.MinimumSize = new System.Drawing.Size(789, 584);
             this.Name = "ControlGestionReglas";
-            this.Size = new System.Drawing.Size(987, 725);
+            this.Size = new System.Drawing.Size(789, 584);
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -8,12 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SistemaExpertoLib;
+using System.Collections;
 
 namespace Tot
 {
     public partial class ControlGestionReglas : UserControl
     {
-        struct ElementoListBox
+        struct ElementoListBox : IComparer
         {
             public string id;
             public string nombre;
@@ -35,6 +36,22 @@ namespace Tot
                 if (sufijo != null)
                     retorno += sufijo;
                 return retorno;
+            }
+
+            public int Compare(object x, object y)
+            {
+                ElementoListBox a = (ElementoListBox)x;
+                ElementoListBox b = (ElementoListBox)y;
+                string a_n = a.id.Replace("R_", "");
+                string b_n = b.id.Replace("R_", "");
+                try
+                {
+                    int number_a = Int16.Parse(a_n);
+                    int number_b = Int16.Parse(b_n);
+                    return number_a.CompareTo(number_b);
+                }
+                catch (Exception){}
+                return 0;
             }
         }
         //*************************************************************************************************
@@ -91,6 +108,7 @@ namespace Tot
         {
             listBox_reglas.Items.Clear();
             string[] id_reglas = base_conocimiento.listarReglas();
+            ArrayList aux_reglas = new ArrayList();
             if (id_reglas != null)
             {
                 for (int i = 0; i < id_reglas.Length; i++)
@@ -105,9 +123,14 @@ namespace Tot
                     if (!regla.chequeo_de_consistencia)
                         aux += "\t(No Chequeado)";
                     elemento.sufijo = aux;
-                    listBox_reglas.Items.Add(elemento);
+                    //listBox_reglas.Items.Add(elemento);
+                    aux_reglas.Add(elemento);
                 }
             }
+
+            aux_reglas.Sort(new ElementoListBox());
+            foreach (ElementoListBox item in aux_reglas)
+                 listBox_reglas.Items.Add(item);
             listBox_reglas.Refresh();
         }
 

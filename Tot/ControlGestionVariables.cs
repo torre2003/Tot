@@ -9,11 +9,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SistemaExpertoLib;
 using System.IO;
+using System.Collections;
 namespace Tot
 {
     public partial class ControlGestionVariables : UserControl
     {
-        struct ElementoListBox
+        struct ElementoListBox : IComparer
         {
             public string id;
             public string nombre;
@@ -35,6 +36,13 @@ namespace Tot
                 if (sufijo != null)
                     retorno += sufijo;
                 return retorno;
+            }
+
+            public int Compare(object x, object y)
+            {
+                ElementoListBox a = (ElementoListBox)x;
+                ElementoListBox b = (ElementoListBox)y;
+                return a.nombre.CompareTo(b.nombre);
             }
         }
 
@@ -926,6 +934,7 @@ namespace Tot
         {
             listBox_variables.Items.Clear();
             string[] id_variables = base_conocimiento.listarVariables();
+            ArrayList lista_de_elementos =  new ArrayList();
             if (id_variables != null)
             {
                 for (int i = 0; i < id_variables.Length; i++)
@@ -938,14 +947,25 @@ namespace Tot
                     };
                     string aux = "";
                     if (!variable.chequeo_de_consistencia)
-                        aux += "\t(No Chequeado)";
+                        aux += " (No Chequeado)";
                     if (variable.variable_de_inicio)
-                        aux += "\t[Inicial]";
+                        aux += " [Inicial]";
+                    if (variable.variable_preguntable_al_usuario)
+                        aux += " [¿?]";
                     elemento.sufijo = aux;
-                    listBox_variables.Items.Add(elemento);
+                    lista_de_elementos.Add(elemento);
+                   // listBox_variables.Items.Add(elemento);
                 }
             }
+            lista_de_elementos.Sort(new ElementoListBox());
+            foreach (ElementoListBox item in lista_de_elementos)
+            {
+                listBox_variables.Items.Add(item);
+            }
+            
             listBox_variables.Refresh();
+
+            
         }
 
 
@@ -1012,19 +1032,21 @@ namespace Tot
         private void renombrarRTFTemporal(string id_variable)
         {
             string ruta_rtf_temporal = base_conocimiento.ruta_carpeta_archivos + "rtf" + "\\temporal.rtf";
-            if (ruta_rtf_actual.Equals(ruta_rtf_temporal))
-            {
-                string ruta_archivo_variable  = base_conocimiento.ruta_carpeta_archivos + "rtf" + "\\" + id_variable + ".rtf";
-                if (!File.Exists(ruta_archivo_variable))
-                { 
-                    File.Move(ruta_rtf_temporal, ruta_archivo_variable); 
-                }
-                else
+            if (ruta_rtf_actual != null)
+                if (ruta_rtf_actual.Equals(ruta_rtf_temporal))
                 {
-                    //todo eliminar
-                    MessageBox.Show("El archivo ya existe");
+                    string ruta_archivo_variable  = base_conocimiento.ruta_carpeta_archivos + "rtf" + "\\" + id_variable + ".rtf";
+                    if (!File.Exists(ruta_archivo_variable))
+                    {
+                        if (File.Exists(ruta_rtf_temporal))
+                            File.Move(ruta_rtf_temporal, ruta_archivo_variable); 
+                    }
+                    else
+                    {
+                        //todo eliminar
+                        MessageBox.Show("El archivo ya existe");
+                    }
                 }
-            }
         }
 
         //*************************************************************************
@@ -1263,6 +1285,15 @@ namespace Tot
                 id_variable_en_tarea = elemento.id;
                 nombre_variable_en_tarea = elemento.nombre;
             }
+        }
+
+        private void textBox_ingreso_elemento_lista_variable_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((int)e.KeyChar == (int)Keys.Enter)
+            {
+                agregarElementoALista();
+            }
+
         }
 
 

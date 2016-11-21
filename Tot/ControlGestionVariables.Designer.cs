@@ -129,6 +129,7 @@
             // 
             this.listBox_variables.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listBox_variables.FormattingEnabled = true;
+            this.listBox_variables.HorizontalExtent = 1400;
             this.listBox_variables.HorizontalScrollbar = true;
             this.listBox_variables.Location = new System.Drawing.Point(0, 0);
             this.listBox_variables.Name = "listBox_variables";
@@ -358,6 +359,7 @@
             this.textBox_ingreso_elemento_lista_variable.Name = "textBox_ingreso_elemento_lista_variable";
             this.textBox_ingreso_elemento_lista_variable.Size = new System.Drawing.Size(149, 20);
             this.textBox_ingreso_elemento_lista_variable.TabIndex = 1;
+            this.textBox_ingreso_elemento_lista_variable.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_ingreso_elemento_lista_variable_KeyPress);
             // 
             // listBox_lista_de_elementos_variables
             // 

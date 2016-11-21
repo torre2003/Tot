@@ -16,6 +16,27 @@ namespace TextRuler.AdvancedTextEditorControl
         string _path = "";
         public string _ruta_obligatoria_guardado = "";
         int checkPrint = 0;        
+        public bool modo_lectura 
+        {
+            get
+            {
+                return _modo_lectura;
+            }
+            set
+            {
+                _modo_lectura = value;
+            }
+        }
+        bool _modo_lectura = false;
+
+
+        private void habilitarEdicion(bool habilitado)
+        {
+
+        }
+
+
+
 
         private string GetFilePath()
         {
@@ -184,7 +205,7 @@ namespace TextRuler.AdvancedTextEditorControl
             }
         }
 
-        private void GuardadoObligatorio()
+        public void GuardadoObligatorio()
         {
             try
             {
