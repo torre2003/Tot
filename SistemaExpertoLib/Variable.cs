@@ -86,6 +86,7 @@ namespace SistemaExpertoLib
             set
             {
                 _valor_booleano_actual = value;
+                _variable_modificada = true;
             }
         }
         bool _valor_booleano_actual;
@@ -101,6 +102,7 @@ namespace SistemaExpertoLib
             set
             {
                 _valor_numerico_actual = value;
+                _variable_modificada = true;
             }
         }
         double _valor_numerico_actual;
@@ -118,9 +120,23 @@ namespace SistemaExpertoLib
                 if (!elementoExistente(value))
                     throw new System.ArgumentException("La cadena no pertenece a la lista de la variable", value);
                 _valor_lista_actual = value;
+                _variable_modificada = true;
             }
         }
         string _valor_lista_actual;
+
+        /// <summary>
+        /// Indica si el valor de la variable ha sido modificado
+        /// </summary>
+        bool variable_modificada
+        {
+            get
+            {
+                return _variable_modificada;
+            }
+        }
+        private bool _variable_modificada;
+
 
         /// <summary>
         /// Valor que establece la Variable como Cardinal (solo si la variable es de tipo numerica)
@@ -253,7 +269,15 @@ namespace SistemaExpertoLib
         }
         bool _variable_preguntable_al_usuario = false;
 
-
+        /// <summary>
+        /// Establece si el variable es objetivo inicial del encadenamiento hacia atrás
+        /// </summary>
+        public bool variable_objetivo
+        {
+            get { return _variable_objetivo; }
+            set { _variable_objetivo = value; }
+        }
+        bool _variable_objetivo = false;
         /// <summary>
         /// Atributo que indica si la variable es consistene en la base de conocimiento
         /// </summary>
@@ -394,6 +418,21 @@ namespace SistemaExpertoLib
             }
             return opciones;
         }
+
+        /// <summary>
+        /// Método que limpia los atributos asociados al proceso de inferencia 
+        /// </summary>
+        public void limpiarVariableParaInferencia()
+        {
+
+            _valor_booleano_actual = false ;
+            _valor_numerico_actual = -999999;
+            _valor_lista_actual = "";
+            _variable_modificada = false;
+        }
+
+
+
 
     }
 }

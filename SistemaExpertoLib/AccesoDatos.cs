@@ -23,8 +23,12 @@ namespace SistemaExpertoLib
 
         public string ruta_carpeta_archivos = "base conocimiento\\";
 
+        public bool existe_base_conocimiento
+        {
+            get { return _existe_base_conocimiento; }
+        }
 
-
+        public bool _existe_base_conocimiento = false;
         //*************************************************************************
         // Métodos
         //*************************************************************************
@@ -33,7 +37,9 @@ namespace SistemaExpertoLib
         /// </summary>
         public AccesoDatos()
         {
-            inicializarCarpetaArchivos();
+            if (!System.IO.Directory.Exists(ruta_carpeta_archivos))
+                _existe_base_conocimiento = true;
+            
         }
             
         /// <summary>
@@ -43,7 +49,8 @@ namespace SistemaExpertoLib
         public AccesoDatos(string ruta_carpeta_archivos)
         {
             this.ruta_carpeta_archivos = ruta_carpeta_archivos;
-            inicializarCarpetaArchivos();
+            if (!System.IO.Directory.Exists(ruta_carpeta_archivos))
+                _existe_base_conocimiento = true;
         }
 
         /// <summary>
@@ -52,10 +59,12 @@ namespace SistemaExpertoLib
         public void inicializarCarpetaArchivos()
         {
             if (!System.IO.Directory.Exists(ruta_carpeta_archivos))
+            {
                 System.IO.Directory.CreateDirectory(ruta_carpeta_archivos);
+                _existe_base_conocimiento = true;
+            }
         }
-
-
+        
         /// <summary>
         /// Método que lista los arhcivos disponibles en el repositorio
         /// </summary>
