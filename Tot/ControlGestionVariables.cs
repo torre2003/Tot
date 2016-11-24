@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using SistemaExpertoLib;
 using System.IO;
 using System.Collections;
+using SistemaExpertoLib.GestionDelConocimiento;
 namespace Tot
 {
     public partial class ControlGestionVariables : UserControl

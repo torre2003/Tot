@@ -271,6 +271,10 @@ namespace SistemaExpertoLib
             return flag;
         }
 
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
         [Serializable()]
         struct DatosHechos 
         {

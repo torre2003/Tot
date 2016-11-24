@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SistemaExpertoLib
+namespace SistemaExpertoLib.GestionDelConocimiento
 {
 
     public class GestionadorBaseConocimiento
@@ -1231,9 +1231,7 @@ namespace SistemaExpertoLib
                 }
 
             }
-            if (hechos_encontrados.Count == 0)
-                return null;
-            return (string[])hechos_encontrados.ToArray(typeof(string));
+            return hechos_encontrados.Count == 0? null: (string[])hechos_encontrados.ToArray(typeof(string));
         }
 
         /// <summary>

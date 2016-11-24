@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SistemaExpertoLib;
 using System.Collections;
+using SistemaExpertoLib.GestionDelConocimiento;
 
 namespace Tot
 {
@@ -340,9 +341,8 @@ namespace Tot
                     {
                         NumericUpDown numeric_up_down = (NumericUpDown)control;
                         if (numeric_up_down.Name.Equals(id_controles))
-                            if (hecho.valor_numerico != null)
-                                if (numeric_up_down.Minimum <= (decimal)hecho.valor_numerico && (decimal)hecho.valor_numerico <= numeric_up_down.Maximum)
-                                    numeric_up_down.Value = (decimal)hecho.valor_numerico;
+                             if (numeric_up_down.Minimum <= (decimal)hecho.valor_numerico && (decimal)hecho.valor_numerico <= numeric_up_down.Maximum)
+                                numeric_up_down.Value = (decimal)hecho.valor_numerico;
                     }
                     else
                     if (tipo_control.Equals("System.Windows.Forms.ComboBox"))
@@ -385,15 +385,13 @@ namespace Tot
             {
                 if (textBox_entonces != null)
                 {
-                    if (hecho.valor_numerico != null)
-                        textBox_entonces.Text = "" + hecho.valor_numerico;
+                    textBox_entonces.Text = "" + hecho.valor_numerico;
                 }
                 else
                 if (numericUpDown_entonces != null)
                 {
-                    if (hecho.valor_numerico != null)
-                        if (numericUpDown_entonces.Minimum <= (decimal)hecho.valor_numerico && (decimal)hecho.valor_numerico <= numericUpDown_entonces.Maximum)
-                            numericUpDown_entonces.Value = (decimal)hecho.valor_numerico;
+                    if (numericUpDown_entonces.Minimum <= (decimal)hecho.valor_numerico && (decimal)hecho.valor_numerico <= numericUpDown_entonces.Maximum)
+                         numericUpDown_entonces.Value = (decimal)hecho.valor_numerico;
                 }
             }
         }
