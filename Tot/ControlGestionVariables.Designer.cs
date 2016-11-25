@@ -73,6 +73,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.openFileDialog_archivos_RTF = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialog_imagenes = new System.Windows.Forms.OpenFileDialog();
+            this.checkBox_variable_objetivo = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel_1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -190,6 +191,7 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.checkBox_variable_objetivo);
             this.panel3.Controls.Add(this.checkBox_variable_preguntable_al_usuario);
             this.panel3.Controls.Add(this.checkBox_variable_de_inicio);
             this.panel3.Controls.Add(this.button_cancelar);
@@ -213,7 +215,7 @@
             // checkBox_variable_preguntable_al_usuario
             // 
             this.checkBox_variable_preguntable_al_usuario.AutoSize = true;
-            this.checkBox_variable_preguntable_al_usuario.Location = new System.Drawing.Point(297, 73);
+            this.checkBox_variable_preguntable_al_usuario.Location = new System.Drawing.Point(100, 98);
             this.checkBox_variable_preguntable_al_usuario.Name = "checkBox_variable_preguntable_al_usuario";
             this.checkBox_variable_preguntable_al_usuario.Size = new System.Drawing.Size(171, 17);
             this.checkBox_variable_preguntable_al_usuario.TabIndex = 18;
@@ -223,11 +225,11 @@
             // checkBox_variable_de_inicio
             // 
             this.checkBox_variable_de_inicio.AutoSize = true;
-            this.checkBox_variable_de_inicio.Location = new System.Drawing.Point(175, 72);
+            this.checkBox_variable_de_inicio.Location = new System.Drawing.Point(99, 121);
             this.checkBox_variable_de_inicio.Name = "checkBox_variable_de_inicio";
-            this.checkBox_variable_de_inicio.Size = new System.Drawing.Size(106, 17);
+            this.checkBox_variable_de_inicio.Size = new System.Drawing.Size(268, 17);
             this.checkBox_variable_de_inicio.TabIndex = 17;
-            this.checkBox_variable_de_inicio.Text = "Variable de inicio";
+            this.checkBox_variable_de_inicio.Text = "Variable de inicio (Encadenamiento hacia adelante)";
             this.checkBox_variable_de_inicio.UseVisualStyleBackColor = true;
             this.checkBox_variable_de_inicio.CheckedChanged += new System.EventHandler(this.checkBox_variable_de_inicio_CheckedChanged);
             // 
@@ -509,7 +511,7 @@
             // textBox_nombre
             // 
             this.textBox_nombre.BackColor = System.Drawing.SystemColors.Window;
-            this.textBox_nombre.Location = new System.Drawing.Point(99, 118);
+            this.textBox_nombre.Location = new System.Drawing.Point(99, 72);
             this.textBox_nombre.Name = "textBox_nombre";
             this.textBox_nombre.Size = new System.Drawing.Size(350, 20);
             this.textBox_nombre.TabIndex = 5;
@@ -517,7 +519,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(18, 118);
+            this.label4.Location = new System.Drawing.Point(18, 72);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(44, 13);
             this.label4.TabIndex = 3;
@@ -526,7 +528,7 @@
             // textBox_id_variable
             // 
             this.textBox_id_variable.Enabled = false;
-            this.textBox_id_variable.Location = new System.Drawing.Point(99, 70);
+            this.textBox_id_variable.Location = new System.Drawing.Point(99, 46);
             this.textBox_id_variable.Name = "textBox_id_variable";
             this.textBox_id_variable.Size = new System.Drawing.Size(70, 20);
             this.textBox_id_variable.TabIndex = 2;
@@ -534,7 +536,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(18, 70);
+            this.label3.Location = new System.Drawing.Point(18, 46);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(16, 13);
             this.label3.TabIndex = 1;
@@ -557,6 +559,16 @@
             // 
             this.openFileDialog_imagenes.Filter = "\"Archivo de imagen JPEG (*.jpeg)|*.jpeg|Archivo de imagen JPG(*.jpg)|*.jpg|Archiv" +
     "o de imagen PNG(*.png)|*.png\"";
+            // 
+            // checkBox_variable_objetivo
+            // 
+            this.checkBox_variable_objetivo.AutoSize = true;
+            this.checkBox_variable_objetivo.Location = new System.Drawing.Point(99, 144);
+            this.checkBox_variable_objetivo.Name = "checkBox_variable_objetivo";
+            this.checkBox_variable_objetivo.Size = new System.Drawing.Size(250, 17);
+            this.checkBox_variable_objetivo.TabIndex = 19;
+            this.checkBox_variable_objetivo.Text = "Variable Objetivo (Encadenamiento hacia atrás)";
+            this.checkBox_variable_objetivo.UseVisualStyleBackColor = true;
             // 
             // ControlGestionVariables
             // 
@@ -633,6 +645,7 @@
         private System.Windows.Forms.Button button_cancelar;
         private System.Windows.Forms.CheckBox checkBox_variable_de_inicio;
         private System.Windows.Forms.CheckBox checkBox_variable_preguntable_al_usuario;
+        private System.Windows.Forms.CheckBox checkBox_variable_objetivo;
 
 
     }

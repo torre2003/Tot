@@ -133,6 +133,15 @@ namespace SistemaExpertoLib
         bool _hecho_preguntable_al_usuario = false;
 
         /// <summary>
+        /// Obtiene si el hecho es obejtivo del encadenamiento hacia atrás
+        /// </summary>
+        public bool hecho_objetivo
+        {
+            get { return _hecho_objetivo; }
+
+        }
+        bool _hecho_objetivo = false;
+        /// <summary>
         /// Indica si el hecho fue evaluado en su condición, por la inferencia 
         /// </summary>
         public bool hecho_evaluado
@@ -182,6 +191,37 @@ namespace SistemaExpertoLib
             this._nombre_variable = variable_hecho.nombre_variable;
             this._hecho_preguntable_al_usuario = variable_hecho.variable_preguntable_al_usuario;
         }
+
+
+        /// <summary>
+        /// Método que actualiza los parametros del hecho en caso de que cambios en la variable
+        /// </summary>
+        /// <param name="variable_hecho">Objeto tipo variable actualizado correspondiente al hecho</param>
+        public void actualizarParametrosVariableHecho(Variable variable_hecho)
+        {
+            if (variable_hecho.id_variable.Equals(_id_variable))
+            {
+                if (this._tipo_variable == variable_hecho.tipo_variable)
+                {
+                    this._nombre_variable = variable_hecho.nombre_variable;
+                    this._hecho_preguntable_al_usuario = variable_hecho.variable_preguntable_al_usuario;
+                    this._hecho_objetivo = variable_hecho.variable_objetivo;
+                }
+                else
+                {
+                    string exception ="TIPO Variable hecho :"+ _tipo_variable + " !=  TIPO Variable nueva :" + variable_hecho.tipo_variable;
+                    exception = exception.Replace("" + Variable.BOOLEANO," BOOLEANO ");
+                    exception = exception.Replace("" + Variable.NUMERICO, " NUMERICO ");
+                    exception = exception.Replace("" + Variable.LISTA, " LISTA ");
+                    throw new System.ArgumentException("El tipo de variable es distinta a la del hecho", exception);
+                }
+            }
+            else
+            {
+                throw new System.ArgumentException("La variable no corresponde a la del hecho", "ID Variable hecho :" + id_variable + " !=  ID variable nueva :" + variable_hecho.id_variable);
+            }
+        }
+
 
         /// <summary>
         /// Establece la condición para el tipo de hecho BOOLEANO
@@ -393,11 +433,15 @@ namespace SistemaExpertoLib
         }
 
         /// <summary>
-        /// Método que marca el falso el estado del Hecho
+        /// Método que limpiar los atributos del hecho utilizados en la influencia
         /// </summary>
-        public void limpiarEstadoHecho ()
+        public void limpiarEstadoHechoParaInferencia ()
         {
             _estado_hecho = false;
+            _valor_booleano_hecho = false;
+            _valor_lista_hecho = "";
+            _valor_numerico_hecho = -999999;
+            _hecho_evaluado = false;
 
         }
 
@@ -457,7 +501,10 @@ namespace SistemaExpertoLib
             return true;    
         }
 
-
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
 
     }
 }

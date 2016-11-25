@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using SistemaExpertoLib;
 using System.IO;
 using System.Collections;
+using SistemaExpertoLib.GestionDelConocimiento;
 namespace Tot
 {
     public partial class ControlGestionVariables : UserControl
@@ -171,6 +172,22 @@ namespace Tot
                 checkBox_variable_preguntable_al_usuario.Checked = value;
             }
         }
+
+        /// <summary>
+        /// obtiene o estable si la variable es objetivo del encadenamiento hacia atrás
+        /// </summary>
+        public bool variable_objetivo
+        {
+            get
+            {
+                return checkBox_variable_objetivo.Checked;
+            }
+            set
+            {
+                checkBox_variable_objetivo.Checked = value;
+            }
+        }
+
         /// <summary>
         /// Obtiene o establece el valor minimo de una variable NUMERICA
         /// </summary>
@@ -259,6 +276,7 @@ namespace Tot
         {
             checkBox_variable_de_inicio.Enabled = habilitado;
             checkBox_variable_preguntable_al_usuario.Enabled = habilitado;
+            checkBox_variable_objetivo.Enabled = habilitado;
             textBox_nombre.Enabled = habilitado;
             radioButton_tipo_booleano.Enabled = habilitado;
             radioButton_tipo_numerico.Enabled = habilitado;
@@ -325,21 +343,6 @@ namespace Tot
 
         }
 
-        /// <summary>
-        /// Método que desmarca todos los campos del control
-        /// </summary>
-        public void desmarcarCampos()
-        {
-            marcarControl(NOMBRE, false);
-            marcarControl(TIPOS_DE_VARIABLE, false);
-            marcarControl(TEXTO_CONSULTA, false);
-            marcarControl(TIPO_NUMERICO, false);
-            marcarControl(RANGOS, false);
-            marcarControl(INGRESO_ELEMENTO, false);
-            marcarControl(LISTA_DE_ELEMENTOS, false);
-        }
-
-
         const int NOMBRE = 1;
         const int TIPOS_DE_VARIABLE = 2;
         const int TEXTO_CONSULTA = 3;
@@ -347,6 +350,9 @@ namespace Tot
         const int RANGOS = 5;
         const int INGRESO_ELEMENTO = 6;
         const int LISTA_DE_ELEMENTOS = 7;
+        const int VARIABLE_PREGUNTABLE = 8;
+        const int VARIABLE_INICIAL = 9;
+        const int VARIABLE_OBJETIVO = 10;
         /// <summary>
         /// Método que resalta los controles 
         /// </summary>
@@ -418,6 +424,24 @@ namespace Tot
                     else
                         this.listBox_lista_de_elementos_variables.BackColor = System.Drawing.SystemColors.Window;
                     break;
+                case VARIABLE_PREGUNTABLE:
+                    if (marcado)
+                        this.checkBox_variable_preguntable_al_usuario.BackColor = System.Drawing.Color.Yellow;
+                    else
+                        this.checkBox_variable_preguntable_al_usuario.BackColor = System.Drawing.SystemColors.Window;
+                    break;
+                case VARIABLE_INICIAL:
+                    if (marcado)
+                        this.checkBox_variable_de_inicio.BackColor = System.Drawing.Color.Yellow;
+                    else
+                        this.checkBox_variable_de_inicio.BackColor = System.Drawing.SystemColors.Window;
+                    break;
+                case VARIABLE_OBJETIVO:
+                    if (marcado)
+                        this.checkBox_variable_objetivo.BackColor = System.Drawing.Color.Yellow;
+                    else
+                        this.checkBox_variable_objetivo.BackColor = System.Drawing.SystemColors.Window;
+                    break;
             }
         }
 
@@ -447,6 +471,23 @@ namespace Tot
                     retorno += "|";
                 retorno += "El nombre ya se encuentra en la base de conocimiento";
             }
+            if (variable_de_inicio &&  !variable_preguntable_al_usuario)
+            {
+                if (!retorno.Equals(""))
+                    retorno += "|";
+                retorno += "Una variable de inicio debe ser preguntable al usuario";
+                marcarControl(VARIABLE_INICIAL, true);
+                marcarControl(VARIABLE_PREGUNTABLE, true);
+            }
+            if (variable_objetivo && variable_preguntable_al_usuario)
+            {
+                if (!retorno.Equals(""))
+                    retorno += "|";
+                retorno += "Una variable de objetivo no puede ser preguntable al usuario";
+                marcarControl(VARIABLE_OBJETIVO, true);
+                marcarControl(VARIABLE_PREGUNTABLE, true);
+            }
+
             if (radioButton_tipo_booleano.Checked == false && radioButton_tipo_numerico.Checked == false && radioButton_tipo_lista.Checked == false)
             {
                 if (!retorno.Equals(""))
@@ -516,7 +557,7 @@ namespace Tot
                 retorno += "La lista de elementos esta vacia";
                 marcarControl(LISTA_DE_ELEMENTOS, true);
             }
-          
+            
             if (retorno.Equals(""))
                 return null;
             return retorno.Split('|');
@@ -606,7 +647,7 @@ namespace Tot
                     if (!this.ruta_archivo_imagen.Equals(""))
                         ruta_imagen = this.ruta_archivo_imagen;
 
-                    base_conocimiento.modificarMetadatosVariable(id_nueva_variable, variable_de_inicio, variable_preguntable_al_usuario, texto_consulta: texto_consulta, ruta_texto_descriptivo: ruta_archivo_rtf, ruta_imagen_descriptiva: ruta_imagen);
+                    base_conocimiento.modificarMetadatosVariable(id_nueva_variable, variable_de_inicio, variable_preguntable_al_usuario,variable_objetivo, texto_consulta: texto_consulta, ruta_texto_descriptivo: ruta_archivo_rtf, ruta_imagen_descriptiva: ruta_imagen);
                     MessageBox.Show("Variable Agregada correctamente", "Agregando variable", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return id_nueva_variable;
                 }
@@ -710,6 +751,7 @@ namespace Tot
             nombre = variable.nombre_variable;
             variable_de_inicio = variable.variable_de_inicio;
             variable_preguntable_al_usuario = variable.variable_preguntable_al_usuario;
+            variable_objetivo = variable.variable_objetivo;
             switch (variable.tipo_variable)
             {
                 case Variable.BOOLEANO:
@@ -890,7 +932,7 @@ namespace Tot
             else
                 if (1 != preguntasSiNoCancelar("Modificando variable", "Se modificara la variable,\n ¿Usted desea continuar?"))
                     return false;
-            base_conocimiento.modificarMetadatosVariable(id_variable, variable_de_inicio, variable_preguntable_al_usuario, nombre, texto_consulta, ruta_archivo_rtf, ruta_archivo_imagen);
+            base_conocimiento.modificarMetadatosVariable(id_variable, variable_de_inicio, variable_preguntable_al_usuario,variable_objetivo, nombre, texto_consulta, ruta_archivo_rtf, ruta_archivo_imagen);
             if (variable.tipo_variable == Variable.NUMERICO)
             {
                 base_conocimiento.modificarAtributosVariableNumerica(id_variable, radioButton_cardinal.Checked);
@@ -1003,6 +1045,9 @@ namespace Tot
             marcarControl(RANGOS, false);
             marcarControl(INGRESO_ELEMENTO, false);
             marcarControl(LISTA_DE_ELEMENTOS, false);
+            marcarControl(VARIABLE_INICIAL, false);
+            marcarControl(LISTA_DE_ELEMENTOS, false);
+            marcarControl(VARIABLE_OBJETIVO, false);
         }
 
 
@@ -1049,8 +1094,9 @@ namespace Tot
                     }
                     else
                     {
-                        //todo eliminar
-                        MessageBox.Show("El archivo ya existe");
+                        File.Delete(ruta_archivo_variable);
+                        if (File.Exists(ruta_rtf_temporal))
+                            File.Move(ruta_rtf_temporal, ruta_archivo_variable); 
                     }
                 }
         }
@@ -1138,14 +1184,13 @@ namespace Tot
 
             controlesHabilitados(true);
             limpiarCampos();
-            desmarcarCampos();
             tipo_tarea = AGREGANDO;
             id_variable_en_tarea = null;
         }
 
         private void button_cancelar_Click(object sender, EventArgs e)
         {
-            desmarcarCampos();
+            
             limpiarCampos();
             controlesHabilitados(false);
             tipo_tarea = DESABILITADO;

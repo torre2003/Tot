@@ -41,6 +41,24 @@ namespace SistemaExpertoLib
         /// </summary>
         public string id_consecuente   { get {return consecuente.id_hecho;}}
 
+        /// <summary>
+        /// Indica si la regla a sido validada por el usuario en el proceso de inferencia,
+        /// una regla no puede ser validada si no tiene todos los estados de los antecedentes en TRUE
+        /// </summary>
+        public bool regla_validada
+        {
+            get { return _regla_validada; }
+            set
+            {
+                if (value)
+                    foreach (DatosHechos item in antecedentes)
+                        if (item.estado_hecho == false || !item.hecho_establecido)
+                            throw new System.ArgumentException("Una regla no puede ser validada si alguno de sus hechos tiene un estado FALSO",item.id_hecho+" "+item.nombre_hecho);
+                _regla_validada = value; 
+            }
+        }
+        bool _regla_validada = false;
+
 
         /// <summary>
         /// Atributo que indica si la regla es consistene en la base de conocimiento
@@ -77,7 +95,8 @@ namespace SistemaExpertoLib
             {
                 id_hecho = hecho.id_hecho,
                 nombre_hecho = ""+hecho,
-                hecho_verdadero = false
+                estado_hecho = false,
+                hecho_establecido = false
             };
             antecedentes.Add(datos_hecho);
             return true;
@@ -93,7 +112,8 @@ namespace SistemaExpertoLib
             {
                 id_hecho = hecho.id_hecho,
                 nombre_hecho = "" + hecho,
-                hecho_verdadero = false
+                estado_hecho = false,
+                hecho_establecido = false
             };
         }
 
@@ -119,7 +139,8 @@ namespace SistemaExpertoLib
         {
             if (consecuente.id_hecho.Equals(id_hecho))
             {
-                consecuente.hecho_verdadero = estado_hecho;
+                consecuente.estado_hecho = estado_hecho;
+                consecuente.hecho_establecido = true;
                 return;
             }
 
@@ -128,7 +149,8 @@ namespace SistemaExpertoLib
                 DatosHechos aux = (DatosHechos)antecedentes[i];
                 if (aux.id_hecho.Equals(id_hecho))
                 {
-                    aux.hecho_verdadero = estado_hecho;
+                    aux.estado_hecho = estado_hecho;
+                    aux.hecho_establecido = true;
                     return;
                 }
             }
@@ -194,16 +216,19 @@ namespace SistemaExpertoLib
         }
 
         /// <summary>
-        /// Método que marca como falso todos los Hechos en la Regla , antecedentes y consecuente.
+        /// Método que limpia los atributos asociados al proceso de inferencia
         /// </summary>
-        public void limpiarEstadoHechosRegla()
+        public void limpiarReglaParaInferencia()
         {
-            consecuente.hecho_verdadero = false;
+            consecuente.estado_hecho = false;
+            consecuente.hecho_establecido = false;
             for (int i = 0; i < antecedentes.Count; i++)
             {
                 DatosHechos aux = (DatosHechos)antecedentes[i];
-                aux.hecho_verdadero = false;
+                aux.estado_hecho = false;
+                aux.hecho_establecido = false;
             }
+            _regla_validada = false;
         }
 
         /// <summary>
@@ -246,6 +271,10 @@ namespace SistemaExpertoLib
             return flag;
         }
 
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
         [Serializable()]
         struct DatosHechos 
         {
@@ -261,9 +290,13 @@ namespace SistemaExpertoLib
             /// </summary>
             public string nombre_hecho;
             /// <summary>
-            /// Especifica si el hecho ha sido validado como verdadero
+            /// Especifica el estado del hecho
             /// </summary>
-            public bool hecho_verdadero;
+            public bool estado_hecho;
+            /// <summary>
+            /// Especifica si el hecho a sido asignado
+            /// </summary>
+            public bool hecho_establecido;
         }
 
     }

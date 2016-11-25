@@ -1,4 +1,5 @@
 ﻿using SistemaExpertoLib;
+using SistemaExpertoLib.GestionDelConocimiento;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

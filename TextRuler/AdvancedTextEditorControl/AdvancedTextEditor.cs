@@ -33,10 +33,11 @@ namespace TextRuler.AdvancedTextEditorControl
 
         private void habilitarEdicion(bool habilitado)
         {
+            TextEditor.ReadOnly = !habilitado;
             Toolbox_Formatting.Enabled = habilitado;
             Toolbox_Main.Enabled = habilitado;
             TextEditorMenu.Enabled = habilitado;
-            TextEditor.Enabled = habilitado;
+            //TextEditor.Enabled = habilitado;
         }
 
         private string GetFilePath()
