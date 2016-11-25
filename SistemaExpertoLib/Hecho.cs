@@ -95,9 +95,9 @@ namespace SistemaExpertoLib
         /// <summary>
         /// Valor Lista del hecho en la condición
         /// </summary>
-        public string valor_lista
+        public string valor_lista_hecho
         {
-            get { return valor_lista_hecho; }
+            get { return _valor_lista_hecho; }
         }
 
         /// <summary>
@@ -105,21 +105,21 @@ namespace SistemaExpertoLib
         /// </summary>
         public double valor_numerico
         {
-            get { return valor_numerico; }
+            get { return _valor_numerico_hecho; }
         }
 
         /// <summary>
         /// Valor del hecho en la condicion
         /// </summary>
-        bool valor_booleano_hecho;
+        bool _valor_booleano_hecho;
         /// <summary>
         /// Valor del hecho en la condicion
         /// </summary>
-        double valor_numerico_hecho;
+        double _valor_numerico_hecho;
         /// <summary>
         /// Valor del hecho en la condicion
         /// </summary>
-        string valor_lista_hecho;
+        string _valor_lista_hecho;
                
 
         /// <summary>
@@ -164,7 +164,7 @@ namespace SistemaExpertoLib
 
 
 
-        //todo para el comprobador de concordancia, preguntar si el hecho es accesible desde las reglas, al acmbiar variables revizar hechos
+        
         //********************************************************************************************
         //   Métodos
         //********************************************************************************************
@@ -193,9 +193,9 @@ namespace SistemaExpertoLib
             {
                 _condicion = opcion_condicion;
                 if (opcion_condicion.Equals(OPCIONES_BOOLEANO[0]))
-                    valor_booleano_hecho = false;
+                    _valor_booleano_hecho = false;
                 else
-                    valor_booleano_hecho = true;
+                    _valor_booleano_hecho = true;
             }
             else
             {
@@ -213,7 +213,7 @@ namespace SistemaExpertoLib
             if (comprobarCondicion(opcion_condicion))
             {
                 _condicion = opcion_condicion;
-                valor_numerico_hecho = valor;
+                _valor_numerico_hecho = valor;
             }
             else
             {
@@ -231,7 +231,7 @@ namespace SistemaExpertoLib
             if (comprobarCondicion(opcion_condicion))
             {
                 _condicion = opcion_condicion;
-                valor_lista_hecho = valor_en_variable;
+                _valor_lista_hecho = valor_en_variable;
             }
             else
             {
@@ -333,23 +333,23 @@ namespace SistemaExpertoLib
                 switch (_condicion)
                 {
                     case "MENOR":
-                        if (estado_variable < valor_numerico_hecho)
+                        if (estado_variable < _valor_numerico_hecho)
                             _estado_hecho = true;
                         break;
                     case "MENOR O IGUAL":
-                        if (estado_variable <= valor_numerico_hecho)
+                        if (estado_variable <= _valor_numerico_hecho)
                             _estado_hecho = true;
                         break;
                     case "IGUAL":
-                        if (estado_variable == valor_numerico_hecho)
+                        if (estado_variable == _valor_numerico_hecho)
                             _estado_hecho = true;
                         break;
                     case "MAYOR O IGUAL":
-                        if (estado_variable >= valor_numerico_hecho)
+                        if (estado_variable >= _valor_numerico_hecho)
                             _estado_hecho = true;
                         break;
                     case "MAYOR":
-                        if (estado_variable > valor_numerico_hecho)
+                        if (estado_variable > _valor_numerico_hecho)
                             _estado_hecho = true;
                         break;
                 }
@@ -380,11 +380,11 @@ namespace SistemaExpertoLib
                 switch (_condicion)
                 {
                     case "ES":
-                        if (estado_variable.Equals(valor_lista_hecho))
+                        if (estado_variable.Equals(_valor_lista_hecho))
                             _estado_hecho = true;
                         break;
                     case "NO ES":
-                        if (!estado_variable.Equals(valor_lista_hecho))
+                        if (!estado_variable.Equals(_valor_lista_hecho))
                             _estado_hecho = true;
                         break;
                 }
@@ -418,12 +418,43 @@ namespace SistemaExpertoLib
             {
                 retorno += " " + condicion;
                 if (tipo_variable == NUMERICO)
-                    retorno += " " + valor_numerico_hecho;
+                    retorno += " " + _valor_numerico_hecho;
                 else
                     if (tipo_variable == LISTA)
-                        retorno += " " + valor_lista_hecho;
+                        retorno += " " + _valor_lista_hecho;
             }
             return retorno;
+        }
+
+        /// <summary>
+        /// Metodo Equals modificado para comparar en base a Variable, condición y valor en la condición
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            string tipo_obj = ""+obj.GetType();
+            if (!tipo_obj.Equals("SistemaExpertoLib.Hecho"))
+                return false;
+            Hecho hecho = (Hecho)obj;
+            if (!this.id_variable.Equals(hecho.id_variable))
+                return false;
+            if (this.tipo_variable != hecho.tipo_variable)
+                return false;
+            if (!this.condicion.Equals(hecho.condicion))
+                return false;
+            switch (this.tipo_variable)
+            {
+                case Variable.LISTA:
+                    if (!this._valor_lista_hecho.Equals(hecho.valor_lista_hecho))
+                        return false;
+                    break;
+                case Variable.NUMERICO:
+                    if (this.valor_numerico != hecho.valor_numerico)
+                        return false;
+                    break;
+            }
+            return true;    
         }
 
 
