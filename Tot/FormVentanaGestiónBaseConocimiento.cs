@@ -1,4 +1,5 @@
 ﻿using SistemaExpertoLib;
+using SistemaExpertoLib.GestionDelConocimiento;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -44,8 +45,13 @@ namespace Tot
         {
             InitializeComponent();
             this.base_conocimiento = base_conocimiento;
+            //Gestion de variables
             control_gestion_variables.base_conocimiento = this.base_conocimiento;
             control_gestion_variables.actualizarListaDeVariables();
+            
+
+
+            // Gestión de reglas
             control_gestion_de_reglas.base_conocimiento = base_conocimiento;
             control_gestion_de_reglas.actualizarListaDeReglas();
         }

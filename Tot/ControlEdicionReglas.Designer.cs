@@ -51,40 +51,37 @@
             // label_enton
             // 
             this.label_enton.AutoSize = true;
-            this.label_enton.Location = new System.Drawing.Point(9, 17);
-            this.label_enton.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_enton.Location = new System.Drawing.Point(7, 14);
             this.label_enton.Name = "label_enton";
-            this.label_enton.Size = new System.Drawing.Size(67, 17);
+            this.label_enton.Size = new System.Drawing.Size(52, 13);
             this.label_enton.TabIndex = 1;
             this.label_enton.Text = "Entonces";
             // 
             // comboBox_var_entonces
             // 
+            this.comboBox_var_entonces.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.comboBox_var_entonces.FormattingEnabled = true;
-            this.comboBox_var_entonces.Location = new System.Drawing.Point(87, 14);
-            this.comboBox_var_entonces.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox_var_entonces.Location = new System.Drawing.Point(65, 11);
             this.comboBox_var_entonces.Name = "comboBox_var_entonces";
-            this.comboBox_var_entonces.Size = new System.Drawing.Size(288, 24);
+            this.comboBox_var_entonces.Size = new System.Drawing.Size(217, 21);
             this.comboBox_var_entonces.TabIndex = 3;
             this.comboBox_var_entonces.SelectedIndexChanged += new System.EventHandler(this.comboBox_var_entonces_SelectedIndexChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(180, 14);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(135, 11);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(60, 17);
+            this.label1.Size = new System.Drawing.Size(45, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "Variable";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(459, 14);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(344, 11);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(70, 17);
+            this.label2.Size = new System.Drawing.Size(54, 13);
             this.label2.TabIndex = 5;
             this.label2.Text = "Condición";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -92,40 +89,36 @@
             // comboBox_condicion_entonces
             // 
             this.comboBox_condicion_entonces.FormattingEnabled = true;
-            this.comboBox_condicion_entonces.Location = new System.Drawing.Point(416, 17);
-            this.comboBox_condicion_entonces.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox_condicion_entonces.Location = new System.Drawing.Point(312, 14);
             this.comboBox_condicion_entonces.Name = "comboBox_condicion_entonces";
-            this.comboBox_condicion_entonces.Size = new System.Drawing.Size(103, 24);
+            this.comboBox_condicion_entonces.Size = new System.Drawing.Size(78, 21);
             this.comboBox_condicion_entonces.TabIndex = 7;
             this.comboBox_condicion_entonces.Visible = false;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(603, 14);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(452, 11);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(107, 17);
+            this.label3.Size = new System.Drawing.Size(81, 13);
             this.label3.TabIndex = 8;
             this.label3.Text = "Valor Condición";
             // 
             // comboBox_lista_entonces
             // 
             this.comboBox_lista_entonces.FormattingEnabled = true;
-            this.comboBox_lista_entonces.Location = new System.Drawing.Point(549, 17);
-            this.comboBox_lista_entonces.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox_lista_entonces.Location = new System.Drawing.Point(412, 14);
             this.comboBox_lista_entonces.Name = "comboBox_lista_entonces";
-            this.comboBox_lista_entonces.Size = new System.Drawing.Size(185, 24);
+            this.comboBox_lista_entonces.Size = new System.Drawing.Size(140, 21);
             this.comboBox_lista_entonces.TabIndex = 10;
             this.comboBox_lista_entonces.Visible = false;
             // 
             // button_agregar
             // 
             this.button_agregar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.button_agregar.Location = new System.Drawing.Point(688, 21);
-            this.button_agregar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_agregar.Location = new System.Drawing.Point(620, 23);
             this.button_agregar.Name = "button_agregar";
-            this.button_agregar.Size = new System.Drawing.Size(52, 159);
+            this.button_agregar.Size = new System.Drawing.Size(39, 129);
             this.button_agregar.TabIndex = 12;
             this.button_agregar.Text = "Agregar";
             this.button_agregar.UseVisualStyleBackColor = true;
@@ -134,10 +127,9 @@
             // button_cancelar
             // 
             this.button_cancelar.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button_cancelar.Location = new System.Drawing.Point(489, 188);
-            this.button_cancelar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_cancelar.Location = new System.Drawing.Point(367, 158);
             this.button_cancelar.Name = "button_cancelar";
-            this.button_cancelar.Size = new System.Drawing.Size(160, 28);
+            this.button_cancelar.Size = new System.Drawing.Size(120, 23);
             this.button_cancelar.TabIndex = 13;
             this.button_cancelar.Text = "Cancelar";
             this.button_cancelar.UseVisualStyleBackColor = true;
@@ -146,10 +138,9 @@
             // button_aceptar
             // 
             this.button_aceptar.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button_aceptar.Location = new System.Drawing.Point(657, 188);
-            this.button_aceptar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_aceptar.Location = new System.Drawing.Point(493, 158);
             this.button_aceptar.Name = "button_aceptar";
-            this.button_aceptar.Size = new System.Drawing.Size(160, 28);
+            this.button_aceptar.Size = new System.Drawing.Size(120, 23);
             this.button_aceptar.TabIndex = 15;
             this.button_aceptar.Text = "Aceptar";
             this.button_aceptar.UseVisualStyleBackColor = true;
@@ -166,17 +157,17 @@
             this.panel_entonces.Controls.Add(this.comboBox_var_entonces);
             this.panel_entonces.Controls.Add(this.comboBox_condicion_entonces);
             this.panel_entonces.Controls.Add(this.comboBox_lista_entonces);
-            this.panel_entonces.Location = new System.Drawing.Point(21, 122);
-            this.panel_entonces.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel_entonces.Location = new System.Drawing.Point(16, 99);
             this.panel_entonces.Name = "panel_entonces";
-            this.panel_entonces.Size = new System.Drawing.Size(796, 64);
+            this.panel_entonces.Size = new System.Drawing.Size(598, 53);
             this.panel_entonces.TabIndex = 16;
             // 
             // label_rango_entonces
             // 
-            this.label_rango_entonces.Location = new System.Drawing.Point(547, 43);
+            this.label_rango_entonces.Location = new System.Drawing.Point(410, 35);
+            this.label_rango_entonces.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_rango_entonces.Name = "label_rango_entonces";
-            this.label_rango_entonces.Size = new System.Drawing.Size(188, 17);
+            this.label_rango_entonces.Size = new System.Drawing.Size(141, 14);
             this.label_rango_entonces.TabIndex = 13;
             this.label_rango_entonces.Text = "label4";
             this.label_rango_entonces.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -184,44 +175,42 @@
             // 
             // numericUpDown_entonces
             // 
-            this.numericUpDown_entonces.Location = new System.Drawing.Point(549, 17);
-            this.numericUpDown_entonces.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.numericUpDown_entonces.Location = new System.Drawing.Point(412, 14);
+            this.numericUpDown_entonces.Margin = new System.Windows.Forms.Padding(2);
             this.numericUpDown_entonces.Name = "numericUpDown_entonces";
-            this.numericUpDown_entonces.Size = new System.Drawing.Size(185, 22);
+            this.numericUpDown_entonces.Size = new System.Drawing.Size(139, 20);
             this.numericUpDown_entonces.TabIndex = 12;
             this.numericUpDown_entonces.Visible = false;
             // 
             // textBox_entonces
             // 
-            this.textBox_entonces.Location = new System.Drawing.Point(549, 18);
-            this.textBox_entonces.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBox_entonces.Location = new System.Drawing.Point(412, 15);
+            this.textBox_entonces.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_entonces.Name = "textBox_entonces";
-            this.textBox_entonces.Size = new System.Drawing.Size(185, 22);
+            this.textBox_entonces.Size = new System.Drawing.Size(140, 20);
             this.textBox_entonces.TabIndex = 11;
             this.textBox_entonces.Visible = false;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(4, 0);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(3, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(59, 17);
+            this.label4.Size = new System.Drawing.Size(45, 13);
             this.label4.TabIndex = 17;
             this.label4.Text = "Id regla:";
             // 
             // textBox_id_regla
             // 
-            this.textBox_id_regla.Location = new System.Drawing.Point(68, 0);
-            this.textBox_id_regla.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox_id_regla.Location = new System.Drawing.Point(51, 0);
             this.textBox_id_regla.Name = "textBox_id_regla";
             this.textBox_id_regla.ReadOnly = true;
-            this.textBox_id_regla.Size = new System.Drawing.Size(79, 22);
+            this.textBox_id_regla.Size = new System.Drawing.Size(60, 20);
             this.textBox_id_regla.TabIndex = 18;
             // 
             // ControlEdicionReglas
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.button_agregar);
             this.Controls.Add(this.textBox_id_regla);
@@ -232,9 +221,8 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "ControlEdicionReglas";
-            this.Size = new System.Drawing.Size(907, 247);
+            this.Size = new System.Drawing.Size(680, 201);
             this.panel_entonces.ResumeLayout(false);
             this.panel_entonces.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_entonces)).EndInit();

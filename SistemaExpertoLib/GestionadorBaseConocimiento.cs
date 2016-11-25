@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SistemaExpertoLib
+namespace SistemaExpertoLib.GestionDelConocimiento
 {
 
     public class GestionadorBaseConocimiento
@@ -26,7 +26,11 @@ namespace SistemaExpertoLib
         int ultima_id_hecho = 0;
         int ultima_id_regla = 0;
 
-        public string ruta_carpeta_archivos;
+        public string ruta_carpeta_archivos
+        {
+            get{return manejador_archivos.ruta_carpeta_archivos;}
+        }
+
         AccesoDatos manejador_archivos;
 
 
@@ -203,24 +207,25 @@ namespace SistemaExpertoLib
             return flag;
         }
 
+
         /// <summary>
         /// Método para modificar los metadatos de un Objeto Variable
         /// </summary>
         /// <param name="id_variable">identificador de la variable</param>
-        /// <param name="variable_de_inicio">Establece si la varaible será preguntada al inicio de la inferencia</param> 
+        /// <param name="variable_de_inicio">Establece si la varaible será preguntada al inicio de la inferencia en el encadenamiento hacia adelante</param> 
         /// <param name="variable_preguntable_al_usuario">Establece si la variable puede ser preguntada al usuario</param> 
+        /// <param name="variable_objetivo">Establece si la variable es objetivo del encadenamiento hacia atrás</param> 
         /// <param name="nombre_variable">modifica en nombre de la variable</param> 
         /// <param name="texto_consulta">Texto con el cual se va a mostrar la variable</param>
         /// <param name="ruta_texto_descriptivo">ruta del archivo con la descripcion de la variable</param>
         /// <param name="ruta_imagen_descriptiva">ruta de la imagen descriptiva de la variable</param>
         /// <returns></returns>
-        public bool modificarMetadatosVariable(string id_variable, bool variable_de_inicio, bool variable_preguntable_al_usuario, string nombre_variable = null, string texto_consulta = null, string ruta_texto_descriptivo = null, string ruta_imagen_descriptiva = null)
+        public bool modificarMetadatosVariable(string id_variable, bool variable_de_inicio, bool variable_preguntable_al_usuario,bool variable_objetivo, string nombre_variable = null, string texto_consulta = null, string ruta_texto_descriptivo = null, string ruta_imagen_descriptiva = null)
         {
             Variable variable = manejador_archivos.extraerVariable(id_variable);
-            if (variable == null)
-                return false;
             variable.variable_de_inicio = variable_de_inicio;
             variable.variable_preguntable_al_usuario = variable_preguntable_al_usuario;
+            variable.variable_objetivo = variable_objetivo;
             if (nombre_variable != null)
                 variable.nombre_variable = nombre_variable;
             if (texto_consulta != null)
@@ -230,6 +235,7 @@ namespace SistemaExpertoLib
             if (ruta_imagen_descriptiva != null)
                 variable.ruta_imagen_descriptiva = ruta_imagen_descriptiva;
             manejador_archivos.actualizarVariable(variable);
+            actualizarAtributosVariableEnHechos(id_variable);
             return true;
         }
 
@@ -504,6 +510,25 @@ namespace SistemaExpertoLib
             regla.eliminarAntecedente(id_hecho);
             manejador_archivos.actualizarRegla(regla);
         }
+
+        
+
+        /// <summary>
+        /// Actualiza los parametros nombre_variable, hecho_preguntable al usario
+        /// </summary>
+        /// <param name="id_variable_a_actualizar"></param>
+        private void actualizarAtributosVariableEnHechos(string id_variable_a_actualizar)
+        {
+            string[] hechos_con_variable = listarHechosConVariable(id_variable_a_actualizar);
+            Variable variable = manejador_archivos.extraerVariable(id_variable_a_actualizar);
+            for (int i = 0; i < hechos_con_variable.Length; i++)
+            {
+                Hecho hecho = manejador_archivos.extraerHecho(hechos_con_variable[i]);
+                hecho.actualizarParametrosVariableHecho(variable);
+                manejador_archivos.actualizarHecho(hecho);
+            }
+        }
+
 
         #endregion
 
@@ -1193,22 +1218,20 @@ namespace SistemaExpertoLib
                             hechos_encontrados.Add(lista_de_hechos[i]);
                     }
                     else
-                        if (rango_min != -99999999 && hecho.tipo_variable == Hecho.NUMERICO)
-                        {
-                            if (hecho.valor_numerico < rango_min || rango_max < hecho.valor_numerico)
-                                hechos_encontrados.Add(lista_de_hechos[i]);
-                        }
-                        else
-                        {
+                    if (rango_min != -99999999 && hecho.tipo_variable == Hecho.NUMERICO)
+                    {
+                        if (hecho.valor_numerico < rango_min || rango_max < hecho.valor_numerico)
                             hechos_encontrados.Add(lista_de_hechos[i]);
-                        }
+                    }
+                    else
+                    {
+                        hechos_encontrados.Add(lista_de_hechos[i]);
+                    }
 
                 }
 
             }
-            if (hechos_encontrados.Count == 0)
-                return null;
-            return (string[])hechos_encontrados.ToArray(typeof(string));
+            return hechos_encontrados.Count == 0? null: (string[])hechos_encontrados.ToArray(typeof(string));
         }
 
         /// <summary>

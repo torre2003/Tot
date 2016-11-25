@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SistemaExpertoLib;
 using System.Collections;
+using SistemaExpertoLib.GestionDelConocimiento;
 
 namespace Tot
 {
@@ -17,7 +18,7 @@ namespace Tot
 
     public partial class ControlEdicionReglas : UserControl
     {
-        struct ElementoComboBox
+        struct ElementoComboBox :IComparer
         {
             public string id;
             public string nombre;
@@ -25,6 +26,16 @@ namespace Tot
             public override string ToString()
             {
                 return nombre;
+            }
+
+
+
+            public int Compare(object x, object y)
+            {
+                ElementoComboBox a = (ElementoComboBox)x;
+                ElementoComboBox b = (ElementoComboBox)y;
+                return a.nombre.CompareTo(b.nombre);
+
             }
         }
 
@@ -330,9 +341,8 @@ namespace Tot
                     {
                         NumericUpDown numeric_up_down = (NumericUpDown)control;
                         if (numeric_up_down.Name.Equals(id_controles))
-                            if (hecho.valor_numerico != null)
-                                if (numeric_up_down.Minimum <= (decimal)hecho.valor_numerico && (decimal)hecho.valor_numerico <= numeric_up_down.Maximum)
-                                    numeric_up_down.Value = (decimal)hecho.valor_numerico;
+                             if (numeric_up_down.Minimum <= (decimal)hecho.valor_numerico && (decimal)hecho.valor_numerico <= numeric_up_down.Maximum)
+                                numeric_up_down.Value = (decimal)hecho.valor_numerico;
                     }
                     else
                     if (tipo_control.Equals("System.Windows.Forms.ComboBox"))
@@ -375,15 +385,13 @@ namespace Tot
             {
                 if (textBox_entonces != null)
                 {
-                    if (hecho.valor_numerico != null)
-                        textBox_entonces.Text = "" + hecho.valor_numerico;
+                    textBox_entonces.Text = "" + hecho.valor_numerico;
                 }
                 else
                 if (numericUpDown_entonces != null)
                 {
-                    if (hecho.valor_numerico != null)
-                        if (numericUpDown_entonces.Minimum <= (decimal)hecho.valor_numerico && (decimal)hecho.valor_numerico <= numericUpDown_entonces.Maximum)
-                            numericUpDown_entonces.Value = (decimal)hecho.valor_numerico;
+                    if (numericUpDown_entonces.Minimum <= (decimal)hecho.valor_numerico && (decimal)hecho.valor_numerico <= numericUpDown_entonces.Maximum)
+                         numericUpDown_entonces.Value = (decimal)hecho.valor_numerico;
                 }
             }
         }
@@ -654,6 +662,7 @@ namespace Tot
         {
             string[] lista_de_id_variable = base_conocimiento.listarVariables();
             lista_de_variables = new ElementoComboBox[lista_de_id_variable.Length];
+            ArrayList aux_lista_variables = new ArrayList();
             for (int i = 0; i < lista_de_id_variable.Length; i++)
             {
                 Variable variable = base_conocimiento.leerVariable(lista_de_id_variable[i]);
@@ -662,9 +671,17 @@ namespace Tot
                     id = variable.id_variable,
                     nombre = variable.nombre_variable
                 };
-                lista_de_variables[i] = elemento;
+            //    lista_de_variables[i] = elemento;
+                aux_lista_variables.Add(elemento);
             }
-            
+            aux_lista_variables.Sort(new ElementoComboBox());
+            int j = 0;
+            foreach (ElementoComboBox item in aux_lista_variables)
+            {
+                lista_de_variables[j] = item;
+                j++;
+            }
+
         }
 
         /// <summary>
@@ -684,6 +701,7 @@ namespace Tot
             if (comboBox_var_entonces == null)
             {
                 this.comboBox_var_entonces = new ComboBox();
+                this.comboBox_var_entonces.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
                 this.comboBox_var_entonces.FormattingEnabled = true;
                 this.comboBox_var_entonces.Location = new System.Drawing.Point(65, 11);
                 this.comboBox_var_entonces.Name = "comboBox_var_entonces";
@@ -2021,7 +2039,8 @@ namespace Tot
                     e.KeyChar.Equals('7') || 
                     e.KeyChar.Equals('8') ||
                     e.KeyChar.Equals('9') ||
-                    e.KeyChar.Equals('-')
+                    e.KeyChar.Equals('-') ||
+                    ((int)e.KeyChar == (int)Keys.Back)
                     )
                 )
             {
