@@ -89,8 +89,9 @@ namespace SistemaExpertoLib.MotorDeInferencia
         public const int CONTINUAR_PROCESO          = 35;
         public const int DETENER_PROCESO            = 36;
 
-        public const int INFERENCIA_DETENIDA_POR_EL_USUARIO = 41;
-
+        public const int INFERENCIA_DETENIDA_POR_EL_USUARIO         = 41;
+        public const int INFERENCIA_DETENIDA_PROBLEMA_SOLUCIONADO    = 42;
+        public const int INFERENCIA_DETENIDA_PROBLEMA_NO_SOLUCIONADO = 42;
 
         List<InfoRegla> lista_reglas_disponibles   = new List<InfoRegla>();
         List<InfoRegla> lista_reglas_candidatas    = new List<InfoRegla>();
@@ -444,7 +445,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
                         {
                             int[] respuesta_validacion_regla = evento_confimar_hecho(mejor_regla.id_consecuente);
                             
-                            // mejor_regla
+                            // Analizando confirmaciones de hecho
                             if (respuesta_validacion_regla[0] == HECHO_CONFIRMADO)//Si el hecho es validado por el usuario
                             {
                                 agregarLog("REGLA " + mejor_regla.id_regla + "VALIDADA");
@@ -453,13 +454,51 @@ namespace SistemaExpertoLib.MotorDeInferencia
                                 pila_hechos_a_verificar.Pop();//Eliminamos de la pila el hecho buscado
                             }
                             else
-                            if(respuesta_validacion_regla[0] == HECHO_CONFIRMADO)//Si el hecho es no validado por el usuario
+                            if(respuesta_validacion_regla[0] == HECHO_DESCARTADO)//Si el hecho es no validado por el usuario
                             {
-
+                                agregarLog("REGLA " + mejor_regla.id_regla + "NO VALIDADA");
+                                //Como se esta en la validacion de hechos por el usuario, el Hecho NO se marca como falso o se eliminia de la lista de hechos disponibles
+                                actualizarReglasConHechoConsecuente(mejor_regla.id_regla, mejor_regla.id_consecuente, false);//Actualizamos regla y elimamos la regla de las reglas Candidatas
                             }
                             else//si el hecho no es validado
                             {
-                                throw new System.ArgumentException("Argumentos invalidos", "Confirmacion de Hecho Usuario");
+                                throw new System.ArgumentException("Argumentos invalidos VALIDACION", "Confirmacion de Hecho Usuario");
+                            }
+
+                            if (respuesta_validacion_regla[0] == HECHO_CONFIRMADO)
+                            {
+                                // Analizando solución de problemas
+                                if (respuesta_validacion_regla[1] == PROBLEMA_SOLUCIONADO)//Si el problema solucionadp
+                                {
+                                    agregarLog("El problema se SOLUCIONO");
+                                    _codigo_de_salida_proceso = INFERENCIA_DETENIDA_PROBLEMA_SOLUCIONADO;
+                                    return;
+                                }
+                                else
+                                if (respuesta_validacion_regla[1] == PROBLEMA_NO_SOLUCIONADO)//Si el problema no se soluciono
+                                {
+                                    agregarLog("El problema se NO SE SOLUCIONO");
+                                }
+                                else//si el hecho no es validado
+                                {
+                                    throw new System.ArgumentException("Argumentos invalidos SOLUCION", "Confirmacion de Hecho Usuario");
+                                }
+                            }
+
+                            // Analizando continuar proceso
+                            if (respuesta_validacion_regla[2] == CONTINUAR_PROCESO)//Si el problema solucionadp
+                            {
+                                agregarLog("CONTINUANDO PROCESO...");
+                            }
+                            else
+                            if (respuesta_validacion_regla[2] == DETENER_PROCESO)//Si el problema no se soluciono
+                            {
+                                agregarLog("PROCESO DETENIDO...");
+                                _codigo_de_salida_proceso = INFERENCIA_DETENIDA_PROBLEMA_NO_SOLUCIONADO;
+                            }
+                            else//si el hecho no es validado
+                            {
+                                throw new System.ArgumentException("Argumentos invalidos PROCESO", "Confirmacion de Hecho Usuario");
                             }
                         }
                     }
