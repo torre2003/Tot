@@ -216,6 +216,20 @@ namespace SistemaExpertoLib
         }
 
         /// <summary>
+        /// Método que lista los hechos no establecidos de la regla
+        /// </summary>
+        /// <returns>Lista con la id de los hechos| null si no hay hechos no establecidos</returns>
+        public string[] listarAntecedentesNoEstablecidos()
+        {
+            List<string> retorno = new List<string>();
+            foreach (DatosHechos item in antecedentes)
+                if (item.hecho_establecido)
+                    retorno.Add(item.id_hecho);
+            return retorno.Count == 0 ? null : retorno.ToArray();    
+        }
+
+
+        /// <summary>
         /// Método que limpia los atributos asociados al proceso de inferencia
         /// </summary>
         public void limpiarReglaParaInferencia()

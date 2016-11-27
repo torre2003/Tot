@@ -230,7 +230,7 @@ namespace SistemaExpertoLib.GestionDelConocimiento
                 variable.nombre_variable = nombre_variable;
             if (texto_consulta != null)
                 variable.texto_consulta_variable = texto_consulta;
-            if (ruta_imagen_descriptiva != null)
+            if (ruta_texto_descriptivo != null)
                 variable.ruta_texto_descriptivo = ruta_texto_descriptivo;
             if (ruta_imagen_descriptiva != null)
                 variable.ruta_imagen_descriptiva = ruta_imagen_descriptiva;
@@ -239,7 +239,23 @@ namespace SistemaExpertoLib.GestionDelConocimiento
             return true;
         }
 
-
+        /// <summary>
+        /// Método para modificar las rutas de la Variable
+        /// </summary>
+        /// <param name="id_variable">id de la variable a modificar</param>
+        /// <param name="ruta_texto_descriptivo">Ruta texto descriptivo de la variable</param>
+        /// <param name="ruta_imagen_descriptiva">Ruta imagen descriptiva de la variable</param>
+        /// <returns></returns>
+        public bool modificarRutasArchivosVariable(string id_variable, string ruta_texto_descriptivo = null, string ruta_imagen_descriptiva = null)
+        {
+            Variable variable = manejador_archivos.extraerVariable(id_variable);
+            if (ruta_texto_descriptivo != null)
+                variable.ruta_texto_descriptivo = ruta_texto_descriptivo;
+            if (ruta_imagen_descriptiva != null)
+                variable.ruta_imagen_descriptiva = ruta_imagen_descriptiva;
+            manejador_archivos.actualizarVariable(variable);
+            return true;
+        }        
 
         /// <summary>
         /// Método para eliminar una varaible de la base de conocimiento,
@@ -520,6 +536,8 @@ namespace SistemaExpertoLib.GestionDelConocimiento
         private void actualizarAtributosVariableEnHechos(string id_variable_a_actualizar)
         {
             string[] hechos_con_variable = listarHechosConVariable(id_variable_a_actualizar);
+            if (hechos_con_variable == null)
+                return;
             Variable variable = manejador_archivos.extraerVariable(id_variable_a_actualizar);
             for (int i = 0; i < hechos_con_variable.Length; i++)
             {
@@ -527,6 +545,19 @@ namespace SistemaExpertoLib.GestionDelConocimiento
                 hecho.actualizarParametrosVariableHecho(variable);
                 manejador_archivos.actualizarHecho(hecho);
             }
+        }
+
+        /// <summary>
+        /// Método que actualiza el hecho según los cambios de su variable interna
+        /// </summary>
+        /// <param name="id_hecho">Id del hecho a actualizar</param>
+
+        public void actualizarAtributosHecho(string id_hecho)
+        {
+            Hecho hecho = manejador_archivos.extraerHecho(id_hecho);
+            Variable variable = manejador_archivos.extraerVariable(hecho.id_variable);
+            hecho.actualizarParametrosVariableHecho(variable);
+            manejador_archivos.actualizarHecho(hecho);
         }
 
 

@@ -41,6 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControlJustificación.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ControlJustificación.Designer.cs">
+      <DependentUpon>ControlJustificación.cs</DependentUpon>
+    </Compile>
     <Compile Include="ControlPantallaInicial.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -74,6 +80,9 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ControlJustificación.resx">
+      <DependentUpon>ControlJustificación.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ControlPantallaInicial.resx">
       <DependentUpon>ControlPantallaInicial.cs</DependentUpon>
     </EmbeddedResource>
@@ -100,6 +109,12 @@
       <Project>{2B29C912-8BDA-4260-A486-111BECCCC196}</Project>
       <Name>TextRuler</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Save48x48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Save32_32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

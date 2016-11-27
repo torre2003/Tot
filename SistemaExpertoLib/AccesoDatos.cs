@@ -37,7 +37,7 @@ namespace SistemaExpertoLib
         /// </summary>
         public AccesoDatos()
         {
-            if (!System.IO.Directory.Exists(ruta_carpeta_archivos))
+            if (System.IO.Directory.Exists(ruta_carpeta_archivos))
                 _existe_base_conocimiento = true;
             
         }
@@ -49,7 +49,7 @@ namespace SistemaExpertoLib
         public AccesoDatos(string ruta_carpeta_archivos)
         {
             this.ruta_carpeta_archivos = ruta_carpeta_archivos;
-            if (!System.IO.Directory.Exists(ruta_carpeta_archivos))
+            if (System.IO.Directory.Exists(ruta_carpeta_archivos))
                 _existe_base_conocimiento = true;
         }
 

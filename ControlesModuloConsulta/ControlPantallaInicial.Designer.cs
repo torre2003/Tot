@@ -62,6 +62,7 @@
             this.button_iniciar.TabIndex = 2;
             this.button_iniciar.Text = "Continuar";
             this.button_iniciar.UseVisualStyleBackColor = true;
+            this.button_iniciar.Click += new System.EventHandler(this.button_iniciar_Click);
             // 
             // label_titulo_sistema_experto
             // 

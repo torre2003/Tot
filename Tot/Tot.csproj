@@ -62,11 +62,23 @@
     <Compile Include="ControlGestionVariables.Designer.cs">
       <DependentUpon>ControlGestionVariables.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormDialogoPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDialogoPanel.Designer.cs">
+      <DependentUpon>FormDialogoPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormVentanaGestiónBaseConocimiento.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormVentanaGestiónBaseConocimiento.Designer.cs">
       <DependentUpon>FormVentanaGestiónBaseConocimiento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormVentanaInferencia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormVentanaInferencia.Designer.cs">
+      <DependentUpon>FormVentanaInferencia.cs</DependentUpon>
     </Compile>
     <Compile Include="FormVentanaPrincipal.cs">
       <SubType>Form</SubType>
@@ -91,8 +103,14 @@
     <EmbeddedResource Include="ControlGestionVariables.resx">
       <DependentUpon>ControlGestionVariables.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormDialogoPanel.resx">
+      <DependentUpon>FormDialogoPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormVentanaGestiónBaseConocimiento.resx">
       <DependentUpon>FormVentanaGestiónBaseConocimiento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormVentanaInferencia.resx">
+      <DependentUpon>FormVentanaInferencia.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormVentanaPrincipal.resx">
       <DependentUpon>FormVentanaPrincipal.cs</DependentUpon>
@@ -124,6 +142,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ControlesModuloConsulta\ControlesModuloConsulta.csproj">
+      <Project>{1a4288d2-3197-4bb8-b0a5-ccb7d1ee8ae7}</Project>
+      <Name>ControlesModuloConsulta</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SistemaExpertoLib\SistemaExpertoLib.csproj">
       <Project>{cc17b513-73d1-4fae-9824-3ddf51b9d217}</Project>
       <Name>SistemaExpertoLib</Name>
@@ -159,6 +181,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\update_256x256.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\loadong.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

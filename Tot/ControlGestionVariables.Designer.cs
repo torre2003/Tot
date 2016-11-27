@@ -38,6 +38,7 @@
             this.button_eliminar_variable = new System.Windows.Forms.Button();
             this.button_modificar_variable = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.checkBox_variable_objetivo = new System.Windows.Forms.CheckBox();
             this.checkBox_variable_preguntable_al_usuario = new System.Windows.Forms.CheckBox();
             this.checkBox_variable_de_inicio = new System.Windows.Forms.CheckBox();
             this.button_cancelar = new System.Windows.Forms.Button();
@@ -73,7 +74,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.openFileDialog_archivos_RTF = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialog_imagenes = new System.Windows.Forms.OpenFileDialog();
-            this.checkBox_variable_objetivo = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel_1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -211,6 +211,16 @@
             this.tableLayoutPanel1.SetRowSpan(this.panel3, 2);
             this.panel3.Size = new System.Drawing.Size(471, 594);
             this.panel3.TabIndex = 5;
+            // 
+            // checkBox_variable_objetivo
+            // 
+            this.checkBox_variable_objetivo.AutoSize = true;
+            this.checkBox_variable_objetivo.Location = new System.Drawing.Point(99, 144);
+            this.checkBox_variable_objetivo.Name = "checkBox_variable_objetivo";
+            this.checkBox_variable_objetivo.Size = new System.Drawing.Size(250, 17);
+            this.checkBox_variable_objetivo.TabIndex = 19;
+            this.checkBox_variable_objetivo.Text = "Variable Objetivo (Encadenamiento hacia atrás)";
+            this.checkBox_variable_objetivo.UseVisualStyleBackColor = true;
             // 
             // checkBox_variable_preguntable_al_usuario
             // 
@@ -559,16 +569,6 @@
             // 
             this.openFileDialog_imagenes.Filter = "\"Archivo de imagen JPEG (*.jpeg)|*.jpeg|Archivo de imagen JPG(*.jpg)|*.jpg|Archiv" +
     "o de imagen PNG(*.png)|*.png\"";
-            // 
-            // checkBox_variable_objetivo
-            // 
-            this.checkBox_variable_objetivo.AutoSize = true;
-            this.checkBox_variable_objetivo.Location = new System.Drawing.Point(99, 144);
-            this.checkBox_variable_objetivo.Name = "checkBox_variable_objetivo";
-            this.checkBox_variable_objetivo.Size = new System.Drawing.Size(250, 17);
-            this.checkBox_variable_objetivo.TabIndex = 19;
-            this.checkBox_variable_objetivo.Text = "Variable Objetivo (Encadenamiento hacia atrás)";
-            this.checkBox_variable_objetivo.UseVisualStyleBackColor = true;
             // 
             // ControlGestionVariables
             // 

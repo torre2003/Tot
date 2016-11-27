@@ -50,6 +50,7 @@ namespace ControlesModuloConsulta
         ArrayList opciones_estado   = new ArrayList();
 
         public event DelegadoCambioEnOpcionVariable evento_cambio_en_seleccion_variable;
+        public event DelegadoRespuestaLista evento_comenzar;
 
         //**************************************************************************
         // Métodos
@@ -60,7 +61,11 @@ namespace ControlesModuloConsulta
             InitializeComponent();
         }
 
-
+        /// <summary>
+        /// Método que agrega las opciones al panel de varaibles
+        /// </summary>
+        /// <param name="id_variable">Id de variable a mostrar</param>
+        /// <param name="nombre_variable">Nombre d ela variable a mostrar</param>
         public void agregarOpcionPanelVariables(string id_variable, string nombre_variable)
         {
             RadioButton radio = new RadioButton();
@@ -77,11 +82,15 @@ namespace ControlesModuloConsulta
             ultimo_y += alto_control;
             opciones_variable.Add(radio);
             this.panel_interno_variable.Controls.Add(radio);
-            this.panel_interno_variable.Size = new System.Drawing.Size(494, opciones_variable.Count * alto_control);
+            this.panel_interno_variable.Size = new System.Drawing.Size(450, opciones_variable.Count * alto_control);
             
         }
 
-
+        /// <summary>
+        /// Método que agrega una opcion al panel de estados de la variable
+        /// </summary>
+        /// <param name="id_hecho">Id del hecho a mostrar</param>
+        /// <param name="texto_hecho">Texto a mostrar del hecho</param>
         public void agregarOpcionPanelEstados(string id_hecho, string texto_hecho)
         {
             RadioButton radio = new RadioButton();
@@ -97,26 +106,33 @@ namespace ControlesModuloConsulta
             radio.CheckedChanged += radio_estados_CheckedChanged;
             opciones_estado.Add(radio);
             this.panel_interno_estados.Controls.Add(radio);
-            this.panel_interno_estados.Size = new System.Drawing.Size(494, opciones_estado.Count * alto_control);
+            this.panel_interno_estados.Size = new System.Drawing.Size(450, opciones_estado.Count * alto_control);
         }
 
-
+        /// <summary>
+        /// Metodo para limpiar el panel variable de la ventana
+        /// </summary>
         public void limpiarPanelVariable()
         {
             foreach (RadioButton item in opciones_variable)
                 panel_interno_variable.Controls.Remove(item);
-            this.panel_interno_variable.Size = new System.Drawing.Size(494,0);
+            this.panel_interno_variable.Size = new System.Drawing.Size(450,0);
             opciones_variable.Clear();
             opciones_variable = new ArrayList();
+            id_variable_chequeada = null;
         }
 
+        /// <summary>
+        /// Metodo para limpiar el panel estado de la ventana
+        /// </summary>
         public void limpiarPanelEstados()
         {
             foreach (RadioButton item in opciones_estado)
                 panel_interno_estados.Controls.Remove(item);
-            this.panel_interno_estados.Size = new System.Drawing.Size(494, 0);
+            this.panel_interno_estados.Size = new System.Drawing.Size(450, 0);
             opciones_estado.Clear();
             opciones_estado = new ArrayList();
+            id_estado_chequeada = null;
         }
 
         //**************************************************************************
@@ -142,6 +158,22 @@ namespace ControlesModuloConsulta
             {
                 id_estado_chequeada = radio.Name;
             }
+        }
+
+        private void button_iniciar_inferencia_Click(object sender, EventArgs e)
+        {
+            if (id_variable_chequeada == null)
+            {
+                MessageBox.Show("No se ha seleccionado la Variable objetivo","Seleccionando objetivo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            if (id_estado_chequeada == null)
+            {
+                MessageBox.Show("No se ha seleccionado el estado objetivo", "Seleccionando objetivo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            if (evento_comenzar != null)
+                evento_comenzar();
         }
     }
 }

@@ -647,7 +647,7 @@ namespace Tot
                     if (!this.ruta_archivo_imagen.Equals(""))
                         ruta_imagen = this.ruta_archivo_imagen;
 
-                    base_conocimiento.modificarMetadatosVariable(id_nueva_variable, variable_de_inicio, variable_preguntable_al_usuario,variable_objetivo, texto_consulta: texto_consulta, ruta_texto_descriptivo: ruta_archivo_rtf, ruta_imagen_descriptiva: ruta_imagen);
+                    base_conocimiento.modificarMetadatosVariable(id_nueva_variable, variable_de_inicio, variable_preguntable_al_usuario,variable_objetivo, texto_consulta: texto_consulta, ruta_texto_descriptivo: null, ruta_imagen_descriptiva: ruta_imagen);
                     MessageBox.Show("Variable Agregada correctamente", "Agregando variable", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return id_nueva_variable;
                 }
@@ -797,7 +797,6 @@ namespace Tot
                 button_seleccion_documento.Enabled = true;
             else
                 button_seleccion_documento.Enabled = false;
-            
         }
 
         /// <summary>
@@ -932,7 +931,7 @@ namespace Tot
             else
                 if (1 != preguntasSiNoCancelar("Modificando variable", "Se modificara la variable,\n ¿Usted desea continuar?"))
                     return false;
-            base_conocimiento.modificarMetadatosVariable(id_variable, variable_de_inicio, variable_preguntable_al_usuario,variable_objetivo, nombre, texto_consulta, ruta_archivo_rtf, ruta_archivo_imagen);
+            base_conocimiento.modificarMetadatosVariable(id_variable, variable_de_inicio, variable_preguntable_al_usuario,variable_objetivo, nombre, texto_consulta, null, ruta_archivo_imagen);
             if (variable.tipo_variable == Variable.NUMERICO)
             {
                 base_conocimiento.modificarAtributosVariableNumerica(id_variable, radioButton_cardinal.Checked);
@@ -1101,6 +1100,16 @@ namespace Tot
                 }
         }
 
+        private void confirmarRutaArhivoDescriptivoEnVariable(string id_variable)
+        {
+            string ruta_archivo_variable = base_conocimiento.ruta_carpeta_archivos + "rtf" + "\\" + id_variable + ".rtf";
+            if (File.Exists(ruta_archivo_variable))
+            {
+                base_conocimiento.modificarRutasArchivosVariable(id_variable, ruta_archivo_variable);
+            }
+        }
+
+
         //*************************************************************************
         // Eventos
         //*************************************************************************
@@ -1214,6 +1223,7 @@ namespace Tot
                         tipo_tarea = DESABILITADO;
                         actualizarListaDeVariables();
                         renombrarRTFTemporal(id_nueva_variable);
+                        confirmarRutaArhivoDescriptivoEnVariable(id_nueva_variable);
                         ruta_rtf_actual = null;
                         limpiarArchivoTemporalRTF();
                     }
@@ -1250,7 +1260,9 @@ namespace Tot
                             renombrarRTFTemporal(id_variable_en_tarea);
                             ruta_rtf_actual = null;
                             limpiarArchivoTemporalRTF();
+                            confirmarRutaArhivoDescriptivoEnVariable(id_variable_en_tarea);
                             id_variable_en_tarea = null;
+                            
                         }
                     }
                     else

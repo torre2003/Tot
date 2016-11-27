@@ -57,6 +57,8 @@ namespace ControlesModuloConsulta
             get { return button_iniciar; }
         }
 
+        public event DelegadoRespuestaLista evento_continuar;
+
         public ControlPantallaInicial()
         {
             InitializeComponent();
@@ -91,6 +93,12 @@ namespace ControlesModuloConsulta
                 MessageBox.Show("La Imagen no existe");
             }
             
+        }
+
+        private void button_iniciar_Click(object sender, EventArgs e)
+        {
+            if (evento_continuar != null)
+                evento_continuar();
         }
 
 

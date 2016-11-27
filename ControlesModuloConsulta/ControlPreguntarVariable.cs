@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using SistemaExpertoLib;
+using System.Collections;
 
 namespace ControlesModuloConsulta
 {
@@ -56,10 +57,13 @@ namespace ControlesModuloConsulta
         }
 
         public bool ingreso_chequeado = false;
-
+        
         public bool valor_variable_booleano = false;
         public string valor_variable_lista = "";
         public double valor_variable_numerica = -9999999;
+
+
+
 
         public event DelegadoRespuestaLista evento_respuesta_lista;
 
@@ -91,18 +95,33 @@ namespace ControlesModuloConsulta
             textBox_numero_real.Visible = false;
             numericUpDown_numero_cardinal.Value = numericUpDown_numero_cardinal.Minimum;
             numericUpDown_numero_cardinal.Visible = false;
-            comboBox_lista_opciones.Items.Clear();
-            comboBox_lista_opciones = new ComboBox();
-            this.comboBox_lista_opciones.FormattingEnabled = true;
-            this.comboBox_lista_opciones.Location = new System.Drawing.Point(178, 22);
-            this.comboBox_lista_opciones.Name = "comboBox_lista_opciones";
-            this.comboBox_lista_opciones.Size = new System.Drawing.Size(200, 21);
-            this.comboBox_lista_opciones.TabIndex = 1;
+           //todo revisar
+           
+            //comboBox_lista_opciones.Items.Clear();
+
+            this.panel_respuesta.Controls.Remove(this.comboBox_lista_opciones);
+            comboBox_lista_opciones = null;
+         
+            
+          
+            
         }
+
+        private void crearComboBox()
+        {
+            comboBox_lista_opciones = new ComboBox();
+            comboBox_lista_opciones.FormattingEnabled = true;
+            comboBox_lista_opciones.Location = new System.Drawing.Point(178, 22);
+            comboBox_lista_opciones.Name = "comboBox_lista_opciones";
+            comboBox_lista_opciones.Size = new System.Drawing.Size(200, 21);
+            this.panel_respuesta.Controls.Add(this.comboBox_lista_opciones);
+        }
+
 
         public void consultarVariable(Variable variable)
         {
             limpiarVentana();
+            variable_actual = variable;
             titulo = variable_actual.nombre_variable;
             pregunta= variable.texto_consulta_variable;
             if (variable.ruta_texto_descriptivo != null && !variable.ruta_texto_descriptivo.Equals(""))
@@ -113,15 +132,17 @@ namespace ControlesModuloConsulta
             switch (variable.tipo_variable)
             {
                 case Variable.BOOLEANO:
+                    crearComboBox();
                     comboBox_lista_opciones.Visible = true;
                     comboBox_lista_opciones.Items.Add("Si");
                     comboBox_lista_opciones.Items.Add("No");
                     break;
                 case Variable.LISTA:
+                    crearComboBox();
                     comboBox_lista_opciones.Visible = true;
                     string[] opciones = variable.listarOpciones();
                     for (int i = 0; i < opciones.Length; i++)
-                        comboBox_lista_opciones.Items.Add(opciones);    
+                        comboBox_lista_opciones.Items.Add(opciones[i]);    
                     break;
                 case Variable.NUMERICO:
                     if (variable.cardinal)
@@ -171,7 +192,7 @@ namespace ControlesModuloConsulta
             {
                 this.richTextBox_descripcion_variable.Rtf = System.IO.File.ReadAllText(ruta_richText, System.Text.Encoding.Default);
             }
-            catch (Exception) //error occured, that means we loaded invalid RTF, so load as plain text
+            catch (Exception e) //error occured, that means we loaded invalid RTF, so load as plain text
             {
                 this.richTextBox_descripcion_variable.Text = System.IO.File.ReadAllText(ruta_richText, System.Text.Encoding.Default);
             } 
@@ -227,6 +248,7 @@ namespace ControlesModuloConsulta
                     {
                         valor_variable_numerica = (double)numericUpDown_numero_cardinal.Value;
                     }
+                    else
                     {//real
                         if (textBox_numero_real.Text.Equals(""))
                         {
@@ -285,6 +307,26 @@ namespace ControlesModuloConsulta
             }
         }
 
+
+        public ArrayList obtenerResultadosPregunta()
+        {
+            ArrayList retorno = new ArrayList();
+            retorno.Add(variable_actual.id_variable);
+            switch (variable_actual.tipo_variable)
+            {
+                case Variable.BOOLEANO:
+                    retorno.Add(valor_variable_booleano);
+                    break;
+                case Variable.LISTA:
+                    retorno.Add(valor_variable_lista);
+                    break;
+                case Variable.NUMERICO:
+                    retorno.Add(valor_variable_numerica);
+                    break;
+            }
+            return retorno;
+        }
+
         //******************************************************************************
         // Eventos 
         //******************************************************************************
@@ -332,8 +374,5 @@ namespace ControlesModuloConsulta
         {
             comprobarIngreso();
         }
-
-
-
     }
 }

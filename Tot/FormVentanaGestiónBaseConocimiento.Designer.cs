@@ -32,6 +32,7 @@
             this.tabPage_variables = new System.Windows.Forms.TabPage();
             this.control_gestion_variables = new Tot.ControlGestionVariables();
             this.tabPage_hechos = new System.Windows.Forms.TabPage();
+            this.button_cheuquear_hechos = new System.Windows.Forms.Button();
             this.button_update = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.listBox_hechos = new System.Windows.Forms.ListBox();
@@ -88,10 +89,12 @@
             this.control_gestion_variables.TabIndex = 0;
             this.control_gestion_variables.texto_consulta = "";
             this.control_gestion_variables.variable_de_inicio = false;
+            this.control_gestion_variables.variable_objetivo = false;
             this.control_gestion_variables.variable_preguntable_al_usuario = false;
             // 
             // tabPage_hechos
             // 
+            this.tabPage_hechos.Controls.Add(this.button_cheuquear_hechos);
             this.tabPage_hechos.Controls.Add(this.button_update);
             this.tabPage_hechos.Controls.Add(this.label1);
             this.tabPage_hechos.Controls.Add(this.listBox_hechos);
@@ -103,6 +106,16 @@
             this.tabPage_hechos.Text = "Hechos";
             this.tabPage_hechos.UseVisualStyleBackColor = true;
             this.tabPage_hechos.Enter += new System.EventHandler(this.tabPage_hechos_Enter);
+            // 
+            // button_cheuquear_hechos
+            // 
+            this.button_cheuquear_hechos.Location = new System.Drawing.Point(398, 468);
+            this.button_cheuquear_hechos.Name = "button_cheuquear_hechos";
+            this.button_cheuquear_hechos.Size = new System.Drawing.Size(288, 23);
+            this.button_cheuquear_hechos.TabIndex = 3;
+            this.button_cheuquear_hechos.Text = "Chequear Hechos";
+            this.button_cheuquear_hechos.UseVisualStyleBackColor = true;
+            this.button_cheuquear_hechos.Click += new System.EventHandler(this.button_cheuquear_hechos_Click);
             // 
             // button_update
             // 
@@ -154,8 +167,10 @@
             this.control_gestion_de_reglas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.control_gestion_de_reglas.Location = new System.Drawing.Point(3, 3);
             this.control_gestion_de_reglas.Margin = new System.Windows.Forms.Padding(4);
+            this.control_gestion_de_reglas.MaximumSize = new System.Drawing.Size(789, 584);
+            this.control_gestion_de_reglas.MinimumSize = new System.Drawing.Size(789, 584);
             this.control_gestion_de_reglas.Name = "control_gestion_de_reglas";
-            this.control_gestion_de_reglas.Size = new System.Drawing.Size(775, 639);
+            this.control_gestion_de_reglas.Size = new System.Drawing.Size(789, 584);
             this.control_gestion_de_reglas.TabIndex = 0;
             // 
             // button1
@@ -177,6 +192,7 @@
             this.MinimumSize = new System.Drawing.Size(804, 708);
             this.Name = "FormVentanaGestiónBaseConocimiento";
             this.Text = "Gestión Base de Conocimiento";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormVentanaGestiónBaseConocimiento_FormClosing);
             this.tabControl_gestion_conocimiento.ResumeLayout(false);
             this.tabPage_variables.ResumeLayout(false);
             this.tabPage_variables.PerformLayout();
@@ -200,6 +216,7 @@
         private System.Windows.Forms.Button button_update;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListBox listBox_hechos;
+        private System.Windows.Forms.Button button_cheuquear_hechos;
 
     }
 }
