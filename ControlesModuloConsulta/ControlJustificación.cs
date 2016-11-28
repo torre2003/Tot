@@ -48,6 +48,18 @@ namespace ControlesModuloConsulta
             textBox_log.Text = "";
         }
 
+        /// <summary>
+        /// Método para mostrar el log de inferencia en pantalla
+        /// </summary>
+        /// <param name="log"></param>
+        public void mostrarLog(List<string> log)
+        {
+            limpiarPantalla();
+            foreach (string item in log)
+            {
+                textBox_log.AppendText(item+"\n");
+            }
+        }
         //*************************************************************************
         // Eventos
         //*************************************************************************

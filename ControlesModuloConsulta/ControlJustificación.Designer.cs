@@ -44,11 +44,12 @@
             this.label_titulo.Text = "Módulo de justificación";
             this.label_titulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // textBox1
+            // textBox_log
             // 
             this.textBox_log.Location = new System.Drawing.Point(63, 64);
             this.textBox_log.Multiline = true;
-            this.textBox_log.Name = "textBox1";
+            this.textBox_log.Name = "textBox_log";
+            this.textBox_log.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBox_log.Size = new System.Drawing.Size(469, 400);
             this.textBox_log.TabIndex = 6;
             // 

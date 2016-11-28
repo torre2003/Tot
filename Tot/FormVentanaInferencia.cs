@@ -152,6 +152,7 @@ namespace Tot
         public void mostrarModuloDeJustificación()
         {
             dialogo = new FormDialogoPanel(ventana_justificacion);
+            ventana_justificacion.mostrarLog(motor_atras.loggeo_inferencia);
             dialogo.FormClosing += dialogo_justificacion_FormClosing;
             ventana_justificacion.evento_guardar += ventana_justificacion_evento_guardar;
             ventana_justificacion.evento_ventana_lista += evento_ventana_respuesta_lista;
@@ -271,7 +272,6 @@ namespace Tot
                 respuestas[2] = EncadenamientoHaciaAtras.CONTINUAR_PROCESO;
             else
                 respuestas[2] = EncadenamientoHaciaAtras.DETENER_PROCESO;
-            MessageBox.Show(""+respuestas[0]+"  "+respuestas[1]+"  "+respuestas[2]+"  ");
             return respuestas;
         }
 

@@ -151,6 +151,7 @@ namespace SistemaExpertoLib
                 {
                     aux.estado_hecho = estado_hecho;
                     aux.hecho_establecido = true;
+                    antecedentes[i] = aux;
                     return;
                 }
             }
@@ -223,7 +224,7 @@ namespace SistemaExpertoLib
         {
             List<string> retorno = new List<string>();
             foreach (DatosHechos item in antecedentes)
-                if (item.hecho_establecido)
+                if (!item.hecho_establecido)
                     retorno.Add(item.id_hecho);
             return retorno.Count == 0 ? null : retorno.ToArray();    
         }
@@ -241,6 +242,7 @@ namespace SistemaExpertoLib
                 DatosHechos aux = (DatosHechos)antecedentes[i];
                 aux.estado_hecho = false;
                 aux.hecho_establecido = false;
+                antecedentes[i] = aux;
             }
             _regla_validada = false;
         }

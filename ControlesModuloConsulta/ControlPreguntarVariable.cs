@@ -91,6 +91,7 @@ namespace ControlesModuloConsulta
             rango = "";
             pregunta = "";
             richTextBox_descripcion_variable.Clear();
+            richTextBox_descripcion_variable.Text = "";
             textBox_numero_real.Text = "";
             textBox_numero_real.Visible = false;
             numericUpDown_numero_cardinal.Value = numericUpDown_numero_cardinal.Minimum;
