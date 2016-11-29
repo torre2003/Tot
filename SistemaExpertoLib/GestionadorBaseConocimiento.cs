@@ -908,7 +908,7 @@ namespace SistemaExpertoLib.GestionDelConocimiento
                 }
             }
 
-            if (regla.id_consecuente == null ||  (!(regla.id_consecuente.Equals(id_hecho_consecuente))))
+            if (regla.id_hecho_consecuente == null ||  (!(regla.id_hecho_consecuente.Equals(id_hecho_consecuente))))
             {
                 Hecho hecho = manejador_archivos.extraerHecho(id_hecho_consecuente);
                 regla.agregarHechoAlConsecuente(hecho);

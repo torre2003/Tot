@@ -142,10 +142,11 @@ namespace Tot
         {
             motor_atras.evento_consultar_variable += motor_atras_evento_consultar_variable;
             motor_atras.evento_confimar_hecho += motor_atras_evento_confimar_hecho;
+            motor_atras.evento_informacion_inferencia += motor_atras_evento_informacion_inferencia;
             motor_atras.inferencia();
             mostrarModuloDeJustificación();
         }
-
+        
         /// <summary>
         /// Método para mostrar el modulo de justificación de la inferencia
         /// </summary>
@@ -274,6 +275,13 @@ namespace Tot
                 respuestas[2] = EncadenamientoHaciaAtras.DETENER_PROCESO;
             return respuestas;
         }
+
+
+        void motor_atras_evento_informacion_inferencia(string info)
+        {
+            MessageBox.Show(info, "Inferencia encadenamiento hacia atrás", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
 
         void dialogo_justificacion_FormClosing(object sender, FormClosingEventArgs e)
         {

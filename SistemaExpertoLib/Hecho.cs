@@ -93,6 +93,14 @@ namespace SistemaExpertoLib
         string _condicion = null;
 
         /// <summary>
+        /// Valor booleano del hecho en la condición
+        /// </summary>
+        public bool valor_booleano
+        {
+            get { return _valor_booleano_hecho; }
+        }
+
+        /// <summary>
         /// Valor Lista del hecho en la condición
         /// </summary>
         public string valor_lista_hecho
@@ -107,7 +115,7 @@ namespace SistemaExpertoLib
         {
             get { return _valor_numerico_hecho; }
         }
-
+        
         /// <summary>
         /// Valor del hecho en la condicion
         /// </summary>

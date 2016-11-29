@@ -10,6 +10,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
    
     public delegate ArrayList DelegadoConsultarVariable(string id_variable);
     public delegate int[] DelegadoConfirmarHecho(string id_hecho);
+    public delegate void  DelegadoInformacionInferencia (string info);
     public class EncadenamientoHaciaAtras
     {
         //********************************************************************************************************
@@ -117,6 +118,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
 
         List<string> lista_variables_disponibles = new List<string>();
         List<string> lista_variables_objetivos = new List<string>();
+        List<string> lista_variables_conocidas = new List<string>();
         ArrayList lista_hechos_consecuente_con_variables_objetivo = new ArrayList();//string[] = {"id_variable","id_hecho"}
         
         List<string> log = new List<string>();
@@ -144,6 +146,10 @@ namespace SistemaExpertoLib.MotorDeInferencia
         /// </summary>
         public event DelegadoConfirmarHecho evento_confimar_hecho;
 
+        /// <summary>
+        /// Evento que muestra información al usuario acerca de la inferencia
+        /// </summary>
+        public event DelegadoInformacionInferencia evento_informacion_inferencia;
 
         /// <summary>
         /// Variable que indica si el objeto ha sido inicializado
@@ -215,6 +221,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
             lista_hechos_falsos         = new List<string>();
 
             lista_variables_disponibles = new List<string>();
+            lista_variables_conocidas = new List<string>();
             lista_variables_objetivos = new List<string>();
             lista_hechos_consecuente_con_variables_objetivo = new ArrayList();//string[] = {"id_variable","id_hecho"}
 
@@ -400,7 +407,12 @@ namespace SistemaExpertoLib.MotorDeInferencia
                     agregarLog("El HECHO "+hecho_top.hecho_buscado+" no cuenta con reglas para inferirlo");
                     moverHecho(hecho_top.hecho_buscado, HECHOS_DISPONIBLES, HECHOS_FALSOS);
                     eliminarReglasConHechoEnElAntecedente(hecho_top.hecho_buscado);
-                    
+                    if (evento_informacion_inferencia != null)
+                    {
+                        Hecho hecho = base_conocimiento.extraerHecho(hecho_top.hecho_buscado);
+                        string info = "No quedan reglas para inferir " + hecho.id_hecho + " : " + hecho + "";
+                        evento_informacion_inferencia(info);
+                    }
                 }
                 else//Trabajando la regla
                 {
@@ -413,7 +425,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
                         string[] ids_hechos_desconocidos = mejor_regla.listarAntecedentesNoEstablecidos();
                         if(ids_hechos_desconocidos != null)//trabajando hechos desconocidos
                         {
-                            Stack<string> ids_hechos_a_preguntar = new Stack<string>();//todo hecho cocnocido var desconocido
+                            Stack<string> ids_hechos_a_preguntar = new Stack<string>();
                             Stack<string> ids_hechos_objetivo_temporales = new Stack<string>();
                             for (int i = 0; i < ids_hechos_desconocidos.Length; i++)
                             {
@@ -428,13 +440,21 @@ namespace SistemaExpertoLib.MotorDeInferencia
                             {
                                 string id_hecho_consultado = ids_hechos_a_preguntar.Pop();
                                 Hecho hecho_actual = base_conocimiento.extraerHecho(id_hecho_consultado);
-                                ArrayList respuesta = evento_consultar_variable(hecho_actual.id_variable);
-                                if(respuesta == null)
+
+                                //Si no se conoce la variable se pregunta al usuario
+                                if (!variableConocida(hecho_actual.id_variable))
                                 {
-                                    _codigo_de_salida_proceso = INFERENCIA_DETENIDA_POR_EL_USUARIO;
-                                    return;
+                                    ArrayList respuesta = evento_consultar_variable(hecho_actual.id_variable);
+                                    if(respuesta == null)
+                                    {
+                                        _codigo_de_salida_proceso = INFERENCIA_DETENIDA_POR_EL_USUARIO;
+                                        return;
+                                    }
+                                    procesarRespuestaVariable(hecho_actual.id_variable, respuesta);
+                                    //agregamos al variable a variables conocidas
+                                    lista_variables_conocidas.Add(hecho_actual.id_variable);
                                 }
-                                procesarRespuestaVariable(hecho_actual.id_variable, respuesta);
+                                
                                 //Si la regla tiene un hecho evaluado como falso, se descartan todas las reglas que contienen el hecho en el antecedente
                                 //Se pasa el hecho de disponible a falso
                                 if (!actualizarEvaluacionHecho(hecho_actual.id_hecho))//FALSE si el estado del hecho es falso
@@ -468,27 +488,29 @@ namespace SistemaExpertoLib.MotorDeInferencia
                     }//End if si existen hechos desconosidos
                     else//Si todos los hechos son conocidos en la regla
                     {
-                        int[] respuesta_validacion_regla = evento_confimar_hecho(mejor_regla.id_consecuente);
+                        int[] respuesta_validacion_regla = evento_confimar_hecho(mejor_regla.id_hecho_consecuente);
 
                         // Analizando confirmaciones de hecho
                         if (respuesta_validacion_regla[0] == HECHO_CONFIRMADO)//Si el hecho es validado por el usuario
                         {
                             agregarLog("REGLA " + mejor_regla.id_regla + " VALIDADA");
-                            moverHecho(mejor_regla.id_consecuente, HECHOS_DISPONIBLES, HECHOS_VERDADEROS);
-                            actualizarReglasConHechoConsecuente(mejor_regla.id_regla, mejor_regla.id_consecuente, true);//Actualizamos regla y elimamos las reglas que tengan el hecho en el consecuente
+                            moverHecho(mejor_regla.id_hecho_consecuente, HECHOS_DISPONIBLES, HECHOS_VERDADEROS);
+                            actualizarReglasConHechoConsecuente(mejor_regla.id_regla, mejor_regla.id_hecho_consecuente, true);//Actualizamos regla y elimamos las reglas que tengan el hecho en el consecuente
+                            actualizarReglasConHechoVerdaderoAntecedente(mejor_regla.id_hecho_consecuente, false);
                             pila_hechos_a_verificar.Pop();//Eliminamos de la pila el hecho buscado
+                            actualizarVariableHechoInferido(mejor_regla.id_hecho_consecuente);//actualizamos la variable asocidada al hecho inferido
                         }
                         else
-                            if (respuesta_validacion_regla[0] == HECHO_DESCARTADO)//Si el hecho es no validado por el usuario
-                            {
-                                agregarLog("REGLA " + mejor_regla.id_regla + "NO VALIDADA  ->  " + mejor_regla.id_consecuente);
-                                //Como se esta en la validacion de hechos por el usuario, el Hecho NO se marca como falso o se eliminia de la lista de hechos disponibles
-                                actualizarReglasConHechoConsecuente(mejor_regla.id_regla, mejor_regla.id_consecuente, false);//Actualizamos regla y elimamos la regla de las reglas Candidatas
-                            }
-                            else//si el hecho no es validado
-                            {
-                                throw new System.ArgumentException("Argumentos invalidos VALIDACION", "Confirmacion de Hecho Usuario");
-                            }
+                        if (respuesta_validacion_regla[0] == HECHO_DESCARTADO)//Si el hecho es no validado por el usuario
+                        {
+                            agregarLog("REGLA " + mejor_regla.id_regla + "NO VALIDADA  ->  " + mejor_regla.id_hecho_consecuente);
+                            //Como se esta en la validacion de hechos por el usuario, el Hecho NO se marca como falso o se eliminia de la lista de hechos disponibles
+                            actualizarReglasConHechoConsecuente(mejor_regla.id_regla, mejor_regla.id_hecho_consecuente, false);//Actualizamos regla y elimamos la regla de las reglas Candidatas
+                        }
+                        else//si el hecho no es validado
+                        {
+                            throw new System.ArgumentException("Argumentos invalidos VALIDACION", "Confirmacion de Hecho Usuario");
+                        }
 
                         if (respuesta_validacion_regla[0] == HECHO_CONFIRMADO)
                         {
@@ -500,14 +522,14 @@ namespace SistemaExpertoLib.MotorDeInferencia
                                 return;
                             }
                             else
-                                if (respuesta_validacion_regla[1] == PROBLEMA_NO_SOLUCIONADO)//Si el problema no se soluciono
-                                {
-                                    agregarLog("El problema se NO SE SOLUCIONO");
-                                }
-                                else//si el hecho no es validado
-                                {
-                                    throw new System.ArgumentException("Argumentos invalidos SOLUCION", "Confirmacion de Hecho Usuario");
-                                }
+                            if (respuesta_validacion_regla[1] == PROBLEMA_NO_SOLUCIONADO)//Si el problema no se soluciono
+                            {
+                                agregarLog("El problema se NO SE SOLUCIONO");
+                            }
+                            else
+                            {
+                                throw new System.ArgumentException("Argumentos invalidos SOLUCION", "Confirmacion de Hecho Usuario");
+                            }
                         }
 
                         // Analizando continuar proceso
@@ -516,32 +538,65 @@ namespace SistemaExpertoLib.MotorDeInferencia
                             agregarLog("CONTINUANDO PROCESO...");
                         }
                         else
-                            if (respuesta_validacion_regla[2] == DETENER_PROCESO)//Si el problema no se soluciono
-                            {
-                                agregarLog("PROCESO DETENIDO...");
-                                _codigo_de_salida_proceso = INFERENCIA_DETENIDA_PROBLEMA_NO_SOLUCIONADO;
-                                return;
-                            }
-                            else//si el hecho no es validado
-                            {
-                                throw new System.ArgumentException("Argumentos invalidos PROCESO", "Confirmacion de Hecho Usuario");
-                            }
+                        if (respuesta_validacion_regla[2] == DETENER_PROCESO)//Si el problema no se soluciono
+                        {
+                            agregarLog("PROCESO DETENIDO...");
+                            _codigo_de_salida_proceso = INFERENCIA_DETENIDA_PROBLEMA_NO_SOLUCIONADO;
+                            return;
+                        }
+                        else//si el hecho no es validado
+                        {
+                            throw new System.ArgumentException("Argumentos invalidos PROCESO", "Confirmacion de Hecho Usuario");
+                        }
                     }//End else todos los hechos conocidos
                 }//End else trabajando regla
             } //End while inferencia
             /**/
-            agregarLog("PROCESO INFERENCIA TERMINADO SIN SOLUCIONAR PORBLEMA (NO HAY MAS REGLAS EN LA BASE DE CONOCIMIENTO)");
+            agregarLog("PROCESO INFERENCIA TERMINADO SIN SOLUCIONAR PROBLEMA (NO HAY MAS REGLAS EN LA BASE DE CONOCIMIENTO)");
             _codigo_de_salida_proceso = INFERENCIA_DETENIDA_PROBLEMA_NO_SOLUCIONADO;
         }
 
-        /*
-        public const int HECHO_CONFIRMADO           = 31;
-        public const int HECHO_DESCARTADO           = 32;
-        public const int PROBLEMA_SOLUCIONADO       = 33;
-        public const int PROBLEMA_NO_SOLUCIONADO    = 34;
-        public const int CONTINUAR_PROCESO          = 35;
-        public const int DETENER_PROCESO            = 36;
-        /**/
+        /// <summary>
+        /// Método que actualiza la varaible asociada al hehco inferido
+        /// </summary>
+        /// <param name="id_hecho">id del hecho inferido</param>
+        public void actualizarVariableHechoInferido(string id_hecho)
+        {
+            Hecho hecho = base_conocimiento.extraerHecho(id_hecho);
+            Variable variable = base_conocimiento.extraerVariable(hecho.id_variable);
+            switch (variable.tipo_variable)
+            {
+                case Variable.BOOLEANO:
+                    variable.valor_booleano_actual  = hecho.valor_booleano;
+                    break;
+                case Variable.NUMERICO:
+                    variable.valor_numerico_actual  = hecho.valor_numerico;
+                    break;
+                case Variable.LISTA:
+                    variable.valor_lista_actual     = hecho.valor_lista_hecho;
+                    break;
+            }
+            base_conocimiento.actualizarVariable(variable);
+            lista_variables_conocidas.Add(hecho.id_variable);
+        }
+
+
+        /// <summary>
+        /// Método que devuelve si la variable esta en la lista de variables conocidas
+        /// </summary>
+        /// <param name="id_variable">Id de la variable a buscar</param>
+        /// <returns>True|False según corresponda</returns>
+        public bool variableConocida(string id_variable)
+        {
+            foreach (string item in lista_variables_conocidas)
+            {
+                if (item.Equals(id_variable))
+                    return true;
+            }
+            return false;
+        }
+
+
 
         /// <summary>
         /// Método para actualizar la validacion de las reglas, con cambios en su hecho consecuente
@@ -607,9 +662,6 @@ namespace SistemaExpertoLib.MotorDeInferencia
                 }
             }
         }
-
-        //todo actualizar todos los hehcos influyentes en una variable, marcar visita reglas bucle infinito
-
 
         /// <summary>
         /// Método que modifica los contadores de las listas de reglas
@@ -1072,21 +1124,5 @@ namespace SistemaExpertoLib.MotorDeInferencia
         }
         #endregion
 
-
-
-        //********************************************************************************************************
-        //    Eventos
-        //********************************************************************************************************
-
-
-
     }//End class
-
-
-
-
-    
-
-
-    //todo limpiarObjeto  variable, hecho y regla
-}
+}//End  namespace

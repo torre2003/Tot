@@ -96,10 +96,6 @@ namespace ControlesModuloConsulta
             textBox_numero_real.Visible = false;
             numericUpDown_numero_cardinal.Value = numericUpDown_numero_cardinal.Minimum;
             numericUpDown_numero_cardinal.Visible = false;
-           //todo revisar
-           
-            //comboBox_lista_opciones.Items.Clear();
-
             this.panel_respuesta.Controls.Remove(this.comboBox_lista_opciones);
             comboBox_lista_opciones = null;
          

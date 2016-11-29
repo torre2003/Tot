@@ -418,7 +418,7 @@ namespace Tot
             string[] antecedentes = regla.listarAntecedentes();
             for (int i = 0; i < antecedentes.Length; i++)
                 agregarFilaDeControlesEstablecidaAntecedentes(antecedentes[i]);
-            agregarFilaDeControlesEstablecidaConsecuente(regla.id_consecuente);
+            agregarFilaDeControlesEstablecidaConsecuente(regla.id_hecho_consecuente);
             habilitarEdicionDeControles(controles_habilitados);
         }
         /// <summary>

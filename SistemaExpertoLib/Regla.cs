@@ -39,7 +39,7 @@ namespace SistemaExpertoLib
         /// <summary>
         /// ID del hecho consecuente de la regla
         /// </summary>
-        public string id_consecuente   { get {return consecuente.id_hecho;}}
+        public string id_hecho_consecuente   { get {return consecuente.id_hecho;}}
 
         /// <summary>
         /// Indica si la regla a sido validada por el usuario en el proceso de inferencia,
