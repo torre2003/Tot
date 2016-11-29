@@ -436,39 +436,82 @@ namespace SistemaExpertoLib.MotorDeInferencia
                                     ids_hechos_objetivo_temporales.Push(hecho_desconocido.id_hecho);
                             }
                             bool flag_hecho_falso = false;
-                            while(ids_hechos_a_preguntar.Count > 0)//Consultando hechos
+                            if (ids_hechos_a_preguntar.Count > 0)
                             {
-                                string id_hecho_consultado = ids_hechos_a_preguntar.Pop();
-                                Hecho hecho_actual = base_conocimiento.extraerHecho(id_hecho_consultado);
+                                agregarLog("Preguntando hechos al usuario");
+                                while(ids_hechos_a_preguntar.Count > 0)//Consultando hechos
+                                {
+                                    string id_hecho_consultado = ids_hechos_a_preguntar.Pop();
+                                    Hecho hecho_actual = base_conocimiento.extraerHecho(id_hecho_consultado);
 
-                                //Si no se conoce la variable se pregunta al usuario
-                                if (!variableConocida(hecho_actual.id_variable))
-                                {
-                                    ArrayList respuesta = evento_consultar_variable(hecho_actual.id_variable);
-                                    if(respuesta == null)
+                                    //Si no se conoce la variable se pregunta al usuario
+                                    if (!variableConocida(hecho_actual.id_variable))
                                     {
-                                        _codigo_de_salida_proceso = INFERENCIA_DETENIDA_POR_EL_USUARIO;
-                                        return;
+                                        ArrayList respuesta = evento_consultar_variable(hecho_actual.id_variable);
+                                        if(respuesta == null)
+                                        {
+                                            _codigo_de_salida_proceso = INFERENCIA_DETENIDA_POR_EL_USUARIO;
+                                            return;
+                                        }
+                                        procesarRespuestaVariable(hecho_actual.id_variable, respuesta);
+                                        //agregamos al variable a variables conocidas
+                                        lista_variables_conocidas.Add(hecho_actual.id_variable);
                                     }
-                                    procesarRespuestaVariable(hecho_actual.id_variable, respuesta);
-                                    //agregamos al variable a variables conocidas
-                                    lista_variables_conocidas.Add(hecho_actual.id_variable);
-                                }
+                                    else
+                                    {
+                                        agregarLog("Variable " + hecho_actual.id_variable + " conocida -> " + hecho_actual.id_hecho + " conocido");
+                                    }
                                 
-                                //Si la regla tiene un hecho evaluado como falso, se descartan todas las reglas que contienen el hecho en el antecedente
-                                //Se pasa el hecho de disponible a falso
-                                if (!actualizarEvaluacionHecho(hecho_actual.id_hecho))//FALSE si el estado del hecho es falso
+                                    //Si la regla tiene un hecho evaluado como falso, se descartan todas las reglas que contienen el hecho en el antecedente
+                                    //Se pasa el hecho de disponible a falso
+                                    if (!actualizarEvaluacionHecho(hecho_actual.id_hecho))//FALSE si el estado del hecho es falso
+                                    {
+                                        moverHecho(hecho_actual.id_hecho, HECHOS_DISPONIBLES, HECHOS_FALSOS);
+                                        eliminarReglasConHechoEnElAntecedente(hecho_actual.id_hecho);
+                                        flag_hecho_falso = true;
+                                    }//Sino se pasa el hecho de disponible a verdadero y actualizamos la informacion del hecho en la regla
+                                    else
+                                    {
+                                        moverHecho(hecho_actual.id_hecho, HECHOS_DISPONIBLES, HECHOS_VERDADEROS);
+                                        actualizarReglasConHechoVerdaderoAntecedente(hecho_actual.id_hecho, true);
+                                    }
+                                }//end consulta de variables al usuario
+                            }
+
+                            //Analizando los hechos inferidos, para ver si la variable asociada ya es conocida
+                            if (ids_hechos_objetivo_temporales.Count > 0)
+                            {
+                                agregarLog("Analizando posibles hechos objetivo");
+                                Stack<string> aux_objetivo = new Stack<string>();
+                                while (ids_hechos_objetivo_temporales.Count > 0)
                                 {
-                                    moverHecho(hecho_actual.id_hecho, HECHOS_DISPONIBLES, HECHOS_FALSOS);
-                                    eliminarReglasConHechoEnElAntecedente(hecho_actual.id_hecho);
-                                    flag_hecho_falso = true;
-                                }//Sino se pasa el hecho de disponible a verdadero y actualizamos la informacion del hecho en la regla
-                                else
-                                {
-                                    moverHecho(hecho_actual.id_hecho, HECHOS_DISPONIBLES, HECHOS_VERDADEROS);
-                                    actualizarReglasConHechoVerdaderoAntecedente(hecho_actual.id_hecho, true);
-                                }
-                            }//end consulta de variables al usuario
+                                    string id_hecho_objetivo = ids_hechos_objetivo_temporales.Pop();
+                                    Hecho hecho_actual = base_conocimiento.extraerHecho(id_hecho_objetivo);
+
+                                    //Si la variable asociada al objetivo es concocida se procesa el hecho
+                                    if (variableConocida(hecho_actual.id_variable))
+                                    {
+                                        agregarLog("Variable " + hecho_actual.id_variable + " conocida -> " + hecho_actual.id_hecho + " conocido");
+                                        if (!actualizarEvaluacionHecho(hecho_actual.id_hecho))//FALSE si el estado del hecho es falso
+                                        {
+                                            moverHecho(hecho_actual.id_hecho, HECHOS_DISPONIBLES, HECHOS_FALSOS);
+                                            eliminarReglasConHechoEnElAntecedente(hecho_actual.id_hecho);
+                                            flag_hecho_falso = true;
+                                        }//Sino se pasa el hecho de disponible a verdadero y actualizamos la informacion del hecho en la regla
+                                        else
+                                        {
+                                            moverHecho(hecho_actual.id_hecho, HECHOS_DISPONIBLES, HECHOS_VERDADEROS);
+                                            actualizarReglasConHechoVerdaderoAntecedente(hecho_actual.id_hecho, true);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        aux_objetivo.Push(id_hecho_objetivo);
+                                    }
+                                }//end while pre proceso objetivos
+                                while (aux_objetivo.Count > 0)//Agregando los hechos objetivos que quedaron desconocidos
+                                    ids_hechos_objetivo_temporales.Push(aux_objetivo.Pop());
+                            }
                             if (!flag_hecho_falso)//Si la regla no tuvo ningun hecho falso
                             {
                                 //Ingresamos los hechos inferidos temporales a la pila general de hechos buscados.
@@ -494,10 +537,12 @@ namespace SistemaExpertoLib.MotorDeInferencia
                         if (respuesta_validacion_regla[0] == HECHO_CONFIRMADO)//Si el hecho es validado por el usuario
                         {
                             agregarLog("REGLA " + mejor_regla.id_regla + " VALIDADA");
+                            agregarLog("Descartando REGLAS con el mismo consecuente");
                             moverHecho(mejor_regla.id_hecho_consecuente, HECHOS_DISPONIBLES, HECHOS_VERDADEROS);
                             actualizarReglasConHechoConsecuente(mejor_regla.id_regla, mejor_regla.id_hecho_consecuente, true);//Actualizamos regla y elimamos las reglas que tengan el hecho en el consecuente
                             actualizarReglasConHechoVerdaderoAntecedente(mejor_regla.id_hecho_consecuente, false);
-                            pila_hechos_a_verificar.Pop();//Eliminamos de la pila el hecho buscado
+                            HechoPila pop = pila_hechos_a_verificar.Pop();//Eliminamos de la pila el hecho buscado
+                            agregarLog("Quitando hecho de la pila: "+pop.hecho_buscado);
                             actualizarVariableHechoInferido(mejor_regla.id_hecho_consecuente);//actualizamos la variable asocidada al hecho inferido
                         }
                         else

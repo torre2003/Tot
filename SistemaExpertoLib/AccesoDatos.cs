@@ -22,7 +22,16 @@ namespace SistemaExpertoLib
         public const int REGLA = 3;
 
         public string ruta_carpeta_archivos = "base conocimiento\\";
+        private string carpeta_configuracion = "configuracion\\";
+        private string archivo_configuracion = "confTot";
 
+        public string ruta_archivo_configuracion
+        {
+            get
+            {
+                return ruta_carpeta_archivos + carpeta_configuracion + archivo_configuracion;
+            }
+        }
         public bool existe_base_conocimiento
         {
             get { return _existe_base_conocimiento; }
@@ -62,7 +71,7 @@ namespace SistemaExpertoLib
             {
                 System.IO.Directory.CreateDirectory(ruta_carpeta_archivos);
                 _existe_base_conocimiento = true;
-            }
+            }//todo agrgar carpeta config 
         }
         
         /// <summary>
@@ -365,6 +374,81 @@ namespace SistemaExpertoLib
 
         #endregion
 
-       
+
+        #region MetadatosBaseDeConocimiento
+        /// <summary>
+        /// Metodo para ingresar un archivo de metadatos a la base de conocimiento
+        /// </summary>
+        /// <param name="metadatos"></param>
+        public void ingresarObjetoMetadatos(MetadatosBaseDeConocimiento metadatos)
+        {
+            
+            
+            if (File.Exists(ruta_archivo_configuracion))
+                File.Delete(ruta_archivo_configuracion);
+            using (Stream stream = File.OpenWrite(ruta_archivo_configuracion))
+            {
+                BinaryFormatter serializer = new BinaryFormatter();
+                serializer.Serialize(stream, ruta_archivo_configuracion);
+                stream.Close();
+            }
+        }
+
+
+        /// <summary>
+        /// Extraer los metadatos de la base de conocimiento
+        /// </summary>
+        /// <returns>Objeto MetadaDatosBase</returns>
+        public MetadatosBaseDeConocimiento extraerMetadatosBaseConocimiento()
+        {
+            MetadatosBaseDeConocimiento meta = null;
+            
+            if (File.Exists(ruta_archivo_configuracion))
+            {
+                using (Stream stream = File.OpenRead(ruta_archivo_configuracion))
+                {
+                    try
+                    {
+                        BinaryFormatter deserializer = new BinaryFormatter();
+                        meta = (MetadatosBaseDeConocimiento)deserializer.Deserialize(stream);
+                        stream.Close();
+                    }
+                    catch (Exception)
+                    {
+                        stream.Close();
+                        return null;
+                    }
+                }
+                return meta;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Método para actualizar los metadatos de una base de conocimiento
+        /// </summary>
+        /// <param name="metadatos">Objeto MetadatosBaseConocimiento a ingresar</param>
+        public void actualizarMetadatos(MetadatosBaseDeConocimiento metadatos)
+        {
+            if (File.Exists(ruta_archivo_configuracion))
+                using (Stream stream = File.OpenWrite(ruta_archivo_configuracion))
+                {
+                    BinaryFormatter serializer = new BinaryFormatter();
+                    serializer.Serialize(stream, metadatos);
+                    stream.Close();
+                }
+        }
+
+        /// <summary>
+        /// Método para eliminar el archivo de configuracion de la base de conocimiento,
+        /// ALERTA! LA BASE DE CONOCIMIENTO NO PUEDE QUEDAR SIN ARCHIVO DE CONFIGURACIÓN
+        /// </summary>
+        public void eliminarRegla()
+        {
+            if (File.Exists(ruta_archivo_configuracion))
+                File.Delete(ruta_archivo_configuracion);
+        }
+
+        #endregion
     }
 }

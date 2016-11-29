@@ -44,6 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControlConfiguracionBaseDeConocimiento.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ControlConfiguracionBaseDeConocimiento.Designer.cs">
+      <DependentUpon>ControlConfiguracionBaseDeConocimiento.cs</DependentUpon>
+    </Compile>
     <Compile Include="ControlEdicionReglas.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -94,6 +100,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ControlConfiguracionBaseDeConocimiento.resx">
+      <DependentUpon>ControlConfiguracionBaseDeConocimiento.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ControlEdicionReglas.resx">
       <DependentUpon>ControlEdicionReglas.cs</DependentUpon>
     </EmbeddedResource>

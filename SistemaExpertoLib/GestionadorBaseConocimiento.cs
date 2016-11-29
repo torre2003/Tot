@@ -562,8 +562,6 @@ namespace SistemaExpertoLib.GestionDelConocimiento
 
 
         #endregion
-
-
         #region REGLA
         /// <summary>
         /// Método para leer una regla de la base de conocimiento
@@ -1179,7 +1177,7 @@ namespace SistemaExpertoLib.GestionDelConocimiento
 
 
         #endregion
-
+        #region utilitarios
         /// <summary>
         /// Método que lista todos los hechos que contegan la variable
         /// </summary>
@@ -1332,6 +1330,6 @@ namespace SistemaExpertoLib.GestionDelConocimiento
         {
             return manejador_archivos.listarArchivosEnDirectorio(AccesoDatos.REGLA);
         }
-
+        #endregion
     }
 }
