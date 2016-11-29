@@ -35,6 +35,9 @@
             this.ToolStripMenuItem_editor_base_conocimiento = new System.Windows.Forms.ToolStripMenuItem();
             this.motorDeInferenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.iniciarInferenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.configuraciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nuevaBaseDeConocimientoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,6 +56,9 @@
             // archivoToolStripMenuItem
             // 
             this.archivoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.nuevaBaseDeConocimientoToolStripMenuItem,
+            this.configuraciónToolStripMenuItem,
+            this.toolStripSeparator1,
             this.ToolStripMenuItem_salir});
             this.archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
             this.archivoToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
@@ -61,7 +67,7 @@
             // ToolStripMenuItem_salir
             // 
             this.ToolStripMenuItem_salir.Name = "ToolStripMenuItem_salir";
-            this.ToolStripMenuItem_salir.Size = new System.Drawing.Size(152, 22);
+            this.ToolStripMenuItem_salir.Size = new System.Drawing.Size(228, 22);
             this.ToolStripMenuItem_salir.Text = "Salir";
             this.ToolStripMenuItem_salir.Click += new System.EventHandler(this.ToolStripMenuItem_salir_Click);
             // 
@@ -95,6 +101,24 @@
             this.iniciarInferenciaToolStripMenuItem.Text = "Iniciar inferencia";
             this.iniciarInferenciaToolStripMenuItem.Click += new System.EventHandler(this.iniciarInferenciaToolStripMenuItem_Click);
             // 
+            // configuraciónToolStripMenuItem
+            // 
+            this.configuraciónToolStripMenuItem.Name = "configuraciónToolStripMenuItem";
+            this.configuraciónToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.configuraciónToolStripMenuItem.Text = "Configuración";
+            this.configuraciónToolStripMenuItem.Click += new System.EventHandler(this.configuraciónToolStripMenuItem_Click);
+            // 
+            // nuevaBaseDeConocimientoToolStripMenuItem
+            // 
+            this.nuevaBaseDeConocimientoToolStripMenuItem.Name = "nuevaBaseDeConocimientoToolStripMenuItem";
+            this.nuevaBaseDeConocimientoToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.nuevaBaseDeConocimientoToolStripMenuItem.Text = "Nueva base de conocimiento";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(225, 6);
+            // 
             // FormVentanaPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -120,5 +144,8 @@
         private System.Windows.Forms.ToolStripMenuItem motorDeInferenciaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem iniciarInferenciaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_salir;
+        private System.Windows.Forms.ToolStripMenuItem nuevaBaseDeConocimientoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem configuraciónToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }

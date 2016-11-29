@@ -23,8 +23,12 @@ namespace SistemaExpertoLib
 
         public string ruta_carpeta_archivos = "base conocimiento\\";
         private string carpeta_configuracion = "configuracion\\";
+        private string carpeta_archivos_rtf = "rtf\\";
         private string archivo_configuracion = "confTot";
 
+        /// <summary>
+        /// Obtiene la ruta del archivo de configuracion
+        /// </summary>
         public string ruta_archivo_configuracion
         {
             get
@@ -32,6 +36,32 @@ namespace SistemaExpertoLib
                 return ruta_carpeta_archivos + carpeta_configuracion + archivo_configuracion;
             }
         }
+
+        /// <summary>
+        /// Obtiene la ruta de la carpeta de configuracion
+        /// </summary>
+        public string ruta_carpeta_configuracion
+        {
+            get
+            {
+                return ruta_carpeta_archivos + carpeta_configuracion;
+            }
+        }
+
+        /// <summary>
+        /// Obtiene la ruta de archivo rtf
+        /// </summary>
+        public string ruta_carpeta_rtf
+        {
+            get
+            {
+                return ruta_carpeta_archivos + carpeta_archivos_rtf;
+            }
+        }
+        
+        /// <summary>
+        /// Obtiene si existe la base de conocimiento
+        /// </summary>
         public bool existe_base_conocimiento
         {
             get { return _existe_base_conocimiento; }
@@ -63,17 +93,31 @@ namespace SistemaExpertoLib
         }
 
         /// <summary>
-        /// Método para inicializar la carpeta de la base de conocimiento
+        /// Método para inicializar la carpeta de la base de conocimiento y la de configuracion
         /// </summary>
         public void inicializarCarpetaArchivos()
         {
             if (!System.IO.Directory.Exists(ruta_carpeta_archivos))
             {
                 System.IO.Directory.CreateDirectory(ruta_carpeta_archivos);
+                System.IO.Directory.CreateDirectory(ruta_carpeta_archivos + carpeta_configuracion);
+                System.IO.Directory.CreateDirectory(ruta_carpeta_archivos + carpeta_archivos_rtf);
                 _existe_base_conocimiento = true;
             }//todo agrgar carpeta config 
         }
-        
+
+        /// <summary>
+        /// Método que elimina la carpeta completa asociada a la base de conocimiento
+        /// </summary>
+        public void eliminarCarpetaBaseConocimiento()
+        {
+            if (System.IO.Directory.Exists(ruta_carpeta_archivos))
+            {
+                System.IO.Directory.Delete(ruta_carpeta_archivos);
+            }//todo agrgar carpeta config 
+            _existe_base_conocimiento = false;
+        }
+
         /// <summary>
         /// Método que lista los arhcivos disponibles en el repositorio
         /// </summary>
@@ -108,12 +152,25 @@ namespace SistemaExpertoLib
             return lista_de_archivos;
         }
 
-
-
+        /// <summary>
+        /// Utilitario comprueba la existencia de un archivo
+        /// </summary>
+        /// <param name="ruta">ruta del archivo a comprobar</param>
+        /// <returns>true si el archivo existe | False en caso contrario</returns>
+        public bool comprobarArchivo(string ruta)
+        {
+            return File.Exists(ruta);
+        }
+        /// <summary>
+        /// utilitario comprueba la existencia de una carpeta
+        /// </summary>
+        /// <param name="ruta">ruta de la carpeta a comprobar</param>
+        /// <returns>true si la carpeta existe | False en caso contrario</returns>
+        public bool comprobarCarpeta(string ruta)
+        {
+            return Directory.Exists(ruta_carpeta_archivos);
+        }
         #region Variable
-
-
-
         /// <summary>
         /// Método para ingresar una nueva variable al repositorio
         /// </summary>
@@ -135,8 +192,6 @@ namespace SistemaExpertoLib
                 stream.Close();
             }
         }
-
-
         /// <summary>
         /// Extrae la variable indicada desde el repositorio
         /// </summary>
@@ -389,7 +444,7 @@ namespace SistemaExpertoLib
             using (Stream stream = File.OpenWrite(ruta_archivo_configuracion))
             {
                 BinaryFormatter serializer = new BinaryFormatter();
-                serializer.Serialize(stream, ruta_archivo_configuracion);
+                serializer.Serialize(stream, metadatos);
                 stream.Close();
             }
         }

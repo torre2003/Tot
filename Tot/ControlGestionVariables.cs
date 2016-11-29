@@ -792,7 +792,7 @@ namespace Tot
                 ruta_archivo_rtf = variable.ruta_texto_descriptivo;
             if (variable.ruta_imagen_descriptiva != null && !variable.ruta_imagen_descriptiva.Equals(""))
                 ruta_archivo_imagen = variable.ruta_imagen_descriptiva;
-            string ruta_rtf = base_conocimiento.ruta_carpeta_archivos + "rtf"+ "\\" + id_variable + ".rtf";
+            string ruta_rtf = base_conocimiento.ruta_carpeta_base_conocimiento + "rtf"+ "\\" + id_variable + ".rtf";
             if (File.Exists(ruta_rtf))
                 button_seleccion_documento.Enabled = true;
             else
@@ -1049,10 +1049,13 @@ namespace Tot
             marcarControl(VARIABLE_OBJETIVO, false);
         }
 
-
+        /// <summary>
+        /// Método para eliminar un archivo rtf según nombre
+        /// </summary>
+        /// <param name="nombre"></param>
         private void eliminarRTF(string nombre)
         {
-            string ruta_rtf_temporal = base_conocimiento.ruta_carpeta_archivos + "rtf" + "\\"+nombre+".rtf";
+            string ruta_rtf_temporal = base_conocimiento.ruta_carpeta_base_conocimiento + "rtf" + "\\"+nombre+".rtf";
             if (File.Exists(ruta_rtf_temporal))
             {
                 try
@@ -1065,10 +1068,12 @@ namespace Tot
         }
 
 
-
+        /// <summary>
+        /// Método para elimnar el archivo rtf temporal
+        /// </summary>
         private void limpiarArchivoTemporalRTF()
         {
-            string ruta_rtf_temporal = base_conocimiento.ruta_carpeta_archivos + "rtf"+"\\temporal.rtf";
+            string ruta_rtf_temporal = base_conocimiento.ruta_carpeta_base_conocimiento + "rtf"+"\\temporal.rtf";
             if (File.Exists(ruta_rtf_temporal))
             {
                 try
@@ -1079,13 +1084,17 @@ namespace Tot
             }
             ruta_rtf_actual = null;
         }
+        /// <summary>
+        /// Método para renombre rtf temporal
+        /// </summary>
+        /// <param name="id_variable">id de la variable asociada al rtf</param>
         private void renombrarRTFTemporal(string id_variable)
         {
-            string ruta_rtf_temporal = base_conocimiento.ruta_carpeta_archivos + "rtf" + "\\temporal.rtf";
+            string ruta_rtf_temporal = base_conocimiento.ruta_carpeta_base_conocimiento + "rtf" + "\\temporal.rtf";
             if (ruta_rtf_actual != null)
                 if (ruta_rtf_actual.Equals(ruta_rtf_temporal))
                 {
-                    string ruta_archivo_variable  = base_conocimiento.ruta_carpeta_archivos + "rtf" + "\\" + id_variable + ".rtf";
+                    string ruta_archivo_variable  = base_conocimiento.ruta_carpeta_base_conocimiento + "rtf" + "\\" + id_variable + ".rtf";
                     if (!File.Exists(ruta_archivo_variable))
                     {
                         if (File.Exists(ruta_rtf_temporal))
@@ -1099,10 +1108,13 @@ namespace Tot
                     }
                 }
         }
-
+        /// <summary>
+        /// Método para comfirmar un archivo rtf asociada a una variable
+        /// </summary>
+        /// <param name="id_variable"></param>
         private void confirmarRutaArhivoDescriptivoEnVariable(string id_variable)
         {
-            string ruta_archivo_variable = base_conocimiento.ruta_carpeta_archivos + "rtf" + "\\" + id_variable + ".rtf";
+            string ruta_archivo_variable = base_conocimiento.ruta_carpeta_base_conocimiento + "rtf" + "\\" + id_variable + ".rtf";
             if (File.Exists(ruta_archivo_variable))
             {
                 base_conocimiento.modificarRutasArchivosVariable(id_variable, ruta_archivo_variable);
@@ -1164,7 +1176,7 @@ namespace Tot
             if(tipo_tarea == DESABILITADO)
             {
                 FormVentanaRTF ventana_editor_rtf = new FormVentanaRTF(true);
-                string ruta_rtf = base_conocimiento.ruta_carpeta_archivos + "rtf"+ "\\" + id_variable_en_tarea + ".rtf";
+                string ruta_rtf = base_conocimiento.ruta_carpeta_base_conocimiento + "rtf"+ "\\" + id_variable_en_tarea + ".rtf";
                 ventana_editor_rtf.ruta_archivo = ruta_rtf;
                 ventana_editor_rtf.ShowDialog(this);
             }
@@ -1173,7 +1185,7 @@ namespace Tot
                 FormVentanaRTF ventana_editor_rtf = new FormVentanaRTF();
                 if (ruta_rtf_actual == null)
                 {
-                    ruta_rtf_actual = base_conocimiento.ruta_carpeta_archivos + "rtf";
+                    ruta_rtf_actual = base_conocimiento.ruta_carpeta_base_conocimiento + "rtf";
                     if (id_variable_en_tarea == null)
                         ruta_rtf_actual += "\\temporal.rtf";
                     else

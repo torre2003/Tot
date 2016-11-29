@@ -39,7 +39,7 @@ namespace Tot
         private const int ENCADENAMIENTO_HACIA_ATRAS = 0;
         private const int ENCADENAMIENTO_HACIA_ADELANTE = 1;
 
-        private AccesoBaseConocimiento base_conocimiento;
+        private LecturaBaseConocimiento base_conocimiento;
         private EncadenamientoHaciaAtras motor_atras;
     
 
@@ -64,7 +64,7 @@ namespace Tot
         /// </summary>
         public void iniciarProceso()
         {
-            base_conocimiento = new AccesoBaseConocimiento();
+            base_conocimiento = new LecturaBaseConocimiento();
             if (base_conocimiento.existe_base_conocimiento)
                 iniciarVentana();
             else

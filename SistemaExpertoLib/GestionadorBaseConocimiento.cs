@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace SistemaExpertoLib.GestionDelConocimiento
 {
 
-    public class GestionadorBaseConocimiento
+    public partial class GestionadorBaseConocimiento
     {
         //*************************************************************************
         // Atributos
@@ -17,6 +17,9 @@ namespace SistemaExpertoLib.GestionDelConocimiento
         public const int VARIABLE = 1;
         public const int HECHO = 2;
         public const int REGLA = 3;
+
+        public const int ENCADENAMIENTO_HACIA_ATRAS = 1;
+        public const int ENCADENAMIENTO_HACIA_ADELANTE = 2;
 
         int cantidad_de_variables = 0;
         int cantidad_de_hechos = 0;
@@ -26,10 +29,44 @@ namespace SistemaExpertoLib.GestionDelConocimiento
         int ultima_id_hecho = 0;
         int ultima_id_regla = 0;
 
-        public string ruta_carpeta_archivos
+        /// <summary>
+        /// Obtiene la ruta de la base de conocimiento
+        /// </summary>
+        public string ruta_carpeta_base_conocimiento
         {
             get{return manejador_archivos.ruta_carpeta_archivos;}
         }
+        /// <summary>
+        /// Obtiene la ruta de la carpeta en donde se encuentran los archivos rtf 
+        /// </summary>
+        public string ruta_carpeta_archivos_rtf
+        {
+            get { return manejador_archivos.ruta_carpeta_rtf; }
+        }
+
+        /// <summary>
+        /// Obtiene la ruta de la carpeta en donde se encuentran los archivos de configuracion
+        /// </summary>
+        public string ruta_carpeta_configuracion
+        {
+            get { return manejador_archivos.ruta_carpeta_configuracion; }
+        }
+        /// <summary>
+        /// Obtiene la ruta del archivo de configuracion (Metadatos)
+        /// </summary>
+        public string ruta_archivo_configuracion
+        {
+            get { return manejador_archivos.ruta_archivo_configuracion; }
+        }
+
+        /// <summary>
+        /// Obtiene la existencia de la base de conocimiento
+        /// </summary>
+        public bool existe_base_de_conocimiento
+        {
+            get { return manejador_archivos.existe_base_conocimiento; }
+        }
+
 
         AccesoDatos manejador_archivos;
 
@@ -43,7 +80,8 @@ namespace SistemaExpertoLib.GestionDelConocimiento
         public GestionadorBaseConocimiento()
         {
             manejador_archivos = new AccesoDatos();
-            actualizarEstadisticas();
+            if (existe_base_de_conocimiento)
+                actualizarEstadisticas();
         }
 
         /// <summary>
@@ -53,7 +91,8 @@ namespace SistemaExpertoLib.GestionDelConocimiento
         public GestionadorBaseConocimiento(string ruta_carpeta_archivos)
         {
             manejador_archivos = new AccesoDatos(ruta_carpeta_archivos);
-            actualizarEstadisticas();
+            if (existe_base_de_conocimiento)
+                actualizarEstadisticas();
         }
 
         /// <summary>
@@ -102,6 +141,18 @@ namespace SistemaExpertoLib.GestionDelConocimiento
                 }
                 catch (Exception) { }
             }
+        }
+
+        /// <summary>
+        /// Método apra crear las carpetas y el archivo de configuración para una nueva base de conocimientos
+        /// </summary>
+        public void iniciarNuevaBaseDeConocimiento()
+        {
+            manejador_archivos.eliminarCarpetaBaseConocimiento();
+            manejador_archivos.inicializarCarpetaArchivos();
+            MetadatosBaseDeConocimiento metadatos = new MetadatosBaseDeConocimiento();
+            manejador_archivos.ingresarObjetoMetadatos(metadatos);
+            actualizarEstadisticas();
         }
 
         #region VARIABLE
@@ -1177,6 +1228,89 @@ namespace SistemaExpertoLib.GestionDelConocimiento
 
 
         #endregion
+
+        #region METADATOS BASE CONOCIMIENTO
+
+        /// <summary>
+        /// Método para cambiar el titulo de la base de conocimiento
+        /// </summary>
+        /// <param name="titulo"></param>
+        public void metadatosCambiarTitulo(string titulo)
+        {
+            MetadatosBaseDeConocimiento metadatos = manejador_archivos.extraerMetadatosBaseConocimiento();
+            metadatos.titulo_sistema_experto = titulo;
+            manejador_archivos.actualizarMetadatos(metadatos);
+        }
+        /// <summary>
+        /// Metodo para cambiar al ruta del rtf descriptivo de la base de conocimeinto
+        /// </summary>
+        /// <param name="ruta_rtf">path del rtf</param>
+        public void metadatosCambiarRutaRtfDescrptivo(string ruta_rtf)
+        {
+            if (!manejador_archivos.comprobarArchivo(ruta_rtf))
+                throw new System.ArgumentException("El archivo rtf no existe","Gestion base de conocimiento");
+            MetadatosBaseDeConocimiento metadatos = manejador_archivos.extraerMetadatosBaseConocimiento();
+            metadatos.ruta_rtf_descripcion_sistema_experto = ruta_rtf;
+            manejador_archivos.actualizarMetadatos(metadatos);
+        }
+        /// <summary>
+        /// Método para cambiar la ruta de la imagen logo de la base de conocimiento
+        /// </summary>
+        /// <param name="ruta_imagen">ruta imagen</param>
+        public void metadatosCambiarRutaImageLogo(string ruta_imagen)
+        {
+            if (!manejador_archivos.comprobarArchivo(ruta_imagen))
+                throw new System.ArgumentException("El archivo imagen no existe","Gestion base de conocimiento");
+            MetadatosBaseDeConocimiento metadatos = manejador_archivos.extraerMetadatosBaseConocimiento();
+            metadatos.ruta_imagen_logo_sistema_experto = ruta_imagen;
+            manejador_archivos.actualizarMetadatos(metadatos);
+        }
+        /// <summary>
+        /// Método para cambiar el tipo de encadenamiento de la base de conocimiento
+        /// </summary>
+        /// <param name="tipo_de_encadenamiento"></param>
+        public void metadatosCambiarEncadenamiento(int tipo_de_encadenamiento)
+        {
+            if (tipo_de_encadenamiento != ENCADENAMIENTO_HACIA_ADELANTE && tipo_de_encadenamiento != ENCADENAMIENTO_HACIA_ATRAS)
+                throw new System.ArgumentException("El tipo de encadenamiento es invalido","Gestion base de conocimiento");
+            MetadatosBaseDeConocimiento metadatos = manejador_archivos.extraerMetadatosBaseConocimiento();
+            metadatos.tipo_de_encadenamiento = tipo_de_encadenamiento;
+            manejador_archivos.actualizarMetadatos(metadatos);
+        }
+
+        /// <summary>
+        /// Método para desmarcar el chequeo de la base de conocimiento
+        /// </summary>
+        public void metadatosDesmarcarChequeoBaseConocimiento()
+        {
+            metadatosCambiarChequeoBaseConocimiento(false);
+        }
+
+        /// <summary>
+        /// Método para cabiar el estado del chequeo en la base de conocimiento
+        /// </summary>
+        /// <param name="chequeada">Indica si la base de conocimiento esta cheuqueada</param>
+        private void metadatosCambiarChequeoBaseConocimiento(bool chequeada)
+        {
+            MetadatosBaseDeConocimiento metadatos = manejador_archivos.extraerMetadatosBaseConocimiento();
+            metadatos.base_conocimiento_chequeada = chequeada;
+            manejador_archivos.actualizarMetadatos(metadatos);
+        }
+
+        /// <summary>
+        /// Método para leer los emtadatos de la base de conocimientos
+        /// </summary>
+        /// <returns>Objeto metadatos| null si no existe</returns>
+        public MetadatosBaseDeConocimiento leerMetadatos()
+        {
+            return manejador_archivos.extraerMetadatosBaseConocimiento();
+        }
+        
+
+
+        #endregion
+
+
         #region utilitarios
         /// <summary>
         /// Método que lista todos los hechos que contegan la variable

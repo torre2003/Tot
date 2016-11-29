@@ -337,7 +337,7 @@
             charStyle1.Strikeout = false;
             charStyle1.Underline = false;
             this.TextEditor.SelectionCharStyle = charStyle1;
-            this.TextEditor.SelectionFont2 = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Inch);
+            this.TextEditor.SelectionFont2 = new System.Drawing.Font("Microsoft Sans Serif", 3F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Inch);
             paraLineSpacing1.ExactSpacing = 0;
             paraLineSpacing1.SpacingStyle = ExtendedRichTextBox.ParaLineSpacing.LineSpacingStyle.Unknown;
             this.TextEditor.SelectionLineSpacing = paraLineSpacing1;
