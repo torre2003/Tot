@@ -1,22 +1,18 @@
 ﻿using ControlesModuloConsulta;
-using SistemaExpertoLib.MotorDeInferencia;
 using SistemaExpertoLib;
+using SistemaExpertoLib.MotorDeInferencia;
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Collections;
-using System.Threading;
 
 namespace Tot
 {
-    public partial class FormVentanaInferencia : Form
-    {
+    public class GestionMotorInferencia
+{
         //**************************************************************************************
         //  Atributos
         //**************************************************************************************
@@ -27,9 +23,11 @@ namespace Tot
         ControlPreguntarVariable ventana_preguntar_variable = new ControlPreguntarVariable();
         ControlValidarHecho ventana_validar_hecho = new ControlValidarHecho();
         ControlJustificación ventana_justificacion = new ControlJustificación();
+        
+        
         FormDialogoPanel dialogo;
 
-
+        IWin32Window ventana_padre;
 
         private bool evento_interno = false;
         private bool terminar_inferencia = false;
@@ -47,14 +45,9 @@ namespace Tot
         //**************************************************************************************
         // Métodos
         //**************************************************************************************
-        public FormVentanaInferencia()
+        public GestionMotorInferencia(string ruta_base_conocimiento, IWin32Window ventana_padre)
         {
-            InitializeComponent();
-        }
-
-        public FormVentanaInferencia(string ruta_base_conocimiento)
-        {
-            InitializeComponent();
+            this.ventana_padre = ventana_padre;
             this.ruta_base_conocimiento = ruta_base_conocimiento;
         }
 
@@ -94,8 +87,6 @@ namespace Tot
                     else
                         MessageBox.Show("No se ha selecciónado la variable objetivo", "Inferencia, Encadenamiento hacia atrás", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            this.Visible = false;
         }
 
         /// <summary>
@@ -124,7 +115,7 @@ namespace Tot
             dialogo = new FormDialogoPanel(ventana_inicial);
             ventana_inicial.evento_continuar += pantalla_inicial_evento_continuar;
             dialogo.FormClosing += dialogo_FormClosing;
-            dialogo.ShowDialog(this);
+            dialogo.ShowDialog(ventana_padre);
             ventana_inicial.liberarRecursosImagenLogo();
             dialogo = null;
         }
@@ -145,9 +136,10 @@ namespace Tot
                 ventana_selecion_de_objetivo.agregarOpcionPanelVariables(variable.id_variable, variable.nombre_variable);
             }
             ventana_selecion_de_objetivo.titulo = metadatos.titulo_sistema_experto;
-            dialogo.ShowDialog(this);
+            dialogo.ShowDialog(ventana_padre);
             dialogo = null;
             motor_atras.establecerHechoObjetivo(ventana_selecion_de_objetivo.id_estado_chequeada);
+            //todo implemntar salida del usuario por cerrar ventana
         }
 
         /// <summary>
@@ -172,7 +164,7 @@ namespace Tot
             dialogo.FormClosing += dialogo_justificacion_FormClosing;
             ventana_justificacion.evento_guardar += ventana_justificacion_evento_guardar;
             ventana_justificacion.evento_ventana_lista += evento_ventana_respuesta_lista;
-            dialogo.ShowDialog(this);
+            dialogo.ShowDialog(ventana_padre);
             dialogo = null;
         }
 
@@ -240,7 +232,7 @@ namespace Tot
             dialogo.FormClosing += dialogo_FormClosing;
             ventana_preguntar_variable.evento_respuesta_lista += evento_ventana_respuesta_lista;
             ventana_preguntar_variable.consultarVariable(variable);
-            dialogo.ShowDialog(this);
+            dialogo.ShowDialog(ventana_padre);
             if (terminar_inferencia)
                 return null;
             ArrayList respuesta_pregunta = ventana_preguntar_variable.obtenerResultadosPregunta();
@@ -270,7 +262,7 @@ namespace Tot
             dialogo.FormClosing += dialogo_FormClosing;
             ventana_validar_hecho.evento_respuesta_lista += evento_ventana_respuesta_lista;
             ventana_validar_hecho.inciarConsultaHecho(hecho, variable.ruta_texto_descriptivo);
-            dialogo.ShowDialog(this);
+            dialogo.ShowDialog(ventana_padre);
             if (terminar_inferencia)
                 return null;
             int[] respuestas = new int[3];
@@ -315,12 +307,5 @@ namespace Tot
             //todo implementar
             MessageBox.Show("implementar");
         }
-
-
-        private void FormVentanaInferencia_Activated(object sender, System.EventArgs e)
-        {
-            
-        }
-
     }
 }

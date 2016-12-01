@@ -537,8 +537,8 @@ namespace SistemaExpertoLib.MotorDeInferencia
                         if (respuesta_validacion_regla[0] == HECHO_CONFIRMADO)//Si el hecho es validado por el usuario
                         {
                             agregarLog("REGLA " + mejor_regla.id_regla + " VALIDADA");
-                            agregarLog("Descartando REGLAS con el mismo consecuente");
                             moverHecho(mejor_regla.id_hecho_consecuente, HECHOS_DISPONIBLES, HECHOS_VERDADEROS);
+                            agregarLog("Descartando REGLAS con el mismo consecuente");
                             actualizarReglasConHechoConsecuente(mejor_regla.id_regla, mejor_regla.id_hecho_consecuente, true);//Actualizamos regla y elimamos las reglas que tengan el hecho en el consecuente
                             actualizarReglasConHechoVerdaderoAntecedente(mejor_regla.id_hecho_consecuente, false);
                             HechoPila pop = pila_hechos_a_verificar.Pop();//Eliminamos de la pila el hecho buscado

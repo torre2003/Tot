@@ -104,6 +104,7 @@
     <Compile Include="FormVentanaRTF.Designer.cs">
       <DependentUpon>FormVentanaRTF.cs</DependentUpon>
     </Compile>
+    <Compile Include="GestionMotorInferencia.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ControlConfiguracionBaseDeConocimiento.resx">

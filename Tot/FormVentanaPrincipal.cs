@@ -52,8 +52,7 @@ namespace Tot
         //*******************************************************************************************
         private void iniciarInferenciaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormVentanaInferencia ventana_inferencia = new FormVentanaInferencia(base_conocimiento.ruta_carpeta_base_conocimiento);
-            ventana_inferencia.ShowDialog(this);
+            new GestionMotorInferencia(base_conocimiento.ruta_carpeta_base_conocimiento, this).iniciarProceso();
         }
 
         private void ToolStripMenuItem_editor_base_conocimiento_Click(object sender, EventArgs e)

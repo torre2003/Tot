@@ -15,7 +15,7 @@ namespace ControlesModuloConsulta
         /// <summary>
         /// Titulo del sistema experto
         /// </summary>
-        string tiulo_sistema_experto
+        public string tiulo_sistema_experto
         {
             get { return label_titulo_sistema_experto.Text; }
             set { label_titulo_sistema_experto.Text = value; }
@@ -24,7 +24,7 @@ namespace ControlesModuloConsulta
         /// <summary>
         /// Ruta del archivo descriptivo a mostrar en la descripción
         /// </summary>
-        string ruta_rtf_descripcion
+        public string ruta_rtf_descripcion
         {
             get { return _ruta_rtf_descripcion; }
             set 
@@ -38,7 +38,7 @@ namespace ControlesModuloConsulta
         /// <summary>
         /// Ruta de la imagen de 200 x 400 a mostrar en el logo
         /// </summary>
-        string ruta_imagen
+        public string ruta_imagen_logo
         {
             get { return _ruta_imagen; }
             set
@@ -81,18 +81,30 @@ namespace ControlesModuloConsulta
             }
         }
 
-
-        public void mostrarImagenEnLogo()
+        /// <summary>
+        /// Metodo que muestr a la imagen de logo en base a la ruta especifica
+        /// </summary>
+        private void mostrarImagenEnLogo()
         {
             try
             {
                 Image img = Image.FromFile(_ruta_imagen);
+                pictureBox_logo.Image = img;
             }
             catch (Exception)
             {
                 MessageBox.Show("La Imagen no existe");
             }
             
+        }
+
+        /// <summary>
+        /// Método que libera los recursos asocioados a la imagen de logo
+        /// </summary>
+        public void liberarRecursosImagenLogo()
+        {
+            if (pictureBox_logo.Image != null)
+                pictureBox_logo.Image.Dispose();
         }
 
         private void button_iniciar_Click(object sender, EventArgs e)

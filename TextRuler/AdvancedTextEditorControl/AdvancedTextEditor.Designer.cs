@@ -337,7 +337,7 @@
             charStyle1.Strikeout = false;
             charStyle1.Underline = false;
             this.TextEditor.SelectionCharStyle = charStyle1;
-            this.TextEditor.SelectionFont2 = new System.Drawing.Font("Microsoft Sans Serif", 3F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Inch);
+            this.TextEditor.SelectionFont2 = new System.Drawing.Font("Microsoft Sans Serif", 2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Inch);
             paraLineSpacing1.ExactSpacing = 0;
             paraLineSpacing1.SpacingStyle = ExtendedRichTextBox.ParaLineSpacing.LineSpacingStyle.Unknown;
             this.TextEditor.SelectionLineSpacing = paraLineSpacing1;
@@ -567,14 +567,14 @@
             // mnuRuler
             // 
             this.mnuRuler.Name = "mnuRuler";
-            this.mnuRuler.Size = new System.Drawing.Size(142, 22);
+            this.mnuRuler.Size = new System.Drawing.Size(152, 22);
             this.mnuRuler.Text = "Regla";
             this.mnuRuler.Click += new System.EventHandler(this.mnuRuler_Click);
             // 
             // mnuMainToolbar
             // 
             this.mnuMainToolbar.Name = "mnuMainToolbar";
-            this.mnuMainToolbar.Size = new System.Drawing.Size(142, 22);
+            this.mnuMainToolbar.Size = new System.Drawing.Size(152, 22);
             this.mnuMainToolbar.Text = "Main toolbar";
             this.mnuMainToolbar.Visible = false;
             this.mnuMainToolbar.Click += new System.EventHandler(this.mnuMainToolbar_Click);
@@ -582,7 +582,7 @@
             // mnuFormatting
             // 
             this.mnuFormatting.Name = "mnuFormatting";
-            this.mnuFormatting.Size = new System.Drawing.Size(142, 22);
+            this.mnuFormatting.Size = new System.Drawing.Size(152, 22);
             this.mnuFormatting.Text = "Formatting";
             this.mnuFormatting.Visible = false;
             this.mnuFormatting.Click += new System.EventHandler(this.mnuFormatting_Click);
@@ -590,7 +590,7 @@
             // lineNumbersToolStripMenuItem
             // 
             this.lineNumbersToolStripMenuItem.Name = "lineNumbersToolStripMenuItem";
-            this.lineNumbersToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.lineNumbersToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.lineNumbersToolStripMenuItem.Text = "Line number";
             this.lineNumbersToolStripMenuItem.Visible = false;
             // 
@@ -607,7 +607,7 @@
             // 
             this.mnuInsertPicture.Image = ((System.Drawing.Image)(resources.GetObject("mnuInsertPicture.Image")));
             this.mnuInsertPicture.Name = "mnuInsertPicture";
-            this.mnuInsertPicture.Size = new System.Drawing.Size(130, 22);
+            this.mnuInsertPicture.Size = new System.Drawing.Size(152, 22);
             this.mnuInsertPicture.Text = "Imagen";
             this.mnuInsertPicture.Click += new System.EventHandler(this.mnuInsertPicture_Click);
             // 
@@ -619,7 +619,7 @@
             this.txtCustom});
             this.mnuInsertDateTime.Image = ((System.Drawing.Image)(resources.GetObject("mnuInsertDateTime.Image")));
             this.mnuInsertDateTime.Name = "mnuInsertDateTime";
-            this.mnuInsertDateTime.Size = new System.Drawing.Size(130, 22);
+            this.mnuInsertDateTime.Size = new System.Drawing.Size(152, 22);
             this.mnuInsertDateTime.Text = "Date/Time";
             this.mnuInsertDateTime.Visible = false;
             this.mnuInsertDateTime.DropDownOpening += new System.EventHandler(this.mnuInsertDateTime_DropDownOpening);
