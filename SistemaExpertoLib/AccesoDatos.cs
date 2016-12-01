@@ -103,7 +103,7 @@ namespace SistemaExpertoLib
                 System.IO.Directory.CreateDirectory(ruta_carpeta_archivos + carpeta_configuracion);
                 System.IO.Directory.CreateDirectory(ruta_carpeta_archivos + carpeta_archivos_rtf);
                 _existe_base_conocimiento = true;
-            }//todo agrgar carpeta config 
+            }
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace SistemaExpertoLib
             if (System.IO.Directory.Exists(ruta_carpeta_archivos))
             {
                 System.IO.Directory.Delete(ruta_carpeta_archivos);
-            }//todo agrgar carpeta config 
+            }
             _existe_base_conocimiento = false;
         }
 

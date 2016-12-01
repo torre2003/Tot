@@ -158,7 +158,7 @@
             // 
             // button_seleccion_de_imagen
             // 
-            this.button_seleccion_de_imagen.Image = global::Tot.Properties.Resources.lupa_imagenes___32x_32;
+            this.button_seleccion_de_imagen.Image = global::ControlesModuloGestionBaseConocimiento.Properties.Resources.lupa_imagenes___32x_32;
             this.button_seleccion_de_imagen.Location = new System.Drawing.Point(415, 83);
             this.button_seleccion_de_imagen.Name = "button_seleccion_de_imagen";
             this.button_seleccion_de_imagen.Size = new System.Drawing.Size(45, 45);
@@ -176,7 +176,7 @@
             // 
             // button_descripcion_sistema_experto
             // 
-            this.button_descripcion_sistema_experto.Image = global::Tot.Properties.Resources.lupa_documentos___32_x_32;
+            this.button_descripcion_sistema_experto.Image = global::ControlesModuloGestionBaseConocimiento.Properties.Resources.lupa_documentos___32_x_32;
             this.button_descripcion_sistema_experto.Location = new System.Drawing.Point(171, 83);
             this.button_descripcion_sistema_experto.Name = "button_descripcion_sistema_experto";
             this.button_descripcion_sistema_experto.Size = new System.Drawing.Size(57, 41);

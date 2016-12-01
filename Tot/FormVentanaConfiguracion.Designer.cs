@@ -35,6 +35,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(714, 442);
+            this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(730, 480);
             this.MinimumSize = new System.Drawing.Size(730, 480);
             this.Name = "FormVentanaConfiguracion";

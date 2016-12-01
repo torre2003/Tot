@@ -189,7 +189,9 @@
             this.ClientSize = new System.Drawing.Size(789, 671);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.tabControl_gestion_conocimiento);
-            this.MinimumSize = new System.Drawing.Size(804, 708);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(805, 709);
+            this.MinimumSize = new System.Drawing.Size(805, 709);
             this.Name = "FormVentanaGestiónBaseConocimiento";
             this.Text = "Gestión Base de Conocimiento";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormVentanaGestiónBaseConocimiento_FormClosing);

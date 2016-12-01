@@ -27,10 +27,10 @@ namespace Tot
                 string retorno = "";
                 retorno += prefijo;
                 if (prefijo != null && !prefijo.Equals(""))
-                    retorno += "\t";
+                    retorno += " ";
                 retorno += id;
                 if (id != null && !id.Equals(""))
-                    retorno += "\t";
+                    retorno += "    ";
                 retorno += nombre;
                 if (nombre != null && !nombre.Equals(""))
                     retorno += "\t";
@@ -992,11 +992,29 @@ namespace Tot
                         id = variable.id_variable,
                         nombre = variable.nombre_variable
                     };
+                    switch (variable.tipo_variable)
+                    {
+                        case Variable.BOOLEANO:
+                            elemento.prefijo = "(B)";
+                            break;
+                        case Variable.NUMERICO:
+                            elemento.prefijo = "(N)";
+                            break;
+                        case Variable.LISTA:
+                            elemento.prefijo = "(L)";
+                            break;
+                        default:
+                            break;
+                    }
+
+
                     string aux = "";
                     if (!variable.chequeo_de_consistencia)
                         aux += " (No Chequeado)";
                     if (variable.variable_de_inicio)
-                        aux += " [Inicial]";
+                        aux += " [ I ]";
+                    if (variable.variable_objetivo)
+                        aux += " [ O ]";
                     if (variable.variable_preguntable_al_usuario)
                         aux += " [¿?]";
                     elemento.sufijo = aux;

@@ -120,7 +120,6 @@ namespace Tot
             ventana_inicial.ruta_imagen_logo = metadatos.ruta_imagen_logo_sistema_experto;
 
 
-            //TODO INICIAR SEGÚN LAS VARAIBLES CONFIGURADAS DE LA BASE DE CONOCIMIENTO, TIPO DE ENCADENAMIENTO, ETC.
             dialogo = new FormDialogoPanel(ventana_inicial);
             ventana_inicial.evento_continuar += pantalla_inicial_evento_continuar;
             dialogo.FormClosing += dialogo_FormClosing;

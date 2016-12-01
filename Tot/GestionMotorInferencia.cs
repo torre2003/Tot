@@ -110,8 +110,6 @@ namespace Tot
             ventana_inicial.ruta_rtf_descripcion = metadatos.ruta_rtf_descripcion_sistema_experto;
             ventana_inicial.ruta_imagen_logo = metadatos.ruta_imagen_logo_sistema_experto;
 
-
-            //TODO INICIAR SEGÚN LAS VARAIBLES CONFIGURADAS DE LA BASE DE CONOCIMIENTO, TIPO DE ENCADENAMIENTO, ETC.
             dialogo = new FormDialogoPanel(ventana_inicial);
             ventana_inicial.evento_continuar += pantalla_inicial_evento_continuar;
             dialogo.FormClosing += dialogo_FormClosing;
@@ -138,8 +136,8 @@ namespace Tot
             ventana_selecion_de_objetivo.titulo = metadatos.titulo_sistema_experto;
             dialogo.ShowDialog(ventana_padre);
             dialogo = null;
-            motor_atras.establecerHechoObjetivo(ventana_selecion_de_objetivo.id_estado_chequeada);
-            //todo implemntar salida del usuario por cerrar ventana
+            if(!terminar_inferencia)
+                motor_atras.establecerHechoObjetivo(ventana_selecion_de_objetivo.id_estado_chequeada);
         }
 
         /// <summary>

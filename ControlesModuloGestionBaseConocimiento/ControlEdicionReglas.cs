@@ -184,7 +184,7 @@ namespace Tot
 
             Button boton_eliminar = new Button();
             boton_eliminar.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            boton_eliminar.Image = global::Tot.Properties.Resources.basurero_32x32;
+            boton_eliminar.Image = global::ControlesModuloGestionBaseConocimiento.Properties.Resources.basurero_32x32;
             boton_eliminar.Name = ultima_id_interna + "";
             boton_eliminar.Size = new System.Drawing.Size(30, 30);
             boton_eliminar.TabIndex = 11;

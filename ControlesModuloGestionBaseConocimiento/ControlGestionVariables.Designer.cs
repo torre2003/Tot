@@ -265,7 +265,7 @@
             // 
             // button_seleccion_documento
             // 
-            this.button_seleccion_documento.Image = global::Tot.Properties.Resources.lupa_documentos___32_x_32;
+            this.button_seleccion_documento.Image = global::ControlesModuloGestionBaseConocimiento.Properties.Resources.lupa_documentos___32_x_32;
             this.button_seleccion_documento.Location = new System.Drawing.Point(223, 493);
             this.button_seleccion_documento.Name = "button_seleccion_documento";
             this.button_seleccion_documento.Size = new System.Drawing.Size(46, 37);
@@ -338,7 +338,7 @@
             // button_agregar_elemento_lista_a_variable
             // 
             this.button_agregar_elemento_lista_a_variable.BackColor = System.Drawing.Color.White;
-            this.button_agregar_elemento_lista_a_variable.Image = global::Tot.Properties.Resources.add60x60;
+            this.button_agregar_elemento_lista_a_variable.Image = global::ControlesModuloGestionBaseConocimiento.Properties.Resources.add60x60;
             this.button_agregar_elemento_lista_a_variable.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button_agregar_elemento_lista_a_variable.Location = new System.Drawing.Point(158, 3);
             this.button_agregar_elemento_lista_a_variable.Name = "button_agregar_elemento_lista_a_variable";
@@ -353,7 +353,7 @@
             // button_eliminar_elemento_lista_variable
             // 
             this.button_eliminar_elemento_lista_variable.BackColor = System.Drawing.Color.White;
-            this.button_eliminar_elemento_lista_variable.Image = global::Tot.Properties.Resources.remove60x60;
+            this.button_eliminar_elemento_lista_variable.Image = global::ControlesModuloGestionBaseConocimiento.Properties.Resources.remove60x60;
             this.button_eliminar_elemento_lista_variable.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button_eliminar_elemento_lista_variable.Location = new System.Drawing.Point(158, 93);
             this.button_eliminar_elemento_lista_variable.Name = "button_eliminar_elemento_lista_variable";
