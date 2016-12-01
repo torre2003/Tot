@@ -58,6 +58,7 @@
             this.textBox_pregunta.Location = new System.Drawing.Point(39, 87);
             this.textBox_pregunta.Multiline = true;
             this.textBox_pregunta.Name = "textBox_pregunta";
+            this.textBox_pregunta.ReadOnly = true;
             this.textBox_pregunta.Size = new System.Drawing.Size(511, 77);
             this.textBox_pregunta.TabIndex = 5;
             // 
@@ -65,6 +66,7 @@
             // 
             this.richTextBox_descripcion_variable.Location = new System.Drawing.Point(39, 187);
             this.richTextBox_descripcion_variable.Name = "richTextBox_descripcion_variable";
+            this.richTextBox_descripcion_variable.ReadOnly = true;
             this.richTextBox_descripcion_variable.Size = new System.Drawing.Size(511, 184);
             this.richTextBox_descripcion_variable.TabIndex = 6;
             this.richTextBox_descripcion_variable.Text = "";

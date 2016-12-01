@@ -62,6 +62,7 @@
             this.button_iniciar.TabIndex = 2;
             this.button_iniciar.Text = "Continuar";
             this.button_iniciar.UseVisualStyleBackColor = true;
+            this.button_iniciar.Click += new System.EventHandler(this.button_iniciar_Click);
             // 
             // label_titulo_sistema_experto
             // 
@@ -92,9 +93,9 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox_logo;
-        private System.Windows.Forms.RichTextBox richTextBox_descripcion;
-        private System.Windows.Forms.Label label_titulo_sistema_experto;
         public System.Windows.Forms.Button button_iniciar;
+        private System.Windows.Forms.RichTextBox richTextBox_descripcion;
+        private System.Windows.Forms.PictureBox pictureBox_logo;
+        private System.Windows.Forms.Label label_titulo_sistema_experto;
     }
 }

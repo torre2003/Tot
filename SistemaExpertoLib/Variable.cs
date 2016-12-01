@@ -77,7 +77,7 @@ namespace SistemaExpertoLib
         /// <summary>
         /// Valor BOOLEANO actual en la memoria de trabajo
         /// </summary>
-        bool valor_booleano_actual
+        public bool valor_booleano_actual
         {
             get
             {
@@ -93,7 +93,7 @@ namespace SistemaExpertoLib
         /// <summary>
         /// Valor NUMERICO actual en la memoria de trabajo
         /// </summary>
-        double valor_numerico_actual
+        public double valor_numerico_actual
         {
             get
             {
@@ -101,6 +101,9 @@ namespace SistemaExpertoLib
             }
             set
             {
+                if (rango_limitado)
+                    if(!(rango_limite_inferior <= value && value <= rango_limite_superior))
+                        throw new System.ArgumentException("Valor fuera de rango", ""+value);
                 _valor_numerico_actual = value;
                 _variable_modificada = true;
             }
@@ -109,7 +112,7 @@ namespace SistemaExpertoLib
         /// <summary>
         /// Valor LISTA actual en la memoria de trabajo
         /// </summary>
-        string valor_lista_actual
+        public string valor_lista_actual
         {
             get
             {
@@ -136,7 +139,6 @@ namespace SistemaExpertoLib
             }
         }
         private bool _variable_modificada;
-
 
         /// <summary>
         /// Valor que establece la Variable como Cardinal (solo si la variable es de tipo numerica)

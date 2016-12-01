@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SistemaExpertoLib.MotorDeInferencia
 {
-    public class AccesoBaseConocimiento
+    public class LecturaBaseConocimiento
     {
         AccesoDatos base_conocimiento;
         public bool existe_base_conocimiento
@@ -14,7 +14,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
             get { return base_conocimiento._existe_base_conocimiento; }
         }
         
-        public AccesoBaseConocimiento()
+        public LecturaBaseConocimiento()
         {
             base_conocimiento = new AccesoDatos();
         }
@@ -23,7 +23,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
         /// Constructor 
         /// </summary>
         /// <param name="ruta_carpeta_archivos">Ruta del repositorio de la base de conocimiento</param>
-        public AccesoBaseConocimiento(string ruta_carpeta_archivos)
+        public LecturaBaseConocimiento(string ruta_carpeta_archivos)
         {
             base_conocimiento = new AccesoDatos(ruta_carpeta_archivos);
         }
@@ -55,6 +55,14 @@ namespace SistemaExpertoLib.MotorDeInferencia
         public Regla leerRegla(string id_regla)
         {
             return base_conocimiento.extraerRegla(id_regla);
+        }
+        /// <summary>
+        /// Método para extraer los metadatos correspondiente a la base de conocimiento
+        /// </summary>
+        /// <returns>Objeto MetadatosBaseDeConocimiento | null si no existe</returns>
+        public MetadatosBaseDeConocimiento leerMetadatos()
+        {
+            return base_conocimiento.extraerMetadatosBaseConocimiento();
         }
 
     }
