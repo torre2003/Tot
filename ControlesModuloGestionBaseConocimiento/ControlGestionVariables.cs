@@ -337,6 +337,7 @@ namespace Tot
             rango_limitado = false;
             variable_de_inicio = false;
             variable_preguntable_al_usuario = false;
+            variable_objetivo = false;
             radioButton_cardinal.Checked = false;
             radioButton_Continuo.Checked = false;
             cambiarEstadoPanelesTipoVariable();
@@ -1066,6 +1067,7 @@ namespace Tot
             marcarControl(INGRESO_ELEMENTO, false);
             marcarControl(LISTA_DE_ELEMENTOS, false);
             marcarControl(VARIABLE_INICIAL, false);
+            marcarControl(VARIABLE_PREGUNTABLE, false);
             marcarControl(LISTA_DE_ELEMENTOS, false);
             marcarControl(VARIABLE_OBJETIVO, false);
         }
