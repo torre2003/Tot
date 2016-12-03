@@ -66,6 +66,12 @@ namespace Tot
                     MessageBox.Show("Error en la configuración de la base de conocimiento", "Proceso de inferencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+                if(!metadatos.base_conocimiento_chequeada)
+                {
+                    MessageBox.Show("La base conocimiento no esta chequeada", "Proceso de inferencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 tipo_de_encadenamiento = metadatos.tipo_de_encadenamiento;
                 iniciarVentana();
             }
