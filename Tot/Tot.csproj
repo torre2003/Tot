@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\Extras\Ionic.Zip.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -49,6 +52,12 @@
     </Compile>
     <Compile Include="FormDialogoPanel.Designer.cs">
       <DependentUpon>FormDialogoPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormVentanaCargando.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormVentanaCargando.Designer.cs">
+      <DependentUpon>FormVentanaCargando.cs</DependentUpon>
     </Compile>
     <Compile Include="FormVentanaConfiguracion.cs">
       <SubType>Form</SubType>
@@ -79,6 +88,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormDialogoPanel.resx">
       <DependentUpon>FormDialogoPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormVentanaCargando.resx">
+      <DependentUpon>FormVentanaCargando.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormVentanaConfiguracion.resx">
       <DependentUpon>FormVentanaConfiguracion.cs</DependentUpon>

@@ -274,19 +274,19 @@ namespace Tot
                 return null;
             int[] respuestas = new int[3];
             if (ventana_validar_hecho.hecho_validado)
-                respuestas[0] = EncadenamientoHaciaAtras.HECHO_CONFIRMADO;
+                respuestas[0] = ConstantesShell.HECHO_CONFIRMADO;
             else
-                respuestas[0] = EncadenamientoHaciaAtras.HECHO_DESCARTADO;
+                respuestas[0] = ConstantesShell.HECHO_DESCARTADO;
 
             if (ventana_validar_hecho.se_soluciono_el_problema)
-                respuestas[1] = EncadenamientoHaciaAtras.PROBLEMA_SOLUCIONADO;
+                respuestas[1] = ConstantesShell.PROBLEMA_SOLUCIONADO;
             else
-                respuestas[1] = EncadenamientoHaciaAtras.PROBLEMA_NO_SOLUCIONADO;
+                respuestas[1] = ConstantesShell.PROBLEMA_NO_SOLUCIONADO;
 
             if (ventana_validar_hecho.continuar_inferencia)
-                respuestas[2] = EncadenamientoHaciaAtras.CONTINUAR_PROCESO;
+                respuestas[2] = ConstantesShell.CONTINUAR_PROCESO;
             else
-                respuestas[2] = EncadenamientoHaciaAtras.DETENER_PROCESO;
+                respuestas[2] = ConstantesShell.DETENER_PROCESO;
             return respuestas;
         }
 

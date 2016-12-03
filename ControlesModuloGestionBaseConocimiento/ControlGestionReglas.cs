@@ -147,6 +147,11 @@ namespace Tot
             button_eliminar.Enabled = habilitar;
         }
 
+        public void limpiarControlGestionRegla()
+        {
+            control_edicion_de_reglas.limpiarControEdicionGestionRegla();
+        }
+
         //*************************************************************************************************
         //  Eventos
         //*************************************************************************************************
@@ -178,6 +183,7 @@ namespace Tot
                 ElementoListBox elemento = (ElementoListBox)listBox_reglas.SelectedItem;
                 control_edicion_de_reglas.iniciarTareaEliminarRegla(elemento.id);
                 listBox_reglas.SelectedItem = null;
+                base_conocimiento.metadatosDesmarcarChequeoBaseConocimiento();
             }
             else
             {

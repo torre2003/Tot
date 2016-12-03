@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DelegadosYConstantes.cs" />
+    <Compile Include="EncadenamientoHaciaAdelante.cs" />
     <Compile Include="GestionadorBaseConocimiento2.cs" />
     <Compile Include="LecturaBaseConocimiento.cs" />
     <Compile Include="AccesoDatos.cs" />
@@ -47,7 +49,7 @@
     <Compile Include="MetadatosBaseDeConocimiento.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Regla.cs" />
-    <Compile Include="ShellSistemaExperto.cs" />
+    <Compile Include="EncadenamientoHaciaAtras.cs" />
     <Compile Include="Variable.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

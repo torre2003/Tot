@@ -176,6 +176,12 @@ namespace Tot
             MessageBox.Show("Cambios realizados correctamente","Configuración base de conocimiento",MessageBoxButtons.OK,MessageBoxIcon.Information);
         }
 
+        public void liberarRecursosImagenLogo()
+        {
+            if (pictureBox_logo.Image != null)
+                pictureBox_logo.Image.Dispose();
+        }
+
         //*****************************************************************************************
         // Eventos
         //*****************************************************************************************

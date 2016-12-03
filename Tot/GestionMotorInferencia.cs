@@ -39,6 +39,7 @@ namespace Tot
 
         private LecturaBaseConocimiento base_conocimiento;
         private EncadenamientoHaciaAtras motor_atras;
+        private EncadenamientoHaciaAdelante motor_adelante;
         private MetadatosBaseDeConocimiento metadatos;
 
 
@@ -82,10 +83,21 @@ namespace Tot
             if (!terminar_inferencia)
             {
                 if (tipo_de_encadenamiento == ENCADENAMIENTO_HACIA_ATRAS)
+                {
                     if (motor_atras.hecho_objetivo_establecido)
                         iniciarInferenciaEncadenamientoHaciaAtras();
                     else
                         MessageBox.Show("No se ha selecciónado la variable objetivo", "Inferencia, Encadenamiento hacia atrás", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                if (tipo_de_encadenamiento == ENCADENAMIENTO_HACIA_ADELANTE)
+                {
+                    iniciarInferenciaEncadenamientoHaciaAdelante();
+                }
+                else
+                {
+                    throw new System.ArgumentException("Opción invalida de encadenamiento", "GestorMotorInferencia - iniciar proceso");
+                }
             }
         }
 
@@ -105,6 +117,22 @@ namespace Tot
                     terminar_inferencia = true;
                     return;
                 }
+            }
+            else
+            if (tipo_de_encadenamiento == ENCADENAMIENTO_HACIA_ADELANTE)
+            {
+                motor_adelante = new EncadenamientoHaciaAdelante();
+                string errores = motor_adelante.inicializarEncadenamiento();
+                if (errores != null)
+                {
+                    MessageBox.Show(errores, "Proceso de inferencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    terminar_inferencia = true;
+                    return;
+                }
+            }
+            else
+            {
+                throw new System.ArgumentException("Opción invalida de encadenamiento", "GestorMotorInferencia - iniciarVentana");
             }
             ventana_inicial.tiulo_sistema_experto = metadatos.titulo_sistema_experto;
             ventana_inicial.ruta_rtf_descripcion = metadatos.ruta_rtf_descripcion_sistema_experto;
@@ -145,20 +173,36 @@ namespace Tot
         /// </summary>
         public void iniciarInferenciaEncadenamientoHaciaAtras()
         {
-            motor_atras.evento_consultar_variable += motor_atras_evento_consultar_variable;
-            motor_atras.evento_confimar_hecho += motor_atras_evento_confimar_hecho;
+            motor_atras.evento_consultar_variable += motor_inferencia_evento_consultar_variable;
+            motor_atras.evento_confimar_hecho += motor_inferencia_evento_confimar_hecho;
             motor_atras.evento_informacion_inferencia += motor_atras_evento_informacion_inferencia;
             motor_atras.inferencia();
             mostrarModuloDeJustificación();
         }
-        
+
+        /// <summary>
+        /// Método que inicia la inferencia con encadenaiento hacia adelante
+        /// </summary>
+        public void iniciarInferenciaEncadenamientoHaciaAdelante()
+        {
+            motor_adelante.evento_consultar_variable += motor_inferencia_evento_consultar_variable;
+            motor_adelante.evento_confimar_hecho += motor_inferencia_evento_confimar_hecho;
+            motor_adelante.evento_informacion_inferencia += motor_atras_evento_informacion_inferencia;
+            motor_adelante.inferencia();
+            mostrarModuloDeJustificación();
+        }
+
+
         /// <summary>
         /// Método para mostrar el modulo de justificación de la inferencia
         /// </summary>
         public void mostrarModuloDeJustificación()
         {
             dialogo = new FormDialogoPanel(ventana_justificacion);
-            ventana_justificacion.mostrarLog(motor_atras.loggeo_inferencia);
+            if (tipo_de_encadenamiento == ENCADENAMIENTO_HACIA_ATRAS)
+                ventana_justificacion.mostrarLog(motor_atras.loggeo_inferencia);
+            else
+                ventana_justificacion.mostrarLog(motor_adelante.loggeo_inferencia);
             dialogo.FormClosing += dialogo_justificacion_FormClosing;
             ventana_justificacion.evento_guardar += ventana_justificacion_evento_guardar;
             ventana_justificacion.evento_ventana_lista += evento_ventana_respuesta_lista;
@@ -223,7 +267,7 @@ namespace Tot
             }
         }
 
-        ArrayList motor_atras_evento_consultar_variable(string id_variable)
+        ArrayList motor_inferencia_evento_consultar_variable(string id_variable)
         {
             Variable variable = base_conocimiento.leerVariable(id_variable);
             dialogo = new FormDialogoPanel(ventana_preguntar_variable);
@@ -251,7 +295,7 @@ namespace Tot
         }
 
         
-        int[] motor_atras_evento_confimar_hecho(string id_hecho)
+        int[] motor_inferencia_evento_confimar_hecho(string id_hecho)
         {
             Hecho hecho = base_conocimiento.leerHecho(id_hecho);
             Variable variable = base_conocimiento.leerVariable(hecho.id_variable);
@@ -265,19 +309,19 @@ namespace Tot
                 return null;
             int[] respuestas = new int[3];
             if (ventana_validar_hecho.hecho_validado)
-                respuestas[0] = EncadenamientoHaciaAtras.HECHO_CONFIRMADO;
+                respuestas[0] = ConstantesShell.HECHO_CONFIRMADO;
             else
-                respuestas[0] = EncadenamientoHaciaAtras.HECHO_DESCARTADO;
+                respuestas[0] = ConstantesShell.HECHO_DESCARTADO;
 
             if (ventana_validar_hecho.se_soluciono_el_problema)
-                respuestas[1] = EncadenamientoHaciaAtras.PROBLEMA_SOLUCIONADO;
+                respuestas[1] = ConstantesShell.PROBLEMA_SOLUCIONADO;
             else
-                respuestas[1] = EncadenamientoHaciaAtras.PROBLEMA_NO_SOLUCIONADO;
+                respuestas[1] = ConstantesShell.PROBLEMA_NO_SOLUCIONADO;
 
             if (ventana_validar_hecho.continuar_inferencia)
-                respuestas[2] = EncadenamientoHaciaAtras.CONTINUAR_PROCESO;
+                respuestas[2] = ConstantesShell.CONTINUAR_PROCESO;
             else
-                respuestas[2] = EncadenamientoHaciaAtras.DETENER_PROCESO;
+                respuestas[2] = ConstantesShell.DETENER_PROCESO;
             return respuestas;
         }
 

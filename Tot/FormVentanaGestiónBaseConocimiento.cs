@@ -93,6 +93,7 @@ namespace Tot
         private void tabPage_variables_Enter(object sender, EventArgs e)
         {
             control_gestion_variables.actualizarListaDeVariables();
+
         }
 
         private void button_cheuquear_hechos_Click(object sender, EventArgs e)
@@ -109,6 +110,16 @@ namespace Tot
         {
             e.Cancel = true;
             this.Visible = false;
+        }
+
+        private void FormVentanaGestiónBaseConocimiento_VisibleChanged(object sender, EventArgs e)
+        {
+            if (this.Visible)
+            {
+                control_gestion_variables.limpiarControlGestionVariables();
+                control_gestion_de_reglas.limpiarControlGestionRegla();
+            }
+                
         }
 
 

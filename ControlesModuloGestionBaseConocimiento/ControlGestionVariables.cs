@@ -820,8 +820,9 @@ namespace Tot
                 {
                     base_conocimiento.desmarcarChequeoDeConsistenciaEnHechosYReglas(id_variable, true);
                     base_conocimiento.eliminarVariable(id_variable);
-                    MessageBox.Show("La variable ha sido eliminada correctamente,\n Se han marcado las reglas afectadas", "Eliminando variable", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("La variable ha sido eliminada correctamente,\n -Se han marcado las reglas afectadas\n -Se debe comprobar la consistencia de la base de conocimiento", "Eliminando variable", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     eliminarRTF(id_variable);
+                    base_conocimiento.metadatosDesmarcarChequeoBaseConocimiento();
                     return true;
                     /*
                     int opcion = preguntasSiNoCancelar("Eliminando variables", "¿Desea eliminar los hechos asociados a la variable?");
@@ -853,7 +854,7 @@ namespace Tot
         private bool modificandoVariable(string id_variable)
         {
             Variable variable = base_conocimiento.leerVariable(id_variable);
-            bool flag = false;
+            bool flag_de_hechos = false;//indica si la modificacion afecta a algún hecho
             string[] opciones_nuevas = null;
             string[] opciones_antiguas = null;
             if (variable.tipo_variable == Variable.NUMERICO)
@@ -862,7 +863,7 @@ namespace Tot
                 {
                     string[] lista_de_hechos = base_conocimiento.listarHechosConVariable(id_variable);
                     if (lista_de_hechos != null)
-                        flag = true;
+                        flag_de_hechos = true;
                 }
                 if (variable.rango_limitado == false && rango_limitado)//si se ha establecido un rango a la variable
                 {
@@ -870,7 +871,7 @@ namespace Tot
                     double max = Double.Parse(rango_max);
                     string[] lista_de_hechos = base_conocimiento.listarHechosConVariable(id_variable, min, max);
                     if (lista_de_hechos != null)
-                        flag = true;
+                        flag_de_hechos = true;
                 }
                 if (variable.rango_limitado)//si han cambiado los rangos de la variable
                 {
@@ -880,7 +881,7 @@ namespace Tot
                     {
                         string[] lista_de_hechos = base_conocimiento.listarHechosConVariable(id_variable, min, max);
                         if (lista_de_hechos != null)
-                            flag = true;
+                            flag_de_hechos = true;
                     }
                 }
             }
@@ -911,19 +912,19 @@ namespace Tot
                             opciones_antiguas[j] = "";
                     }//solo quedan las opciones agregadas en opciones nuevas y eliminadas en opciones antiguas
 
-                    for (int q = 0; q < opciones_antiguas.Length && !flag; q++) //buscando si algun elemento eliminado influye en un hecho
+                    for (int q = 0; q < opciones_antiguas.Length && !flag_de_hechos; q++) //buscando si algun elemento eliminado influye en un hecho
                     {
                         if (!opciones_antiguas.Equals(""))
                         {
                             string[] lista_de_hechos_con_elemento = base_conocimiento.listarHechosConVariable(id_variable, opciones_antiguas[q]);
                             if (lista_de_hechos_con_elemento != null)
-                                flag = true;
+                                flag_de_hechos = true;
                         }
                     }
                 }
 
 
-            if (flag)
+            if (flag_de_hechos)
             {
                 if (1 != preguntasSiNoCancelar("Modificando variable", "Las modificaciones afectarán hechos y reglas,\n ¿Usted desea continuar?"))
                     return false;
@@ -931,6 +932,8 @@ namespace Tot
             else
                 if (1 != preguntasSiNoCancelar("Modificando variable", "Se modificara la variable,\n ¿Usted desea continuar?"))
                     return false;
+            if(flag_de_hechos)
+                base_conocimiento.metadatosDesmarcarChequeoBaseConocimiento();
             base_conocimiento.modificarMetadatosVariable(id_variable, variable_de_inicio, variable_preguntable_al_usuario,variable_objetivo, nombre, texto_consulta, null, ruta_archivo_imagen);
             if (variable.tipo_variable == Variable.NUMERICO)
             {
@@ -1138,8 +1141,17 @@ namespace Tot
                 base_conocimiento.modificarRutasArchivosVariable(id_variable, ruta_archivo_variable);
             }
         }
-
-
+        /// <summary>
+        /// Método para limpiar el control
+        /// </summary>
+        public void limpiarControlGestionVariables()
+        {
+            limpiarCampos();
+            controlesHabilitados(false);
+            tipo_tarea = DESABILITADO;
+            id_variable_en_tarea = null;
+            limpiarArchivoTemporalRTF();
+        }
         //*************************************************************************
         // Eventos
         //*************************************************************************

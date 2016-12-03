@@ -41,6 +41,7 @@
             this.Name = "FormVentanaConfiguracion";
             this.Text = "Configuración";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormVentanaConfiguracion_FormClosing);
+            this.VisibleChanged += new System.EventHandler(this.FormVentanaConfiguracion_VisibleChanged);
             this.ResumeLayout(false);
 
         }

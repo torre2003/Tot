@@ -81,5 +81,13 @@ namespace Tot
             }
             e.Cancel = true;
         }
+
+        private void FormVentanaConfiguracion_VisibleChanged(object sender, EventArgs e)
+        {
+            if (this.Visible == false)
+            {
+                control_configuracion.liberarRecursosImagenLogo();
+            }
+        }
     }
 }

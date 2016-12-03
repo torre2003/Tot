@@ -113,7 +113,7 @@ namespace SistemaExpertoLib
         {
             if (System.IO.Directory.Exists(ruta_carpeta_archivos))
             {
-                System.IO.Directory.Delete(ruta_carpeta_archivos);
+                System.IO.Directory.Delete(ruta_carpeta_archivos,true);
             }
             _existe_base_conocimiento = false;
         }

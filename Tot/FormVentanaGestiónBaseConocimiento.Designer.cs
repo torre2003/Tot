@@ -195,6 +195,7 @@
             this.Name = "FormVentanaGestiónBaseConocimiento";
             this.Text = "Gestión Base de Conocimiento";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormVentanaGestiónBaseConocimiento_FormClosing);
+            this.VisibleChanged += new System.EventHandler(this.FormVentanaGestiónBaseConocimiento_VisibleChanged);
             this.tabControl_gestion_conocimiento.ResumeLayout(false);
             this.tabPage_variables.ResumeLayout(false);
             this.tabPage_variables.PerformLayout();

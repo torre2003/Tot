@@ -1919,6 +1919,18 @@ namespace Tot
             if (evento_habilitar_controles != null)
                 evento_habilitar_controles(true);
         }
+
+        /// <summary>
+        /// Método que limpia el control 
+        /// </summary>
+        public void limpiarControEdicionGestionRegla()
+        {
+            limpiarControles();
+            this.Visible = false;
+            tipo_tarea = DESABILITADO;
+            if (evento_habilitar_controles != null)
+                evento_habilitar_controles(true);
+        }
         //*************************************************************************
         // Eventos
         //*************************************************************************
@@ -1984,6 +1996,7 @@ namespace Tot
                     limpiarControles();
                     tipo_tarea = DESABILITADO;
                     this.Visible = false;
+                    base_conocimiento.metadatosDesmarcarChequeoBaseConocimiento();
                 }
                 if (evento_habilitar_controles != null)
                     evento_habilitar_controles(true);
@@ -2011,6 +2024,7 @@ namespace Tot
                     if (evento_habilitar_controles != null)
                         evento_habilitar_controles(true);
                 }
+                base_conocimiento.metadatosDesmarcarChequeoBaseConocimiento();
             }
         }
         private void numeric_KeyPress(object sender, KeyPressEventArgs e)

@@ -30,14 +30,19 @@
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nuevaBaseDeConocimientoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.configuraciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.ToolStripMenuItemimportarBaseDeConocimiento = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItemexportarBaseDeConocimiento = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.ToolStripMenuItem_salir = new System.Windows.Forms.ToolStripMenuItem();
             this.gestiónDelConocimientoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem_editor_base_conocimiento = new System.Windows.Forms.ToolStripMenuItem();
             this.motorDeInferenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.iniciarInferenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.configuraciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.nuevaBaseDeConocimientoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.openFileDialog_importar = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog_exportar = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,16 +63,57 @@
             this.archivoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.nuevaBaseDeConocimientoToolStripMenuItem,
             this.configuraciónToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.ToolStripMenuItemimportarBaseDeConocimiento,
+            this.ToolStripMenuItemexportarBaseDeConocimiento,
             this.toolStripSeparator1,
             this.ToolStripMenuItem_salir});
             this.archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
             this.archivoToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
             this.archivoToolStripMenuItem.Text = "Archivo";
             // 
+            // nuevaBaseDeConocimientoToolStripMenuItem
+            // 
+            this.nuevaBaseDeConocimientoToolStripMenuItem.Name = "nuevaBaseDeConocimientoToolStripMenuItem";
+            this.nuevaBaseDeConocimientoToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            this.nuevaBaseDeConocimientoToolStripMenuItem.Text = "Nueva base de conocimiento";
+            this.nuevaBaseDeConocimientoToolStripMenuItem.Click += new System.EventHandler(this.nuevaBaseDeConocimientoToolStripMenuItem_Click);
+            // 
+            // configuraciónToolStripMenuItem
+            // 
+            this.configuraciónToolStripMenuItem.Name = "configuraciónToolStripMenuItem";
+            this.configuraciónToolStripMenuItem.Size = new System.Drawing.Size(240, 22);
+            this.configuraciónToolStripMenuItem.Text = "Configuración";
+            this.configuraciónToolStripMenuItem.Click += new System.EventHandler(this.configuraciónToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(237, 6);
+            // 
+            // ToolStripMenuItemimportarBaseDeConocimiento
+            // 
+            this.ToolStripMenuItemimportarBaseDeConocimiento.Name = "ToolStripMenuItemimportarBaseDeConocimiento";
+            this.ToolStripMenuItemimportarBaseDeConocimiento.Size = new System.Drawing.Size(240, 22);
+            this.ToolStripMenuItemimportarBaseDeConocimiento.Text = "Importar base de conocimiento";
+            this.ToolStripMenuItemimportarBaseDeConocimiento.Click += new System.EventHandler(this.ToolStripMenuItemimportarBaseDeConocimiento_Click);
+            // 
+            // ToolStripMenuItemexportarBaseDeConocimiento
+            // 
+            this.ToolStripMenuItemexportarBaseDeConocimiento.Name = "ToolStripMenuItemexportarBaseDeConocimiento";
+            this.ToolStripMenuItemexportarBaseDeConocimiento.Size = new System.Drawing.Size(240, 22);
+            this.ToolStripMenuItemexportarBaseDeConocimiento.Text = "Exportar base de conocimiento";
+            this.ToolStripMenuItemexportarBaseDeConocimiento.Click += new System.EventHandler(this.ToolStripMenuItemexportarBaseDeConocimiento_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(237, 6);
+            // 
             // ToolStripMenuItem_salir
             // 
             this.ToolStripMenuItem_salir.Name = "ToolStripMenuItem_salir";
-            this.ToolStripMenuItem_salir.Size = new System.Drawing.Size(228, 22);
+            this.ToolStripMenuItem_salir.Size = new System.Drawing.Size(240, 22);
             this.ToolStripMenuItem_salir.Text = "Salir";
             this.ToolStripMenuItem_salir.Click += new System.EventHandler(this.ToolStripMenuItem_salir_Click);
             // 
@@ -101,23 +147,14 @@
             this.iniciarInferenciaToolStripMenuItem.Text = "Iniciar inferencia";
             this.iniciarInferenciaToolStripMenuItem.Click += new System.EventHandler(this.iniciarInferenciaToolStripMenuItem_Click);
             // 
-            // configuraciónToolStripMenuItem
+            // openFileDialog_importar
             // 
-            this.configuraciónToolStripMenuItem.Name = "configuraciónToolStripMenuItem";
-            this.configuraciónToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
-            this.configuraciónToolStripMenuItem.Text = "Configuración";
-            this.configuraciónToolStripMenuItem.Click += new System.EventHandler(this.configuraciónToolStripMenuItem_Click);
+            this.openFileDialog_importar.InitialDirectory = "Environment.SpecialFolder.Desktop";
             // 
-            // nuevaBaseDeConocimientoToolStripMenuItem
+            // saveFileDialog_exportar
             // 
-            this.nuevaBaseDeConocimientoToolStripMenuItem.Name = "nuevaBaseDeConocimientoToolStripMenuItem";
-            this.nuevaBaseDeConocimientoToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
-            this.nuevaBaseDeConocimientoToolStripMenuItem.Text = "Nueva base de conocimiento";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(225, 6);
+            this.saveFileDialog_exportar.DefaultExt = "Tot";
+            this.saveFileDialog_exportar.Filter = "Base de conocimiento|*.Tot;";
             // 
             // FormVentanaPrincipal
             // 
@@ -127,7 +164,7 @@
             this.Controls.Add(this.menuStrip1);
             this.IsMdiContainer = true;
             this.Name = "FormVentanaPrincipal";
-            this.Text = "FormVentanaPrincipal";
+            this.Text = "Tot ";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -147,5 +184,10 @@
         private System.Windows.Forms.ToolStripMenuItem nuevaBaseDeConocimientoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem configuraciónToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemimportarBaseDeConocimiento;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemexportarBaseDeConocimiento;
+        private System.Windows.Forms.OpenFileDialog openFileDialog_importar;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog_exportar;
     }
 }

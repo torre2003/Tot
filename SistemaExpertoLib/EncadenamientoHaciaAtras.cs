@@ -3,14 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+
 
 namespace SistemaExpertoLib.MotorDeInferencia
 {
-   
-    public delegate ArrayList DelegadoConsultarVariable(string id_variable);
-    public delegate int[] DelegadoConfirmarHecho(string id_hecho);
-    public delegate void  DelegadoInformacionInferencia (string info);
     public class EncadenamientoHaciaAtras
     {
         //********************************************************************************************************
@@ -85,7 +81,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
         //********************************************************************************************************
         //    Atributos
         //********************************************************************************************************
-
+        /*
         private const int REGLAS_DISPONIBLES    = 10;
         private const int REGLAS_CANDIDATAS     = 11;
         private const int REGLAS_ELIMINADAS     = 12;
@@ -106,6 +102,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
         public const int INFERENCIA_DETENIDA_PROBLEMA_NO_SOLUCIONADO                    = 43;
         public const int INFERENCIA_TERMINADA_PROBLEMA_NO_SOLUCIONADO_REGLAS_FALTANTES  = 44;
 
+         */ 
         List<InfoRegla> lista_reglas_disponibles   = new List<InfoRegla>();
         List<InfoRegla> lista_reglas_candidatas    = new List<InfoRegla>();
         List<InfoRegla> lista_reglas_eliminadas    = new List<InfoRegla>();
@@ -284,7 +281,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
                 lista_hechos_disponibles.Add(hecho.id_hecho);
                 if (hecho.hecho_objetivo)
                 {
-                    if (buscarHechoEnConsecuentesDeReglas(hecho.id_hecho,REGLAS_DISPONIBLES) != null)
+                    if (buscarReglasConHechoEnConsecuentes(hecho.id_hecho, ConstantesShell.REGLAS_DISPONIBLES) != null)
                     {
                         string[] aux = new string[2];
                         aux[0] = hecho.id_variable;
@@ -397,15 +394,15 @@ namespace SistemaExpertoLib.MotorDeInferencia
                 HechoPila top_hecho_pila = pila_hechos_a_verificar.Peek();
                 Hecho Hecho_actual = base_conocimiento.extraerHecho(top_hecho_pila.hecho_buscado);
                 agregarLog(top_hecho_pila.hecho_buscado +" Objetivo Actual",top_hecho_pila.nivel);
-                string[] id_reglas_con_hecho_en_consecuente = buscarReglasConHechoEnConsecuentes(Hecho_actual.id_hecho,REGLAS_DISPONIBLES);
+                string[] id_reglas_con_hecho_en_consecuente = buscarReglasConHechoEnConsecuentes(Hecho_actual.id_hecho, ConstantesShell.REGLAS_DISPONIBLES);
                 if (id_reglas_con_hecho_en_consecuente != null)
-                    moverRegla(id_reglas_con_hecho_en_consecuente, REGLAS_DISPONIBLES, REGLAS_CANDIDATAS);
+                    moverRegla(id_reglas_con_hecho_en_consecuente, ConstantesShell.REGLAS_DISPONIBLES, ConstantesShell.REGLAS_CANDIDATAS);
                 string id_mejor_regla_candidata = elegirMejorReglaCandidata(Hecho_actual.id_hecho);
                 if (id_mejor_regla_candidata == null)//Si no hay reglas candidatas elminamos el ultimo hecho objetivo de la pila
                 {
                     HechoPila hecho_top = pila_hechos_a_verificar.Pop();
                     agregarLog("El HECHO "+hecho_top.hecho_buscado+" no cuenta con reglas para inferirlo");
-                    moverHecho(hecho_top.hecho_buscado, HECHOS_DISPONIBLES, HECHOS_FALSOS);
+                    moverHecho(hecho_top.hecho_buscado, ConstantesShell.HECHOS_DISPONIBLES, ConstantesShell.HECHOS_FALSOS);
                     eliminarReglasConHechoEnElAntecedente(hecho_top.hecho_buscado);
                     if (evento_informacion_inferencia != null)
                     {
@@ -416,7 +413,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
                 }
                 else//Trabajando la regla
                 {
-                    InfoRegla info_mejor_regla = rescatarInformacionRegla(id_mejor_regla_candidata, REGLAS_CANDIDATAS);
+                    InfoRegla info_mejor_regla = rescatarInformacionRegla(id_mejor_regla_candidata, ConstantesShell.REGLAS_CANDIDATAS);
                     Regla mejor_regla = base_conocimiento.extraerRegla(info_mejor_regla.id_regla);
                     agregarLog("Regla elegida:   "+mejor_regla.id_regla);
                     //si existen antecedentes desconocidos
@@ -438,7 +435,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
                             bool flag_hecho_falso = false;
                             if (ids_hechos_a_preguntar.Count > 0)
                             {
-                                agregarLog("Preguntando hechos al usuario");
+                                agregarLog("Preguntando hechos al usuario ");
                                 while(ids_hechos_a_preguntar.Count > 0)//Consultando hechos
                                 {
                                     string id_hecho_consultado = ids_hechos_a_preguntar.Pop();
@@ -450,7 +447,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
                                         ArrayList respuesta = evento_consultar_variable(hecho_actual.id_variable);
                                         if(respuesta == null)
                                         {
-                                            _codigo_de_salida_proceso = INFERENCIA_DETENIDA_POR_EL_USUARIO;
+                                            _codigo_de_salida_proceso = ConstantesShell.INFERENCIA_DETENIDA_POR_EL_USUARIO;
                                             return;
                                         }
                                         procesarRespuestaVariable(hecho_actual.id_variable, respuesta);
@@ -466,13 +463,13 @@ namespace SistemaExpertoLib.MotorDeInferencia
                                     //Se pasa el hecho de disponible a falso
                                     if (!actualizarEvaluacionHecho(hecho_actual.id_hecho))//FALSE si el estado del hecho es falso
                                     {
-                                        moverHecho(hecho_actual.id_hecho, HECHOS_DISPONIBLES, HECHOS_FALSOS);
+                                        moverHecho(hecho_actual.id_hecho, ConstantesShell.HECHOS_DISPONIBLES, ConstantesShell.HECHOS_FALSOS);
                                         eliminarReglasConHechoEnElAntecedente(hecho_actual.id_hecho);
                                         flag_hecho_falso = true;
                                     }//Sino se pasa el hecho de disponible a verdadero y actualizamos la informacion del hecho en la regla
                                     else
                                     {
-                                        moverHecho(hecho_actual.id_hecho, HECHOS_DISPONIBLES, HECHOS_VERDADEROS);
+                                        moverHecho(hecho_actual.id_hecho, ConstantesShell.HECHOS_DISPONIBLES, ConstantesShell.HECHOS_VERDADEROS);
                                         actualizarReglasConHechoVerdaderoAntecedente(hecho_actual.id_hecho, true);
                                     }
                                 }//end consulta de variables al usuario
@@ -494,13 +491,13 @@ namespace SistemaExpertoLib.MotorDeInferencia
                                         agregarLog("Variable " + hecho_actual.id_variable + " conocida -> " + hecho_actual.id_hecho + " conocido");
                                         if (!actualizarEvaluacionHecho(hecho_actual.id_hecho))//FALSE si el estado del hecho es falso
                                         {
-                                            moverHecho(hecho_actual.id_hecho, HECHOS_DISPONIBLES, HECHOS_FALSOS);
+                                            moverHecho(hecho_actual.id_hecho, ConstantesShell.HECHOS_DISPONIBLES, ConstantesShell.HECHOS_FALSOS);
                                             eliminarReglasConHechoEnElAntecedente(hecho_actual.id_hecho);
                                             flag_hecho_falso = true;
                                         }//Sino se pasa el hecho de disponible a verdadero y actualizamos la informacion del hecho en la regla
                                         else
                                         {
-                                            moverHecho(hecho_actual.id_hecho, HECHOS_DISPONIBLES, HECHOS_VERDADEROS);
+                                            moverHecho(hecho_actual.id_hecho, ConstantesShell.HECHOS_DISPONIBLES, ConstantesShell.HECHOS_VERDADEROS);
                                             actualizarReglasConHechoVerdaderoAntecedente(hecho_actual.id_hecho, true);
                                         }
                                     }
@@ -534,19 +531,22 @@ namespace SistemaExpertoLib.MotorDeInferencia
                         int[] respuesta_validacion_regla = evento_confimar_hecho(mejor_regla.id_hecho_consecuente);
 
                         // Analizando confirmaciones de hecho
-                        if (respuesta_validacion_regla[0] == HECHO_CONFIRMADO)//Si el hecho es validado por el usuario
+                        if (respuesta_validacion_regla[0] == ConstantesShell.HECHO_CONFIRMADO)//Si el hecho es validado por el usuario
                         {
+                            actualizarVariableHechoInferido(mejor_regla.id_hecho_consecuente);//actualizamos la variable asocidada al hecho inferido
+                            if (!actualizarEvaluacionHecho(mejor_regla.id_hecho_consecuente))
+                                throw new System.ArgumentException("La validaciond e un hecho, deberia dar un hecho verdadero", "Validadción de Hecho Usuario");
                             agregarLog("REGLA " + mejor_regla.id_regla + " VALIDADA");
-                            moverHecho(mejor_regla.id_hecho_consecuente, HECHOS_DISPONIBLES, HECHOS_VERDADEROS);
+                            moverHecho(mejor_regla.id_hecho_consecuente, ConstantesShell.HECHOS_DISPONIBLES, ConstantesShell.HECHOS_VERDADEROS);
                             agregarLog("Descartando REGLAS con el mismo consecuente");
                             actualizarReglasConHechoConsecuente(mejor_regla.id_regla, mejor_regla.id_hecho_consecuente, true);//Actualizamos regla y elimamos las reglas que tengan el hecho en el consecuente
                             actualizarReglasConHechoVerdaderoAntecedente(mejor_regla.id_hecho_consecuente, false);
                             HechoPila pop = pila_hechos_a_verificar.Pop();//Eliminamos de la pila el hecho buscado
                             agregarLog("Quitando hecho de la pila: "+pop.hecho_buscado);
-                            actualizarVariableHechoInferido(mejor_regla.id_hecho_consecuente);//actualizamos la variable asocidada al hecho inferido
+                            
                         }
                         else
-                        if (respuesta_validacion_regla[0] == HECHO_DESCARTADO)//Si el hecho es no validado por el usuario
+                            if (respuesta_validacion_regla[0] == ConstantesShell.HECHO_DESCARTADO)//Si el hecho es no validado por el usuario
                         {
                             agregarLog("REGLA " + mejor_regla.id_regla + "NO VALIDADA  ->  " + mejor_regla.id_hecho_consecuente);
                             //Como se esta en la validacion de hechos por el usuario, el Hecho NO se marca como falso o se eliminia de la lista de hechos disponibles
@@ -557,17 +557,17 @@ namespace SistemaExpertoLib.MotorDeInferencia
                             throw new System.ArgumentException("Argumentos invalidos VALIDACION", "Confirmacion de Hecho Usuario");
                         }
 
-                        if (respuesta_validacion_regla[0] == HECHO_CONFIRMADO)
+                        if (respuesta_validacion_regla[0] == ConstantesShell.HECHO_CONFIRMADO)
                         {
                             // Analizando solución de problemas
-                            if (respuesta_validacion_regla[1] == PROBLEMA_SOLUCIONADO)//Si el problema solucionadp
+                            if (respuesta_validacion_regla[1] == ConstantesShell.PROBLEMA_SOLUCIONADO)//Si el problema solucionadp
                             {
                                 agregarLog("El problema se SOLUCIONO");
-                                _codigo_de_salida_proceso = INFERENCIA_DETENIDA_PROBLEMA_SOLUCIONADO;
+                                _codigo_de_salida_proceso = ConstantesShell.INFERENCIA_DETENIDA_PROBLEMA_SOLUCIONADO;
                                 return;
                             }
                             else
-                            if (respuesta_validacion_regla[1] == PROBLEMA_NO_SOLUCIONADO)//Si el problema no se soluciono
+                                if (respuesta_validacion_regla[1] == ConstantesShell.PROBLEMA_NO_SOLUCIONADO)//Si el problema no se soluciono
                             {
                                 agregarLog("El problema se NO SE SOLUCIONO");
                             }
@@ -578,18 +578,18 @@ namespace SistemaExpertoLib.MotorDeInferencia
                         }
 
                         // Analizando continuar proceso
-                        if (respuesta_validacion_regla[2] == CONTINUAR_PROCESO)//Si el problema solucionadp
+                        if (respuesta_validacion_regla[2] == ConstantesShell.CONTINUAR_PROCESO)//Si el problema solucionadp
                         {
                             agregarLog("CONTINUANDO PROCESO...");
                         }
                         else
-                        if (respuesta_validacion_regla[2] == DETENER_PROCESO)//Si el problema no se soluciono
+                            if (respuesta_validacion_regla[2] == ConstantesShell.DETENER_PROCESO)//Si el problema no se soluciono
                         {
                             agregarLog("PROCESO DETENIDO...");
-                            _codigo_de_salida_proceso = INFERENCIA_DETENIDA_PROBLEMA_NO_SOLUCIONADO;
+                            _codigo_de_salida_proceso = ConstantesShell.INFERENCIA_DETENIDA_PROBLEMA_NO_SOLUCIONADO;
                             return;
                         }
-                        else//si el hecho no es validado
+                        else
                         {
                             throw new System.ArgumentException("Argumentos invalidos PROCESO", "Confirmacion de Hecho Usuario");
                         }
@@ -597,8 +597,8 @@ namespace SistemaExpertoLib.MotorDeInferencia
                 }//End else trabajando regla
             } //End while inferencia
             /**/
-            agregarLog("PROCESO INFERENCIA TERMINADO SIN SOLUCIONAR PROBLEMA (NO HAY MAS REGLAS EN LA BASE DE CONOCIMIENTO)");
-            _codigo_de_salida_proceso = INFERENCIA_DETENIDA_PROBLEMA_NO_SOLUCIONADO;
+            agregarLog("PROCESO INFERENCIA TERMINADO SIN SOLUCIONAR PROBLEMA (NO HAY MAS REGLAS APLICABLES EN LA BASE DE CONOCIMIENTO)");
+            _codigo_de_salida_proceso = ConstantesShell.INFERENCIA_DETENIDA_PROBLEMA_NO_SOLUCIONADO;
         }
 
         /// <summary>
@@ -653,11 +653,11 @@ namespace SistemaExpertoLib.MotorDeInferencia
         {
             if (regla_validada)//Si la regla se valida
             {
-                actualizarValidacionInfoRegla(id_regla_validada, REGLAS_CANDIDATAS, regla_validada);//validamos la regla candidata
-                string[] reglas_con_hecho_en_el_consecuente = buscarReglasConHechoEnConsecuentes(id_hecho_consecuente, REGLAS_CANDIDATAS);
+                actualizarValidacionInfoRegla(id_regla_validada, ConstantesShell.REGLAS_CANDIDATAS, regla_validada);//validamos la regla candidata
+                string[] reglas_con_hecho_en_el_consecuente = buscarReglasConHechoEnConsecuentes(id_hecho_consecuente, ConstantesShell.REGLAS_CANDIDATAS);
                 for (int i = 0; i < reglas_con_hecho_en_el_consecuente.Length; i++)//limpiamos las reglas que no se utilizaran
                 {
-                    moverRegla(reglas_con_hecho_en_el_consecuente[i], REGLAS_CANDIDATAS, REGLAS_ELIMINADAS);
+                    moverRegla(reglas_con_hecho_en_el_consecuente[i], ConstantesShell.REGLAS_CANDIDATAS, ConstantesShell.REGLAS_ELIMINADAS);
                 }
                 Regla regla = base_conocimiento.extraerRegla(id_regla_validada);
                 regla.regla_validada = true;
@@ -665,8 +665,8 @@ namespace SistemaExpertoLib.MotorDeInferencia
             }
             else//Si la regla no es validada
             {
-                actualizarValidacionInfoRegla(id_regla_validada, REGLAS_CANDIDATAS, regla_validada);//validamos la regla candidata
-                moverRegla(id_regla_validada, REGLAS_CANDIDATAS, REGLAS_ELIMINADAS);//eliminamos la regla de las reglas candidatas
+                actualizarValidacionInfoRegla(id_regla_validada, ConstantesShell.REGLAS_CANDIDATAS, regla_validada);//validamos la regla candidata
+                moverRegla(id_regla_validada, ConstantesShell.REGLAS_CANDIDATAS, ConstantesShell.REGLAS_ELIMINADAS);//eliminamos la regla de las reglas candidatas
             }
         }
 
@@ -677,6 +677,9 @@ namespace SistemaExpertoLib.MotorDeInferencia
         /// <param name="ingresado_por_usuario"></param>
         public void actualizarReglasConHechoVerdaderoAntecedente(string id_hecho, bool ingresado_por_usuario)
         {
+            Hecho hecho = base_conocimiento.extraerHecho(id_hecho);
+            if (!hecho.estado_hecho)
+                throw new System.ArgumentException("El hecho no es verdadero", "");
             //actualizando en reglas disponibles
             for (int i = 0; i < lista_reglas_disponibles.Count; i++)
             {
@@ -686,9 +689,9 @@ namespace SistemaExpertoLib.MotorDeInferencia
                     regla.cambiarEstadoHecho(id_hecho, true);
                     base_conocimiento.actualizarRegla(regla);
                     if (ingresado_por_usuario)
-                        aumentarConteoInfoRegla(regla.id_regla, REGLAS_DISPONIBLES, sumar_a_antecedentes_conocidos_ingresados_por_usuario:1);
+                        aumentarConteoInfoRegla(regla.id_regla, ConstantesShell.REGLAS_DISPONIBLES, sumar_a_antecedentes_conocidos_ingresados_por_usuario: 1);
                     else
-                        aumentarConteoInfoRegla(regla.id_regla, REGLAS_DISPONIBLES, sumar_a_antecedentes_conocidos_inferidos: 1);
+                        aumentarConteoInfoRegla(regla.id_regla, ConstantesShell.REGLAS_DISPONIBLES, sumar_a_antecedentes_conocidos_inferidos: 1);
                 }
 
             }
@@ -701,9 +704,9 @@ namespace SistemaExpertoLib.MotorDeInferencia
                     regla.cambiarEstadoHecho(id_hecho, true);
                     base_conocimiento.actualizarRegla(regla);
                     if (ingresado_por_usuario)//al aumentar la regla queda al final del arreglo
-                        aumentarConteoInfoRegla(regla.id_regla, REGLAS_CANDIDATAS, sumar_a_antecedentes_conocidos_ingresados_por_usuario: 1);
+                        aumentarConteoInfoRegla(regla.id_regla, ConstantesShell.REGLAS_CANDIDATAS, sumar_a_antecedentes_conocidos_ingresados_por_usuario: 1);
                     else
-                        aumentarConteoInfoRegla(regla.id_regla, REGLAS_CANDIDATAS, sumar_a_antecedentes_conocidos_inferidos: 1);
+                        aumentarConteoInfoRegla(regla.id_regla, ConstantesShell.REGLAS_CANDIDATAS, sumar_a_antecedentes_conocidos_inferidos: 1);
                 }
             }
         }
@@ -720,13 +723,13 @@ namespace SistemaExpertoLib.MotorDeInferencia
             List<InfoRegla> lista = new List<InfoRegla>();
             switch (tipo_de_regla)
             {
-                case REGLAS_DISPONIBLES:
+                case ConstantesShell.REGLAS_DISPONIBLES:
                     lista = lista_reglas_disponibles;
                     break;
-                case REGLAS_CANDIDATAS:
+                case ConstantesShell.REGLAS_CANDIDATAS:
                     lista = lista_reglas_candidatas;
                     break;
-                case REGLAS_ELIMINADAS:
+                case ConstantesShell.REGLAS_ELIMINADAS:
                     lista = lista_reglas_eliminadas;
                     break;
             }
@@ -773,13 +776,13 @@ namespace SistemaExpertoLib.MotorDeInferencia
             List<InfoRegla> lista = new List<InfoRegla>();
             switch (tipo_de_regla)
             {
-                case REGLAS_DISPONIBLES:
+                case ConstantesShell.REGLAS_DISPONIBLES:
                     lista = lista_reglas_disponibles;
                     break;
-                case REGLAS_CANDIDATAS:
+                case ConstantesShell.REGLAS_CANDIDATAS:
                     lista = lista_reglas_candidatas;
                     break;
-                case REGLAS_ELIMINADAS:
+                case ConstantesShell.REGLAS_ELIMINADAS:
                     lista = lista_reglas_eliminadas;
                     break;
             }
@@ -819,7 +822,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
             }
             //moviendo de disponibles -> eliminadas
             foreach (string item in reglas_disponibles_con_hecho)
-                moverRegla(item, REGLAS_DISPONIBLES, REGLAS_ELIMINADAS);
+                moverRegla(item, ConstantesShell.REGLAS_DISPONIBLES, ConstantesShell.REGLAS_ELIMINADAS);
 
             //actualizando reglas candidatas
             List<string> reglas_candidatas_con_hecho = new List<string>();
@@ -832,7 +835,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
             }
             //moviendo de candidatas -> eliminadas
             foreach (string item in reglas_candidatas_con_hecho)
-                moverRegla(item, REGLAS_CANDIDATAS, REGLAS_ELIMINADAS);
+                moverRegla(item, ConstantesShell.REGLAS_CANDIDATAS, ConstantesShell.REGLAS_ELIMINADAS);
         }
 
 
@@ -873,6 +876,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
             if (!id_variable_respuesta.Equals(id_variable))
                 throw new System.ArgumentException("La variable de respuesta no corresponde a la variable procesada", "PrcesarRespuestaVariable");
             Variable variable = base_conocimiento.extraerVariable(id_variable);
+            agregarLog("Procesando variable : " + id_variable + " - " + variable.nombre_variable);
             string tipo_valor = respuesta[1].GetType()+"";
             
             if (tipo_valor.Equals("System.Boolean"))
@@ -938,13 +942,13 @@ namespace SistemaExpertoLib.MotorDeInferencia
             List<InfoRegla> lista = new List<InfoRegla>();
             switch (tipo_de_regla)
             {
-                case REGLAS_DISPONIBLES:
+                case ConstantesShell.REGLAS_DISPONIBLES:
                     lista = lista_reglas_disponibles;
                     break;
-                case REGLAS_CANDIDATAS:
+                case ConstantesShell.REGLAS_CANDIDATAS:
                     lista = lista_reglas_candidatas;
                     break;
-                case REGLAS_ELIMINADAS:
+                case ConstantesShell.REGLAS_ELIMINADAS:
                     lista = lista_reglas_eliminadas;
                     break;
             }
@@ -957,26 +961,6 @@ namespace SistemaExpertoLib.MotorDeInferencia
             
         }
 
-        /// <summary>
-        /// Método que busca un hecho es el consecuente de la lista de reglas
-        /// </summary>
-        /// <param name="id_hecho">Identificador del hecho a buscar</param>
-        /// <param name="tipo_de_reglas">Constante con el tipo de  lista donde se va a buscar el hecho, REGLAS_CANDIDATAS o REGLAS DISPONIBLES</param>
-        /// <returns>Ids hechos encontrados</returns>
-        private string[] buscarHechoEnConsecuentesDeReglas(string id_hecho, int tipo_de_reglas)
-        {
-            List<string> hechos_encontrados = new List<string>();
-            if (!(tipo_de_reglas == REGLAS_CANDIDATAS || tipo_de_reglas == REGLAS_DISPONIBLES))
-                throw new System.ArgumentException("No existe la opción de lista de reglas", "");
-            List<InfoRegla> reglas_a_buscar = tipo_de_reglas == REGLAS_CANDIDATAS ? lista_reglas_candidatas : lista_reglas_disponibles;
-            foreach (InfoRegla info_regla in reglas_a_buscar)
-            {
-                Regla regla = base_conocimiento.extraerRegla(info_regla.id_regla);
-                if (regla.consultarConsecuente(id_hecho))
-                    hechos_encontrados.Add(regla.id_regla);
-            }
-            return hechos_encontrados.Count == 0 ? null : hechos_encontrados.ToArray();
-        }
 
         /// <summary>
         /// Método que devuelve las reglas que contengan el hecho en el consecuente
@@ -987,9 +971,9 @@ namespace SistemaExpertoLib.MotorDeInferencia
         private string[] buscarReglasConHechoEnConsecuentes(string id_hecho, int tipo_de_reglas)
         {
             List<string> reglas_encontradas = new List<string>();
-            if (!(tipo_de_reglas == REGLAS_CANDIDATAS || tipo_de_reglas == REGLAS_DISPONIBLES))
+            if (!(tipo_de_reglas == ConstantesShell.REGLAS_CANDIDATAS || tipo_de_reglas == ConstantesShell.REGLAS_DISPONIBLES))
                 throw new System.ArgumentException("No existe la opción de lista de reglas", "");
-            List<InfoRegla> reglas_a_buscar = tipo_de_reglas == REGLAS_CANDIDATAS ? lista_reglas_candidatas : lista_reglas_disponibles;
+            List<InfoRegla> reglas_a_buscar = tipo_de_reglas == ConstantesShell.REGLAS_CANDIDATAS ? lista_reglas_candidatas : lista_reglas_disponibles;
             foreach (InfoRegla info_regla in reglas_a_buscar)
             {
                 Regla regla = base_conocimiento.extraerRegla(info_regla.id_regla);
@@ -1030,30 +1014,30 @@ namespace SistemaExpertoLib.MotorDeInferencia
             string tipo_lista_hacia = "";
             switch (desde)
             {
-                case REGLAS_DISPONIBLES:
+                case ConstantesShell.REGLAS_DISPONIBLES:
                     lista_desde = lista_reglas_disponibles;
                     tipo_lista_desde = "REGLAS DISPONBLES";
                     break;
-                case REGLAS_CANDIDATAS:
+                case ConstantesShell.REGLAS_CANDIDATAS:
                     lista_desde = lista_reglas_candidatas;
                     tipo_lista_desde = "REGLAS CANDIDATAS";
                     break;
-                case REGLAS_ELIMINADAS:
+                case ConstantesShell.REGLAS_ELIMINADAS:
                     lista_desde = lista_reglas_eliminadas;
                     tipo_lista_desde = "REGLAS ELIMINADAS";
                     break;
             }
             switch (hacia)
             {
-                case REGLAS_DISPONIBLES:
+                case ConstantesShell.REGLAS_DISPONIBLES:
                     lista_hacia = lista_reglas_disponibles;
                     tipo_lista_hacia = "REGLAS DISPONIBLES";
                     break;
-                case REGLAS_CANDIDATAS:
+                case ConstantesShell.REGLAS_CANDIDATAS:
                     lista_hacia = lista_reglas_candidatas;
                     tipo_lista_hacia = "REGLAS CANDIDATAS";
                     break;
-                case REGLAS_ELIMINADAS:
+                case ConstantesShell.REGLAS_ELIMINADAS:
                     lista_hacia = lista_reglas_eliminadas;
                     tipo_lista_hacia = "REGLAS ELIMINADAS";
                     break;
@@ -1105,30 +1089,30 @@ namespace SistemaExpertoLib.MotorDeInferencia
             string tipo_lista_hacia = "";
             switch (desde)
             {
-                case HECHOS_DISPONIBLES:
+                case ConstantesShell.HECHOS_DISPONIBLES:
                     lista_desde = lista_hechos_disponibles;
                     tipo_lista_desde = "HECHOS DISPONBLES";
                     break;
-                case HECHOS_VERDADEROS:
+                case ConstantesShell.HECHOS_VERDADEROS:
                     lista_desde = lista_hechos_verdaderos;
                     tipo_lista_desde = "HECHOS VERDADEROS";
                     break;
-                case HECHOS_FALSOS:
+                case ConstantesShell.HECHOS_FALSOS:
                     lista_desde = lista_hechos_falsos;
                     tipo_lista_desde = "HECHOS FALSOS";
                     break;
             }
             switch (hacia)
             {
-                case HECHOS_DISPONIBLES:
+                case ConstantesShell.HECHOS_DISPONIBLES:
                     lista_hacia = lista_hechos_disponibles;
                     tipo_lista_hacia = "HECHOS DISPONBLES";
                     break;
-                case HECHOS_VERDADEROS:
+                case ConstantesShell.HECHOS_VERDADEROS:
                     lista_hacia = lista_hechos_verdaderos;
                     tipo_lista_hacia = "HECHOS VERDADEROS";
                     break;
-                case HECHOS_FALSOS:
+                case ConstantesShell.HECHOS_FALSOS:
                     lista_hacia = lista_hechos_falsos;
                     tipo_lista_hacia = "HECHOS FALSOS";
                     break;
