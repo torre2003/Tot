@@ -352,7 +352,7 @@ namespace Tot
 
         void ventana_justificacion_evento_guardar()
         {
-            //todo implementar
+            //todo implementar gguardar justificacion
             MessageBox.Show("implementar");
         }
     }

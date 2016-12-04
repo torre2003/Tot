@@ -234,6 +234,9 @@ namespace SistemaExpertoLib.MotorDeInferencia
             if (numero_de_reglas == 0)
                 return "La base de conocimiento esta vacia";
             
+            if (!base_conocimiento.extraerMetadatosBaseConocimiento().base_conocimiento_chequeada)
+                return "La base de conocimiento no ha sido chequeada";
+
             inicializarReglas();
             inicializacionVariables();
             inicializarHechos();
@@ -242,7 +245,6 @@ namespace SistemaExpertoLib.MotorDeInferencia
                 return "No existen variables objetivo en la base conocimiento";
             if (lista_hechos_consecuente_con_variables_objetivo.Count == 0)
                 return "No existen hechos objetivos en el consecuente";
-            //todo falta comprobador de integridad de las reglas
             if (texto_retorno.Equals(""))
             {
                 _encadenamiento_inicializado = true;
@@ -394,11 +396,10 @@ namespace SistemaExpertoLib.MotorDeInferencia
                 HechoPila top_hecho_pila = pila_hechos_a_verificar.Peek();
                 Hecho hecho_objetivo_actual = base_conocimiento.extraerHecho(top_hecho_pila.hecho_buscado);
                 agregarLog(top_hecho_pila.hecho_buscado + "(" + base_conocimiento.extraerHecho(top_hecho_pila.hecho_buscado) + ")" + " Objetivo Actual", top_hecho_pila.nivel);
-                //todo investigando variable antes de buscar el hecho
                 if (variableConocida(hecho_objetivo_actual.id_variable))
                 {
                     agregarLog("Variable   " + hecho_objetivo_actual.id_variable +"  asociada al hecho objetivo conocida.");
-                    procesarHecho(hecho_objetivo_actual.id_hecho);
+                    procesarHecho(hecho_objetivo_actual.id_hecho,false);
                     agregarLog("Quitando hecho de la pila: " + pila_hechos_a_verificar.Pop());
                 }
                 else // si el hecho no es conocido A1
@@ -467,12 +468,9 @@ namespace SistemaExpertoLib.MotorDeInferencia
                                         {
                                             agregarLog("Variable " + hecho_actual.id_variable + " conocida -> " + hecho_actual.id_hecho + " conocido");
                                         }
-                                        //todo procesar EHcho
                                         //Si la regla tiene un hecho evaluado como falso, se descartan todas las reglas que contienen el hecho en el antecedente
                                         //Se pasa el hecho de disponible a falso
-
-                                        //todo procesar hecho
-                                        if (!procesarHecho(hecho_actual.id_hecho))//si el hecho es evaluado como falso
+                                        if (!procesarHecho(hecho_actual.id_hecho,true))//si el hecho es evaluado como falso
                                             flag_hecho_falso = true;
                                     }//end consulta de variables al usuario
                                 }
@@ -491,8 +489,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
                                         if (variableConocida(hecho_actual.id_variable))
                                         {
                                             agregarLog("Variable " + hecho_actual.id_variable + " conocida -> " + hecho_actual.id_hecho + " conocido");
-                                            //todo procesar Hecho
-                                            if (!procesarHecho(hecho_actual.id_hecho))//si el hecho es evaluado como falso
+                                            if (!procesarHecho(hecho_actual.id_hecho,false))//si el hecho es evaluado como falso
                                                 flag_hecho_falso = false;
                                         }
                                         else
@@ -602,7 +599,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
         /// </summary>
         /// <param name="id_hecho">id del hecho a procesar</param>
         /// <returns>estado de la evaluacion del hecho</returns>
-        public bool procesarHecho(string id_hecho)
+        public bool procesarHecho(string id_hecho, bool ingresado_por_usuario)
         {
             bool estado_hecho = true;
             if (!actualizarEvaluacionHecho(id_hecho))//FALSE si el estado del hecho es falso
@@ -614,7 +611,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
             else
             {
                 moverHecho(id_hecho, ConstantesShell.HECHOS_DISPONIBLES, ConstantesShell.HECHOS_VERDADEROS);
-                actualizarReglasConHechoVerdaderoAntecedente(id_hecho, true);
+                actualizarReglasConHechoVerdaderoAntecedente(id_hecho, ingresado_por_usuario);
             }
             return estado_hecho;
         }
@@ -758,28 +755,12 @@ namespace SistemaExpertoLib.MotorDeInferencia
                 if (lista[i].id_regla.Equals(id_regla))
                 {
                     InfoRegla info = lista[i];
-            //        lista.Remove(info);
                     info.antecedentes_preguntables_al_usuario_conocidos += sumar_a_antecedentes_conocidos_ingresados_por_usuario;
                     info.antecedentes_inferidos_conocidos += sumar_a_antecedentes_conocidos_inferidos;
-              //      lista.Add(info);
                     lista[i] = info;
                     return;
                 }
             }
-            /*for (int i = 0; i < lista.Count && !flag; i++)
-            {
-                if (lista[i].id_regla.Equals(id_regla))
-                {
-                    InfoRegla info = lista[i];
-                    lista.Remove(info);
-                    info.antecedentes_preguntables_al_usuario_conocidos += sumar_a_antecedentes_conocidos_ingresados_por_usuario;
-                    info.antecedentes_inferidos_conocidos += sumar_a_antecedentes_conocidos_inferidos;
-                    lista.Add(info);
-                    flag = true;
-                    return;
-                }
-            }
-             /**/ 
             throw new System.ArgumentException("La regla no existe en la lista", "");
         }
 
@@ -939,10 +920,12 @@ namespace SistemaExpertoLib.MotorDeInferencia
             lista_reglas_candidatas.Sort(new InfoRegla());
             if (lista_reglas_candidatas.Count == 0)
                 return null;
+            Hecho hecho_buscado = base_conocimiento.extraerHecho(id_hecho);
             for (int i = 0; i < lista_reglas_candidatas.Count; i++)
             {
                 Regla regla = base_conocimiento.extraerRegla(lista_reglas_candidatas[i].id_regla);
-                if (regla.consultarConsecuente(id_hecho))
+                Hecho hecho_consecuente = base_conocimiento.extraerHecho(regla.id_hecho_consecuente);
+                if (compararAfinidadDeHechos(hecho_buscado, hecho_consecuente))
                     return regla.id_regla;
             }
             return null;
@@ -989,6 +972,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
         /// <returns>Ids regals encontradas</returns>
         private string[] buscarReglasConHechoEnConsecuentes(string id_hecho, int tipo_de_reglas)
         {
+            Hecho hecho_buscado = base_conocimiento.extraerHecho(id_hecho);
             List<string> reglas_encontradas = new List<string>();
             if (!(tipo_de_reglas == ConstantesShell.REGLAS_CANDIDATAS || tipo_de_reglas == ConstantesShell.REGLAS_DISPONIBLES))
                 throw new System.ArgumentException("No existe la opción de lista de reglas", "");
@@ -996,11 +980,71 @@ namespace SistemaExpertoLib.MotorDeInferencia
             foreach (InfoRegla info_regla in reglas_a_buscar)
             {
                 Regla regla = base_conocimiento.extraerRegla(info_regla.id_regla);
-                if (regla.consultarConsecuente(id_hecho))
+                Hecho hecho_consecuente = base_conocimiento.extraerHecho(regla.id_hecho_consecuente);
+                if (compararAfinidadDeHechos(hecho_buscado, hecho_consecuente))
                     reglas_encontradas.Add(regla.id_regla);
             }
             return reglas_encontradas.Count == 0 ? null : reglas_encontradas.ToArray();
         }
+
+        /// <summary>
+        /// Método que compara la afinidad de los hechos 
+        /// </summary>
+        /// <param name="hecho_buscado">Hecho buscado por la pila</param>
+        /// <param name="hecho_candidato">Hecho candidato a agregar</param>
+        /// <returns>TRUE si los hechos son afines| FALSE en caso contrario</returns>
+        public bool compararAfinidadDeHechos(Hecho hecho_buscado, Hecho hecho_candidato)
+        {
+            if ((hecho_buscado.tipo_variable == Variable.BOOLEANO) ||                                                           // si el hecho es booleano
+                        (hecho_buscado.tipo_variable == Variable.LISTA && hecho_buscado.condicion.Equals(Hecho.OPCIONES_LISTA[0])))//Si el hecho es lista y su condicion es "ES"
+            {//Casos en que la busqueda de hechos es normal
+                if (hecho_buscado.id_hecho.Equals(hecho_candidato.id_hecho))
+                    return true;
+            }
+            else
+            if (hecho_buscado.tipo_variable == Variable.LISTA && hecho_buscado.condicion.Equals(Hecho.OPCIONES_LISTA[1])) // si el hecho es de tipo lista y su condicion "NO ES", se deben buscar los hechos alternativos en donde se valide una opcion distinta de la establecida en el hecho
+            {
+                if (hecho_buscado.id_variable.Equals(hecho_candidato.id_variable))
+                    if (!hecho_buscado.valor_lista_hecho.Equals(hecho_candidato.valor_lista_hecho))
+                        return true;
+            }                                                                   //0
+            else // public static string[] OPCIONES_NUMERICO = new string[] {,,,, };
+            if (hecho_buscado.tipo_variable == Variable.NUMERICO)
+            {
+                if (hecho_buscado.id_variable.Equals(hecho_candidato.id_variable))
+                    switch (hecho_buscado.condicion)
+                    {
+                        case "MENOR":
+                            if ( hecho_candidato.valor_numerico < hecho_buscado.valor_numerico)
+                                return true; 
+                            break;
+                        case "MENOR O IGUAL":
+                            if (hecho_candidato.valor_numerico <= hecho_buscado.valor_numerico)
+                                return true; 
+                            break;
+                        case "IGUAL":
+                            if (hecho_candidato.valor_numerico == hecho_buscado.valor_numerico)
+                                return true; 
+                            break;
+                        case "MAYOR O IGUAL":
+                            if (hecho_candidato.valor_numerico >= hecho_buscado.valor_numerico)
+                                return true; 
+                            break;
+                        case "MAYOR":
+                            if (hecho_candidato.valor_numerico > hecho_buscado.valor_numerico)
+                                return true; 
+                            break;
+                    }
+                if (hecho_buscado.id_hecho.Equals(hecho_candidato.id_hecho))
+                    return true;
+            }
+            else
+            {
+                throw new System.ArgumentException("Error en las opciones de buscar reglas", "");
+            }
+            return false;
+        }
+
 
         /// <summary>
         /// Método para mover de lista la regla ingresada

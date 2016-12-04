@@ -311,7 +311,6 @@ namespace Tot
 
         void ventana_justificacion_evento_guardar()
         {
-            //todo implementar
             MessageBox.Show("implementar");
         }
 

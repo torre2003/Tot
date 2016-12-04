@@ -52,7 +52,6 @@ namespace SistemaExpertoLib.MotorDeInferencia
                 }
             }
 
-            //todo revisar ordenamiento reglas
             public int Compare(InfoRegla x, InfoRegla y)
             {
                 InfoRegla a = x;
@@ -204,16 +203,16 @@ namespace SistemaExpertoLib.MotorDeInferencia
             if (numero_de_reglas == 0)
                 return "La base de conocimiento esta vacia";
 
+            if (!base_conocimiento.extraerMetadatosBaseConocimiento().base_conocimiento_chequeada)
+                return "La base de conocimiento no ha sido chequeada";
             inicializarReglas();
             inicializacionVariables();
             inicializarHechos();
 
-            //todo comprobar que existen variables preguntables al usuario
             if (lista_variables_de_inicio.Count == 0)
             {
                 return "No existen variables preguntables al usuario en la base de conocimiento";
             }
-            //todo falta comprobador de integridad de las reglas
             if (texto_retorno.Equals(""))
             {
                 _encadenamiento_inicializado = true;
@@ -679,7 +678,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
             }
 
             foreach (string item in temporal_mover_de_disponibles_a_candidatas)
-                moverRegla(item, ConstantesShell.REGLAS_DISPONIBLES, ConstantesShell.REGLAS_CANDIDATAS, true);//todo arregalr moder un elemento mientras se analiza la lista trae problemas
+                moverRegla(item, ConstantesShell.REGLAS_DISPONIBLES, ConstantesShell.REGLAS_CANDIDATAS, true);
         }
 
         /// <summary>
