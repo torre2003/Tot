@@ -98,11 +98,42 @@ namespace SistemaExpertoLib.GestionDelConocimiento
                         return true;
                 return false;
             }
+
+
+            public void agregarElementoAReglasRelacionadas(List<string> reglas)
+            {
+                foreach (string item in reglas)
+                    agregarElementoAReglasRelacionadas(item);
+            }
+
+            public void agregarElementoAReglasRelacionadas(string id_regla)
+            {
+                foreach (string item in reglas_relacionadas)
+                    if (item.Equals(id_regla))
+                        return;
+                reglas_relacionadas.Add(id_regla);
+            }
+
+            public void agregarElementoAReglasEnConflicto(List<string> reglas)
+            {
+                foreach (string item in reglas)
+                    agregarElementoAReglasEnConflicto(item);
+            }
+
+            public void agregarElementoAReglasEnConflicto(string id_regla)
+            {
+                foreach (string item in reglas_en_conflicto)
+                    if (item.Equals(id_regla))
+                        return;
+                reglas_en_conflicto.Add(id_regla);
+            }
         }
 
         private List<string> comprobarAmbiguedadRecursivaEnReglas(){
             List<string> errores_comprobacion = new List<string>();
             List<InfoVariable> info_variables = new List<InfoVariable>();
+            
+            //Inicio rellenado inicial info_variables
             string[] reglas = this.manejador_archivos.listarArchivosEnDirectorio(AccesoDatos.REGLA);
             for (int i = 0; i < reglas.Length; i++)
             {
@@ -122,23 +153,26 @@ namespace SistemaExpertoLib.GestionDelConocimiento
                     }
                     if (info_actual.id_variable.Equals(variable_consecuente))//si variable asociada al consecuente ya se encuentra en el analisis, agregamos las variables antecedentes a variable asociada
                     {
-                        info_actual.reglas_relacionadas.Add(regla.id_regla);
+                        //info_actual.reglas_relacionadas.Add(regla.id_regla);
+                        info_actual.agregarElementoAReglasRelacionadas(regla.id_regla);
                         variable_encontrada_en_info_variables = true;
                         for (int k = 0; k < variables_antecedente.Length; k++)
                             if (!info_actual.buscarEnVariablesAsociadas(variables_antecedente[k]))//si no esta la variable la agregamos a las variables asociadas
                                 info_actual.variables_asociadas.Add(variables_antecedente[k]);
                     }
-                    else//Si el consecuente no esta en las variables asociadas
+                    else//Si el consecuente no esta en la variable principal, la buscamos en las asociadas
                     {
                         if (info_actual.buscarEnVariablesAsociadas(variable_consecuente))
                         {
-                            info_actual.reglas_relacionadas.Add(regla.id_regla);
+                            //info_actual.reglas_relacionadas.Add(regla.id_regla);
+                            info_actual.agregarElementoAReglasRelacionadas(regla.id_regla);
                             bool conflicto_regla = false;
                             for (int k = 0; k < variables_antecedente.Length; k++)//Comprobamos que el antecedente de la regla no contega la variable - lo cual provocaria ambiguedad
                                 if (variables_antecedente[k].Equals(info_actual.id_variable))
                                 {
                                     conflicto_regla = true;
-                                    info_actual.reglas_en_conflicto.Add(regla.id_regla);
+                                    info_actual.agregarElementoAReglasEnConflicto(regla.id_regla);
+                                    //info_actual.reglas_en_conflicto.Add(regla.id_regla);
                                 }
                             if (!conflicto_regla) //si no hubo conflicto de reglas agregamos las variables no repetidas a las variables asociadas
                             {
@@ -169,6 +203,54 @@ namespace SistemaExpertoLib.GestionDelConocimiento
                     info_variables.Add(info);
                 }
             }//end analisis de reglas
+            
+            //end rellenado inicial info_variables
+
+            //Proceso iterativo para que todas la variables se comparen con todas
+            bool flag_cambios = true;
+            while (flag_cambios) 
+            {
+                flag_cambios = false;
+                for (int i = 0; i < info_variables.Count; i++)
+                {
+                    for (int j = 0; j < info_variables.Count; j++)
+                    {
+                        if (i!=j)
+                        {
+                            InfoVariable info_a = info_variables[i];
+                            InfoVariable info_b = info_variables[j];
+
+                            if (info_a.buscarEnVariablesAsociadas(info_b.id_variable))//si la variable b esta en las variables asociadas agregamos y analizamos las que falten
+                            {
+                                bool conflicto_regla = false;
+                                for (int k = 0; k < info_b.variables_asociadas.Count; k++)//Comprobamos que el antecedente de la regla no contega la variable - lo cual provocaria ambiguedad
+                                    if (info_b.variables_asociadas[k].Equals(info_a.id_variable))
+                                    {
+                                        conflicto_regla = true;
+                                        
+                                    }
+                                if (!conflicto_regla) //si no hubo conflicto de reglas agregamos las variables no repetidas a las variables asociadas
+                                {
+                                    for (int k = 0; k < info_b.variables_asociadas.Count; k++)
+                                        if (!info_a.buscarEnVariablesAsociadas(info_b.variables_asociadas[k]))//si no esta la variable la agregamos a las variables asociadas
+                                        {
+                                            info_a.variables_asociadas.Add(info_b.variables_asociadas[k]);
+                                            flag_cambios = true;
+                                        }    
+                                            
+                                }
+                                else//si hubo conflicto de reglas
+                                {
+                                    info_a.agregarElementoAReglasEnConflicto(info_b.reglas_relacionadas);
+                                    info_a.agregarElementoAReglasRelacionadas(info_b.reglas_relacionadas);
+                                }
+                            }
+                            info_variables[i] = info_a;
+                            info_variables[j] = info_b;
+                        }
+                    }
+                }
+            }
 
             //Rellenando reglas con errores
             foreach (InfoVariable info in info_variables)
@@ -194,7 +276,6 @@ namespace SistemaExpertoLib.GestionDelConocimiento
                     errores_comprobacion.Add(error);
                 }
             }
-            //info_actual.reglas_en_conflicto.Add("Variable "+variable.id_variable+" ("+variable.nombre_variable+") conflicto de ambiguedad recursiva con regla "+regla.id_regla+"  "+regla);
             return errores_comprobacion;
         }
 
