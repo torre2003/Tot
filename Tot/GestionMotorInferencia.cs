@@ -300,16 +300,23 @@ namespace Tot
             dialogo.Visible = false;
         }
 
-        
-        int[] motor_inferencia_evento_confimar_hecho(string id_hecho)
+
+        int[] motor_inferencia_evento_confimar_hecho(string id_hecho, string id_regla)
         {
+            Regla regla = base_conocimiento.leerRegla(id_regla);
             Hecho hecho = base_conocimiento.leerHecho(id_hecho);
             Variable variable = base_conocimiento.leerVariable(hecho.id_variable);
-
+            string[] lista_de_antecedentes = regla.listarAntecedentes();
+            Hecho[] hechos_antecedente = new Hecho[lista_de_antecedentes.Length];
+            for (int i = 0; i < lista_de_antecedentes.Length; i++)
+                hechos_antecedente[i] = base_conocimiento.leerHecho(lista_de_antecedentes[i]);
+            
+        
+        
             dialogo = new FormDialogoPanel(ventana_validar_hecho);
             dialogo.FormClosing += dialogo_FormClosing;
             ventana_validar_hecho.evento_respuesta_lista += evento_ventana_respuesta_lista;
-            ventana_validar_hecho.inciarConsultaHecho(hecho, variable.ruta_texto_descriptivo);
+            ventana_validar_hecho.inciarConsultaHecho(id_regla,hecho,hechos_antecedente, variable.ruta_texto_descriptivo);
             dialogo.ShowDialog(ventana_padre);
             if (terminar_inferencia)
                 return null;

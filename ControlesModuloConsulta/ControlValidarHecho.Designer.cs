@@ -40,12 +40,18 @@
             this.label3 = new System.Windows.Forms.Label();
             this.button_validar_no = new System.Windows.Forms.Button();
             this.button_validar_si = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.panel_antededentes_ext = new System.Windows.Forms.Panel();
+            this.panel_antecedentes_int = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label_id_regla = new System.Windows.Forms.Label();
+            this.panel_antededentes_ext.SuspendLayout();
             this.SuspendLayout();
             // 
             // label_titulo
             // 
             this.label_titulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label_titulo.Location = new System.Drawing.Point(23, 16);
+            this.label_titulo.Location = new System.Drawing.Point(23, 0);
             this.label_titulo.Name = "label_titulo";
             this.label_titulo.Size = new System.Drawing.Size(552, 42);
             this.label_titulo.TabIndex = 4;
@@ -54,7 +60,7 @@
             // 
             // richTextBox_descripcion
             // 
-            this.richTextBox_descripcion.Location = new System.Drawing.Point(27, 74);
+            this.richTextBox_descripcion.Location = new System.Drawing.Point(27, 45);
             this.richTextBox_descripcion.Name = "richTextBox_descripcion";
             this.richTextBox_descripcion.ReadOnly = true;
             this.richTextBox_descripcion.Size = new System.Drawing.Size(548, 144);
@@ -64,9 +70,9 @@
             // button_continuar
             // 
             this.button_continuar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.button_continuar.Location = new System.Drawing.Point(305, 467);
+            this.button_continuar.Location = new System.Drawing.Point(305, 490);
             this.button_continuar.Name = "button_continuar";
-            this.button_continuar.Size = new System.Drawing.Size(270, 45);
+            this.button_continuar.Size = new System.Drawing.Size(270, 40);
             this.button_continuar.TabIndex = 12;
             this.button_continuar.Text = "Continuar Inferencia";
             this.button_continuar.UseVisualStyleBackColor = true;
@@ -75,9 +81,9 @@
             // button_solucion_si
             // 
             this.button_solucion_si.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.button_solucion_si.Location = new System.Drawing.Point(27, 416);
+            this.button_solucion_si.Location = new System.Drawing.Point(27, 449);
             this.button_solucion_si.Name = "button_solucion_si";
-            this.button_solucion_si.Size = new System.Drawing.Size(270, 45);
+            this.button_solucion_si.Size = new System.Drawing.Size(270, 40);
             this.button_solucion_si.TabIndex = 11;
             this.button_solucion_si.Text = "Si";
             this.button_solucion_si.UseVisualStyleBackColor = true;
@@ -86,9 +92,9 @@
             // button_solucion_no
             // 
             this.button_solucion_no.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.button_solucion_no.Location = new System.Drawing.Point(305, 416);
+            this.button_solucion_no.Location = new System.Drawing.Point(305, 449);
             this.button_solucion_no.Name = "button_solucion_no";
-            this.button_solucion_no.Size = new System.Drawing.Size(270, 45);
+            this.button_solucion_no.Size = new System.Drawing.Size(270, 40);
             this.button_solucion_no.TabIndex = 13;
             this.button_solucion_no.Text = "No";
             this.button_solucion_no.UseVisualStyleBackColor = true;
@@ -97,7 +103,7 @@
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label1.Location = new System.Drawing.Point(23, 231);
+            this.label1.Location = new System.Drawing.Point(20, 305);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(142, 42);
             this.label1.TabIndex = 14;
@@ -107,16 +113,17 @@
             // textBox_hecho_a_validar
             // 
             this.textBox_hecho_a_validar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.textBox_hecho_a_validar.Location = new System.Drawing.Point(91, 267);
+            this.textBox_hecho_a_validar.Location = new System.Drawing.Point(149, 313);
             this.textBox_hecho_a_validar.Name = "textBox_hecho_a_validar";
             this.textBox_hecho_a_validar.ReadOnly = true;
+            this.textBox_hecho_a_validar.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.textBox_hecho_a_validar.Size = new System.Drawing.Size(426, 26);
             this.textBox_hecho_a_validar.TabIndex = 15;
             // 
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label2.Location = new System.Drawing.Point(168, 384);
+            this.label2.Location = new System.Drawing.Point(168, 417);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(254, 29);
             this.label2.TabIndex = 16;
@@ -126,9 +133,9 @@
             // button_detener
             // 
             this.button_detener.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.button_detener.Location = new System.Drawing.Point(27, 467);
+            this.button_detener.Location = new System.Drawing.Point(27, 490);
             this.button_detener.Name = "button_detener";
-            this.button_detener.Size = new System.Drawing.Size(270, 45);
+            this.button_detener.Size = new System.Drawing.Size(270, 40);
             this.button_detener.TabIndex = 17;
             this.button_detener.Text = "Detener Inferencia";
             this.button_detener.UseVisualStyleBackColor = true;
@@ -137,7 +144,7 @@
             // label3
             // 
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label3.Location = new System.Drawing.Point(168, 304);
+            this.label3.Location = new System.Drawing.Point(168, 342);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(254, 29);
             this.label3.TabIndex = 20;
@@ -147,9 +154,9 @@
             // button_validar_no
             // 
             this.button_validar_no.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.button_validar_no.Location = new System.Drawing.Point(305, 336);
+            this.button_validar_no.Location = new System.Drawing.Point(303, 374);
             this.button_validar_no.Name = "button_validar_no";
-            this.button_validar_no.Size = new System.Drawing.Size(270, 45);
+            this.button_validar_no.Size = new System.Drawing.Size(270, 40);
             this.button_validar_no.TabIndex = 19;
             this.button_validar_no.Text = "No";
             this.button_validar_no.UseVisualStyleBackColor = true;
@@ -158,18 +165,68 @@
             // button_validar_si
             // 
             this.button_validar_si.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.button_validar_si.Location = new System.Drawing.Point(27, 336);
+            this.button_validar_si.Location = new System.Drawing.Point(27, 374);
             this.button_validar_si.Name = "button_validar_si";
-            this.button_validar_si.Size = new System.Drawing.Size(270, 45);
+            this.button_validar_si.Size = new System.Drawing.Size(270, 40);
             this.button_validar_si.TabIndex = 18;
             this.button_validar_si.Text = "Si";
             this.button_validar_si.UseVisualStyleBackColor = true;
             this.button_validar_si.Click += new System.EventHandler(this.button_validar_si_Click);
             // 
+            // label4
+            // 
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label4.Location = new System.Drawing.Point(60, 228);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(67, 42);
+            this.label4.TabIndex = 21;
+            this.label4.Text = "Como: ";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel_antededentes_ext
+            // 
+            this.panel_antededentes_ext.AutoScroll = true;
+            this.panel_antededentes_ext.Controls.Add(this.panel_antecedentes_int);
+            this.panel_antededentes_ext.Location = new System.Drawing.Point(149, 202);
+            this.panel_antededentes_ext.Name = "panel_antededentes_ext";
+            this.panel_antededentes_ext.Size = new System.Drawing.Size(424, 100);
+            this.panel_antededentes_ext.TabIndex = 22;
+            // 
+            // panel_antecedentes_int
+            // 
+            this.panel_antecedentes_int.AutoSize = true;
+            this.panel_antecedentes_int.Location = new System.Drawing.Point(3, 3);
+            this.panel_antecedentes_int.Name = "panel_antecedentes_int";
+            this.panel_antecedentes_int.Size = new System.Drawing.Size(421, 65);
+            this.panel_antecedentes_int.TabIndex = 0;
+            // 
+            // label5
+            // 
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label5.Location = new System.Drawing.Point(20, 192);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(64, 42);
+            this.label5.TabIndex = 23;
+            this.label5.Text = "Según ";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_id_regla
+            // 
+            this.label_id_regla.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label_id_regla.Location = new System.Drawing.Point(79, 192);
+            this.label_id_regla.Name = "label_id_regla";
+            this.label_id_regla.Size = new System.Drawing.Size(64, 42);
+            this.label_id_regla.TabIndex = 24;
+            this.label_id_regla.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // ControlValidarHecho
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label_id_regla);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.panel_antededentes_ext);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.button_validar_no);
             this.Controls.Add(this.button_validar_si);
@@ -186,6 +243,8 @@
             this.MinimumSize = new System.Drawing.Size(600, 550);
             this.Name = "ControlValidarHecho";
             this.Size = new System.Drawing.Size(600, 550);
+            this.panel_antededentes_ext.ResumeLayout(false);
+            this.panel_antededentes_ext.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -205,5 +264,10 @@
         private System.Windows.Forms.Label label3;
         public System.Windows.Forms.Button button_validar_no;
         public System.Windows.Forms.Button button_validar_si;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Panel panel_antededentes_ext;
+        private System.Windows.Forms.Panel panel_antecedentes_int;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label_id_regla;
     }
 }

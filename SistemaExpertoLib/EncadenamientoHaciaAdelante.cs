@@ -322,7 +322,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
                 Regla mejor_regla = base_conocimiento.extraerRegla(info_regla.id_regla);
                 if (info_regla.puntaje_regla == 0)//Indica que todos los antecedentes son conocidos
                 {
-                    int[] respuesta_validacion_regla = evento_confimar_hecho(mejor_regla.id_hecho_consecuente);
+                    int[] respuesta_validacion_regla = evento_confimar_hecho(mejor_regla.id_hecho_consecuente,mejor_regla.id_regla);
 
                     // Analizando confirmaciones de hecho
                     if (respuesta_validacion_regla[0] == ConstantesShell.HECHO_CONFIRMADO)//Si el hecho es validado por el usuario
