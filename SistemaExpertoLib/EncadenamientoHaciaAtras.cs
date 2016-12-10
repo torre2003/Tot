@@ -457,7 +457,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
                                     {
                                         string id_hecho_consultado = ids_hechos_a_preguntar.Pop();
                                         Hecho hecho_actual = base_conocimiento.extraerHecho(id_hecho_consultado);
-                                        agregarLog(ConstantesShell.LOG_HECHO + "|" +hecho_actual.id_hecho+"|"+ ConstantesShell.LOG_ACCION_CONSULTANDO_HECHOS);
+                                        agregarLog(ConstantesShell.LOG_HECHO + "|" +hecho_actual.id_hecho+"|"+ ConstantesShell.LOG_ACCION_CONSULTANDO_HECHO);
                                         //Si no se conoce la variable se pregunta al usuario
                                         if (!variableConocida(hecho_actual.id_variable))
                                         {
@@ -494,7 +494,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
                                     {
                                         string id_hecho_objetivo = ids_hechos_objetivo_temporales.Pop();
                                         Hecho hecho_actual = base_conocimiento.extraerHecho(id_hecho_objetivo);
-                                        agregarLog(ConstantesShell.LOG_HECHO + "|" + hecho_actual.id_hecho + "|" + ConstantesShell.LOG_ACCION_CONSULTANDO_HECHOS);
+                                        agregarLog(ConstantesShell.LOG_HECHO + "|" + hecho_actual.id_hecho + "|" + ConstantesShell.LOG_ACCION_CONSULTANDO_HECHO);
                                         //Si la variable asociada al objetivo es concocida se procesa el hecho
                                         if (variableConocida(hecho_actual.id_variable))
                                         {
@@ -1155,7 +1155,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
             lista_hacia.Add(regla_buscada);
             
             //string log = id_regla+":De "+tipo_lista_desde+" a "+tipo_lista_hacia;
-            string log = ConstantesShell.LOG_REGLA + "|" + id_regla + "|" + ConstantesShell.LOG_ACCION_MOVER + "|" + desde + "|" + hacia;
+            string log = ConstantesShell.LOG_REGLA + "|" + id_regla + "|" + ConstantesShell.LOG_ACCION_MOVER_REGLA + "|" + desde + "|" + hacia;
             agregarLog(log);
         }
 
@@ -1223,7 +1223,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
             lista_hacia.Add(hecho_buscado);
 
             //string log = id_hecho + ":De " + tipo_lista_desde + " a " + tipo_lista_hacia;
-            string log = ConstantesShell.LOG_HECHO+"|"+id_hecho+"|"+ConstantesShell.LOG_ACCION_MOVER+"|"+desde+"|"+hacia;
+            string log = ConstantesShell.LOG_HECHO+"|"+id_hecho+"|"+ConstantesShell.LOG_ACCION_MOVER_HECHO+"|"+desde+"|"+hacia;
             agregarLog(log);
         }
 

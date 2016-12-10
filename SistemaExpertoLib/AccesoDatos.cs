@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace SistemaExpertoLib
 {
+    [Serializable()]
     class AccesoDatos
     {
 
@@ -510,7 +511,7 @@ namespace SistemaExpertoLib
         /// Método para eliminar el archivo de configuracion de la base de conocimiento,
         /// ALERTA! LA BASE DE CONOCIMIENTO NO PUEDE QUEDAR SIN ARCHIVO DE CONFIGURACIÓN
         /// </summary>
-        public void eliminarRegla()
+        public void eliminarArchivoDeConfiguracion()
         {
             if (File.Exists(ruta_archivo_configuracion))
                 File.Delete(ruta_archivo_configuracion);

@@ -23,8 +23,9 @@ namespace Tot
         //*******************************************************************************************
         
         GestionadorBaseConocimiento base_conocimiento;
-
+        GestionConfiguracionInternaTot configuracion_interna;
         FormVentanaConfiguracion ventana_configuracion;
+        FormVentanaConfiguracionLogInferencia ventana_configuracion_loggeo; 
         FormVentanaGestiónBaseConocimiento ventana_gestion_de_conocimiento;
         FormVentanaCargando ventana_cargando = new FormVentanaCargando();
 
@@ -35,13 +36,14 @@ namespace Tot
         {
             InitializeComponent();
 
-            new FormVentanaConfiguracionLogInferencia().ShowDialog();
-            System.Environment.Exit(0);
-
             base_conocimiento = new GestionadorBaseConocimiento();
+            configuracion_interna = new GestionConfiguracionInternaTot();
 
             ventana_configuracion = new FormVentanaConfiguracion(base_conocimiento);
             ventana_configuracion.MdiParent = this;
+
+            ventana_configuracion_loggeo = new FormVentanaConfiguracionLogInferencia(configuracion_interna);
+            ventana_configuracion_loggeo.MdiParent = this;
 
             if (!base_conocimiento.existe_base_de_conocimiento)
             {
@@ -51,6 +53,10 @@ namespace Tot
                 ventana_configuracion.completarVentana();
                 ventana_configuracion.Show();
             }
+
+            if (!configuracion_interna.existe_archivo_configuracion)
+                configuracion_interna.ingresarProcesadorDeLoggeo(new ProcesadorLoggeoInferencia());
+            
             ventana_gestion_de_conocimiento = new FormVentanaGestiónBaseConocimiento(base_conocimiento);
             ventana_gestion_de_conocimiento.MdiParent = this;
            // ventana_cargando.Visible = false;
@@ -147,7 +153,9 @@ namespace Tot
         //*******************************************************************************************
         private void iniciarInferenciaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new GestionMotorInferencia(base_conocimiento.ruta_carpeta_base_conocimiento, this).iniciarProceso();
+            GestionMotorInferencia gestion_inferencia = new GestionMotorInferencia(base_conocimiento.ruta_carpeta_base_conocimiento, this);
+            gestion_inferencia.procesador_log_inferencia = configuracion_interna.extraerProcesadorDeLoggeo();
+            gestion_inferencia.iniciarProceso();
         }
 
         private void ToolStripMenuItem_editor_base_conocimiento_Click(object sender, EventArgs e)
@@ -198,6 +206,12 @@ namespace Tot
                 ventana_configuracion.completarVentana();
                 ventana_configuracion.Show();
             }
+        }
+
+        private void configuraciónLogInferenciaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ventana_configuracion_loggeo.Visible = true;
+            ventana_configuracion_loggeo.mostrarConfiguracionProcesadorLoggeo(configuracion_interna.extraerProcesadorDeLoggeo());
         }
 
 

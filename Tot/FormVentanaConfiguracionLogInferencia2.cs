@@ -18,11 +18,13 @@ namespace Tot
         {
             //Inicializando paneles
             //----------------------------------------------------------
+            inicializar_textos_listas();
             inicializar_log_variable();
             inicializar_info_var_conocida();
             inicializar_accion_procesando_respuesta();
             inicializar_ingresando_a_var_conocida();
             inicializar_log_hecho();
+            inicializar_mover_hecho();
             inicializar_accion_hecho_objetivo_principal();
             inicializar_accion_hecho_objetivo_actual();
             inicializar_accion_quitando_hecho_pila_objetivos();
@@ -30,18 +32,225 @@ namespace Tot
             inicializar_accion_consultando_hechos();
             inicializar_accion_ingresando_hecho_a_pila_de_objetivos();
             inicializar_log_regla();
+            inicializar_mover_regla();
             inicializar_accion_elegida_mejor_regla();
             inicializar_accion_validando_regla();
-            
-            
+            inicializar_log_info();
+            inicializar_info_consultando_hechos();
+            inicializar_info_analizando_hechos_inferidos_regla();
+            inicializar_info_regla_validada();
+            inicializar_info_regla_no_validada();
+            inicializar_info_descartando_reglas_de_igual_consecuente();
+            inicializar_info_problema_solucionado();
+            inicializar_info_problema_no_solucionado();
+            inicializar_info_continuando_proceso();
+            inicializar_proceso_detenido();
+            inicializar_info_termino_inferencia_reglas_agotadas();
             //------------------------------------------------------------
             
-            Label l = new Label();
-            l.Location = new System.Drawing.Point(15, ultimo_y);
-            l.Size = new System.Drawing.Size(48, 13);
-            l.Text = "";
-            this.Controls.Add(l);
+            
+            panel_interno_controles.Size = new System.Drawing.Size(563, ultimo_y);
         }
+
+        private System.Windows.Forms.Panel panel_textos_listas;
+        private System.Windows.Forms.Label label_textos_listas_3;
+
+        private System.Windows.Forms.TextBox textBox_texto_reglas_disponibles;
+        private System.Windows.Forms.Label label_textos_reglas_disponibles;
+
+        private System.Windows.Forms.TextBox textBox_texto_reglas_candidatas;
+        private System.Windows.Forms.Label label_textos_reglas_candidatas;
+
+        private System.Windows.Forms.TextBox textBox_texto_reglas_eliminadas;
+        private System.Windows.Forms.Label label_textos_reglas_eliminadas;
+
+        private System.Windows.Forms.TextBox textBox_texto_hechos_disponibles;
+        private System.Windows.Forms.Label label_textos_hechos_disponibles;
+
+        private System.Windows.Forms.TextBox textBox_texto_hechos_verdaderos;
+        private System.Windows.Forms.Label label_textos_hechos_verdaderos;
+        
+        private System.Windows.Forms.TextBox textBox_texto_hechos_falsos;
+        private System.Windows.Forms.Label label_textos_hechos_falsos;
+
+        void inicializar_textos_listas()
+        {
+            this.panel_textos_listas = new System.Windows.Forms.Panel();
+
+            this.label_textos_reglas_disponibles = new System.Windows.Forms.Label();
+            this.textBox_texto_reglas_disponibles = new System.Windows.Forms.TextBox();
+
+            this.label_textos_reglas_candidatas = new System.Windows.Forms.Label();
+            this.textBox_texto_reglas_candidatas = new System.Windows.Forms.TextBox();
+
+            this.label_textos_reglas_eliminadas = new System.Windows.Forms.Label();
+            this.textBox_texto_reglas_eliminadas = new System.Windows.Forms.TextBox();
+
+            this.label_textos_hechos_disponibles = new System.Windows.Forms.Label();
+            this.textBox_texto_hechos_disponibles = new System.Windows.Forms.TextBox();
+
+            this.label_textos_hechos_verdaderos = new System.Windows.Forms.Label();
+            this.textBox_texto_hechos_verdaderos = new System.Windows.Forms.TextBox();
+
+            this.label_textos_hechos_falsos = new System.Windows.Forms.Label();
+            this.textBox_texto_hechos_falsos = new System.Windows.Forms.TextBox();
+
+            this.label_textos_listas_3 = new System.Windows.Forms.Label();
+            this.panel_textos_listas.SuspendLayout();
+
+            // 
+            // panel_textos_listas
+            // 
+            this.panel_textos_listas.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel_textos_listas.Controls.Add(this.label_textos_listas_3);
+
+            this.panel_textos_listas.Controls.Add(this.textBox_texto_reglas_disponibles);
+            this.panel_textos_listas.Controls.Add(this.label_textos_reglas_disponibles);
+
+            this.panel_textos_listas.Controls.Add(this.textBox_texto_reglas_candidatas);
+            this.panel_textos_listas.Controls.Add(this.label_textos_reglas_candidatas);
+
+            this.panel_textos_listas.Controls.Add(this.textBox_texto_reglas_eliminadas);
+            this.panel_textos_listas.Controls.Add(this.label_textos_reglas_eliminadas);
+
+            this.panel_textos_listas.Controls.Add(this.textBox_texto_hechos_disponibles);
+            this.panel_textos_listas.Controls.Add(this.label_textos_hechos_disponibles);
+
+            this.panel_textos_listas.Controls.Add(this.textBox_texto_hechos_verdaderos);
+            this.panel_textos_listas.Controls.Add(this.label_textos_hechos_verdaderos);
+
+            this.panel_textos_listas.Controls.Add(this.textBox_texto_hechos_falsos);
+            this.panel_textos_listas.Controls.Add(this.label_textos_hechos_falsos);
+
+            this.panel_textos_listas.Location = new System.Drawing.Point(3, ultimo_y);
+            
+            this.panel_textos_listas.Name = "panel_textos_listas";
+            this.panel_textos_listas.Size = new System.Drawing.Size(550, 85);
+            this.panel_textos_listas.TabIndex = 0;
+            // 
+            // label_textos_listas_3
+            // 
+            this.label_textos_listas_3.AutoSize = true;
+            this.label_textos_listas_3.Location = new System.Drawing.Point(15, 15);
+            this.label_textos_listas_3.Name = "label3";
+            this.label_textos_listas_3.Size = new System.Drawing.Size(48, 13);
+            this.label_textos_listas_3.TabIndex = 7;
+            this.label_textos_listas_3.Text = "Configuración de nombre de listas:";
+
+            int y = 40;
+            // 
+            // reglas disponibles
+            // 
+            this.label_textos_reglas_disponibles.AutoSize = true;
+            this.label_textos_reglas_disponibles.Location = new System.Drawing.Point(12, y+1);
+            this.label_textos_reglas_disponibles.Name = "label1";
+            this.label_textos_reglas_disponibles.Size = new System.Drawing.Size(66, 13);
+            this.label_textos_reglas_disponibles.TabIndex = 2;
+            this.label_textos_reglas_disponibles.Text = "Reglas disponibles:";
+            
+
+            this.textBox_texto_reglas_disponibles.Location = new System.Drawing.Point(120, y-2);
+            this.textBox_texto_reglas_disponibles.Name = "textBox_inicial_textos_listas";
+            this.textBox_texto_reglas_disponibles.Size = new System.Drawing.Size(400, 20);
+            this.textBox_texto_reglas_disponibles.TabIndex = 4;
+            y += 25;
+            // 
+            // reglas candidatas
+            // 
+            this.label_textos_reglas_candidatas.AutoSize = true;
+            this.label_textos_reglas_candidatas.Location = new System.Drawing.Point(12, y + 1);
+            this.label_textos_reglas_candidatas.Name = "label1";
+            this.label_textos_reglas_candidatas.Size = new System.Drawing.Size(66, 13);
+            this.label_textos_reglas_candidatas.TabIndex = 2;
+            this.label_textos_reglas_candidatas.Text = "Reglas candidatas:";
+
+
+            this.textBox_texto_reglas_candidatas.Location = new System.Drawing.Point(120, y - 2);
+            this.textBox_texto_reglas_candidatas.Name = "textBox_inicial_textos_listas";
+            this.textBox_texto_reglas_candidatas.Size = new System.Drawing.Size(400, 20);
+            this.textBox_texto_reglas_candidatas.TabIndex = 4;
+
+            y += 25;
+            // 
+            // reglas eliminadas
+            // 
+            this.label_textos_reglas_eliminadas.AutoSize = true;
+            this.label_textos_reglas_eliminadas.Location = new System.Drawing.Point(12, y + 1);
+            this.label_textos_reglas_eliminadas.Name = "label1";
+            this.label_textos_reglas_eliminadas.Size = new System.Drawing.Size(66, 13);
+            this.label_textos_reglas_eliminadas.TabIndex = 2;
+            this.label_textos_reglas_eliminadas.Text = "Reglas eliminadas:";
+
+
+            this.textBox_texto_reglas_eliminadas.Location = new System.Drawing.Point(120, y - 2);
+            this.textBox_texto_reglas_eliminadas.Name = "textBox_inicial_textos_listas";
+            this.textBox_texto_reglas_eliminadas.Size = new System.Drawing.Size(400, 20);
+            this.textBox_texto_reglas_eliminadas.TabIndex = 4;
+
+            y += 25;
+
+            // 
+            // hechos disponibles
+            // 
+            this.label_textos_hechos_disponibles.AutoSize = true;
+            this.label_textos_hechos_disponibles.Location = new System.Drawing.Point(12, y + 1);
+            this.label_textos_hechos_disponibles.Name = "label1";
+            this.label_textos_hechos_disponibles.Size = new System.Drawing.Size(66, 13);
+            this.label_textos_hechos_disponibles.TabIndex = 2;
+            this.label_textos_hechos_disponibles.Text = "Hechos disponibles:";
+
+
+            this.textBox_texto_hechos_disponibles.Location = new System.Drawing.Point(120, y - 2);
+            this.textBox_texto_hechos_disponibles.Name = "textBox_inicial_textos_listas";
+            this.textBox_texto_hechos_disponibles.Size = new System.Drawing.Size(400, 20);
+            this.textBox_texto_hechos_disponibles.TabIndex = 4;
+
+            y += 25;
+            
+            // 
+            // hechos verdaderos
+            // 
+            this.label_textos_hechos_verdaderos.AutoSize = true;
+            this.label_textos_hechos_verdaderos.Location = new System.Drawing.Point(12, y + 1);
+            this.label_textos_hechos_verdaderos.Name = "label1";
+            this.label_textos_hechos_verdaderos.Size = new System.Drawing.Size(66, 13);
+            this.label_textos_hechos_verdaderos.TabIndex = 2;
+            this.label_textos_hechos_verdaderos.Text = "Hechos verdaderos:";
+
+
+            this.textBox_texto_hechos_verdaderos.Location = new System.Drawing.Point(120, y - 2);
+            this.textBox_texto_hechos_verdaderos.Name = "textBox_inicial_textos_listas";
+            this.textBox_texto_hechos_verdaderos.Size = new System.Drawing.Size(400, 20);
+            this.textBox_texto_hechos_verdaderos.TabIndex = 4;
+
+            y += 25;
+            
+            // 
+            // hechos falsos
+            // 
+            this.label_textos_hechos_falsos.AutoSize = true;
+            this.label_textos_hechos_falsos.Location = new System.Drawing.Point(12, y + 1);
+            this.label_textos_hechos_falsos.Name = "label1";
+            this.label_textos_hechos_falsos.Size = new System.Drawing.Size(66, 13);
+            this.label_textos_hechos_falsos.TabIndex = 2;
+            this.label_textos_hechos_falsos.Text = "Hechos falsos:";
+
+
+            this.textBox_texto_hechos_falsos.Location = new System.Drawing.Point(120, y - 2);
+            this.textBox_texto_hechos_falsos.Name = "textBox_inicial_textos_listas";
+            this.textBox_texto_hechos_falsos.Size = new System.Drawing.Size(400, 20);
+            this.textBox_texto_hechos_falsos.TabIndex = 4;
+
+            y += 25;
+
+            this.panel_textos_listas.Size = new System.Drawing.Size(550, y);
+            ultimo_y += y + 10;
+            //agregando a form
+            this.panel_interno_controles.Controls.Add(panel_textos_listas);
+        }
+
+
+
 
 
 
@@ -66,7 +275,7 @@ namespace Tot
             this.panel_log_variable.Controls.Add(this.label_log_variable_3);
             this.panel_log_variable.Controls.Add(this.label_tipo_log_variable);
             this.panel_log_variable.Controls.Add(this.checkBox_log_variable);
-            this.panel_log_variable.Location = new System.Drawing.Point(12, ultimo_y);
+            this.panel_log_variable.Location = new System.Drawing.Point(3, ultimo_y);
             ultimo_y += 70;
             this.panel_log_variable.Name = "panel_log_variable";
             this.panel_log_variable.Size = new System.Drawing.Size(550, 60);
@@ -101,7 +310,7 @@ namespace Tot
             this.label_log_variable_3.Text = "Tipo log:";
 
             //agregando a form
-            this.Controls.Add(panel_log_variable);
+            this.panel_interno_controles.Controls.Add(panel_log_variable);
         }
 
         private System.Windows.Forms.Panel panel_info_var_conocida;
@@ -140,7 +349,7 @@ namespace Tot
             this.panel_info_var_conocida.Controls.Add(this.label_info_var_conocida_1);
             this.panel_info_var_conocida.Controls.Add(this.label_formato_info_var_conocida);
             this.panel_info_var_conocida.Controls.Add(this.checkBox_info_var_conocida);
-            this.panel_info_var_conocida.Location = new System.Drawing.Point(12, ultimo_y);
+            this.panel_info_var_conocida.Location = new System.Drawing.Point(3, ultimo_y);
             this.panel_info_var_conocida.Name = "panel_info_var_conocida";
             this.panel_info_var_conocida.Size = new System.Drawing.Size(550, 110);
             ultimo_y += 120;
@@ -215,7 +424,7 @@ namespace Tot
             this.label_info_var_conocida_3.TabIndex = 7;
             this.label_info_var_conocida_3.Text = "Tipo log:";
             //agregando a form
-            this.Controls.Add(panel_info_var_conocida);
+            this.panel_interno_controles.Controls.Add(panel_info_var_conocida);
 
         }
 
@@ -257,7 +466,7 @@ namespace Tot
             this.panel_accion_procesando_respuesta.Controls.Add(this.label_accion_procesando_respuesta_1);
             this.panel_accion_procesando_respuesta.Controls.Add(this.label_formato_accion_procesando_respuesta);
             this.panel_accion_procesando_respuesta.Controls.Add(this.checkBox_accion_procesando_respuesta);
-            this.panel_accion_procesando_respuesta.Location = new System.Drawing.Point(12, ultimo_y);
+            this.panel_accion_procesando_respuesta.Location = new System.Drawing.Point(3, ultimo_y);
             this.panel_accion_procesando_respuesta.Name = "panel_accion_procesando_respuesta";
             ultimo_y += 120;
             this.panel_accion_procesando_respuesta.Size = new System.Drawing.Size(550,110);
@@ -333,7 +542,7 @@ namespace Tot
             this.label_accion_procesando_respuesta_3.Text = "Tipo log:";
             
             //agregando a form 
-            this.Controls.Add(panel_accion_procesando_respuesta);
+            this.panel_interno_controles.Controls.Add(panel_accion_procesando_respuesta);
         }
 
 
@@ -345,12 +554,12 @@ namespace Tot
         private System.Windows.Forms.Label label_ingresando_a_var_conocida_2;
         private System.Windows.Forms.Label label_ingresando_a_var_conocida_1;
         private System.Windows.Forms.Label label_formato_ingresando_a_var_conocida;
-        private System.Windows.Forms.CheckBox checkBox_ingresando_a_var_conocida;
+        private System.Windows.Forms.CheckBox checkBox_accion_ingresando_a_var_conocida;
 
         void inicializar_ingresando_a_var_conocida()
         {
             this.panel_ingresando_a_var_conocida = new System.Windows.Forms.Panel();
-            this.checkBox_ingresando_a_var_conocida = new System.Windows.Forms.CheckBox();
+            this.checkBox_accion_ingresando_a_var_conocida = new System.Windows.Forms.CheckBox();
             this.label_formato_ingresando_a_var_conocida = new System.Windows.Forms.Label();
             this.label_ingresando_a_var_conocida_1 = new System.Windows.Forms.Label();
             this.label_ingresando_a_var_conocida_2 = new System.Windows.Forms.Label();
@@ -371,8 +580,8 @@ namespace Tot
             this.panel_ingresando_a_var_conocida.Controls.Add(this.label_ingresando_a_var_conocida_2);
             this.panel_ingresando_a_var_conocida.Controls.Add(this.label_ingresando_a_var_conocida_1);
             this.panel_ingresando_a_var_conocida.Controls.Add(this.label_formato_ingresando_a_var_conocida);
-            this.panel_ingresando_a_var_conocida.Controls.Add(this.checkBox_ingresando_a_var_conocida);
-            this.panel_ingresando_a_var_conocida.Location = new System.Drawing.Point(12, ultimo_y);
+            this.panel_ingresando_a_var_conocida.Controls.Add(this.checkBox_accion_ingresando_a_var_conocida);
+            this.panel_ingresando_a_var_conocida.Location = new System.Drawing.Point(3, ultimo_y);
             ultimo_y += 120;
             this.panel_ingresando_a_var_conocida.Name = "panel_ingresando_a_var_conocida";
             this.panel_ingresando_a_var_conocida.Size = new System.Drawing.Size(550, 110);
@@ -380,13 +589,13 @@ namespace Tot
             // 
             // checkBox_ingresando_a_var_conocida
             // 
-            this.checkBox_ingresando_a_var_conocida.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkBox_ingresando_a_var_conocida.Location = new System.Drawing.Point(15, 34);
-            this.checkBox_ingresando_a_var_conocida.Name = "checkBox_ingresando_a_var_conocida";
-            this.checkBox_ingresando_a_var_conocida.Size = new System.Drawing.Size(81, 24);
-            this.checkBox_ingresando_a_var_conocida.TabIndex = 0;
-            this.checkBox_ingresando_a_var_conocida.Text = "Mostrar";
-            this.checkBox_ingresando_a_var_conocida.UseVisualStyleBackColor = true;
+            this.checkBox_accion_ingresando_a_var_conocida.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkBox_accion_ingresando_a_var_conocida.Location = new System.Drawing.Point(15, 34);
+            this.checkBox_accion_ingresando_a_var_conocida.Name = "checkBox_ingresando_a_var_conocida";
+            this.checkBox_accion_ingresando_a_var_conocida.Size = new System.Drawing.Size(81, 24);
+            this.checkBox_accion_ingresando_a_var_conocida.TabIndex = 0;
+            this.checkBox_accion_ingresando_a_var_conocida.Text = "Mostrar";
+            this.checkBox_accion_ingresando_a_var_conocida.UseVisualStyleBackColor = true;
             // 
             // label_formato_ingresando_a_var_conocida
             // 
@@ -448,7 +657,7 @@ namespace Tot
             this.label_ingresando_a_var_conocida_3.Text = "Tipo log:";
 
             //agregando a form
-            this.Controls.Add(panel_ingresando_a_var_conocida);
+            this.panel_interno_controles.Controls.Add(panel_ingresando_a_var_conocida);
         }
 
         private System.Windows.Forms.Panel panel_log_hecho;
@@ -474,7 +683,7 @@ namespace Tot
             this.panel_log_hecho.Controls.Add(this.label_tipo_log_hecho);
             this.panel_log_hecho.Controls.Add(this.label_log_hecho_1);
             this.panel_log_hecho.Controls.Add(this.checkBox_log_hecho);
-            this.panel_log_hecho.Location = new System.Drawing.Point(12, ultimo_y);
+            this.panel_log_hecho.Location = new System.Drawing.Point(3, ultimo_y);
             this.panel_log_hecho.Name = "panel_log_hecho";
             this.panel_log_hecho.Size = new System.Drawing.Size(550, 60);
             ultimo_y += 70;
@@ -518,9 +727,145 @@ namespace Tot
             this.label_log_hecho_3.Text = "Tipo log:";
 
             //agregando a form
-            this.Controls.Add(panel_log_hecho);
+            this.panel_interno_controles.Controls.Add(panel_log_hecho);
         }
 
+                    private System.Windows.Forms.Panel panel_mover_hecho;
+            private System.Windows.Forms.Label label_mover_hecho_3;
+            private System.Windows.Forms.Label label_tipo_mover_hecho;
+            private System.Windows.Forms.TextBox textBox_medio_mover_hecho;
+            private System.Windows.Forms.TextBox textBox_inicial_mover_hecho;
+            private System.Windows.Forms.Label label_mover_hecho_2;
+            private System.Windows.Forms.Label label_mover_hecho_1;
+            private System.Windows.Forms.Label label_formato_mover_hecho;
+            private System.Windows.Forms.CheckBox checkBox_accion_mover_hecho;
+            private System.Windows.Forms.TextBox textBox_final_mover_hecho;
+            private System.Windows.Forms.Label label_mover_hecho_4;
+         
+            void inicializar_mover_hecho()
+            {
+            this.panel_mover_hecho = new System.Windows.Forms.Panel();
+            this.checkBox_accion_mover_hecho = new System.Windows.Forms.CheckBox();
+            this.label_formato_mover_hecho = new System.Windows.Forms.Label();
+            this.label_mover_hecho_1 = new System.Windows.Forms.Label();
+            this.label_mover_hecho_2 = new System.Windows.Forms.Label();
+            this.textBox_inicial_mover_hecho = new System.Windows.Forms.TextBox();
+            this.textBox_medio_mover_hecho = new System.Windows.Forms.TextBox();
+            this.label_tipo_mover_hecho = new System.Windows.Forms.Label();
+            this.label_mover_hecho_3 = new System.Windows.Forms.Label();
+            this.textBox_final_mover_hecho = new System.Windows.Forms.TextBox();
+            this.label_mover_hecho_4 = new System.Windows.Forms.Label();
+            this.panel_mover_hecho.SuspendLayout();
+            
+            // 
+            // panel_mover_hecho
+            // 
+            this.panel_mover_hecho.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel_mover_hecho.Controls.Add(this.textBox_final_mover_hecho);
+            this.panel_mover_hecho.Controls.Add(this.label_mover_hecho_4);
+            this.panel_mover_hecho.Controls.Add(this.label_mover_hecho_3);
+            this.panel_mover_hecho.Controls.Add(this.label_tipo_mover_hecho);
+            this.panel_mover_hecho.Controls.Add(this.textBox_medio_mover_hecho);
+            this.panel_mover_hecho.Controls.Add(this.textBox_inicial_mover_hecho);
+            this.panel_mover_hecho.Controls.Add(this.label_mover_hecho_2);
+            this.panel_mover_hecho.Controls.Add(this.label_mover_hecho_1);
+            this.panel_mover_hecho.Controls.Add(this.label_formato_mover_hecho);
+            this.panel_mover_hecho.Controls.Add(this.checkBox_accion_mover_hecho);
+            this.panel_mover_hecho.Location = new System.Drawing.Point(3, ultimo_y);
+            ultimo_y += 150;
+            this.panel_mover_hecho.Name = "panel_mover_hecho";
+            this.panel_mover_hecho.Size = new System.Drawing.Size(550, 140);
+            this.panel_mover_hecho.TabIndex = 0;
+            // 
+            // checkBox_mover_hecho
+            // 
+            this.checkBox_accion_mover_hecho.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkBox_accion_mover_hecho.Location = new System.Drawing.Point(15, 34);
+            this.checkBox_accion_mover_hecho.Name = "checkBox_mover_hecho";
+            this.checkBox_accion_mover_hecho.Size = new System.Drawing.Size(81, 24);
+            this.checkBox_accion_mover_hecho.TabIndex = 0;
+            this.checkBox_accion_mover_hecho.Text = "Mostrar";
+            this.checkBox_accion_mover_hecho.UseVisualStyleBackColor = true;
+            // 
+            // label_formato_mover_hecho
+            // 
+            this.label_formato_mover_hecho.Location = new System.Drawing.Point(102, 32);
+            this.label_formato_mover_hecho.Name = "label_formato_mover_hecho";
+            this.label_formato_mover_hecho.Size = new System.Drawing.Size(395, 23);
+            this.label_formato_mover_hecho.TabIndex = 1;
+            this.label_formato_mover_hecho.Text = "texto_incial HECHO texto_medio LISTA_DESDE texto_final HACIA";
+            this.label_formato_mover_hecho.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label_mover_hecho_1
+            // 
+            this.label_mover_hecho_1.AutoSize = true;
+            this.label_mover_hecho_1.Location = new System.Drawing.Point(12, 61);
+            this.label_mover_hecho_1.Name = "label1";
+            this.label_mover_hecho_1.Size = new System.Drawing.Size(66, 13);
+            this.label_mover_hecho_1.TabIndex = 2;
+            this.label_mover_hecho_1.Text = "Texto inicial:";
+            // 
+            // label_mover_hecho_2
+            // 
+            this.label_mover_hecho_2.AutoSize = true;
+            this.label_mover_hecho_2.Location = new System.Drawing.Point(12, 87);
+            this.label_mover_hecho_2.Name = "label2";
+            this.label_mover_hecho_2.Size = new System.Drawing.Size(68, 13);
+            this.label_mover_hecho_2.TabIndex = 3;
+            this.label_mover_hecho_2.Text = "Texto medio:";
+            // 
+            // textBox_inicial_mover_hecho
+            // 
+            this.textBox_inicial_mover_hecho.Location = new System.Drawing.Point(84, 58);
+            this.textBox_inicial_mover_hecho.Name = "textBox_inicial_mover_hecho";
+            this.textBox_inicial_mover_hecho.Size = new System.Drawing.Size(413, 20);
+            this.textBox_inicial_mover_hecho.TabIndex = 4;
+            // 
+            // textBox_medio_mover_hecho
+            // 
+            this.textBox_medio_mover_hecho.Location = new System.Drawing.Point(84, 84);
+            this.textBox_medio_mover_hecho.Name = "textBox_medio_mover_hecho";
+            this.textBox_medio_mover_hecho.Size = new System.Drawing.Size(413, 20);
+            this.textBox_medio_mover_hecho.TabIndex = 5;
+            // 
+            // label_tipo_mover_hecho
+            // 
+            this.label_tipo_mover_hecho.AutoSize = true;
+            this.label_tipo_mover_hecho.Location = new System.Drawing.Point(81, 15);
+            this.label_tipo_mover_hecho.Name = "label_tipo_mover_hecho";
+            this.label_tipo_mover_hecho.Size = new System.Drawing.Size(60, 13);
+            this.label_tipo_mover_hecho.TabIndex = 6;
+            this.label_tipo_mover_hecho.Text = "LOG_ACCION_MOVER_HECHO";
+            // 
+            // label_mover_hecho_3
+            // 
+            this.label_mover_hecho_3.AutoSize = true;
+            this.label_mover_hecho_3.Location = new System.Drawing.Point(15, 15);
+            this.label_mover_hecho_3.Name = "label3";
+            this.label_mover_hecho_3.Size = new System.Drawing.Size(48, 13);
+            this.label_mover_hecho_3.TabIndex = 7;
+            this.label_mover_hecho_3.Text = "Tipo log:";
+            // 
+            // textBox_final_mover_hecho
+            // 
+            this.textBox_final_mover_hecho.Location = new System.Drawing.Point(84, 110);
+            this.textBox_final_mover_hecho.Name = "textBox_final_mover_hecho";
+            this.textBox_final_mover_hecho.Size = new System.Drawing.Size(413, 20);
+            this.textBox_final_mover_hecho.TabIndex = 9;
+            // 
+            // label_mover_hecho_4
+            // 
+            this.label_mover_hecho_4.AutoSize = true;
+            this.label_mover_hecho_4.Location = new System.Drawing.Point(12, 113);
+            this.label_mover_hecho_4.Name = "label4";
+            this.label_mover_hecho_4.Size = new System.Drawing.Size(59, 13);
+            this.label_mover_hecho_4.TabIndex = 8;
+            this.label_mover_hecho_4.Text = "Texto final:";
+            //agregando a form
+            this.panel_interno_controles.Controls.Add(panel_mover_hecho);
+            }
+            
+           
 
         private System.Windows.Forms.Panel panel_accion_hecho_objetivo_principal;
         private System.Windows.Forms.Label label_accion_hecho_objetivo_principal_3;
@@ -557,7 +902,7 @@ namespace Tot
             this.panel_accion_hecho_objetivo_principal.Controls.Add(this.label_accion_hecho_objetivo_principal_1);
             this.panel_accion_hecho_objetivo_principal.Controls.Add(this.label_formato_accion_hecho_objetivo_principal);
             this.panel_accion_hecho_objetivo_principal.Controls.Add(this.checkBox_accion_hecho_objetivo_principal);
-            this.panel_accion_hecho_objetivo_principal.Location = new System.Drawing.Point(12, ultimo_y);
+            this.panel_accion_hecho_objetivo_principal.Location = new System.Drawing.Point(3, ultimo_y);
             ultimo_y += 120;
             this.panel_accion_hecho_objetivo_principal.Name = "panel_accion_hecho_objetivo_principal";
             this.panel_accion_hecho_objetivo_principal.Size = new System.Drawing.Size(550, 110);
@@ -633,7 +978,7 @@ namespace Tot
             this.label_accion_hecho_objetivo_principal_3.Text = "Tipo log:";
 
             //agregando a form
-            this.Controls.Add(panel_accion_hecho_objetivo_principal);
+            this.panel_interno_controles.Controls.Add(panel_accion_hecho_objetivo_principal);
         }
 
 
@@ -646,13 +991,13 @@ namespace Tot
         private System.Windows.Forms.Label label_accion_hecho_objetivo_actual_1;
         private System.Windows.Forms.Label label_formato_accion_hecho_objetivo_actual;
         private System.Windows.Forms.CheckBox checkBox_accion_hecho_objetivo_actual;
-        private System.Windows.Forms.CheckBox checkBox_niveles;
+        private System.Windows.Forms.CheckBox checkBox_nivel_hecho;
 
         void inicializar_accion_hecho_objetivo_actual()
         {
             this.panel_accion_hecho_objetivo_actual = new System.Windows.Forms.Panel();
             this.checkBox_accion_hecho_objetivo_actual = new System.Windows.Forms.CheckBox();
-            this.checkBox_niveles = new System.Windows.Forms.CheckBox();
+            this.checkBox_nivel_hecho = new System.Windows.Forms.CheckBox();
             this.label_formato_accion_hecho_objetivo_actual = new System.Windows.Forms.Label();
             this.label_accion_hecho_objetivo_actual_1 = new System.Windows.Forms.Label();
             this.label_accion_hecho_objetivo_actual_2 = new System.Windows.Forms.Label();
@@ -674,8 +1019,8 @@ namespace Tot
             this.panel_accion_hecho_objetivo_actual.Controls.Add(this.label_accion_hecho_objetivo_actual_1);
             this.panel_accion_hecho_objetivo_actual.Controls.Add(this.label_formato_accion_hecho_objetivo_actual);
             this.panel_accion_hecho_objetivo_actual.Controls.Add(this.checkBox_accion_hecho_objetivo_actual);
-            this.panel_accion_hecho_objetivo_actual.Controls.Add(this.checkBox_niveles);
-            this.panel_accion_hecho_objetivo_actual.Location = new System.Drawing.Point(12, ultimo_y);
+            this.panel_accion_hecho_objetivo_actual.Controls.Add(this.checkBox_nivel_hecho);
+            this.panel_accion_hecho_objetivo_actual.Location = new System.Drawing.Point(3, ultimo_y);
             ultimo_y += 145;
             this.panel_accion_hecho_objetivo_actual.Name = "panel_accion_hecho_objetivo_actual";
             this.panel_accion_hecho_objetivo_actual.Size = new System.Drawing.Size(550, 135);
@@ -693,13 +1038,13 @@ namespace Tot
             // 
             // checkBox_niveles
             // 
-            this.checkBox_niveles.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkBox_niveles.Location = new System.Drawing.Point(15, 61);
-            this.checkBox_niveles.Name = "checkBox_accion_hecho_objetivo_actual";
-            this.checkBox_niveles.Size = new System.Drawing.Size(160, 24);
-            this.checkBox_niveles.TabIndex = 0;
-            this.checkBox_niveles.Text = "Mostrar tabulación por nivel";
-            this.checkBox_niveles.UseVisualStyleBackColor = true;
+            this.checkBox_nivel_hecho.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkBox_nivel_hecho.Location = new System.Drawing.Point(15, 61);
+            this.checkBox_nivel_hecho.Name = "checkBox_accion_hecho_objetivo_actual";
+            this.checkBox_nivel_hecho.Size = new System.Drawing.Size(160, 24);
+            this.checkBox_nivel_hecho.TabIndex = 0;
+            this.checkBox_nivel_hecho.Text = "Mostrar tabulación por nivel";
+            this.checkBox_nivel_hecho.UseVisualStyleBackColor = true;
             // 
             // label_formato_accion_hecho_objetivo_actual
             // 
@@ -761,7 +1106,7 @@ namespace Tot
             this.label_accion_hecho_objetivo_actual_3.Text = "Tipo log:";
 
             //agregando a form
-            this.Controls.Add(panel_accion_hecho_objetivo_actual);
+            this.panel_interno_controles.Controls.Add(panel_accion_hecho_objetivo_actual);
         }
 
 
@@ -800,7 +1145,7 @@ namespace Tot
             this.panel_accion_quitando_hecho_pila_objetivos.Controls.Add(this.label_accion_quitando_hecho_pila_objetivos_1);
             this.panel_accion_quitando_hecho_pila_objetivos.Controls.Add(this.label_formato_accion_quitando_hecho_pila_objetivos);
             this.panel_accion_quitando_hecho_pila_objetivos.Controls.Add(this.checkBox_accion_quitando_hecho_pila_objetivos);
-            this.panel_accion_quitando_hecho_pila_objetivos.Location = new System.Drawing.Point(12, ultimo_y);
+            this.panel_accion_quitando_hecho_pila_objetivos.Location = new System.Drawing.Point(3, ultimo_y);
             ultimo_y += 120;
             this.panel_accion_quitando_hecho_pila_objetivos.Name = "panel_accion_quitando_hecho_pila_objetivos";
             this.panel_accion_quitando_hecho_pila_objetivos.Size = new System.Drawing.Size(550, 110);
@@ -876,7 +1221,7 @@ namespace Tot
             this.label_accion_quitando_hecho_pila_objetivos_3.Text = "Tipo log:";
 
             //agregando a form
-            this.Controls.Add(panel_accion_quitando_hecho_pila_objetivos);
+            this.panel_interno_controles.Controls.Add(panel_accion_quitando_hecho_pila_objetivos);
         }
 
 
@@ -915,7 +1260,7 @@ namespace Tot
             this.panel_info_sin_reglas_para_inferir_hecho.Controls.Add(this.label_info_sin_reglas_para_inferir_hecho_1);
             this.panel_info_sin_reglas_para_inferir_hecho.Controls.Add(this.label_formato_info_sin_reglas_para_inferir_hecho);
             this.panel_info_sin_reglas_para_inferir_hecho.Controls.Add(this.checkBox_info_sin_reglas_para_inferir_hecho);
-            this.panel_info_sin_reglas_para_inferir_hecho.Location = new System.Drawing.Point(12, ultimo_y);
+            this.panel_info_sin_reglas_para_inferir_hecho.Location = new System.Drawing.Point(3, ultimo_y);
             ultimo_y += 120;
             this.panel_info_sin_reglas_para_inferir_hecho.Name = "panel_info_sin_reglas_para_inferir_hecho";
             this.panel_info_sin_reglas_para_inferir_hecho.Size = new System.Drawing.Size(550, 110);
@@ -991,7 +1336,7 @@ namespace Tot
             this.label_info_sin_reglas_para_inferir_hecho_3.Text = "Tipo log:";
 
             //agregando a form
-            this.Controls.Add(panel_info_sin_reglas_para_inferir_hecho);
+            this.panel_interno_controles.Controls.Add(panel_info_sin_reglas_para_inferir_hecho);
         }
 
 
@@ -1003,12 +1348,12 @@ namespace Tot
         private System.Windows.Forms.Label label_accion_consultando_hechos_2;
         private System.Windows.Forms.Label label_accion_consultando_hechos_1;
         private System.Windows.Forms.Label label_formato_accion_consultando_hechos;
-        private System.Windows.Forms.CheckBox checkBox_accion_consultando_hechos;
+        private System.Windows.Forms.CheckBox checkBox_accion_consultando_hecho;
 
         void inicializar_accion_consultando_hechos()
         {
             this.panel_accion_consultando_hechos = new System.Windows.Forms.Panel();
-            this.checkBox_accion_consultando_hechos = new System.Windows.Forms.CheckBox();
+            this.checkBox_accion_consultando_hecho = new System.Windows.Forms.CheckBox();
             this.label_formato_accion_consultando_hechos = new System.Windows.Forms.Label();
             this.label_accion_consultando_hechos_1 = new System.Windows.Forms.Label();
             this.label_accion_consultando_hechos_2 = new System.Windows.Forms.Label();
@@ -1029,8 +1374,8 @@ namespace Tot
             this.panel_accion_consultando_hechos.Controls.Add(this.label_accion_consultando_hechos_2);
             this.panel_accion_consultando_hechos.Controls.Add(this.label_accion_consultando_hechos_1);
             this.panel_accion_consultando_hechos.Controls.Add(this.label_formato_accion_consultando_hechos);
-            this.panel_accion_consultando_hechos.Controls.Add(this.checkBox_accion_consultando_hechos);
-            this.panel_accion_consultando_hechos.Location = new System.Drawing.Point(12, ultimo_y);
+            this.panel_accion_consultando_hechos.Controls.Add(this.checkBox_accion_consultando_hecho);
+            this.panel_accion_consultando_hechos.Location = new System.Drawing.Point(3, ultimo_y);
             ultimo_y += 120;
             this.panel_accion_consultando_hechos.Name = "panel_accion_consultando_hechos";
             this.panel_accion_consultando_hechos.Size = new System.Drawing.Size(550, 110);
@@ -1038,13 +1383,13 @@ namespace Tot
             // 
             // checkBox_accion_consultando_hechos
             // 
-            this.checkBox_accion_consultando_hechos.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkBox_accion_consultando_hechos.Location = new System.Drawing.Point(15, 34);
-            this.checkBox_accion_consultando_hechos.Name = "checkBox_accion_consultando_hechos";
-            this.checkBox_accion_consultando_hechos.Size = new System.Drawing.Size(81, 24);
-            this.checkBox_accion_consultando_hechos.TabIndex = 0;
-            this.checkBox_accion_consultando_hechos.Text = "Mostrar";
-            this.checkBox_accion_consultando_hechos.UseVisualStyleBackColor = true;
+            this.checkBox_accion_consultando_hecho.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkBox_accion_consultando_hecho.Location = new System.Drawing.Point(15, 34);
+            this.checkBox_accion_consultando_hecho.Name = "checkBox_accion_consultando_hechos";
+            this.checkBox_accion_consultando_hecho.Size = new System.Drawing.Size(81, 24);
+            this.checkBox_accion_consultando_hecho.TabIndex = 0;
+            this.checkBox_accion_consultando_hecho.Text = "Mostrar";
+            this.checkBox_accion_consultando_hecho.UseVisualStyleBackColor = true;
             // 
             // label_formato_accion_consultando_hechos
             // 
@@ -1106,7 +1451,7 @@ namespace Tot
             this.label_accion_consultando_hechos_3.Text = "Tipo log:";
 
             //agregando a form
-            this.Controls.Add(panel_accion_consultando_hechos);
+            this.panel_interno_controles.Controls.Add(panel_accion_consultando_hechos);
         }
 
 
@@ -1146,7 +1491,7 @@ namespace Tot
             this.panel_accion_ingresando_hecho_a_pila_de_objetivos.Controls.Add(this.label_accion_ingresando_hecho_a_pila_de_objetivos_1);
             this.panel_accion_ingresando_hecho_a_pila_de_objetivos.Controls.Add(this.label_formato_accion_ingresando_hecho_a_pila_de_objetivos);
             this.panel_accion_ingresando_hecho_a_pila_de_objetivos.Controls.Add(this.checkBox_accion_ingresando_hecho_a_pila_de_objetivos);
-            this.panel_accion_ingresando_hecho_a_pila_de_objetivos.Location = new System.Drawing.Point(12, ultimo_y);
+            this.panel_accion_ingresando_hecho_a_pila_de_objetivos.Location = new System.Drawing.Point(3, ultimo_y);
             ultimo_y += 120;
             this.panel_accion_ingresando_hecho_a_pila_de_objetivos.Name = "panel_accion_ingresando_hecho_a_pila_de_objetivos";
             this.panel_accion_ingresando_hecho_a_pila_de_objetivos.Size = new System.Drawing.Size(550, 110);
@@ -1222,7 +1567,7 @@ namespace Tot
             this.label_accion_ingresando_hecho_a_pila_de_objetivos_3.Text = "Tipo log:";
 
             //agregando a form
-            this.Controls.Add(panel_accion_ingresando_hecho_a_pila_de_objetivos);
+            this.panel_interno_controles.Controls.Add(panel_accion_ingresando_hecho_a_pila_de_objetivos);
         }
 
         private System.Windows.Forms.Panel panel_log_regla;
@@ -1248,7 +1593,7 @@ namespace Tot
             this.panel_log_regla.Controls.Add(this.label_tipo_log_regla);
             this.panel_log_regla.Controls.Add(this.label_log_regla_1);
             this.panel_log_regla.Controls.Add(this.checkBox_log_regla);
-            this.panel_log_regla.Location = new System.Drawing.Point(12, ultimo_y);
+            this.panel_log_regla.Location = new System.Drawing.Point(3, ultimo_y);
             this.panel_log_regla.Name = "panel_log_regla";
             this.panel_log_regla.Size = new System.Drawing.Size(550, 60);
             ultimo_y += 70;
@@ -1292,8 +1637,146 @@ namespace Tot
             this.label_log_regla_3.Text = "Tipo log:";
 
             //agregando a form
-            this.Controls.Add(panel_log_regla);
+            this.panel_interno_controles.Controls.Add(panel_log_regla);
         }
+
+                    private System.Windows.Forms.Panel panel_mover_regla;
+            private System.Windows.Forms.Label label_mover_regla_3;
+            private System.Windows.Forms.Label label_tipo_mover_regla;
+            private System.Windows.Forms.TextBox textBox_medio_mover_regla;
+            private System.Windows.Forms.TextBox textBox_inicial_mover_regla;
+            private System.Windows.Forms.Label label_mover_regla_2;
+            private System.Windows.Forms.Label label_mover_regla_1;
+            private System.Windows.Forms.Label label_formato_mover_regla;
+            private System.Windows.Forms.CheckBox checkBox_accion_mover_regla;
+            private System.Windows.Forms.TextBox textBox_final_mover_regla;
+            private System.Windows.Forms.Label label_mover_regla_4;
+         
+            void inicializar_mover_regla()
+            {
+            this.panel_mover_regla = new System.Windows.Forms.Panel();
+            this.checkBox_accion_mover_regla = new System.Windows.Forms.CheckBox();
+            this.label_formato_mover_regla = new System.Windows.Forms.Label();
+            this.label_mover_regla_1 = new System.Windows.Forms.Label();
+            this.label_mover_regla_2 = new System.Windows.Forms.Label();
+            this.textBox_inicial_mover_regla = new System.Windows.Forms.TextBox();
+            this.textBox_medio_mover_regla = new System.Windows.Forms.TextBox();
+            this.label_tipo_mover_regla = new System.Windows.Forms.Label();
+            this.label_mover_regla_3 = new System.Windows.Forms.Label();
+            this.textBox_final_mover_regla = new System.Windows.Forms.TextBox();
+            this.label_mover_regla_4 = new System.Windows.Forms.Label();
+            this.panel_mover_regla.SuspendLayout();
+            
+            // 
+            // panel_mover_regla
+            // 
+            this.panel_mover_regla.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel_mover_regla.Controls.Add(this.textBox_final_mover_regla);
+            this.panel_mover_regla.Controls.Add(this.label_mover_regla_4);
+            this.panel_mover_regla.Controls.Add(this.label_mover_regla_3);
+            this.panel_mover_regla.Controls.Add(this.label_tipo_mover_regla);
+            this.panel_mover_regla.Controls.Add(this.textBox_medio_mover_regla);
+            this.panel_mover_regla.Controls.Add(this.textBox_inicial_mover_regla);
+            this.panel_mover_regla.Controls.Add(this.label_mover_regla_2);
+            this.panel_mover_regla.Controls.Add(this.label_mover_regla_1);
+            this.panel_mover_regla.Controls.Add(this.label_formato_mover_regla);
+            this.panel_mover_regla.Controls.Add(this.checkBox_accion_mover_regla);
+            this.panel_mover_regla.Location = new System.Drawing.Point(3, ultimo_y);
+            ultimo_y += 150;
+            this.panel_mover_regla.Name = "panel_mover_regla";
+            this.panel_mover_regla.Size = new System.Drawing.Size(550, 140);
+            this.panel_mover_regla.TabIndex = 0;
+            // 
+            // checkBox_mover_regla
+            // 
+            this.checkBox_accion_mover_regla.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkBox_accion_mover_regla.Location = new System.Drawing.Point(15, 34);
+            this.checkBox_accion_mover_regla.Name = "checkBox_mover_regla";
+            this.checkBox_accion_mover_regla.Size = new System.Drawing.Size(81, 24);
+            this.checkBox_accion_mover_regla.TabIndex = 0;
+            this.checkBox_accion_mover_regla.Text = "Mostrar";
+            this.checkBox_accion_mover_regla.UseVisualStyleBackColor = true;
+            // 
+            // label_formato_mover_regla
+            // 
+            this.label_formato_mover_regla.Location = new System.Drawing.Point(102, 32);
+            this.label_formato_mover_regla.Name = "label_formato_mover_regla";
+            this.label_formato_mover_regla.Size = new System.Drawing.Size(395, 23);
+            this.label_formato_mover_regla.TabIndex = 1;
+            this.label_formato_mover_regla.Text = "texto_inicial REGLA texto_medio LISTA_DESDE texto_final LISTA_HACIA";
+            this.label_formato_mover_regla.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label_mover_regla_1
+            // 
+            this.label_mover_regla_1.AutoSize = true;
+            this.label_mover_regla_1.Location = new System.Drawing.Point(12, 61);
+            this.label_mover_regla_1.Name = "label1";
+            this.label_mover_regla_1.Size = new System.Drawing.Size(66, 13);
+            this.label_mover_regla_1.TabIndex = 2;
+            this.label_mover_regla_1.Text = "Texto inicial:";
+            // 
+            // label_mover_regla_2
+            // 
+            this.label_mover_regla_2.AutoSize = true;
+            this.label_mover_regla_2.Location = new System.Drawing.Point(12, 87);
+            this.label_mover_regla_2.Name = "label2";
+            this.label_mover_regla_2.Size = new System.Drawing.Size(68, 13);
+            this.label_mover_regla_2.TabIndex = 3;
+            this.label_mover_regla_2.Text = "Texto medio:";
+            // 
+            // textBox_inicial_mover_regla
+            // 
+            this.textBox_inicial_mover_regla.Location = new System.Drawing.Point(84, 58);
+            this.textBox_inicial_mover_regla.Name = "textBox_inicial_mover_regla";
+            this.textBox_inicial_mover_regla.Size = new System.Drawing.Size(413, 20);
+            this.textBox_inicial_mover_regla.TabIndex = 4;
+            // 
+            // textBox_medio_mover_regla
+            // 
+            this.textBox_medio_mover_regla.Location = new System.Drawing.Point(84, 84);
+            this.textBox_medio_mover_regla.Name = "textBox_medio_mover_regla";
+            this.textBox_medio_mover_regla.Size = new System.Drawing.Size(413, 20);
+            this.textBox_medio_mover_regla.TabIndex = 5;
+            // 
+            // label_tipo_mover_regla
+            // 
+            this.label_tipo_mover_regla.AutoSize = true;
+            this.label_tipo_mover_regla.Location = new System.Drawing.Point(81, 15);
+            this.label_tipo_mover_regla.Name = "label_tipo_mover_regla";
+            this.label_tipo_mover_regla.Size = new System.Drawing.Size(60, 13);
+            this.label_tipo_mover_regla.TabIndex = 6;
+            this.label_tipo_mover_regla.Text = "LOG_ACCION_MOVER_REGLA";
+            // 
+            // label_mover_regla_3
+            // 
+            this.label_mover_regla_3.AutoSize = true;
+            this.label_mover_regla_3.Location = new System.Drawing.Point(15, 15);
+            this.label_mover_regla_3.Name = "label3";
+            this.label_mover_regla_3.Size = new System.Drawing.Size(48, 13);
+            this.label_mover_regla_3.TabIndex = 7;
+            this.label_mover_regla_3.Text = "Tipo log:";
+            // 
+            // textBox_final_mover_regla
+            // 
+            this.textBox_final_mover_regla.Location = new System.Drawing.Point(84, 110);
+            this.textBox_final_mover_regla.Name = "textBox_final_mover_regla";
+            this.textBox_final_mover_regla.Size = new System.Drawing.Size(413, 20);
+            this.textBox_final_mover_regla.TabIndex = 9;
+            // 
+            // label_mover_regla_4
+            // 
+            this.label_mover_regla_4.AutoSize = true;
+            this.label_mover_regla_4.Location = new System.Drawing.Point(12, 113);
+            this.label_mover_regla_4.Name = "label4";
+            this.label_mover_regla_4.Size = new System.Drawing.Size(59, 13);
+            this.label_mover_regla_4.TabIndex = 8;
+            this.label_mover_regla_4.Text = "Texto final:";
+
+            //agregando a form
+            this.panel_interno_controles.Controls.Add(panel_mover_regla);
+            }
+            
+           
 
 
         private System.Windows.Forms.Panel panel_accion_elegida_mejor_regla;
@@ -1331,7 +1814,7 @@ namespace Tot
             this.panel_accion_elegida_mejor_regla.Controls.Add(this.label_accion_elegida_mejor_regla_1);
             this.panel_accion_elegida_mejor_regla.Controls.Add(this.label_formato_accion_elegida_mejor_regla);
             this.panel_accion_elegida_mejor_regla.Controls.Add(this.checkBox_accion_elegida_mejor_regla);
-            this.panel_accion_elegida_mejor_regla.Location = new System.Drawing.Point(12, ultimo_y);
+            this.panel_accion_elegida_mejor_regla.Location = new System.Drawing.Point(3, ultimo_y);
             ultimo_y += 120;
             this.panel_accion_elegida_mejor_regla.Name = "panel_accion_elegida_mejor_regla";
             this.panel_accion_elegida_mejor_regla.Size = new System.Drawing.Size(550, 110);
@@ -1407,7 +1890,7 @@ namespace Tot
             this.label_accion_elegida_mejor_regla_3.Text = "Tipo log:";
 
             //agregando a form
-            this.Controls.Add(panel_accion_elegida_mejor_regla);
+            this.panel_interno_controles.Controls.Add(panel_accion_elegida_mejor_regla);
         }
 
 
@@ -1446,7 +1929,7 @@ namespace Tot
             this.panel_accion_validando_regla.Controls.Add(this.label_accion_validando_regla_1);
             this.panel_accion_validando_regla.Controls.Add(this.label_formato_accion_validando_regla);
             this.panel_accion_validando_regla.Controls.Add(this.checkBox_accion_validando_regla);
-            this.panel_accion_validando_regla.Location = new System.Drawing.Point(12, ultimo_y);
+            this.panel_accion_validando_regla.Location = new System.Drawing.Point(3, ultimo_y);
             ultimo_y += 120;
             this.panel_accion_validando_regla.Name = "panel_accion_validando_regla";
             this.panel_accion_validando_regla.Size = new System.Drawing.Size(550, 110);
@@ -1522,8 +2005,876 @@ namespace Tot
             this.label_accion_validando_regla_3.Text = "Tipo log:";
 
             //agregando a form
-            this.Controls.Add(panel_accion_validando_regla);
+            this.panel_interno_controles.Controls.Add(panel_accion_validando_regla);
         }
         
+
+
+
+            private System.Windows.Forms.Panel panel_log_info;
+            private System.Windows.Forms.Label label_log_info_3;
+            private System.Windows.Forms.Label label_tipo_log_info;
+            private System.Windows.Forms.CheckBox checkBox_log_info;
+
+            void inicializar_log_info()
+            {
+                this.panel_log_info = new System.Windows.Forms.Panel();
+                this.checkBox_log_info = new System.Windows.Forms.CheckBox();
+                this.label_tipo_log_info = new System.Windows.Forms.Label();
+                this.label_log_info_3 = new System.Windows.Forms.Label();
+                this.panel_log_info.SuspendLayout();
+                // 
+                // panel_log_info
+                // 
+                this.panel_log_info.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+                this.panel_log_info.Controls.Add(this.label_log_info_3);
+                this.panel_log_info.Controls.Add(this.label_tipo_log_info);
+                this.panel_log_info.Controls.Add(this.checkBox_log_info);
+                this.panel_log_info.Location = new System.Drawing.Point(3, ultimo_y);
+                this.panel_log_info.Name = "panel_log_info";
+                this.panel_log_info.Size = new System.Drawing.Size(550, 60);
+                ultimo_y += 70;
+                this.panel_log_info.TabIndex = 0;
+                // 
+                // checkBox_log_info
+                // 
+                this.checkBox_log_info.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+                this.checkBox_log_info.Location = new System.Drawing.Point(15, 34);
+                this.checkBox_log_info.Name = "checkBox_log_info";
+                this.checkBox_log_info.Size = new System.Drawing.Size(81, 24);
+                this.checkBox_log_info.TabIndex = 0;
+                this.checkBox_log_info.Text = "Mostrar";
+                this.checkBox_log_info.UseVisualStyleBackColor = true;
+                // 
+                // label_tipo_log_info
+                // 
+                this.label_tipo_log_info.AutoSize = true;
+                this.label_tipo_log_info.Location = new System.Drawing.Point(81, 15);
+                this.label_tipo_log_info.Name = "label_tipo_log_info";
+                this.label_tipo_log_info.Size = new System.Drawing.Size(60, 13);
+                this.label_tipo_log_info.TabIndex = 6;
+                this.label_tipo_log_info.Text = "LOG_INFO";
+                // 
+                // label_log_info_3
+                // 
+                this.label_log_info_3.AutoSize = true;
+                this.label_log_info_3.Location = new System.Drawing.Point(15, 15);
+                this.label_log_info_3.Name = "label3";
+                this.label_log_info_3.Size = new System.Drawing.Size(48, 13);
+                this.label_log_info_3.TabIndex = 7;
+                this.label_log_info_3.Text = "Tipo log:";
+
+                //agregando a form
+                this.panel_interno_controles.Controls.Add(panel_log_info);
+            }
+
+
+            private System.Windows.Forms.Panel panel_info_consultando_hechos;
+            private System.Windows.Forms.Label label_info_consultando_hechos_3;
+            private System.Windows.Forms.Label label_tipo_info_consultando_hechos;
+            private System.Windows.Forms.TextBox textBox_info_consultando_hechos;
+            private System.Windows.Forms.Label label_info_consultando_hechos_1;
+            private System.Windows.Forms.CheckBox checkBox_info_consultando_hechos;
+
+            void inicializar_info_consultando_hechos()
+            {
+                this.panel_info_consultando_hechos = new System.Windows.Forms.Panel();
+                this.checkBox_info_consultando_hechos = new System.Windows.Forms.CheckBox();
+                this.label_info_consultando_hechos_1 = new System.Windows.Forms.Label();
+                this.textBox_info_consultando_hechos = new System.Windows.Forms.TextBox();
+                this.label_tipo_info_consultando_hechos = new System.Windows.Forms.Label();
+                this.label_info_consultando_hechos_3 = new System.Windows.Forms.Label();
+                this.panel_info_consultando_hechos.SuspendLayout();
+
+                // 
+                // panel_info_consultando_hechos
+                // 
+                this.panel_info_consultando_hechos.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+                this.panel_info_consultando_hechos.Controls.Add(this.label_info_consultando_hechos_3);
+                this.panel_info_consultando_hechos.Controls.Add(this.label_tipo_info_consultando_hechos);
+                this.panel_info_consultando_hechos.Controls.Add(this.textBox_info_consultando_hechos);
+                this.panel_info_consultando_hechos.Controls.Add(this.label_info_consultando_hechos_1);
+                this.panel_info_consultando_hechos.Controls.Add(this.checkBox_info_consultando_hechos);
+                this.panel_info_consultando_hechos.Location = new System.Drawing.Point(3, ultimo_y);
+                ultimo_y += 95;
+                this.panel_info_consultando_hechos.Name = "panel_info_consultando_hechos";
+                this.panel_info_consultando_hechos.Size = new System.Drawing.Size(550, 85);
+                this.panel_info_consultando_hechos.TabIndex = 0;
+                // 
+                // checkBox_info_consultando_hechos
+                // 
+                this.checkBox_info_consultando_hechos.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+                this.checkBox_info_consultando_hechos.Location = new System.Drawing.Point(15, 34);
+                this.checkBox_info_consultando_hechos.Name = "checkBox_info_consultando_hechos";
+                this.checkBox_info_consultando_hechos.Size = new System.Drawing.Size(81, 24);
+                this.checkBox_info_consultando_hechos.TabIndex = 0;
+                this.checkBox_info_consultando_hechos.Text = "Mostrar";
+                this.checkBox_info_consultando_hechos.UseVisualStyleBackColor = true;
+                // 
+                // label_info_consultando_hechos_1
+                // 
+                this.label_info_consultando_hechos_1.AutoSize = true;
+                this.label_info_consultando_hechos_1.Location = new System.Drawing.Point(12, 61);
+                this.label_info_consultando_hechos_1.Name = "label1";
+                this.label_info_consultando_hechos_1.Size = new System.Drawing.Size(66, 13);
+                this.label_info_consultando_hechos_1.TabIndex = 2;
+                this.label_info_consultando_hechos_1.Text = "Texto :";
+                // 
+                // textBox_inicial_info_consultando_hechos
+                // 
+                this.textBox_info_consultando_hechos.Location = new System.Drawing.Point(84, 58);
+                this.textBox_info_consultando_hechos.Name = "textBox_inicial_info_consultando_hechos";
+                this.textBox_info_consultando_hechos.Size = new System.Drawing.Size(413, 20);
+                this.textBox_info_consultando_hechos.TabIndex = 4;
+                // 
+                // label_tipo_info_consultando_hechos
+                // 
+                this.label_tipo_info_consultando_hechos.AutoSize = true;
+                this.label_tipo_info_consultando_hechos.Location = new System.Drawing.Point(81, 15);
+                this.label_tipo_info_consultando_hechos.Name = "label_tipo_info_consultando_hechos";
+                this.label_tipo_info_consultando_hechos.Size = new System.Drawing.Size(60, 13);
+                this.label_tipo_info_consultando_hechos.TabIndex = 6;
+                this.label_tipo_info_consultando_hechos.Text = "LOG_INFO_CONSULTANDO_HECHOS";
+                // 
+                // label_info_consultando_hechos_3
+                // 
+                this.label_info_consultando_hechos_3.AutoSize = true;
+                this.label_info_consultando_hechos_3.Location = new System.Drawing.Point(15, 15);
+                this.label_info_consultando_hechos_3.Name = "label3";
+                this.label_info_consultando_hechos_3.Size = new System.Drawing.Size(48, 13);
+                this.label_info_consultando_hechos_3.TabIndex = 7;
+                this.label_info_consultando_hechos_3.Text = "Tipo log:";
+
+                //agregando a form
+                this.panel_interno_controles.Controls.Add(panel_info_consultando_hechos);
+            }
+
+
+            private System.Windows.Forms.Panel panel_info_analizando_hechos_inferidos_regla;
+            private System.Windows.Forms.Label label_info_analizando_hechos_inferidos_regla_3;
+            private System.Windows.Forms.Label label_tipo_info_analizando_hechos_inferidos_regla;
+            private System.Windows.Forms.TextBox textBox_info_analizando_hechos_inferidos_regla;
+            private System.Windows.Forms.Label label_info_analizando_hechos_inferidos_regla_1;
+            private System.Windows.Forms.CheckBox checkBox_info_analizando_hechos_inferidos_regla;
+
+            void inicializar_info_analizando_hechos_inferidos_regla()
+            {
+                this.panel_info_analizando_hechos_inferidos_regla = new System.Windows.Forms.Panel();
+                this.checkBox_info_analizando_hechos_inferidos_regla = new System.Windows.Forms.CheckBox();
+                this.label_info_analizando_hechos_inferidos_regla_1 = new System.Windows.Forms.Label();
+                this.textBox_info_analizando_hechos_inferidos_regla = new System.Windows.Forms.TextBox();
+                this.label_tipo_info_analizando_hechos_inferidos_regla = new System.Windows.Forms.Label();
+                this.label_info_analizando_hechos_inferidos_regla_3 = new System.Windows.Forms.Label();
+                this.panel_info_analizando_hechos_inferidos_regla.SuspendLayout();
+
+                // 
+                // panel_info_analizando_hechos_inferidos_regla
+                // 
+                this.panel_info_analizando_hechos_inferidos_regla.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+                this.panel_info_analizando_hechos_inferidos_regla.Controls.Add(this.label_info_analizando_hechos_inferidos_regla_3);
+                this.panel_info_analizando_hechos_inferidos_regla.Controls.Add(this.label_tipo_info_analizando_hechos_inferidos_regla);
+                this.panel_info_analizando_hechos_inferidos_regla.Controls.Add(this.textBox_info_analizando_hechos_inferidos_regla);
+                this.panel_info_analizando_hechos_inferidos_regla.Controls.Add(this.label_info_analizando_hechos_inferidos_regla_1);
+                this.panel_info_analizando_hechos_inferidos_regla.Controls.Add(this.checkBox_info_analizando_hechos_inferidos_regla);
+                this.panel_info_analizando_hechos_inferidos_regla.Location = new System.Drawing.Point(3, ultimo_y);
+                ultimo_y += 95;
+                this.panel_info_analizando_hechos_inferidos_regla.Name = "panel_info_analizando_hechos_inferidos_regla";
+                this.panel_info_analizando_hechos_inferidos_regla.Size = new System.Drawing.Size(550, 85);
+                this.panel_info_analizando_hechos_inferidos_regla.TabIndex = 0;
+                // 
+                // checkBox_info_analizando_hechos_inferidos_regla
+                // 
+                this.checkBox_info_analizando_hechos_inferidos_regla.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+                this.checkBox_info_analizando_hechos_inferidos_regla.Location = new System.Drawing.Point(15, 34);
+                this.checkBox_info_analizando_hechos_inferidos_regla.Name = "checkBox_info_analizando_hechos_inferidos_regla";
+                this.checkBox_info_analizando_hechos_inferidos_regla.Size = new System.Drawing.Size(81, 24);
+                this.checkBox_info_analizando_hechos_inferidos_regla.TabIndex = 0;
+                this.checkBox_info_analizando_hechos_inferidos_regla.Text = "Mostrar";
+                this.checkBox_info_analizando_hechos_inferidos_regla.UseVisualStyleBackColor = true;
+                // 
+                // label_info_analizando_hechos_inferidos_regla_1
+                // 
+                this.label_info_analizando_hechos_inferidos_regla_1.AutoSize = true;
+                this.label_info_analizando_hechos_inferidos_regla_1.Location = new System.Drawing.Point(12, 61);
+                this.label_info_analizando_hechos_inferidos_regla_1.Name = "label1";
+                this.label_info_analizando_hechos_inferidos_regla_1.Size = new System.Drawing.Size(66, 13);
+                this.label_info_analizando_hechos_inferidos_regla_1.TabIndex = 2;
+                this.label_info_analizando_hechos_inferidos_regla_1.Text = "Texto :";
+                // 
+                // textBox_inicial_info_analizando_hechos_inferidos_regla
+                // 
+                this.textBox_info_analizando_hechos_inferidos_regla.Location = new System.Drawing.Point(84, 58);
+                this.textBox_info_analizando_hechos_inferidos_regla.Name = "textBox_inicial_info_analizando_hechos_inferidos_regla";
+                this.textBox_info_analizando_hechos_inferidos_regla.Size = new System.Drawing.Size(413, 20);
+                this.textBox_info_analizando_hechos_inferidos_regla.TabIndex = 4;
+                // 
+                // label_tipo_info_analizando_hechos_inferidos_regla
+                // 
+                this.label_tipo_info_analizando_hechos_inferidos_regla.AutoSize = true;
+                this.label_tipo_info_analizando_hechos_inferidos_regla.Location = new System.Drawing.Point(81, 15);
+                this.label_tipo_info_analizando_hechos_inferidos_regla.Name = "label_tipo_info_analizando_hechos_inferidos_regla";
+                this.label_tipo_info_analizando_hechos_inferidos_regla.Size = new System.Drawing.Size(60, 13);
+                this.label_tipo_info_analizando_hechos_inferidos_regla.TabIndex = 6;
+                this.label_tipo_info_analizando_hechos_inferidos_regla.Text = "LOG_INFO_ANALIZANDO_HECHOS_INFERIDOS_REGLA";
+                // 
+                // label_info_analizando_hechos_inferidos_regla_3
+                // 
+                this.label_info_analizando_hechos_inferidos_regla_3.AutoSize = true;
+                this.label_info_analizando_hechos_inferidos_regla_3.Location = new System.Drawing.Point(15, 15);
+                this.label_info_analizando_hechos_inferidos_regla_3.Name = "label3";
+                this.label_info_analizando_hechos_inferidos_regla_3.Size = new System.Drawing.Size(48, 13);
+                this.label_info_analizando_hechos_inferidos_regla_3.TabIndex = 7;
+                this.label_info_analizando_hechos_inferidos_regla_3.Text = "Tipo log:";
+
+                //agregando a form
+                this.panel_interno_controles.Controls.Add(panel_info_analizando_hechos_inferidos_regla);
+            }
+
+
+            private System.Windows.Forms.Panel panel_info_regla_validada;
+            private System.Windows.Forms.Label label_info_regla_validada_3;
+            private System.Windows.Forms.Label label_tipo_info_regla_validada;
+            private System.Windows.Forms.TextBox textBox_info_regla_validada;
+            private System.Windows.Forms.Label label_info_regla_validada_1;
+            private System.Windows.Forms.CheckBox checkBox_info_regla_validada;
+
+            void inicializar_info_regla_validada()
+            {
+                this.panel_info_regla_validada = new System.Windows.Forms.Panel();
+                this.checkBox_info_regla_validada = new System.Windows.Forms.CheckBox();
+                this.label_info_regla_validada_1 = new System.Windows.Forms.Label();
+                this.textBox_info_regla_validada = new System.Windows.Forms.TextBox();
+                this.label_tipo_info_regla_validada = new System.Windows.Forms.Label();
+                this.label_info_regla_validada_3 = new System.Windows.Forms.Label();
+                this.panel_info_regla_validada.SuspendLayout();
+
+                // 
+                // panel_info_regla_validada
+                // 
+                this.panel_info_regla_validada.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+                this.panel_info_regla_validada.Controls.Add(this.label_info_regla_validada_3);
+                this.panel_info_regla_validada.Controls.Add(this.label_tipo_info_regla_validada);
+                this.panel_info_regla_validada.Controls.Add(this.textBox_info_regla_validada);
+                this.panel_info_regla_validada.Controls.Add(this.label_info_regla_validada_1);
+                this.panel_info_regla_validada.Controls.Add(this.checkBox_info_regla_validada);
+                this.panel_info_regla_validada.Location = new System.Drawing.Point(3, ultimo_y);
+                ultimo_y += 95;
+                this.panel_info_regla_validada.Name = "panel_info_regla_validada";
+                this.panel_info_regla_validada.Size = new System.Drawing.Size(550, 85);
+                this.panel_info_regla_validada.TabIndex = 0;
+                // 
+                // checkBox_info_regla_validada
+                // 
+                this.checkBox_info_regla_validada.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+                this.checkBox_info_regla_validada.Location = new System.Drawing.Point(15, 34);
+                this.checkBox_info_regla_validada.Name = "checkBox_info_regla_validada";
+                this.checkBox_info_regla_validada.Size = new System.Drawing.Size(81, 24);
+                this.checkBox_info_regla_validada.TabIndex = 0;
+                this.checkBox_info_regla_validada.Text = "Mostrar";
+                this.checkBox_info_regla_validada.UseVisualStyleBackColor = true;
+                // 
+                // label_info_regla_validada_1
+                // 
+                this.label_info_regla_validada_1.AutoSize = true;
+                this.label_info_regla_validada_1.Location = new System.Drawing.Point(12, 61);
+                this.label_info_regla_validada_1.Name = "label1";
+                this.label_info_regla_validada_1.Size = new System.Drawing.Size(66, 13);
+                this.label_info_regla_validada_1.TabIndex = 2;
+                this.label_info_regla_validada_1.Text = "Texto :";
+                // 
+                // textBox_inicial_info_regla_validada
+                // 
+                this.textBox_info_regla_validada.Location = new System.Drawing.Point(84, 58);
+                this.textBox_info_regla_validada.Name = "textBox_inicial_info_regla_validada";
+                this.textBox_info_regla_validada.Size = new System.Drawing.Size(413, 20);
+                this.textBox_info_regla_validada.TabIndex = 4;
+                // 
+                // label_tipo_info_regla_validada
+                // 
+                this.label_tipo_info_regla_validada.AutoSize = true;
+                this.label_tipo_info_regla_validada.Location = new System.Drawing.Point(81, 15);
+                this.label_tipo_info_regla_validada.Name = "label_tipo_info_regla_validada";
+                this.label_tipo_info_regla_validada.Size = new System.Drawing.Size(60, 13);
+                this.label_tipo_info_regla_validada.TabIndex = 6;
+                this.label_tipo_info_regla_validada.Text = "LOG_INFO_REGLA_VALIDADA";
+                // 
+                // label_info_regla_validada_3
+                // 
+                this.label_info_regla_validada_3.AutoSize = true;
+                this.label_info_regla_validada_3.Location = new System.Drawing.Point(15, 15);
+                this.label_info_regla_validada_3.Name = "label3";
+                this.label_info_regla_validada_3.Size = new System.Drawing.Size(48, 13);
+                this.label_info_regla_validada_3.TabIndex = 7;
+                this.label_info_regla_validada_3.Text = "Tipo log:";
+
+                //agregando a form
+                this.panel_interno_controles.Controls.Add(panel_info_regla_validada);
+            }
+
+
+
+            private System.Windows.Forms.Panel panel_info_regla_no_validada;
+            private System.Windows.Forms.Label label_info_regla_no_validada_3;
+            private System.Windows.Forms.Label label_tipo_info_regla_no_validada;
+            private System.Windows.Forms.TextBox textBox_info_regla_no_validada;
+            private System.Windows.Forms.Label label_info_regla_no_validada_1;
+            private System.Windows.Forms.CheckBox checkBox_info_regla_no_validada;
+
+            void inicializar_info_regla_no_validada()
+            {
+                this.panel_info_regla_no_validada = new System.Windows.Forms.Panel();
+                this.checkBox_info_regla_no_validada = new System.Windows.Forms.CheckBox();
+                this.label_info_regla_no_validada_1 = new System.Windows.Forms.Label();
+                this.textBox_info_regla_no_validada = new System.Windows.Forms.TextBox();
+                this.label_tipo_info_regla_no_validada = new System.Windows.Forms.Label();
+                this.label_info_regla_no_validada_3 = new System.Windows.Forms.Label();
+                this.panel_info_regla_no_validada.SuspendLayout();
+
+                // 
+                // panel_info_regla_no_validada
+                // 
+                this.panel_info_regla_no_validada.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+                this.panel_info_regla_no_validada.Controls.Add(this.label_info_regla_no_validada_3);
+                this.panel_info_regla_no_validada.Controls.Add(this.label_tipo_info_regla_no_validada);
+                this.panel_info_regla_no_validada.Controls.Add(this.textBox_info_regla_no_validada);
+                this.panel_info_regla_no_validada.Controls.Add(this.label_info_regla_no_validada_1);
+                this.panel_info_regla_no_validada.Controls.Add(this.checkBox_info_regla_no_validada);
+                this.panel_info_regla_no_validada.Location = new System.Drawing.Point(3, ultimo_y);
+                ultimo_y += 95;
+                this.panel_info_regla_no_validada.Name = "panel_info_regla_no_validada";
+                this.panel_info_regla_no_validada.Size = new System.Drawing.Size(550, 85);
+                this.panel_info_regla_no_validada.TabIndex = 0;
+                // 
+                // checkBox_info_regla_no_validada
+                // 
+                this.checkBox_info_regla_no_validada.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+                this.checkBox_info_regla_no_validada.Location = new System.Drawing.Point(15, 34);
+                this.checkBox_info_regla_no_validada.Name = "checkBox_info_regla_no_validada";
+                this.checkBox_info_regla_no_validada.Size = new System.Drawing.Size(81, 24);
+                this.checkBox_info_regla_no_validada.TabIndex = 0;
+                this.checkBox_info_regla_no_validada.Text = "Mostrar";
+                this.checkBox_info_regla_no_validada.UseVisualStyleBackColor = true;
+                // 
+                // label_info_regla_no_validada_1
+                // 
+                this.label_info_regla_no_validada_1.AutoSize = true;
+                this.label_info_regla_no_validada_1.Location = new System.Drawing.Point(12, 61);
+                this.label_info_regla_no_validada_1.Name = "label1";
+                this.label_info_regla_no_validada_1.Size = new System.Drawing.Size(66, 13);
+                this.label_info_regla_no_validada_1.TabIndex = 2;
+                this.label_info_regla_no_validada_1.Text = "Texto :";
+                // 
+                // textBox_inicial_info_regla_no_validada
+                // 
+                this.textBox_info_regla_no_validada.Location = new System.Drawing.Point(84, 58);
+                this.textBox_info_regla_no_validada.Name = "textBox_inicial_info_regla_no_validada";
+                this.textBox_info_regla_no_validada.Size = new System.Drawing.Size(413, 20);
+                this.textBox_info_regla_no_validada.TabIndex = 4;
+                // 
+                // label_tipo_info_regla_no_validada
+                // 
+                this.label_tipo_info_regla_no_validada.AutoSize = true;
+                this.label_tipo_info_regla_no_validada.Location = new System.Drawing.Point(81, 15);
+                this.label_tipo_info_regla_no_validada.Name = "label_tipo_info_regla_no_validada";
+                this.label_tipo_info_regla_no_validada.Size = new System.Drawing.Size(60, 13);
+                this.label_tipo_info_regla_no_validada.TabIndex = 6;
+                this.label_tipo_info_regla_no_validada.Text = "LOG_INFO_REGLA_NO_VALIDADA";
+                // 
+                // label_info_regla_no_validada_3
+                // 
+                this.label_info_regla_no_validada_3.AutoSize = true;
+                this.label_info_regla_no_validada_3.Location = new System.Drawing.Point(15, 15);
+                this.label_info_regla_no_validada_3.Name = "label3";
+                this.label_info_regla_no_validada_3.Size = new System.Drawing.Size(48, 13);
+                this.label_info_regla_no_validada_3.TabIndex = 7;
+                this.label_info_regla_no_validada_3.Text = "Tipo log:";
+
+                //agregando a form
+                this.panel_interno_controles.Controls.Add(panel_info_regla_no_validada);
+            }
+
+            private System.Windows.Forms.Panel panel_info_descartando_reglas_de_igual_consecuente;
+            private System.Windows.Forms.Label label_info_descartando_reglas_de_igual_consecuente_3;
+            private System.Windows.Forms.Label label_tipo_info_descartando_reglas_de_igual_consecuente;
+            private System.Windows.Forms.TextBox textBox_info_descartando_reglas_de_igual_consecuente;
+            private System.Windows.Forms.Label label_info_descartando_reglas_de_igual_consecuente_1;
+            private System.Windows.Forms.CheckBox checkBox_info_descartando_reglas_de_igual_consecuente;
+
+            void inicializar_info_descartando_reglas_de_igual_consecuente()
+            {
+                this.panel_info_descartando_reglas_de_igual_consecuente = new System.Windows.Forms.Panel();
+                this.checkBox_info_descartando_reglas_de_igual_consecuente = new System.Windows.Forms.CheckBox();
+                this.label_info_descartando_reglas_de_igual_consecuente_1 = new System.Windows.Forms.Label();
+                this.textBox_info_descartando_reglas_de_igual_consecuente = new System.Windows.Forms.TextBox();
+                this.label_tipo_info_descartando_reglas_de_igual_consecuente = new System.Windows.Forms.Label();
+                this.label_info_descartando_reglas_de_igual_consecuente_3 = new System.Windows.Forms.Label();
+                this.panel_info_descartando_reglas_de_igual_consecuente.SuspendLayout();
+
+                // 
+                // panel_info_descartando_reglas_de_igual_consecuente
+                // 
+                this.panel_info_descartando_reglas_de_igual_consecuente.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+                this.panel_info_descartando_reglas_de_igual_consecuente.Controls.Add(this.label_info_descartando_reglas_de_igual_consecuente_3);
+                this.panel_info_descartando_reglas_de_igual_consecuente.Controls.Add(this.label_tipo_info_descartando_reglas_de_igual_consecuente);
+                this.panel_info_descartando_reglas_de_igual_consecuente.Controls.Add(this.textBox_info_descartando_reglas_de_igual_consecuente);
+                this.panel_info_descartando_reglas_de_igual_consecuente.Controls.Add(this.label_info_descartando_reglas_de_igual_consecuente_1);
+                this.panel_info_descartando_reglas_de_igual_consecuente.Controls.Add(this.checkBox_info_descartando_reglas_de_igual_consecuente);
+                this.panel_info_descartando_reglas_de_igual_consecuente.Location = new System.Drawing.Point(3, ultimo_y);
+                ultimo_y += 95;
+                this.panel_info_descartando_reglas_de_igual_consecuente.Name = "panel_info_descartando_reglas_de_igual_consecuente";
+                this.panel_info_descartando_reglas_de_igual_consecuente.Size = new System.Drawing.Size(550, 85);
+                this.panel_info_descartando_reglas_de_igual_consecuente.TabIndex = 0;
+                // 
+                // checkBox_info_descartando_reglas_de_igual_consecuente
+                // 
+                this.checkBox_info_descartando_reglas_de_igual_consecuente.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+                this.checkBox_info_descartando_reglas_de_igual_consecuente.Location = new System.Drawing.Point(15, 34);
+                this.checkBox_info_descartando_reglas_de_igual_consecuente.Name = "checkBox_info_descartando_reglas_de_igual_consecuente";
+                this.checkBox_info_descartando_reglas_de_igual_consecuente.Size = new System.Drawing.Size(81, 24);
+                this.checkBox_info_descartando_reglas_de_igual_consecuente.TabIndex = 0;
+                this.checkBox_info_descartando_reglas_de_igual_consecuente.Text = "Mostrar";
+                this.checkBox_info_descartando_reglas_de_igual_consecuente.UseVisualStyleBackColor = true;
+                // 
+                // label_info_descartando_reglas_de_igual_consecuente_1
+                // 
+                this.label_info_descartando_reglas_de_igual_consecuente_1.AutoSize = true;
+                this.label_info_descartando_reglas_de_igual_consecuente_1.Location = new System.Drawing.Point(12, 61);
+                this.label_info_descartando_reglas_de_igual_consecuente_1.Name = "label1";
+                this.label_info_descartando_reglas_de_igual_consecuente_1.Size = new System.Drawing.Size(66, 13);
+                this.label_info_descartando_reglas_de_igual_consecuente_1.TabIndex = 2;
+                this.label_info_descartando_reglas_de_igual_consecuente_1.Text = "Texto :";
+                // 
+                // textBox_inicial_info_descartando_reglas_de_igual_consecuente
+                // 
+                this.textBox_info_descartando_reglas_de_igual_consecuente.Location = new System.Drawing.Point(84, 58);
+                this.textBox_info_descartando_reglas_de_igual_consecuente.Name = "textBox_inicial_info_descartando_reglas_de_igual_consecuente";
+                this.textBox_info_descartando_reglas_de_igual_consecuente.Size = new System.Drawing.Size(413, 20);
+                this.textBox_info_descartando_reglas_de_igual_consecuente.TabIndex = 4;
+                // 
+                // label_tipo_info_descartando_reglas_de_igual_consecuente
+                // 
+                this.label_tipo_info_descartando_reglas_de_igual_consecuente.AutoSize = true;
+                this.label_tipo_info_descartando_reglas_de_igual_consecuente.Location = new System.Drawing.Point(81, 15);
+                this.label_tipo_info_descartando_reglas_de_igual_consecuente.Name = "label_tipo_info_descartando_reglas_de_igual_consecuente";
+                this.label_tipo_info_descartando_reglas_de_igual_consecuente.Size = new System.Drawing.Size(60, 13);
+                this.label_tipo_info_descartando_reglas_de_igual_consecuente.TabIndex = 6;
+                this.label_tipo_info_descartando_reglas_de_igual_consecuente.Text = "LOG_INFO_DESCARTANDO_REGLAS_DE_IGUAL_CONSECUENTE";
+                // 
+                // label_info_descartando_reglas_de_igual_consecuente_3
+                // 
+                this.label_info_descartando_reglas_de_igual_consecuente_3.AutoSize = true;
+                this.label_info_descartando_reglas_de_igual_consecuente_3.Location = new System.Drawing.Point(15, 15);
+                this.label_info_descartando_reglas_de_igual_consecuente_3.Name = "label3";
+                this.label_info_descartando_reglas_de_igual_consecuente_3.Size = new System.Drawing.Size(48, 13);
+                this.label_info_descartando_reglas_de_igual_consecuente_3.TabIndex = 7;
+                this.label_info_descartando_reglas_de_igual_consecuente_3.Text = "Tipo log:";
+
+                //agregando a form
+                this.panel_interno_controles.Controls.Add(panel_info_descartando_reglas_de_igual_consecuente);
+            }
+
+
+            private System.Windows.Forms.Panel panel_info_problema_solucionado;
+            private System.Windows.Forms.Label label_info_problema_solucionado_3;
+            private System.Windows.Forms.Label label_tipo_info_problema_solucionado;
+            private System.Windows.Forms.TextBox textBox_info_problema_solucionado;
+            private System.Windows.Forms.Label label_info_problema_solucionado_1;
+            private System.Windows.Forms.CheckBox checkBox_info_problema_solucionado;
+
+            void inicializar_info_problema_solucionado()
+            {
+                this.panel_info_problema_solucionado = new System.Windows.Forms.Panel();
+                this.checkBox_info_problema_solucionado = new System.Windows.Forms.CheckBox();
+                this.label_info_problema_solucionado_1 = new System.Windows.Forms.Label();
+                this.textBox_info_problema_solucionado = new System.Windows.Forms.TextBox();
+                this.label_tipo_info_problema_solucionado = new System.Windows.Forms.Label();
+                this.label_info_problema_solucionado_3 = new System.Windows.Forms.Label();
+                this.panel_info_problema_solucionado.SuspendLayout();
+
+                // 
+                // panel_info_problema_solucionado
+                // 
+                this.panel_info_problema_solucionado.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+                this.panel_info_problema_solucionado.Controls.Add(this.label_info_problema_solucionado_3);
+                this.panel_info_problema_solucionado.Controls.Add(this.label_tipo_info_problema_solucionado);
+                this.panel_info_problema_solucionado.Controls.Add(this.textBox_info_problema_solucionado);
+                this.panel_info_problema_solucionado.Controls.Add(this.label_info_problema_solucionado_1);
+                this.panel_info_problema_solucionado.Controls.Add(this.checkBox_info_problema_solucionado);
+                this.panel_info_problema_solucionado.Location = new System.Drawing.Point(3, ultimo_y);
+                ultimo_y += 95;
+                this.panel_info_problema_solucionado.Name = "panel_info_problema_solucionado";
+                this.panel_info_problema_solucionado.Size = new System.Drawing.Size(550, 85);
+                this.panel_info_problema_solucionado.TabIndex = 0;
+                // 
+                // checkBox_info_problema_solucionado
+                // 
+                this.checkBox_info_problema_solucionado.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+                this.checkBox_info_problema_solucionado.Location = new System.Drawing.Point(15, 34);
+                this.checkBox_info_problema_solucionado.Name = "checkBox_info_problema_solucionado";
+                this.checkBox_info_problema_solucionado.Size = new System.Drawing.Size(81, 24);
+                this.checkBox_info_problema_solucionado.TabIndex = 0;
+                this.checkBox_info_problema_solucionado.Text = "Mostrar";
+                this.checkBox_info_problema_solucionado.UseVisualStyleBackColor = true;
+                // 
+                // label_info_problema_solucionado_1
+                // 
+                this.label_info_problema_solucionado_1.AutoSize = true;
+                this.label_info_problema_solucionado_1.Location = new System.Drawing.Point(12, 61);
+                this.label_info_problema_solucionado_1.Name = "label1";
+                this.label_info_problema_solucionado_1.Size = new System.Drawing.Size(66, 13);
+                this.label_info_problema_solucionado_1.TabIndex = 2;
+                this.label_info_problema_solucionado_1.Text = "Texto :";
+                // 
+                // textBox_inicial_info_problema_solucionado
+                // 
+                this.textBox_info_problema_solucionado.Location = new System.Drawing.Point(84, 58);
+                this.textBox_info_problema_solucionado.Name = "textBox_inicial_info_problema_solucionado";
+                this.textBox_info_problema_solucionado.Size = new System.Drawing.Size(413, 20);
+                this.textBox_info_problema_solucionado.TabIndex = 4;
+                // 
+                // label_tipo_info_problema_solucionado
+                // 
+                this.label_tipo_info_problema_solucionado.AutoSize = true;
+                this.label_tipo_info_problema_solucionado.Location = new System.Drawing.Point(81, 15);
+                this.label_tipo_info_problema_solucionado.Name = "label_tipo_info_problema_solucionado";
+                this.label_tipo_info_problema_solucionado.Size = new System.Drawing.Size(60, 13);
+                this.label_tipo_info_problema_solucionado.TabIndex = 6;
+                this.label_tipo_info_problema_solucionado.Text = "LOG_INFO_PROBLEMA_SOLUCIONADO";
+                // 
+                // label_info_problema_solucionado_3
+                // 
+                this.label_info_problema_solucionado_3.AutoSize = true;
+                this.label_info_problema_solucionado_3.Location = new System.Drawing.Point(15, 15);
+                this.label_info_problema_solucionado_3.Name = "label3";
+                this.label_info_problema_solucionado_3.Size = new System.Drawing.Size(48, 13);
+                this.label_info_problema_solucionado_3.TabIndex = 7;
+                this.label_info_problema_solucionado_3.Text = "Tipo log:";
+
+                //agregando a form
+                this.panel_interno_controles.Controls.Add(panel_info_problema_solucionado);
+            }
+
+            private System.Windows.Forms.Panel panel_info_problema_no_solucionado;
+            private System.Windows.Forms.Label label_info_problema_no_solucionado_3;
+            private System.Windows.Forms.Label label_tipo_info_problema_no_solucionado;
+            private System.Windows.Forms.TextBox textBox_info_problema_no_solucionado;
+            private System.Windows.Forms.Label label_info_problema_no_solucionado_1;
+            private System.Windows.Forms.CheckBox checkBox_info_problema_no_solucionado;
+
+            void inicializar_info_problema_no_solucionado()
+            {
+                this.panel_info_problema_no_solucionado = new System.Windows.Forms.Panel();
+                this.checkBox_info_problema_no_solucionado = new System.Windows.Forms.CheckBox();
+                this.label_info_problema_no_solucionado_1 = new System.Windows.Forms.Label();
+                this.textBox_info_problema_no_solucionado = new System.Windows.Forms.TextBox();
+                this.label_tipo_info_problema_no_solucionado = new System.Windows.Forms.Label();
+                this.label_info_problema_no_solucionado_3 = new System.Windows.Forms.Label();
+                this.panel_info_problema_no_solucionado.SuspendLayout();
+
+                // 
+                // panel_info_problema_no_solucionado
+                // 
+                this.panel_info_problema_no_solucionado.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+                this.panel_info_problema_no_solucionado.Controls.Add(this.label_info_problema_no_solucionado_3);
+                this.panel_info_problema_no_solucionado.Controls.Add(this.label_tipo_info_problema_no_solucionado);
+                this.panel_info_problema_no_solucionado.Controls.Add(this.textBox_info_problema_no_solucionado);
+                this.panel_info_problema_no_solucionado.Controls.Add(this.label_info_problema_no_solucionado_1);
+                this.panel_info_problema_no_solucionado.Controls.Add(this.checkBox_info_problema_no_solucionado);
+                this.panel_info_problema_no_solucionado.Location = new System.Drawing.Point(3, ultimo_y);
+                ultimo_y += 95;
+                this.panel_info_problema_no_solucionado.Name = "panel_info_problema_no_solucionado";
+                this.panel_info_problema_no_solucionado.Size = new System.Drawing.Size(550, 85);
+                this.panel_info_problema_no_solucionado.TabIndex = 0;
+                // 
+                // checkBox_info_problema_no_solucionado
+                // 
+                this.checkBox_info_problema_no_solucionado.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+                this.checkBox_info_problema_no_solucionado.Location = new System.Drawing.Point(15, 34);
+                this.checkBox_info_problema_no_solucionado.Name = "checkBox_info_problema_no_solucionado";
+                this.checkBox_info_problema_no_solucionado.Size = new System.Drawing.Size(81, 24);
+                this.checkBox_info_problema_no_solucionado.TabIndex = 0;
+                this.checkBox_info_problema_no_solucionado.Text = "Mostrar";
+                this.checkBox_info_problema_no_solucionado.UseVisualStyleBackColor = true;
+                // 
+                // label_info_problema_no_solucionado_1
+                // 
+                this.label_info_problema_no_solucionado_1.AutoSize = true;
+                this.label_info_problema_no_solucionado_1.Location = new System.Drawing.Point(12, 61);
+                this.label_info_problema_no_solucionado_1.Name = "label1";
+                this.label_info_problema_no_solucionado_1.Size = new System.Drawing.Size(66, 13);
+                this.label_info_problema_no_solucionado_1.TabIndex = 2;
+                this.label_info_problema_no_solucionado_1.Text = "Texto :";
+                // 
+                // textBox_inicial_info_problema_no_solucionado
+                // 
+                this.textBox_info_problema_no_solucionado.Location = new System.Drawing.Point(84, 58);
+                this.textBox_info_problema_no_solucionado.Name = "textBox_inicial_info_problema_no_solucionado";
+                this.textBox_info_problema_no_solucionado.Size = new System.Drawing.Size(413, 20);
+                this.textBox_info_problema_no_solucionado.TabIndex = 4;
+                // 
+                // label_tipo_info_problema_no_solucionado
+                // 
+                this.label_tipo_info_problema_no_solucionado.AutoSize = true;
+                this.label_tipo_info_problema_no_solucionado.Location = new System.Drawing.Point(81, 15);
+                this.label_tipo_info_problema_no_solucionado.Name = "label_tipo_info_problema_no_solucionado";
+                this.label_tipo_info_problema_no_solucionado.Size = new System.Drawing.Size(60, 13);
+                this.label_tipo_info_problema_no_solucionado.TabIndex = 6;
+                this.label_tipo_info_problema_no_solucionado.Text = "LOG_INFO_PROBLEMA_NO_SOLUCIONADO";
+                // 
+                // label_info_problema_no_solucionado_3
+                // 
+                this.label_info_problema_no_solucionado_3.AutoSize = true;
+                this.label_info_problema_no_solucionado_3.Location = new System.Drawing.Point(15, 15);
+                this.label_info_problema_no_solucionado_3.Name = "label3";
+                this.label_info_problema_no_solucionado_3.Size = new System.Drawing.Size(48, 13);
+                this.label_info_problema_no_solucionado_3.TabIndex = 7;
+                this.label_info_problema_no_solucionado_3.Text = "Tipo log:";
+
+                //agregando a form
+                this.panel_interno_controles.Controls.Add(panel_info_problema_no_solucionado);
+            }
+
+
+            private System.Windows.Forms.Panel panel_info_continuando_proceso;
+            private System.Windows.Forms.Label label_info_continuando_proceso_3;
+            private System.Windows.Forms.Label label_tipo_info_continuando_proceso;
+            private System.Windows.Forms.TextBox textBox_info_continuando_proceso;
+            private System.Windows.Forms.Label label_info_continuando_proceso_1;
+            private System.Windows.Forms.CheckBox checkBox_info_continuando_proceso;
+
+            void inicializar_info_continuando_proceso()
+            {
+                this.panel_info_continuando_proceso = new System.Windows.Forms.Panel();
+                this.checkBox_info_continuando_proceso = new System.Windows.Forms.CheckBox();
+                this.label_info_continuando_proceso_1 = new System.Windows.Forms.Label();
+                this.textBox_info_continuando_proceso = new System.Windows.Forms.TextBox();
+                this.label_tipo_info_continuando_proceso = new System.Windows.Forms.Label();
+                this.label_info_continuando_proceso_3 = new System.Windows.Forms.Label();
+                this.panel_info_continuando_proceso.SuspendLayout();
+
+                // 
+                // panel_info_continuando_proceso
+                // 
+                this.panel_info_continuando_proceso.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+                this.panel_info_continuando_proceso.Controls.Add(this.label_info_continuando_proceso_3);
+                this.panel_info_continuando_proceso.Controls.Add(this.label_tipo_info_continuando_proceso);
+                this.panel_info_continuando_proceso.Controls.Add(this.textBox_info_continuando_proceso);
+                this.panel_info_continuando_proceso.Controls.Add(this.label_info_continuando_proceso_1);
+                this.panel_info_continuando_proceso.Controls.Add(this.checkBox_info_continuando_proceso);
+                this.panel_info_continuando_proceso.Location = new System.Drawing.Point(3, ultimo_y);
+                ultimo_y += 95;
+                this.panel_info_continuando_proceso.Name = "panel_info_continuando_proceso";
+                this.panel_info_continuando_proceso.Size = new System.Drawing.Size(550, 85);
+                this.panel_info_continuando_proceso.TabIndex = 0;
+                // 
+                // checkBox_info_continuando_proceso
+                // 
+                this.checkBox_info_continuando_proceso.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+                this.checkBox_info_continuando_proceso.Location = new System.Drawing.Point(15, 34);
+                this.checkBox_info_continuando_proceso.Name = "checkBox_info_continuando_proceso";
+                this.checkBox_info_continuando_proceso.Size = new System.Drawing.Size(81, 24);
+                this.checkBox_info_continuando_proceso.TabIndex = 0;
+                this.checkBox_info_continuando_proceso.Text = "Mostrar";
+                this.checkBox_info_continuando_proceso.UseVisualStyleBackColor = true;
+                // 
+                // label_info_continuando_proceso_1
+                // 
+                this.label_info_continuando_proceso_1.AutoSize = true;
+                this.label_info_continuando_proceso_1.Location = new System.Drawing.Point(12, 61);
+                this.label_info_continuando_proceso_1.Name = "label1";
+                this.label_info_continuando_proceso_1.Size = new System.Drawing.Size(66, 13);
+                this.label_info_continuando_proceso_1.TabIndex = 2;
+                this.label_info_continuando_proceso_1.Text = "Texto :";
+                // 
+                // textBox_inicial_info_continuando_proceso
+                // 
+                this.textBox_info_continuando_proceso.Location = new System.Drawing.Point(84, 58);
+                this.textBox_info_continuando_proceso.Name = "textBox_inicial_info_continuando_proceso";
+                this.textBox_info_continuando_proceso.Size = new System.Drawing.Size(413, 20);
+                this.textBox_info_continuando_proceso.TabIndex = 4;
+                // 
+                // label_tipo_info_continuando_proceso
+                // 
+                this.label_tipo_info_continuando_proceso.AutoSize = true;
+                this.label_tipo_info_continuando_proceso.Location = new System.Drawing.Point(81, 15);
+                this.label_tipo_info_continuando_proceso.Name = "label_tipo_info_continuando_proceso";
+                this.label_tipo_info_continuando_proceso.Size = new System.Drawing.Size(60, 13);
+                this.label_tipo_info_continuando_proceso.TabIndex = 6;
+                this.label_tipo_info_continuando_proceso.Text = "LOG_INFO_CONTINUANDO_PROCESO";
+                // 
+                // label_info_continuando_proceso_3
+                // 
+                this.label_info_continuando_proceso_3.AutoSize = true;
+                this.label_info_continuando_proceso_3.Location = new System.Drawing.Point(15, 15);
+                this.label_info_continuando_proceso_3.Name = "label3";
+                this.label_info_continuando_proceso_3.Size = new System.Drawing.Size(48, 13);
+                this.label_info_continuando_proceso_3.TabIndex = 7;
+                this.label_info_continuando_proceso_3.Text = "Tipo log:";
+
+                //agregando a form
+                this.panel_interno_controles.Controls.Add(panel_info_continuando_proceso);
+            }
+
+
+            private System.Windows.Forms.Panel panel_proceso_detenido;
+            private System.Windows.Forms.Label label_proceso_detenido_3;
+            private System.Windows.Forms.Label label_tipo_proceso_detenido;
+            private System.Windows.Forms.TextBox textBox_info_proceso_detenido;
+            private System.Windows.Forms.Label label_proceso_detenido_1;
+            private System.Windows.Forms.CheckBox checkBox_info_proceso_detenido;
+
+            void inicializar_proceso_detenido()
+            {
+                this.panel_proceso_detenido = new System.Windows.Forms.Panel();
+                this.checkBox_info_proceso_detenido = new System.Windows.Forms.CheckBox();
+                this.label_proceso_detenido_1 = new System.Windows.Forms.Label();
+                this.textBox_info_proceso_detenido = new System.Windows.Forms.TextBox();
+                this.label_tipo_proceso_detenido = new System.Windows.Forms.Label();
+                this.label_proceso_detenido_3 = new System.Windows.Forms.Label();
+                this.panel_proceso_detenido.SuspendLayout();
+
+                // 
+                // panel_proceso_detenido
+                // 
+                this.panel_proceso_detenido.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+                this.panel_proceso_detenido.Controls.Add(this.label_proceso_detenido_3);
+                this.panel_proceso_detenido.Controls.Add(this.label_tipo_proceso_detenido);
+                this.panel_proceso_detenido.Controls.Add(this.textBox_info_proceso_detenido);
+                this.panel_proceso_detenido.Controls.Add(this.label_proceso_detenido_1);
+                this.panel_proceso_detenido.Controls.Add(this.checkBox_info_proceso_detenido);
+                this.panel_proceso_detenido.Location = new System.Drawing.Point(3, ultimo_y);
+                ultimo_y += 95;
+                this.panel_proceso_detenido.Name = "panel_proceso_detenido";
+                this.panel_proceso_detenido.Size = new System.Drawing.Size(550, 85);
+                this.panel_proceso_detenido.TabIndex = 0;
+                // 
+                // checkBox_proceso_detenido
+                // 
+                this.checkBox_info_proceso_detenido.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+                this.checkBox_info_proceso_detenido.Location = new System.Drawing.Point(15, 34);
+                this.checkBox_info_proceso_detenido.Name = "checkBox_proceso_detenido";
+                this.checkBox_info_proceso_detenido.Size = new System.Drawing.Size(81, 24);
+                this.checkBox_info_proceso_detenido.TabIndex = 0;
+                this.checkBox_info_proceso_detenido.Text = "Mostrar";
+                this.checkBox_info_proceso_detenido.UseVisualStyleBackColor = true;
+                // 
+                // label_proceso_detenido_1
+                // 
+                this.label_proceso_detenido_1.AutoSize = true;
+                this.label_proceso_detenido_1.Location = new System.Drawing.Point(12, 61);
+                this.label_proceso_detenido_1.Name = "label1";
+                this.label_proceso_detenido_1.Size = new System.Drawing.Size(66, 13);
+                this.label_proceso_detenido_1.TabIndex = 2;
+                this.label_proceso_detenido_1.Text = "Texto :";
+                // 
+                // textBox_inicial_proceso_detenido
+                // 
+                this.textBox_info_proceso_detenido.Location = new System.Drawing.Point(84, 58);
+                this.textBox_info_proceso_detenido.Name = "textBox_inicial_proceso_detenido";
+                this.textBox_info_proceso_detenido.Size = new System.Drawing.Size(413, 20);
+                this.textBox_info_proceso_detenido.TabIndex = 4;
+                // 
+                // label_tipo_proceso_detenido
+                // 
+                this.label_tipo_proceso_detenido.AutoSize = true;
+                this.label_tipo_proceso_detenido.Location = new System.Drawing.Point(81, 15);
+                this.label_tipo_proceso_detenido.Name = "label_tipo_proceso_detenido";
+                this.label_tipo_proceso_detenido.Size = new System.Drawing.Size(60, 13);
+                this.label_tipo_proceso_detenido.TabIndex = 6;
+                this.label_tipo_proceso_detenido.Text = "LOG_INFO_PROCESO_DETENIDO";
+                // 
+                // label_proceso_detenido_3
+                // 
+                this.label_proceso_detenido_3.AutoSize = true;
+                this.label_proceso_detenido_3.Location = new System.Drawing.Point(15, 15);
+                this.label_proceso_detenido_3.Name = "label3";
+                this.label_proceso_detenido_3.Size = new System.Drawing.Size(48, 13);
+                this.label_proceso_detenido_3.TabIndex = 7;
+                this.label_proceso_detenido_3.Text = "Tipo log:";
+
+                //agregando a form
+                this.panel_interno_controles.Controls.Add(panel_proceso_detenido);
+            }
+
+
+            private System.Windows.Forms.Panel panel_info_termino_inferencia_reglas_agotadas;
+            private System.Windows.Forms.Label label_info_termino_inferencia_reglas_agotadas_3;
+            private System.Windows.Forms.Label label_tipo_info_termino_inferencia_reglas_agotadas;
+            private System.Windows.Forms.TextBox textBox_info_termino_inferencia_reglas_agotadas;
+            private System.Windows.Forms.Label label_info_termino_inferencia_reglas_agotadas_1;
+            private System.Windows.Forms.CheckBox checkBox_info_termino_inferencia_reglas_agotadas;
+
+            void inicializar_info_termino_inferencia_reglas_agotadas()
+            {
+                this.panel_info_termino_inferencia_reglas_agotadas = new System.Windows.Forms.Panel();
+                this.checkBox_info_termino_inferencia_reglas_agotadas = new System.Windows.Forms.CheckBox();
+                this.label_info_termino_inferencia_reglas_agotadas_1 = new System.Windows.Forms.Label();
+                this.textBox_info_termino_inferencia_reglas_agotadas = new System.Windows.Forms.TextBox();
+                this.label_tipo_info_termino_inferencia_reglas_agotadas = new System.Windows.Forms.Label();
+                this.label_info_termino_inferencia_reglas_agotadas_3 = new System.Windows.Forms.Label();
+                this.panel_info_termino_inferencia_reglas_agotadas.SuspendLayout();
+
+                // 
+                // panel_info_termino_inferencia_reglas_agotadas
+                // 
+                this.panel_info_termino_inferencia_reglas_agotadas.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+                this.panel_info_termino_inferencia_reglas_agotadas.Controls.Add(this.label_info_termino_inferencia_reglas_agotadas_3);
+                this.panel_info_termino_inferencia_reglas_agotadas.Controls.Add(this.label_tipo_info_termino_inferencia_reglas_agotadas);
+                this.panel_info_termino_inferencia_reglas_agotadas.Controls.Add(this.textBox_info_termino_inferencia_reglas_agotadas);
+                this.panel_info_termino_inferencia_reglas_agotadas.Controls.Add(this.label_info_termino_inferencia_reglas_agotadas_1);
+                this.panel_info_termino_inferencia_reglas_agotadas.Controls.Add(this.checkBox_info_termino_inferencia_reglas_agotadas);
+                this.panel_info_termino_inferencia_reglas_agotadas.Location = new System.Drawing.Point(3, ultimo_y);
+                ultimo_y += 95;
+                this.panel_info_termino_inferencia_reglas_agotadas.Name = "panel_info_termino_inferencia_reglas_agotadas";
+                this.panel_info_termino_inferencia_reglas_agotadas.Size = new System.Drawing.Size(550, 85);
+                this.panel_info_termino_inferencia_reglas_agotadas.TabIndex = 0;
+                // 
+                // checkBox_info_termino_inferencia_reglas_agotadas
+                // 
+                this.checkBox_info_termino_inferencia_reglas_agotadas.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+                this.checkBox_info_termino_inferencia_reglas_agotadas.Location = new System.Drawing.Point(15, 34);
+                this.checkBox_info_termino_inferencia_reglas_agotadas.Name = "checkBox_info_termino_inferencia_reglas_agotadas";
+                this.checkBox_info_termino_inferencia_reglas_agotadas.Size = new System.Drawing.Size(81, 24);
+                this.checkBox_info_termino_inferencia_reglas_agotadas.TabIndex = 0;
+                this.checkBox_info_termino_inferencia_reglas_agotadas.Text = "Mostrar";
+                this.checkBox_info_termino_inferencia_reglas_agotadas.UseVisualStyleBackColor = true;
+                // 
+                // label_info_termino_inferencia_reglas_agotadas_1
+                // 
+                this.label_info_termino_inferencia_reglas_agotadas_1.AutoSize = true;
+                this.label_info_termino_inferencia_reglas_agotadas_1.Location = new System.Drawing.Point(12, 61);
+                this.label_info_termino_inferencia_reglas_agotadas_1.Name = "label1";
+                this.label_info_termino_inferencia_reglas_agotadas_1.Size = new System.Drawing.Size(66, 13);
+                this.label_info_termino_inferencia_reglas_agotadas_1.TabIndex = 2;
+                this.label_info_termino_inferencia_reglas_agotadas_1.Text = "Texto :";
+                // 
+                // textBox_inicial_info_termino_inferencia_reglas_agotadas
+                // 
+                this.textBox_info_termino_inferencia_reglas_agotadas.Location = new System.Drawing.Point(84, 58);
+                this.textBox_info_termino_inferencia_reglas_agotadas.Name = "textBox_inicial_info_termino_inferencia_reglas_agotadas";
+                this.textBox_info_termino_inferencia_reglas_agotadas.Size = new System.Drawing.Size(413, 20);
+                this.textBox_info_termino_inferencia_reglas_agotadas.TabIndex = 4;
+                // 
+                // label_tipo_info_termino_inferencia_reglas_agotadas
+                // 
+                this.label_tipo_info_termino_inferencia_reglas_agotadas.AutoSize = true;
+                this.label_tipo_info_termino_inferencia_reglas_agotadas.Location = new System.Drawing.Point(81, 15);
+                this.label_tipo_info_termino_inferencia_reglas_agotadas.Name = "label_tipo_info_termino_inferencia_reglas_agotadas";
+                this.label_tipo_info_termino_inferencia_reglas_agotadas.Size = new System.Drawing.Size(60, 13);
+                this.label_tipo_info_termino_inferencia_reglas_agotadas.TabIndex = 6;
+                this.label_tipo_info_termino_inferencia_reglas_agotadas.Text = "LOG_INFO_TERMINO_DE_INFERENCIA_REGLAS_AGOTADAS";
+                // 
+                // label_info_termino_inferencia_reglas_agotadas_3
+                // 
+                this.label_info_termino_inferencia_reglas_agotadas_3.AutoSize = true;
+                this.label_info_termino_inferencia_reglas_agotadas_3.Location = new System.Drawing.Point(15, 15);
+                this.label_info_termino_inferencia_reglas_agotadas_3.Name = "label3";
+                this.label_info_termino_inferencia_reglas_agotadas_3.Size = new System.Drawing.Size(48, 13);
+                this.label_info_termino_inferencia_reglas_agotadas_3.TabIndex = 7;
+                this.label_info_termino_inferencia_reglas_agotadas_3.Text = "Tipo log:";
+
+                //agregando a form
+                this.panel_interno_controles.Controls.Add(panel_info_termino_inferencia_reglas_agotadas);
+            }
     }
 }

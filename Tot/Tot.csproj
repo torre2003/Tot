@@ -86,6 +86,7 @@
     <Compile Include="FormVentanaPrincipal.Designer.cs">
       <DependentUpon>FormVentanaPrincipal.cs</DependentUpon>
     </Compile>
+    <Compile Include="GestionConfiguracionInternaTot.cs" />
     <Compile Include="GestionMotorInferencia.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

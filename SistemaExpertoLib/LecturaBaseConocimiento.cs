@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace SistemaExpertoLib.MotorDeInferencia
 {
+    [Serializable()]
     public class LecturaBaseConocimiento
     {
         AccesoDatos base_conocimiento;

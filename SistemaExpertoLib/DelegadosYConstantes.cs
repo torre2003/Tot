@@ -38,9 +38,9 @@ namespace SistemaExpertoLib.MotorDeInferencia
         public const int LOG_HECHO                                          = 102;
         public const int LOG_REGLA                                          = 103;
         public const int LOG_NIVEL_HECHO                                    = 104;
-        public const int LOG_ACCION_MOVER                                   = 105;
-        public const int LOG_ACCION_ELEGIDA_MEJOR_REGLA                     = 106;
-        public const int LOG_ACCION_CONSULTANDO_HECHOS                      = 107;
+        public const int LOG_ACCION_MOVER_HECHO                             = 105;
+        public const int LOG_ACCION_MOVER_REGLA                             = 106;
+        public const int LOG_ACCION_CONSULTANDO_HECHO                       = 107;
         public const int LOG_ACCION_HECHO_OBJETIVO_PRINCIPAL                = 108;
         public const int LOG_ACCION_HECHO_OBJETIVO_ACTUAL                   = 109;
         public const int LOG_ACCION_INGRESANDO_HECHO_A_PILA_OBJETIVOS       = 110;
@@ -48,7 +48,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
         public const int LOG_ACCION_VALIDANDO_REGLA                         = 112;
         public const int LOG_ACCION_INGRESANDO_A_VARIABLES_CONOCIDAS        = 113;
         public const int LOG_ACCION_PROCESANDO_RESPUESTA                    = 114;
-        public const int LOG_INFO_CONSULTANDO_HECHOS                        = 115;
+        public const int LOG_ACCION_ELEGIDA_MEJOR_REGLA                     = 115;
         public const int LOG_INFO_ANALIZANDO_HECHOS_INFERIDOS_REGLA         = 116;
         public const int LOG_INFO_REGLA_VALIDADA                            = 117;
         public const int LOG_INFO_REGLA_NO_VALIDADA                         = 118;
@@ -60,6 +60,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
         public const int LOG_INFO_TERMINO_DE_INFERENCIA_REGLAS_AGOTADAS     = 124;
         public const int LOG_INFO_SIN_REGLAS_PARA_INFERIR_HECHO             = 125;
         public const int LOG_INFO_VARIABLE_CONOCIDA                         = 126;
+        public const int LOG_INFO_CONSULTANDO_HECHOS                        = 127;
 
         /*   
         public const int LOG_REGLAS_DISPONIBLES                         = 110;
