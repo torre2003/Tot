@@ -65,6 +65,15 @@
     <Compile Include="FormVentanaConfiguracion.Designer.cs">
       <DependentUpon>FormVentanaConfiguracion.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormVentanaConfiguracionLogInferencia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormVentanaConfiguracionLogInferencia.Designer.cs">
+      <DependentUpon>FormVentanaConfiguracionLogInferencia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormVentanaConfiguracionLogInferencia2.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormVentanaGestiónBaseConocimiento.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +97,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormVentanaConfiguracion.resx">
       <DependentUpon>FormVentanaConfiguracion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormVentanaConfiguracionLogInferencia.resx">
+      <DependentUpon>FormVentanaConfiguracionLogInferencia.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormVentanaGestiónBaseConocimiento.resx">
       <DependentUpon>FormVentanaGestiónBaseConocimiento.cs</DependentUpon>

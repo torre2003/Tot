@@ -11,9 +11,15 @@ namespace SistemaExpertoLib.MotorDeInferencia
         AccesoDatos base_conocimiento;
         public bool existe_base_conocimiento
         {
-            get { return base_conocimiento._existe_base_conocimiento; }
+            get { return base_conocimiento.existe_base_conocimiento; }
         }
-        
+
+        public string ruta_base_conocimiento
+        {
+            get { return base_conocimiento.ruta_carpeta_archivos; }
+            set { base_conocimiento.ruta_carpeta_archivos = value; }
+        }
+
         public LecturaBaseConocimiento()
         {
             base_conocimiento = new AccesoDatos();

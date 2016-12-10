@@ -18,6 +18,16 @@ namespace Tot
         //**************************************************************************************
         
         public string ruta_base_conocimiento = "";
+        public ProcesadorLoggeoInferencia procesador_log_inferencia
+        {
+            set
+            {
+                _procesador_log_inferencia = value;
+                _procesador_log_inferencia.ruta_base_conocimiento = this.ruta_base_conocimiento;
+            }
+        }
+        ProcesadorLoggeoInferencia _procesador_log_inferencia = new ProcesadorLoggeoInferencia();
+        
         ControlPantallaInicial ventana_inicial = new ControlPantallaInicial();
         ControlSeleccionObjetivo ventana_selecion_de_objetivo = new ControlSeleccionObjetivo();
         ControlPreguntarVariable ventana_preguntar_variable = new ControlPreguntarVariable();
@@ -198,24 +208,26 @@ namespace Tot
             mostrarModuloDeJustificación();
         }
 
-
         /// <summary>
         /// Método para mostrar el modulo de justificación de la inferencia
         /// </summary>
         public void mostrarModuloDeJustificación()
         {
             dialogo = new FormDialogoPanel(ventana_justificacion);
+            List<string> log = new List<string>();
             if (tipo_de_encadenamiento == ENCADENAMIENTO_HACIA_ATRAS)
-                ventana_justificacion.mostrarLog(motor_atras.loggeo_inferencia);
+                log = motor_atras.loggeo_inferencia;
             else
-                ventana_justificacion.mostrarLog(motor_adelante.loggeo_inferencia);
+                log = motor_adelante.loggeo_inferencia;
+            for (int i = 0; i < log.Count; i++)
+                ventana_justificacion.agregarLineaLog(_procesador_log_inferencia.ProcesarLineaDeLoggeo(log[i]));
+               // ventana_justificacion.agregarLineaLog(log[i]);
             dialogo.FormClosing += dialogo_justificacion_FormClosing;
             ventana_justificacion.evento_guardar += ventana_justificacion_evento_guardar;
             ventana_justificacion.evento_ventana_lista += evento_ventana_respuesta_lista;
             dialogo.ShowDialog(ventana_padre);
             dialogo = null;
         }
-
 
         /// <summary>
         /// Método para realizar una pregunta de tipo si no cancelar

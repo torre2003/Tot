@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SistemaExpertoLib
 {
-    class ProcesadorLoggeoInferencia
+    public class ProcesadorLoggeoInferencia
     {
         //--------------------------------------------------------------------------------------------
         //     Atributos
@@ -26,6 +26,7 @@ namespace SistemaExpertoLib
         /// </summary>
         public const int FORMATO_SOLO_CONTENIDO = 3;
 
+        #region FORMATOS
         /// <summary>
         /// Obtiene o establece el formato con que se mostrar las variables al ser procesada, según constantes FORMATO
         /// (FORMATO_SOLO_ID , FORMATO_ID_MAS_CONTENIDO, FORMATO_SOLO_CONTENIDO)
@@ -79,106 +80,391 @@ namespace SistemaExpertoLib
             }
         }
         int _formato_reglas = FORMATO_SOLO_ID;
-
-
+        #endregion
+        #region TEXTOS
         //Textos a utilizar
 
+        /// <summary>
+        /// Obtiene o establece
+        /// texto log 
+        /// </summary>
         public string texto_reglas_disponibles { get; set; }
+        /// <summary>
+        /// Obtiene o establece
+        /// texto log 
+        /// </summary>
         public string texto_reglas_candidatas { get; set; }
+        /// <summary>
+        /// Obtiene o establece
+        /// texto log 
+        /// </summary>
         public string texto_reglas_eliminadas { get; set; }
+        /// <summary>
+        /// Obtiene o establece
+        /// texto log 
+        /// </summary>
         public string texto_hechos_disponibles { get; set; }
+        /// <summary>
+        /// Obtiene o establece
+        /// texto log 
+        /// </summary>
         public string texto_hechos_verdaderos { get; set; }
+        /// <summary>
+        /// Obtiene o establece
+        /// texto log 
+        /// </summary>
         public string texto_hechos_falsos { get; set; }
+        /// <summary>
+        /// Obtiene o establece
+        /// texto log 
+        /// </summary>
         public string texto_log_info { get; set; }
+        /// <summary>
+        /// Obtiene o establece
+        /// texto log 
+        /// </summary>
         public string texto_log_variable { get; set; }
+        /// <summary>
+        /// Obtiene o establece
+        /// texto log 
+        /// </summary>
         public string texto_log_hecho { get; set; }
+        /// <summary>
+        /// Obtiene o establece
+        /// texto log 
+        /// </summary>
         public string texto_log_regla { get; set; }
+        /// <summary>
+        /// Obtiene o establece
+        /// texto log 
+        /// </summary>
         public string texto_log_nivel_hecho { get; set; }
-        public string texto_inicial_log_accion_mover { get; set; }
-        public string texto_central_log_accion_mover { get; set; }
-        public string texto_inicial_log_accion_ingresando_a_variables_conocidas { get; set; }
-        public string texto_final_log_accion_ingresando_a_variables_conocidas { get; set; }
-        public string texto_log_accion_elegida_mejor_regla { get; set; }
-        public string texto_log_accion_consultando_hechos { get; set; }
-        public string texto_log_accion_ingresando_hecho_a_pila_objetivos { get; set; }
+        //-----------------------------------------------------------------------
         /// <summary>
+        /// Obtiene o establece
+        /// texto_inicial ATRIBUTO texto_central TIPO_LISTA texto_final TIPO_LISTA
+        /// </summary>
+        public string texto_log_accion_mover_inicial { get; set; }
+        /// <summary>
+        /// Obtiene o establece
+        /// texto_inicial ATRIBUTO texto_central TIPO_LISTA texto_final TIPO_LISTA
+        /// </summary>
+        public string texto_log_accion_mover_central { get; set; }
+        /// <summary>
+        /// Obtiene o establece
+        /// texto_inicial ATRIBUTO texto_central TIPO_LISTA texto_final TIPO_LISTA
+        /// </summary>
+        public string texto_log_accion_mover_final { get; set; }
+        //-----------------------------------------------------------------------
+        /// <summary>
+        /// Obtiene o establece
+        /// texto_inicial VARIABLE texto_final
+        /// </summary>
+        public string texto_log_accion_ingresando_a_variables_conocidas_inicial { get; set; }
+        /// <summary>
+        /// Obtiene o establece
+        /// texto_inicial VARIABLE texto_final
+        /// </summary>
+        public string texto_log_accion_ingresando_a_variables_conocidas_final { get; set; }
+        //-----------------------------------------------------------------------
+        /// <summary>
+        /// Obtiene o establece
+        /// texto_inicial REGLA texto_final
+        /// </summary>
+        public string texto_log_accion_elegida_mejor_regla_inicial { get; set; }
+        /// <summary>
+        /// Obtiene o establece
+        /// texto_inicial REGLA texto_final
+        /// </summary>
+        public string texto_log_accion_elegida_mejor_regla_final { get; set; }
+        //-----------------------------------------------------------------------
+        /// <summary>
+        /// Obtiene o establece
+        /// texto_inicial HECHO texto_final
+        /// </summary>
+        public string texto_log_accion_consultando_hechos_inicial { get; set; }
+        /// <summary>
+        /// Obtiene o establece
+        /// texto_inicial HECHO texto_final
+        /// </summary>
+        public string texto_log_accion_consultando_hechos_final { get; set; }
+        //-----------------------------------------------------------------------
+        /// <summary>
+        /// Obtiene o establece
+        /// texto_inicial HECHO texto_final
+        /// </summary>
+        public string texto_log_accion_ingresando_hecho_a_pila_objetivos_inicial { get; set; }
+        /// <summary>
+        /// Obtiene o establece
+        /// texto_inicial HECHO texto_final
+        /// </summary>
+        public string texto_log_accion_ingresando_hecho_a_pila_objetivos_final { get; set; }
+        //-----------------------------------------------------------------------
+        /// <summary>
+        /// Obtiene o establece
         /// texto_inicial HECHO texto final
         /// si mostrar nivel, se corre el texto con tabulaciones según le nivel
         /// </summary>
-        public string texto_inicial_log_accion_hecho_objetivo_actual { get; set; }
+        public string texto_log_accion_hecho_objetivo_principal_inicial { get; set; }
         /// <summary>
+        /// Obtiene o establece
         /// texto_inicial HECHO texto final
         /// si mostrar nivel, se corre el texto con tabulaciones según le nivel
         /// </summary>
-        public string texto_final_log_accion_hecho_objetivo_actual { get; set; }
-        public string texto_log_accion_quitando_hecho_de_pila_objetivos { get; set; }
+        public string texto_log_accion_hecho_objetivo_principal_final { get; set; }        
+        //-----------------------------------------------------------------------
         /// <summary>
+        /// Obtiene o establece
+        /// texto_inicial HECHO texto final
+        /// si mostrar nivel, se corre el texto con tabulaciones según le nivel
+        /// </summary>
+        public string texto_log_accion_hecho_objetivo_actual_inicial { get; set; }
+        /// <summary>
+        /// Obtiene o establece
+        /// texto_inicial HECHO texto final
+        /// si mostrar nivel, se corre el texto con tabulaciones según le nivel
+        /// </summary>
+        public string texto_log_accion_hecho_objetivo_actual_final { get; set; }
+        //-----------------------------------------------------------------------
+        /// <summary>
+        /// Obtiene o establece
+        /// texto_inicial HECHO texto_final
+        /// </summary>
+        public string texto_log_accion_quitando_hecho_de_pila_objetivos_inicial { get; set; }
+        /// <summary>
+        /// Obtiene o establece
+        /// texto_inicial HECHO texto_final
+        /// </summary>
+        public string texto_log_accion_quitando_hecho_de_pila_objetivos_final { get; set; }
+        //-----------------------------------------------------------------------
+        /// <summary>
+        /// Obtiene o establece
         /// texto_incial VARIABLE texto_medio VALOR
         /// </summary>
-        public string texto_inicial_log_accion_procesando_respuesta { get; set; }
+        public string texto_log_accion_procesando_respuesta_inicial { get; set; }
         /// <summary>
+        /// Obtiene o establece
         /// texto_incial VARIABLE texto_medio VALOR
         /// </summary>
-        public string texto_medio_log_accion_procesando_respuesta { get; set; }
-        public string texto_log_accion_validando_regla { get; set; }
-        public string texto_log_info_sin_reglas_para_inferir_hecho { get; set; }
+        public string texto_log_accion_procesando_respuesta_medio { get; set; }
+        //-----------------------------------------------------------------------
         /// <summary>
+        /// Obtiene o establece
+        /// texto_inicial REGLA texto_final
+        /// </summary>
+        public string texto_log_accion_validando_regla_inicial { get; set; }
+        /// <summary>
+        /// Obtiene o establece
+        /// texto_inicial REGLA texto_final
+        /// </summary>
+        public string texto_log_accion_validando_regla_final { get; set; }
+        //-----------------------------------------------------------------------
+        /// <summary>
+        /// Obtiene o establece
+        /// texto_inicial HECHO texto_final
+        /// </summary>
+        public string texto_log_info_sin_reglas_para_inferir_hecho_inicial { get; set; }
+        /// <summary>
+        /// Obtiene o establece
+        /// texto_inicial HECHO texto_final
+        /// </summary>
+        public string texto_log_info_sin_reglas_para_inferir_hecho_final { get; set; }
+        //-----------------------------------------------------------------------
+        /// <summary>
+        /// Obtiene o establece
         /// texto_inicial VARIABLE texto_final
         /// </summary>
-        public string texto_inicial_log_info_variable_conocida { get; set; }
+        public string texto_log_info_variable_conocida_inicial { get; set; }
         /// <summary>
+        /// Obtiene o establece
         /// texto_inicial VARIABLE texto_final
         /// </summary>
-        public string texto_final_log_info_variable_conocida { get; set; }
+        public string texto_log_info_variable_conocida_final { get; set; }
+        //-----------------------------------------------------------------------
+
+        /// <summary>
+        /// Obtiene o establece
+        /// texto log info info
+        /// </summary>
         public string texto_log_info_consultando_hechos { get; set; }
+        /// <summary>
+        /// Obtiene o establece
+        /// texto log info info
+        /// </summary>
         public string texto_log_info_analizando_hechos_inferidos_regla { get; set; }
+        /// <summary>
+        /// Obtiene o establece
+        /// texto log info info
+        /// </summary>
         public string texto_log_info_regla_validada { get; set; }
+        /// <summary>
+        /// Obtiene o establece
+        /// texto log info info
+        /// </summary>
         public string texto_log_info_regla_no_validada { get; set; }
+        /// <summary>
+        /// Obtiene o establece
+        /// texto log info info
+        /// </summary>
         public string texto_log_info_descartando_reglas_de_igual_consecuente { get; set; }
+        /// <summary>
+        /// Obtiene o establece
+        /// texto log info info
+        /// </summary>
         public string texto_log_info_problema_solucionado { get; set; }
+        /// <summary>
+        /// Obtiene o establece
+        /// texto log info info
+        /// </summary>
         public string texto_log_info_problema_no_solucionado { get; set; }
+        /// <summary>
+        /// Obtiene o establece
+        /// texto log info info
+        /// </summary>
         public string texto_log_info_continuando_proceso { get; set; }
+        /// <summary>
+        /// Obtiene o establece
+        /// texto log info info
+        /// </summary>
         public string texto_log_info_proceso_detenido { get; set; }
+        /// <summary>
+        /// Obtiene o establece
+        /// texto log info info
+        /// </summary>
         public string texto_log_info_termino_de_inferencia_reglas_agotadas { get; set; }
-
+        
+        #endregion 
         //Establece que información se muestra en el procesamiento 
-
+        #region MOSTRAR INFO
+        /// <summary>
+        /// Obtiene o establece si el tipo de loggeo debe mostrarse al procesarse
+        /// </summary>
         public bool mostrar_log_info { get; set; }
+        /// <summary>
+        /// Obtiene o establece si el tipo de loggeo debe mostrarse al procesarse
+        /// </summary>
         public bool mostrar_log_variable { get; set; }
+        /// <summary>
+        /// Obtiene o establece si el tipo de loggeo debe mostrarse al procesarse
+        /// </summary>
         public bool mostrar_log_hecho { get; set; }
+        /// <summary>
+        /// Obtiene o establece si el tipo de loggeo debe mostrarse al procesarse
+        /// </summary>
         public bool mostrar_log_regla { get; set; }
+        /// <summary>
+        /// Obtiene o establece si el tipo de loggeo debe mostrarse al procesarse
+        /// </summary>
         public bool mostrar_log_nivel_hecho { get; set; }
+        /// <summary>
+        /// Obtiene o establece si el tipo de loggeo debe mostrarse al procesarse
+        /// </summary>
         public bool mostrar_accion_mover { get; set; }
+        /// <summary>
+        /// Obtiene o establece si el tipo de loggeo debe mostrarse al procesarse
+        /// </summary>
         public bool mostrar_log_accion_ingresando_a_variables_conocidas { get; set; }
+        /// <summary>
+        /// Obtiene o establece si el tipo de loggeo debe mostrarse al procesarse
+        /// </summary>
         public bool mostrar_log_accion_elegida_mejor_regla { get; set; }
+        /// <summary>
+        /// Obtiene o establece si el tipo de loggeo debe mostrarse al procesarse
+        /// </summary>
         public bool mostrar_log_accion_consultando_hechos { get; set; }
+        /// <summary>
+        /// Obtiene o establece si el tipo de loggeo debe mostrarse al procesarse
+        /// </summary>
         public bool mostrar_log_accion_ingresando_hecho_a_pila_objetivos { get; set; }
+        /// <summary>
+        /// Obtiene o establece si el tipo de loggeo debe mostrarse al procesarse
+        /// </summary>
+        public bool mostrar_log_accion_hecho_objetivo_principal { get; set; }
+        /// <summary>
+        /// Obtiene o establece si el tipo de loggeo debe mostrarse al procesarse
+        /// </summary>
         public bool mostrar_log_accion_hecho_objetivo_actual { get; set; }
+        /// <summary>
+        /// Obtiene o establece si el tipo de loggeo debe mostrarse al procesarse
+        /// </summary>
         public bool mostrar_log_accion_quitando_hecho_de_pila_objetivos { get; set; }
+        /// <summary>
+        /// Obtiene o establece si el tipo de loggeo debe mostrarse al procesarse
+        /// </summary>
         public bool mostrar_log_accion_procesando_respuesta { get; set; }
+        /// <summary>
+        /// Obtiene o establece si el tipo de loggeo debe mostrarse al procesarse
+        /// </summary>
         public bool mostrar_log_accion_validando_regla { get; set; }
+        /// <summary>
+        /// Obtiene o establece si el tipo de loggeo debe mostrarse al procesarse
+        /// </summary>
         public bool mostrar_log_info_sin_reglas_para_inferir_hecho { get; set; }
+        /// <summary>
+        /// Obtiene o establece si el tipo de loggeo debe mostrarse al procesarse
+        /// </summary>
         public bool mostrar_log_info_variable_conocida { get; set; }
+        /// <summary>
+        /// Obtiene o establece si el tipo de loggeo debe mostrarse al procesarse
+        /// </summary>
         public bool mostrar_log_info_consultando_hechos { get; set; }
+        /// <summary>
+        /// Obtiene o establece si el tipo de loggeo debe mostrarse al procesarse
+        /// </summary>
         public bool mostrar_log_info_analizando_hechos_inferidos_regla { get; set; }
+        /// <summary>
+        /// Obtiene o establece si el tipo de loggeo debe mostrarse al procesarse
+        /// </summary>
         public bool mostrar_log_info_regla_validada { get; set; }
+        /// <summary>
+        /// Obtiene o establece si el tipo de loggeo debe mostrarse al procesarse
+        /// </summary>
         public bool mostrar_log_info_regla_no_validada { get; set; }
+        /// <summary>
+        /// Obtiene o establece si el tipo de loggeo debe mostrarse al procesarse
+        /// </summary>
         public bool mostrar_log_info_descartando_reglas_de_igual_consecuente { get; set; }
+        /// <summary>
+        /// Obtiene o establece si el tipo de loggeo debe mostrarse al procesarse
+        /// </summary>
         public bool mostrar_log_info_problema_solucionado { get; set; }
+        /// <summary>
+        /// Obtiene o establece si el tipo de loggeo debe mostrarse al procesarse
+        /// </summary>
         public bool mostrar_log_info_problema_no_solucionado { get; set; }
+        /// <summary>
+        /// Obtiene o establece si el tipo de loggeo debe mostrarse al procesarse
+        /// </summary>
         public bool mostrar_log_info_continuando_proceso { get; set; }
+        /// <summary>
+        /// Obtiene o establece si el tipo de loggeo debe mostrarse al procesarse
+        /// </summary>
         public bool mostrar_log_info_proceso_detenido { get; set; }
+        /// <summary>
+        /// Obtiene o establece si el tipo de loggeo debe mostrarse al procesarse
+        /// </summary>
         public bool mostrar_log_info_termino_de_inferencia_reglas_agotadas { get; set; }
-
-
+        #endregion
         public MotorDeInferencia.LecturaBaseConocimiento base_conocimiento;
 
-
+        /// <summary>
+        /// Ruta de la base conocimiento especificada
+        /// </summary>
+        public string ruta_base_conocimiento
+        {
+            get
+            {
+                return base_conocimiento.ruta_base_conocimiento;
+            }
+            set
+            {
+                base_conocimiento.ruta_base_conocimiento = value;
+            }
+        }
         //--------------------------------------------------------------------------------------------
         //     Métodos
         //--------------------------------------------------------------------------------------------
-
-
+        
         /// <summary>
         /// Constructor
         /// </summary>
@@ -199,8 +485,7 @@ namespace SistemaExpertoLib
             mostrarInfosPorDefecto();
             base_conocimiento = new MotorDeInferencia.LecturaBaseConocimiento(ruta_base_conocimiento);
         }
-
-
+        
         /// <summary>
         /// Método que establece los atributos texto a su valor por defecto.
         /// </summary>
@@ -219,32 +504,46 @@ namespace SistemaExpertoLib
             texto_log_regla = "Regla";
             texto_log_nivel_hecho = "Nivel";
             
-            texto_inicial_log_accion_mover = "Moviendo de ";
-            texto_central_log_accion_mover = " a ";
+            texto_log_accion_mover_inicial = "Moviendo ";
+            texto_log_accion_mover_central = " de ";
+            texto_log_accion_mover_final = "a";
             
-            texto_inicial_log_accion_ingresando_a_variables_conocidas = "Ingresando";
-            texto_final_log_accion_ingresando_a_variables_conocidas = "a variables conocidas";
+            texto_log_accion_ingresando_a_variables_conocidas_inicial = "Ingresando";
+            texto_log_accion_ingresando_a_variables_conocidas_final = "a variables conocidas";
 
-            texto_log_accion_elegida_mejor_regla = "Mejor regla: ";
-            texto_log_accion_consultando_hechos = "Consultando hecho";
-            texto_log_accion_ingresando_hecho_a_pila_objetivos = "Ingresando hecho a pila";
-            
-            texto_inicial_log_accion_hecho_objetivo_actual = "Se ha seleccionado el hecho";
-            texto_final_log_accion_hecho_objetivo_actual = "como objetivo actual";
-            
-            texto_log_accion_quitando_hecho_de_pila_objetivos = "Quitando objetivo de la pila";
+            texto_log_accion_elegida_mejor_regla_inicial = "";
+            texto_log_accion_elegida_mejor_regla_final   = "elegida mejor regla.";
 
-            texto_inicial_log_accion_procesando_respuesta = "Procesando respuesta variable ";
-            texto_medio_log_accion_procesando_respuesta = "valor = ";
+            texto_log_accion_consultando_hechos_inicial = "Consultando hecho";
+            texto_log_accion_consultando_hechos_final = "";
+            
+            texto_log_accion_ingresando_hecho_a_pila_objetivos_inicial = "Ingresando hecho";
+            texto_log_accion_ingresando_hecho_a_pila_objetivos_final = "a pila";
 
-            texto_log_accion_validando_regla = "Validando regla";
-            texto_log_info_sin_reglas_para_inferir_hecho = "Sin reglas para inferir hecho";
+            texto_log_accion_hecho_objetivo_principal_inicial = "Se ha seleccionado el hecho";
+            texto_log_accion_hecho_objetivo_principal_final = "como objetivo principal";
+
+            texto_log_accion_hecho_objetivo_actual_inicial = "Se ha seleccionado el hecho";
+            texto_log_accion_hecho_objetivo_actual_final = "como objetivo actual";
             
-            texto_inicial_log_info_variable_conocida = "Variable";
-            texto_final_log_info_variable_conocida = "conocida";
+            texto_log_accion_quitando_hecho_de_pila_objetivos_inicial   = "Quitando hecho";
+            texto_log_accion_quitando_hecho_de_pila_objetivos_final = " de la pila de objetivos";
+
+            texto_log_accion_procesando_respuesta_inicial = "Procesando respuesta variable ";
+            texto_log_accion_procesando_respuesta_medio = "valor = ";
+
+            texto_log_accion_validando_regla_inicial = "Validando la regla";
+            texto_log_accion_validando_regla_final   = "";
+
+
+            texto_log_info_sin_reglas_para_inferir_hecho_inicial = "Sin reglas para inferir hecho";
+            texto_log_info_sin_reglas_para_inferir_hecho_final = "";
+            
+            texto_log_info_variable_conocida_inicial = "Variable";
+            texto_log_info_variable_conocida_final = "conocida";
             
             
-            texto_log_info_consultando_hechos = "Consultando hecho";
+            texto_log_info_consultando_hechos = "Consultando hechos";
             texto_log_info_analizando_hechos_inferidos_regla = "Analizando hechos inferidos";
             texto_log_info_regla_validada = "La regla ha sido validada por el usuario ";
             texto_log_info_regla_no_validada = "La regla NO fue validada por el usuario";
@@ -272,6 +571,7 @@ namespace SistemaExpertoLib
             mostrar_log_accion_elegida_mejor_regla = true;
             mostrar_log_accion_consultando_hechos = true;
             mostrar_log_accion_ingresando_hecho_a_pila_objetivos = true;
+            mostrar_log_accion_hecho_objetivo_principal = true;
             mostrar_log_accion_hecho_objetivo_actual = true;
             mostrar_log_accion_quitando_hecho_de_pila_objetivos = true;
             mostrar_log_accion_procesando_respuesta = true;
@@ -290,8 +590,7 @@ namespace SistemaExpertoLib
             mostrar_log_info_termino_de_inferencia_reglas_agotadas = true;
 
         }
-
-
+        
         /// <summary>
         /// Método que procesa una linea de loggeo en base al formato establecido internamente en la inferencia
         /// </summary>
@@ -300,7 +599,6 @@ namespace SistemaExpertoLib
         public string ProcesarLineaDeLoggeo(string texto)
         {
             string[] log = texto.Split('|');
-            string retorno = "";
             int opcion = Int16.Parse(log[0]);
             if (mostrarInfo(opcion))//a1
             {
@@ -314,11 +612,11 @@ namespace SistemaExpertoLib
                             switch (opcion)
                             {
                                 case ConstantesShell.LOG_INFO_VARIABLE_CONOCIDA:
-                                    return texto_inicial_log_info_variable_conocida + " " + formatearAtributo(variable) + " " + texto_final_log_info_variable_conocida;
+                                    return texto_log_info_variable_conocida_inicial + " " + formatearAtributo(variable) + " " + texto_log_info_variable_conocida_final;
                                 case ConstantesShell.LOG_ACCION_PROCESANDO_RESPUESTA:
-                                    return texto_inicial_log_accion_procesando_respuesta + " " + formatearAtributo(variable) + " " + texto_medio_log_accion_procesando_respuesta + " " + log[3];
+                                    return texto_log_accion_procesando_respuesta_inicial + " " + formatearAtributo(variable) + " " + texto_log_accion_procesando_respuesta_medio + " " + log[3];
                                 case ConstantesShell.LOG_ACCION_INGRESANDO_A_VARIABLES_CONOCIDAS:
-                                    return texto_inicial_log_accion_ingresando_a_variables_conocidas + " " + formatearAtributo(variable) + " " + texto_final_log_accion_ingresando_a_variables_conocidas;
+                                    return texto_log_accion_ingresando_a_variables_conocidas_inicial + " " + formatearAtributo(variable) + " " + texto_log_accion_ingresando_a_variables_conocidas_final;
                             }
                         }
                         else
@@ -331,6 +629,8 @@ namespace SistemaExpertoLib
                         {
                             switch (opcion)
                             {
+                                case ConstantesShell.LOG_ACCION_HECHO_OBJETIVO_PRINCIPAL:
+                                    return texto_log_accion_hecho_objetivo_principal_inicial + " " + formatearAtributo(hecho) + " " + texto_log_accion_hecho_objetivo_principal_final;
                                 case ConstantesShell.LOG_ACCION_HECHO_OBJETIVO_ACTUAL:
                                     string nivel  = "";
                                     if (mostrar_log_nivel_hecho && log.Length > 4)
@@ -339,19 +639,70 @@ namespace SistemaExpertoLib
                                         for (int i = 0; i < numero; i++)
                                             nivel += "\t";
                                     }
-                                    return nivel + texto_inicial_log_accion_hecho_objetivo_actual + formatearAtributo(hecho) + texto_final_log_accion_hecho_objetivo_actual;
-                                case ConstantesShell.LOG_ACCION_PROCESANDO_RESPUESTA:
-                                    
-                                case ConstantesShell.LOG_ACCION_INGRESANDO_A_VARIABLES_CONOCIDAS:
-                                    
+                                    return nivel + texto_log_accion_hecho_objetivo_actual_inicial + " "+ formatearAtributo(hecho) + " "+ texto_log_accion_hecho_objetivo_actual_final;
+                                case ConstantesShell.LOG_ACCION_QUITANDO_HECHO_DE_PILA_OBJETIVOS:
+                                    return texto_log_accion_quitando_hecho_de_pila_objetivos_inicial + " "+ formatearAtributo(hecho) + " "+ texto_log_accion_quitando_hecho_de_pila_objetivos_final;
+                                case ConstantesShell.LOG_ACCION_MOVER:
+                                    return texto_log_accion_mover_inicial + " "+ formatearAtributo(hecho) + " "+ texto_log_accion_mover_central + " "+ nombreLista(log[3]) + " "+ texto_log_accion_mover_final + " "+ nombreLista(log[4]);
+                                case ConstantesShell.LOG_INFO_SIN_REGLAS_PARA_INFERIR_HECHO:
+                                    return texto_log_info_sin_reglas_para_inferir_hecho_inicial + " "+ formatearAtributo(hecho) + " "+ texto_log_info_sin_reglas_para_inferir_hecho_final;
+                                case ConstantesShell.LOG_ACCION_CONSULTANDO_HECHOS:
+                                    return texto_log_accion_consultando_hechos_inicial + " "+ formatearAtributo(hecho) + " "+ texto_log_accion_consultando_hechos_final;
+                                case ConstantesShell.LOG_ACCION_INGRESANDO_HECHO_A_PILA_OBJETIVOS:
+                                    return texto_log_accion_ingresando_hecho_a_pila_objetivos_inicial + " " + formatearAtributo(hecho) + " " + texto_log_accion_ingresando_hecho_a_pila_objetivos_final;
                             }
                         }
                         else
                             return null;
                         break;
                     case ConstantesShell.LOG_REGLA:
+                        Regla regla = base_conocimiento.leerRegla(log[1]);
+                        opcion = Int16.Parse(log[2]);
+                        if (mostrarInfo(opcion))
+                        {
+                            switch (opcion)
+                            {
+                                case ConstantesShell.LOG_ACCION_ELEGIDA_MEJOR_REGLA:
+                                    return texto_log_accion_elegida_mejor_regla_inicial + " " + formatearAtributo(regla) + " " + texto_log_accion_elegida_mejor_regla_final;
+                                case ConstantesShell.LOG_ACCION_MOVER:
+                                    return texto_log_accion_mover_inicial + " " + formatearAtributo(regla) + " " + texto_log_accion_mover_central + " " + nombreLista(log[3]) + " " + texto_log_accion_mover_final + " " + nombreLista(log[4]);
+                                case ConstantesShell.LOG_ACCION_VALIDANDO_REGLA:
+                                    return texto_log_accion_validando_regla_inicial + " " + formatearAtributo(regla) + " " + texto_log_accion_validando_regla_final;
+                            }
+                        }
+                        else
+                            return null;
                         break;
                     case  ConstantesShell.LOG_INFO:
+                        opcion = Int16.Parse(log[1]);
+                        if (mostrarInfo(opcion))
+                        {
+                            switch (opcion)
+                            {
+                                case ConstantesShell.LOG_INFO_CONSULTANDO_HECHOS:
+                                    return texto_log_info_consultando_hechos;
+                                case ConstantesShell.LOG_INFO_ANALIZANDO_HECHOS_INFERIDOS_REGLA:
+                                    return texto_log_info_analizando_hechos_inferidos_regla;
+                                case ConstantesShell.LOG_INFO_REGLA_VALIDADA:
+                                    return texto_log_info_regla_validada;
+                                case ConstantesShell.LOG_INFO_REGLA_NO_VALIDADA:
+                                    return texto_log_info_regla_no_validada;
+                                case ConstantesShell.LOG_INFO_DESCARTANDO_REGLAS_DE_IGUAL_CONSECUENTE:
+                                    return texto_log_info_descartando_reglas_de_igual_consecuente;
+                                case ConstantesShell.LOG_INFO_PROBLEMA_SOLUCIONADO:
+                                    return texto_log_info_problema_solucionado;
+                                case ConstantesShell.LOG_INFO_PROBLEMA_NO_SOLUCIONADO:
+                                    return texto_log_info_problema_no_solucionado;
+                                case ConstantesShell.LOG_INFO_CONTINUANDO_PROCESO:
+                                    return texto_log_info_continuando_proceso;
+                                case ConstantesShell.LOG_INFO_PROCESO_DETENIDO:
+                                    return texto_log_info_proceso_detenido;
+                                case ConstantesShell.LOG_INFO_TERMINO_DE_INFERENCIA_REGLAS_AGOTADAS:
+                                    return texto_log_info_termino_de_inferencia_reglas_agotadas;
+                            }
+                        }
+                        else
+                            return null;
                         break;
                 }
             }//a1
@@ -379,6 +730,7 @@ namespace SistemaExpertoLib
                 case ConstantesShell.LOG_ACCION_ELEGIDA_MEJOR_REGLA: return mostrar_log_accion_elegida_mejor_regla;
                 case ConstantesShell.LOG_ACCION_CONSULTANDO_HECHOS: return mostrar_log_info_consultando_hechos;
                 case ConstantesShell.LOG_ACCION_INGRESANDO_HECHO_A_PILA_OBJETIVOS: return mostrar_log_accion_ingresando_hecho_a_pila_objetivos;
+                case ConstantesShell.LOG_ACCION_HECHO_OBJETIVO_PRINCIPAL: return mostrar_log_accion_hecho_objetivo_principal;
                 case ConstantesShell.LOG_ACCION_HECHO_OBJETIVO_ACTUAL: return mostrar_log_accion_hecho_objetivo_actual;
                 case ConstantesShell.LOG_ACCION_QUITANDO_HECHO_DE_PILA_OBJETIVOS: return mostrar_log_accion_quitando_hecho_de_pila_objetivos;
                 case ConstantesShell.LOG_ACCION_PROCESANDO_RESPUESTA: return mostrar_log_accion_procesando_respuesta;
@@ -399,7 +751,41 @@ namespace SistemaExpertoLib
             }
             throw new System.ArgumentException("Opcion de loggeo invalida", "omitir info");
         }
-
+        
+        /// <summary>
+        /// Método que devuelve el nombre de la lista especificada según el codigo de loggeo
+        /// </summary>
+        /// <param name="texto_opcion">texto con el codigo</param>
+        /// <returns>nombre de la lista</returns>
+        private string nombreLista(string texto_opcion)
+        {
+            int opcion = Int16.Parse(texto_opcion);
+            return nombreLista(opcion);
+        }
+        /// <summary>
+        /// Método que devuelve el nombre de la lista especificada según el codigo de loggeo
+        /// </summary>
+        /// <param name="opcion">Número opcion del codigo</param>
+        /// <returns>nombre d ela lista</returns>
+        private string nombreLista(int opcion)
+        {
+            switch (opcion)
+	        {
+		        case ConstantesShell.REGLAS_DISPONIBLES:
+                    return texto_reglas_disponibles;
+                case ConstantesShell.REGLAS_CANDIDATAS:
+                    return texto_reglas_candidatas;
+                case ConstantesShell.REGLAS_ELIMINADAS:
+                    return texto_reglas_eliminadas;
+                case ConstantesShell.HECHOS_DISPONIBLES:
+                    return texto_hechos_disponibles;
+                case ConstantesShell.HECHOS_VERDADEROS:
+                    return texto_hechos_verdaderos;
+                case ConstantesShell.HECHOS_FALSOS:
+                    return texto_hechos_falsos;
+            }
+            throw new System.ArgumentException("Opcion invalida", "nombre lista");
+        }
 
         /// <summary>
         /// Método que formatea como se muestra la info del atributo

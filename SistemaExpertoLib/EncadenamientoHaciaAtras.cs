@@ -204,7 +204,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
         public string inicializarEncadenamiento()
         {
             string texto_retorno = "";
-            if (!base_conocimiento._existe_base_conocimiento)
+            if (!base_conocimiento.existe_base_conocimiento)
                 return "No existe la base de conocimiento";
 
             lista_reglas_disponibles = new List<InfoRegla>();
@@ -379,7 +379,8 @@ namespace SistemaExpertoLib.MotorDeInferencia
                 hecho_buscado = id_hecho,
                 nivel = 0
             });
-            agregarLog(id_hecho + ":OBJETIVO PRINCIPAL", 0);
+            //agregarLog(id_hecho + ":OBJETIVO PRINCIPAL", 0);
+            agregarLog(ConstantesShell.LOG_HECHO + "|" + id_hecho + "|" + ConstantesShell.LOG_ACCION_HECHO_OBJETIVO_PRINCIPAL);
             _hecho_objetivo_establecido = true;
         }
         #endregion  
@@ -469,7 +470,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
                                             procesarRespuestaVariable(hecho_actual.id_variable, respuesta);
                                             //agregamos al variable a variables conocidas
                                             lista_variables_conocidas.Add(hecho_actual.id_variable);
-                                            agregarLog(ConstantesShell.LOG_VARIABLE+"|"+hecho_actual.id_variable+"|"+ConstantesShell.LOG_ACCION_INGRESANDO_A_VARIABLES_CONOCIDAS)
+                                            agregarLog(ConstantesShell.LOG_VARIABLE + "|" + hecho_actual.id_variable + "|" + ConstantesShell.LOG_ACCION_INGRESANDO_A_VARIABLES_CONOCIDAS);
                                         }
                                         else
                                         {
@@ -547,7 +548,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
                                 actualizarReglasConHechoVerdaderoAntecedente(mejor_regla.id_hecho_consecuente, false);
                                 HechoPila pop = pila_hechos_a_verificar.Pop();//Eliminamos de la pila el hecho buscado
                                 //agregarLog("Quitando hecho de la pila: " + pop.hecho_buscado);
-                                agregarLog(ConstantesShell.LOG_HECHO + "|" + pila_hechos_a_verificar.Pop() + "|" + ConstantesShell.LOG_ACCION_QUITANDO_HECHO_DE_PILA_OBJETIVOS);
+                                agregarLog(ConstantesShell.LOG_HECHO + "|" + pop.hecho_buscado + "|" + ConstantesShell.LOG_ACCION_QUITANDO_HECHO_DE_PILA_OBJETIVOS);
                             }
                             else
                             if (respuesta_validacion_regla[0] == ConstantesShell.HECHO_DESCARTADO)//Si el hecho es no validado por el usuario
@@ -658,7 +659,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
             }
             base_conocimiento.actualizarVariable(variable);
             lista_variables_conocidas.Add(hecho.id_variable);
-            agregarLog(ConstantesShell.LOG_VARIABLE+"|"+hecho.id_variable+"|"+ConstantesShell.LOG_ACCION_INGRESANDO_A_VARIABLES_CONOCIDAS)
+            agregarLog(ConstantesShell.LOG_VARIABLE + "|" + hecho.id_variable + "|" + ConstantesShell.LOG_ACCION_INGRESANDO_A_VARIABLES_CONOCIDAS);
         }
 
 

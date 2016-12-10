@@ -33,7 +33,11 @@ namespace Tot
         //*******************************************************************************************
         public FormVentanaPrincipal()
         {
-            InitializeComponent(); 
+            InitializeComponent();
+
+            new FormVentanaConfiguracionLogInferencia().ShowDialog();
+            System.Environment.Exit(0);
+
             base_conocimiento = new GestionadorBaseConocimiento();
 
             ventana_configuracion = new FormVentanaConfiguracion(base_conocimiento);

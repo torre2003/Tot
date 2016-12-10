@@ -178,7 +178,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
         public string inicializarEncadenamiento()
         {
             string texto_retorno = "";
-            if (!base_conocimiento._existe_base_conocimiento)
+            if (!base_conocimiento.existe_base_conocimiento)
                 return "No existe la base de conocimiento";
 
             lista_reglas_disponibles = new List<InfoRegla>();
