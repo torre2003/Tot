@@ -73,6 +73,7 @@ namespace Tot
                 control_edicion_de_reglas.base_conocimiento = value;
                 _base_conocimiento = value;
             }
+            
         }
         GestionadorBaseConocimiento _base_conocimiento;
 

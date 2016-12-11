@@ -29,24 +29,33 @@
         private void InitializeComponent()
         {
             this.panel_externo_variable = new System.Windows.Forms.Panel();
+            this.panel_interno_variable = new System.Windows.Forms.Panel();
             this.label_pregunta_1 = new System.Windows.Forms.Label();
             this.label_pregunta_2 = new System.Windows.Forms.Label();
             this.label_titulo = new System.Windows.Forms.Label();
             this.panel_externo_estados = new System.Windows.Forms.Panel();
-            this.button_iniciar_inferencia = new System.Windows.Forms.Button();
-            this.panel_interno_variable = new System.Windows.Forms.Panel();
             this.panel_interno_estados = new System.Windows.Forms.Panel();
+            this.button_iniciar_inferencia = new System.Windows.Forms.Button();
             this.panel_externo_variable.SuspendLayout();
             this.panel_externo_estados.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel_externo_variable
             // 
+            this.panel_externo_variable.AutoScroll = true;
+            this.panel_externo_variable.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel_externo_variable.Controls.Add(this.panel_interno_variable);
             this.panel_externo_variable.Location = new System.Drawing.Point(45, 100);
             this.panel_externo_variable.Name = "panel_externo_variable";
             this.panel_externo_variable.Size = new System.Drawing.Size(500, 130);
             this.panel_externo_variable.TabIndex = 0;
+            // 
+            // panel_interno_variable
+            // 
+            this.panel_interno_variable.Location = new System.Drawing.Point(3, 3);
+            this.panel_interno_variable.Name = "panel_interno_variable";
+            this.panel_interno_variable.Size = new System.Drawing.Size(450, 78);
+            this.panel_interno_variable.TabIndex = 0;
             // 
             // label_pregunta_1
             // 
@@ -80,11 +89,20 @@
             // 
             // panel_externo_estados
             // 
+            this.panel_externo_estados.AutoScroll = true;
+            this.panel_externo_estados.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel_externo_estados.Controls.Add(this.panel_interno_estados);
             this.panel_externo_estados.Location = new System.Drawing.Point(45, 304);
             this.panel_externo_estados.Name = "panel_externo_estados";
             this.panel_externo_estados.Size = new System.Drawing.Size(500, 130);
             this.panel_externo_estados.TabIndex = 4;
+            // 
+            // panel_interno_estados
+            // 
+            this.panel_interno_estados.Location = new System.Drawing.Point(3, 4);
+            this.panel_interno_estados.Name = "panel_interno_estados";
+            this.panel_interno_estados.Size = new System.Drawing.Size(450, 80);
+            this.panel_interno_estados.TabIndex = 0;
             // 
             // button_iniciar_inferencia
             // 
@@ -95,20 +113,7 @@
             this.button_iniciar_inferencia.TabIndex = 5;
             this.button_iniciar_inferencia.Text = "Iniciar Inferencia";
             this.button_iniciar_inferencia.UseVisualStyleBackColor = true;
-            // 
-            // panel_interno_variable
-            // 
-            this.panel_interno_variable.Location = new System.Drawing.Point(3, 3);
-            this.panel_interno_variable.Name = "panel_interno_variable";
-            this.panel_interno_variable.Size = new System.Drawing.Size(494, 78);
-            this.panel_interno_variable.TabIndex = 0;
-            // 
-            // panel_interno_estados
-            // 
-            this.panel_interno_estados.Location = new System.Drawing.Point(3, 4);
-            this.panel_interno_estados.Name = "panel_interno_estados";
-            this.panel_interno_estados.Size = new System.Drawing.Size(494, 80);
-            this.panel_interno_estados.TabIndex = 0;
+            this.button_iniciar_inferencia.Click += new System.EventHandler(this.button_iniciar_inferencia_Click);
             // 
             // ControlSeleccionObjetivo
             // 

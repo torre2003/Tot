@@ -93,6 +93,14 @@ namespace SistemaExpertoLib
         string _condicion = null;
 
         /// <summary>
+        /// Valor booleano del hecho en la condición
+        /// </summary>
+        public bool valor_booleano
+        {
+            get { return _valor_booleano_hecho; }
+        }
+
+        /// <summary>
         /// Valor Lista del hecho en la condición
         /// </summary>
         public string valor_lista_hecho
@@ -107,7 +115,7 @@ namespace SistemaExpertoLib
         {
             get { return _valor_numerico_hecho; }
         }
-
+        
         /// <summary>
         /// Valor del hecho en la condicion
         /// </summary>
@@ -190,6 +198,7 @@ namespace SistemaExpertoLib
             this._tipo_variable = variable_hecho.tipo_variable;
             this._nombre_variable = variable_hecho.nombre_variable;
             this._hecho_preguntable_al_usuario = variable_hecho.variable_preguntable_al_usuario;
+            this._hecho_objetivo = variable_hecho.variable_objetivo;
         }
 
 
@@ -311,14 +320,37 @@ namespace SistemaExpertoLib
         }
 
 
-
+        /// <summary>
+        /// Método para evaluar el estado de un hecho
+        /// </summary>
+        /// <param name="estado_variable">estado de la variable a comparar en el hecho</param>
+        /// <returns>TRUE si la condición se cumple, FALSE en caso contrario. Exception si no corresponde al tipo de hecho</returns>
+        public bool evaluarHecho(object estado_variable)
+        {
+            string tipo_valor = estado_variable.GetType() + "";
+            if (tipo_valor.Equals("System.Boolean"))
+            {
+                return evaluarHechoBooleano((bool)estado_variable);
+            }
+            else
+            if (tipo_valor.Equals("System.String"))
+            {
+                return evaluarHechoLista((string)estado_variable);
+            }
+            else
+            if (tipo_valor.Equals("System.Double") || tipo_valor.Equals("System.Decimal"))
+            {
+                return evaluarHechoNumerico((double)estado_variable);
+            }
+            throw new System.ArgumentException("El tipo de estado variable no corresponde", "evaluarHecho");
+        }
 
         /// <summary>
         /// Metodo para evaluar tipo de hecho con variable booleana
         /// </summary>
         /// <param name="estado_variable">Estado de la variable a evaluar</param>
         /// <returns>TRUE si la condición se cumple, FALSE en caso contrario. Exception si no corresponde al tipo de hecho</returns>
-        public bool evaluarHechoBoleano(bool estado_variable)
+        public bool evaluarHechoBooleano(bool estado_variable)
         {
             if (this.condicion == null)
             {
@@ -356,7 +388,7 @@ namespace SistemaExpertoLib
         /// </summary>
         /// <param name="estado_variable">Estado de la variable a evaluar</param>
         /// <returns>TRUE si la condición se cumple, FALSE en caso contrario. Exception si no corresponde al tipo de hecho</returns>
-        public bool evaluarHechoNumerico(int estado_variable)
+        public bool evaluarHechoNumerico(double estado_variable)
         {
             if (this.condicion == null)
             {
@@ -438,9 +470,6 @@ namespace SistemaExpertoLib
         public void limpiarEstadoHechoParaInferencia ()
         {
             _estado_hecho = false;
-            _valor_booleano_hecho = false;
-            _valor_lista_hecho = "";
-            _valor_numerico_hecho = -999999;
             _hecho_evaluado = false;
 
         }
@@ -464,8 +493,8 @@ namespace SistemaExpertoLib
                 if (tipo_variable == NUMERICO)
                     retorno += " " + _valor_numerico_hecho;
                 else
-                    if (tipo_variable == LISTA)
-                        retorno += " " + _valor_lista_hecho;
+                if (tipo_variable == LISTA)
+                    retorno += " " + _valor_lista_hecho;
             }
             return retorno;
         }

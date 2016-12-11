@@ -95,6 +95,22 @@ namespace Tot
             control_gestion_variables.actualizarListaDeVariables();
         }
 
+        private void button_cheuquear_hechos_Click(object sender, EventArgs e)
+        {
+            string[] id_hechos = base_conocimiento.listarHechos();
+            for (int i = 0; i < id_hechos.Length; i++)
+            {
+                base_conocimiento.actualizarAtributosHecho(id_hechos[i]);
+            }
+            MessageBox.Show("Los hechos fueron chequeados", "Gestión base conocimiento", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void FormVentanaGestiónBaseConocimiento_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            this.Visible = false;
+        }
+
 
 
     }

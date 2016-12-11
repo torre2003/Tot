@@ -39,7 +39,7 @@ namespace SistemaExpertoLib
         /// <summary>
         /// ID del hecho consecuente de la regla
         /// </summary>
-        public string id_consecuente   { get {return consecuente.id_hecho;}}
+        public string id_hecho_consecuente   { get {return consecuente.id_hecho;}}
 
         /// <summary>
         /// Indica si la regla a sido validada por el usuario en el proceso de inferencia,
@@ -151,6 +151,7 @@ namespace SistemaExpertoLib
                 {
                     aux.estado_hecho = estado_hecho;
                     aux.hecho_establecido = true;
+                    antecedentes[i] = aux;
                     return;
                 }
             }
@@ -216,6 +217,20 @@ namespace SistemaExpertoLib
         }
 
         /// <summary>
+        /// Método que lista los hechos no establecidos de la regla
+        /// </summary>
+        /// <returns>Lista con la id de los hechos| null si no hay hechos no establecidos</returns>
+        public string[] listarAntecedentesNoEstablecidos()
+        {
+            List<string> retorno = new List<string>();
+            foreach (DatosHechos item in antecedentes)
+                if (!item.hecho_establecido)
+                    retorno.Add(item.id_hecho);
+            return retorno.Count == 0 ? null : retorno.ToArray();    
+        }
+
+
+        /// <summary>
         /// Método que limpia los atributos asociados al proceso de inferencia
         /// </summary>
         public void limpiarReglaParaInferencia()
@@ -227,6 +242,7 @@ namespace SistemaExpertoLib
                 DatosHechos aux = (DatosHechos)antecedentes[i];
                 aux.estado_hecho = false;
                 aux.hecho_establecido = false;
+                antecedentes[i] = aux;
             }
             _regla_validada = false;
         }
