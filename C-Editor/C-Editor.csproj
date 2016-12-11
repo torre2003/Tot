@@ -60,19 +60,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entidad.cs" />
-    <Compile Include="EntidadContinua.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Visualizador.cs">
+    <Compile Include="C-Editor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Visualizador.Designer.cs">
-      <DependentUpon>Visualizador.cs</DependentUpon>
+    <Compile Include="C-Editor.Designer.cs">
+      <DependentUpon>C-Editor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="lib\Microsoft.Msagl.dll" />
+    <None Include="lib\Microsoft.Msagl.Drawing.dll" />
+    <None Include="lib\Microsoft.Msagl.GraphViewerGdi.dll" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Visualizador.resx">
-      <DependentUpon>Visualizador.cs</DependentUpon>
+    <EmbeddedResource Include="C-Editor.resx">
+      <DependentUpon>C-Editor.Designer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

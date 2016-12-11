@@ -1,43 +1,40 @@
 ﻿/*
  * Creado por SharpDevelop.
  * Usuario: ${Ivan Araya}
- * Fecha: 06-11-2016
- * Hora: 2:33
+ * Fecha: 24-11-2016
+ * Hora: 23:31
  * 
  * Para cambiar esta plantilla use Herramientas | Opciones | Codificación | Editar Encabezados Estándar
  */
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace CEditor
+namespace C_Editor_Test
 {
 	/// <summary>
-	/// Visualizador de las reglas en formato grafico
+	/// Description of MainForm.
 	/// </summary>
-	public partial class Visualizador : UserControl
+	public partial class MainForm : Form
 	{
-		
-		public int Propiedad{get;set;}
-		
-		public Visualizador()
+		public MainForm()
 		{
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
 			//
 			InitializeComponent();
 			
-			//
-			// TODO: Add constructor code after the InitializeComponent() call.
-			//
+			c_Editor1.NombreContexto = "variable 1" ;
+			//c_Editor1.AgregarVariable("variable 1");
+	
+			
+			//c_Editor1.dibujar();
 		}
-		/// <summary>
-		/// Grafica las reglas.
-		/// </summary>
-		public void Graficar(){
-		
+		void C_Editor1Changed(object sender, EventArgs e)
+		{
+	
 		}
+
 	}
 }

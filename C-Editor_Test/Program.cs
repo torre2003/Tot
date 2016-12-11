@@ -1,15 +1,15 @@
 ﻿/*
  * Creado por SharpDevelop.
  * Usuario: ${Ivan Araya}
- * Fecha: 08-11-2016
- * Hora: 2:41
+ * Fecha: 24-11-2016
+ * Hora: 23:31
  * 
  * Para cambiar esta plantilla use Herramientas | Opciones | Codificación | Editar Encabezados Estándar
  */
 using System;
 using System.Windows.Forms;
 
-namespace Test_C_Editor
+namespace C_Editor_Test
 {
 	/// <summary>
 	/// Class with program entry point.

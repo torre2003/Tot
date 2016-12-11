@@ -1,12 +1,12 @@
 ﻿/*
  * Creado por SharpDevelop.
  * Usuario: ${Ivan Araya}
- * Fecha: 08-11-2016
- * Hora: 2:41
+ * Fecha: 24-11-2016
+ * Hora: 23:31
  * 
  * Para cambiar esta plantilla use Herramientas | Opciones | Codificación | Editar Encabezados Estándar
  */
-namespace Test_C_Editor
+namespace C_Editor_Test
 {
 	partial class MainForm
 	{
@@ -14,7 +14,7 @@ namespace Test_C_Editor
 		/// Designer variable used to keep track of non-visual components.
 		/// </summary>
 		private System.ComponentModel.IContainer components = null;
-		private CEditor.Visualizador visualizador1;
+		private CEditor.C_Editor c_Editor1;
 		
 		/// <summary>
 		/// Disposes resources used by the form.
@@ -37,25 +37,28 @@ namespace Test_C_Editor
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.visualizador1 = new CEditor.Visualizador();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+			this.c_Editor1 = new CEditor.C_Editor();
 			this.SuspendLayout();
 			// 
-			// visualizador1
+			// c_Editor1
 			// 
-			this.visualizador1.Location = new System.Drawing.Point(26, 23);
-			this.visualizador1.Name = "visualizador1";
-			this.visualizador1.Propiedad = 0;
-			this.visualizador1.Size = new System.Drawing.Size(484, 386);
-			this.visualizador1.TabIndex = 0;
+			this.c_Editor1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.c_Editor1.Location = new System.Drawing.Point(0, 0);
+			this.c_Editor1.Name = "c_Editor1";
+			this.c_Editor1.RutaCache = "\\cache\\";
+			this.c_Editor1.Size = new System.Drawing.Size(761, 480);
+			this.c_Editor1.TabIndex = 0;
+			this.c_Editor1.Changed += new CEditor.EventHandler(this.C_Editor1Changed);
 			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(795, 457);
-			this.Controls.Add(this.visualizador1);
+			this.ClientSize = new System.Drawing.Size(761, 480);
+			this.Controls.Add(this.c_Editor1);
 			this.Name = "MainForm";
-			this.Text = "Test_C-Editor";
+			this.Text = "C-Editor_Test";
 			this.ResumeLayout(false);
 
 		}
