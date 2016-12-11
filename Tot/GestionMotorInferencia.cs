@@ -4,6 +4,7 @@ using SistemaExpertoLib.MotorDeInferencia;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -220,7 +221,12 @@ namespace Tot
             else
                 log = motor_adelante.loggeo_inferencia;
             for (int i = 0; i < log.Count; i++)
-                ventana_justificacion.agregarLineaLog(_procesador_log_inferencia.ProcesarLineaDeLoggeo(log[i]));
+            {
+                string texto = _procesador_log_inferencia.ProcesarLineaDeLoggeo(log[i]);
+                if (texto != null)
+                    ventana_justificacion.agregarLineaLog(texto);
+            }
+                
                // ventana_justificacion.agregarLineaLog(log[i]);
             dialogo.FormClosing += dialogo_justificacion_FormClosing;
             ventana_justificacion.evento_guardar += ventana_justificacion_evento_guardar;
@@ -229,6 +235,105 @@ namespace Tot
             dialogo = null;
         }
 
+
+        public bool escribirLogEnArchivo(List<string> log, ProcesadorLoggeoInferencia procesador, bool guardar_variables,bool guardar_hechos, bool guardar_reglas, string ruta_archivo)
+        {
+            StringBuilder texto_archivo = new StringBuilder();
+            for (int i = 0; i < log.Count; i++)
+            {
+                string linea_log = procesador.ProcesarLineaDeLoggeo(log[i]);
+                if (linea_log != null)
+                    texto_archivo.AppendLine(linea_log);
+            }
+            if (guardar_reglas)
+            {
+                texto_archivo.AppendLine("");
+                texto_archivo.AppendLine("");
+                texto_archivo.AppendLine("-----------------------------------------------------");
+                texto_archivo.AppendLine("-----------   Reglas     ----------------------------");
+                texto_archivo.AppendLine("-----------------------------------------------------");
+                string[] lista_de_reglas = base_conocimiento.listarReglas();
+                for (int i = 0; i < lista_de_reglas.Length; i++)
+                {
+                    Regla regla = base_conocimiento.leerRegla(lista_de_reglas[i]);
+                    texto_archivo.AppendLine("ID " + regla.id_regla + " | " + regla);
+                }
+            }
+            if (guardar_hechos)
+            {
+                texto_archivo.AppendLine("");
+                texto_archivo.AppendLine("");
+                texto_archivo.AppendLine("-----------------------------------------------------");
+                texto_archivo.AppendLine("-----------  Hechos      ----------------------------");
+                texto_archivo.AppendLine("-----------------------------------------------------");
+                string[] lista_de_hechos = base_conocimiento.listarHechos();
+                for (int i = 0; i < lista_de_hechos.Length; i++)
+                {
+                    Hecho hecho = base_conocimiento.leerHecho(lista_de_hechos[i]);
+                    texto_archivo.AppendLine("ID " + hecho.id_hecho + "  (ID variable " + hecho.id_variable + ") | " + hecho);
+                }
+            }
+            if (guardar_variables)
+            {
+                texto_archivo.AppendLine("");
+                texto_archivo.AppendLine("");
+                texto_archivo.AppendLine("-----------------------------------------------------");
+                texto_archivo.AppendLine("-----------  Variables   ----------------------------");
+                texto_archivo.AppendLine("-----------------------------------------------------");
+                string[] lista_de_variables = base_conocimiento.listarVariables();
+                for (int i = 0; i < lista_de_variables.Length; i++)
+                    texto_archivo.AppendLine(extraerDetalleVariable(base_conocimiento.leerVariable(lista_de_variables[i])));
+            }
+            return generarArchivoDeTexto(texto_archivo, ruta_archivo);
+        }
+
+        public string extraerDetalleVariable(Variable variable)
+        {
+            string texto_retorno = "ID: " + variable.id_variable + " | Nombre : " + variable.nombre_variable;
+            switch (variable.tipo_variable)
+            {
+                case Variable.BOOLEANO:
+                    texto_retorno += " | Tipo: BOOLEANO";
+                    break;
+                case Variable.NUMERICO:
+                    texto_retorno += " | Tipo: NUMERICO";
+                    if (variable.cardinal)
+                        texto_retorno += "-CARDINAL";
+                    else
+                        texto_retorno += "-REAL";
+                    if (variable.rango_limitado)
+                        texto_retorno += " | Rango [  "+variable.rango_limite_inferior+" : "+variable.rango_limite_superior+"  ]";
+                    break;
+                case Variable.LISTA:
+                    texto_retorno += " | Tipo: LISTA";
+                    string[] opciones = variable.listarOpciones();
+                    texto_retorno += " | Opciones:  ";
+                    for (int i = 0; i < opciones.Length; i++)
+                    {
+                        if (i!=0)
+                            texto_retorno += " , ";
+                        texto_retorno += opciones[i];
+                    }
+                    break;
+            }
+            return texto_retorno;
+        }
+
+
+
+        public bool generarArchivoDeTexto(StringBuilder texto, string full_path_destino)
+        {
+            if (File.Exists(full_path_destino))
+                File.Delete(full_path_destino);
+            using (StreamWriter stream_writer = new StreamWriter(full_path_destino, false))
+            {
+                stream_writer.Write(texto);
+                stream_writer.Close();
+            }
+            if (File.Exists(full_path_destino))
+                return true;
+            return false;
+        }
         /// <summary>
         /// Método para realizar una pregunta de tipo si no cancelar
         /// </summary>
@@ -371,8 +476,24 @@ namespace Tot
 
         void ventana_justificacion_evento_guardar()
         {
-            //todo implementar gguardar justificacion
-            MessageBox.Show("implementar");
+            FormVentanaGuardarLog ventana_guardar_log = new FormVentanaGuardarLog();
+            ventana_guardar_log.ShowDialog(ventana_padre);
+            if (ventana_guardar_log.DialogResult == DialogResult.OK)
+            {
+                if (ventana_guardar_log.tipo_de_guardado == FormVentanaGuardarLog.GUARDADO_COMPLETO)
+                    _procesador_log_inferencia.mostrarInfosPorDefecto();
+                List<string> log = new List<string>();
+                if (tipo_de_encadenamiento == ENCADENAMIENTO_HACIA_ATRAS)
+                    log = motor_atras.loggeo_inferencia;
+                else
+                    log = motor_adelante.loggeo_inferencia;
+                bool flag = escribirLogEnArchivo(log, _procesador_log_inferencia, ventana_guardar_log.guardar_variables, ventana_guardar_log.guardar_hechos, ventana_guardar_log.guardar_reglas, ventana_guardar_log.ruta_guardado);
+                if (flag)
+                    MessageBox.Show("El archivo ha sido guardado satisfactoriamente.", "Guardando Log de inferencia", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else
+                    MessageBox.Show("Problemas con la creación del archivo", "Guardando Log de inferencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
     }
 }

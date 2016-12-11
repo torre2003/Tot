@@ -32,20 +32,20 @@
             this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuevaBaseDeConocimientoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configuraciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.configuraciónLogInferenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.ToolStripMenuItemimportarBaseDeConocimiento = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemexportarBaseDeConocimiento = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.ToolStripMenuItem_salir = new System.Windows.Forms.ToolStripMenuItem();
             this.gestiónDelConocimientoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem_editor_base_conocimiento = new System.Windows.Forms.ToolStripMenuItem();
+            this.configuraciónBaseDeConocimientoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.motorDeInferenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.iniciarInferenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.configuraciónLogDeInferenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog_importar = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog_exportar = new System.Windows.Forms.SaveFileDialog();
-            this.configuraciónLogInferenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.configuraciónBaseDeConocimientoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.configuraciónLogDeInferenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -91,6 +91,14 @@
             this.configuraciónToolStripMenuItem.Visible = false;
             this.configuraciónToolStripMenuItem.Click += new System.EventHandler(this.configuraciónToolStripMenuItem_Click);
             // 
+            // configuraciónLogInferenciaToolStripMenuItem
+            // 
+            this.configuraciónLogInferenciaToolStripMenuItem.Name = "configuraciónLogInferenciaToolStripMenuItem";
+            this.configuraciónLogInferenciaToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
+            this.configuraciónLogInferenciaToolStripMenuItem.Text = "Configuración log inferencia";
+            this.configuraciónLogInferenciaToolStripMenuItem.Visible = false;
+            this.configuraciónLogInferenciaToolStripMenuItem.Click += new System.EventHandler(this.configuraciónLogInferenciaToolStripMenuItem_Click);
+            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
@@ -109,6 +117,11 @@
             this.ToolStripMenuItemexportarBaseDeConocimiento.Size = new System.Drawing.Size(270, 22);
             this.ToolStripMenuItemexportarBaseDeConocimiento.Text = "Exportar base de conocimiento";
             this.ToolStripMenuItemexportarBaseDeConocimiento.Click += new System.EventHandler(this.ToolStripMenuItemexportarBaseDeConocimiento_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(267, 6);
             // 
             // ToolStripMenuItem_salir
             // 
@@ -133,6 +146,13 @@
             this.ToolStripMenuItem_editor_base_conocimiento.Text = "Editar base conocimiento";
             this.ToolStripMenuItem_editor_base_conocimiento.Click += new System.EventHandler(this.ToolStripMenuItem_editor_base_conocimiento_Click);
             // 
+            // configuraciónBaseDeConocimientoToolStripMenuItem
+            // 
+            this.configuraciónBaseDeConocimientoToolStripMenuItem.Name = "configuraciónBaseDeConocimientoToolStripMenuItem";
+            this.configuraciónBaseDeConocimientoToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
+            this.configuraciónBaseDeConocimientoToolStripMenuItem.Text = "Configuración base de conocimiento";
+            this.configuraciónBaseDeConocimientoToolStripMenuItem.Click += new System.EventHandler(this.configuraciónToolStripMenuItem_Click);
+            // 
             // motorDeInferenciaToolStripMenuItem
             // 
             this.motorDeInferenciaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -145,38 +165,9 @@
             // iniciarInferenciaToolStripMenuItem
             // 
             this.iniciarInferenciaToolStripMenuItem.Name = "iniciarInferenciaToolStripMenuItem";
-            this.iniciarInferenciaToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.iniciarInferenciaToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
             this.iniciarInferenciaToolStripMenuItem.Text = "Iniciar inferencia";
             this.iniciarInferenciaToolStripMenuItem.Click += new System.EventHandler(this.iniciarInferenciaToolStripMenuItem_Click);
-            // 
-            // openFileDialog_importar
-            // 
-            this.openFileDialog_importar.InitialDirectory = "Environment.SpecialFolder.Desktop";
-            // 
-            // saveFileDialog_exportar
-            // 
-            this.saveFileDialog_exportar.DefaultExt = "Tot";
-            this.saveFileDialog_exportar.Filter = "Base de conocimiento|*.Tot;";
-            // 
-            // configuraciónLogInferenciaToolStripMenuItem
-            // 
-            this.configuraciónLogInferenciaToolStripMenuItem.Name = "configuraciónLogInferenciaToolStripMenuItem";
-            this.configuraciónLogInferenciaToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
-            this.configuraciónLogInferenciaToolStripMenuItem.Text = "Configuración log inferencia";
-            this.configuraciónLogInferenciaToolStripMenuItem.Visible = false;
-            this.configuraciónLogInferenciaToolStripMenuItem.Click += new System.EventHandler(this.configuraciónLogInferenciaToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(267, 6);
-            // 
-            // configuraciónBaseDeConocimientoToolStripMenuItem
-            // 
-            this.configuraciónBaseDeConocimientoToolStripMenuItem.Name = "configuraciónBaseDeConocimientoToolStripMenuItem";
-            this.configuraciónBaseDeConocimientoToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
-            this.configuraciónBaseDeConocimientoToolStripMenuItem.Text = "Configuración base de conocimiento";
-            this.configuraciónBaseDeConocimientoToolStripMenuItem.Click += new System.EventHandler(this.configuraciónToolStripMenuItem_Click);
             // 
             // configuraciónLogDeInferenciaToolStripMenuItem
             // 
@@ -184,6 +175,16 @@
             this.configuraciónLogDeInferenciaToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
             this.configuraciónLogDeInferenciaToolStripMenuItem.Text = "Configuración log de inferencia";
             this.configuraciónLogDeInferenciaToolStripMenuItem.Click += new System.EventHandler(this.configuraciónLogInferenciaToolStripMenuItem_Click);
+            // 
+            // openFileDialog_importar
+            // 
+            this.openFileDialog_importar.Filter = "Base de conocimiento|*.Tot;";
+            this.openFileDialog_importar.InitialDirectory = "Environment.SpecialFolder.Desktop";
+            // 
+            // saveFileDialog_exportar
+            // 
+            this.saveFileDialog_exportar.DefaultExt = "Tot";
+            this.saveFileDialog_exportar.Filter = "Base de conocimiento|*.Tot;";
             // 
             // FormVentanaPrincipal
             // 
