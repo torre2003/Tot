@@ -441,7 +441,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
         /// <param name="id_hecho">Id del hecho a evaluar</param>
         /// <param name="ingresado_por_usuario">Establece si el hecho fue ingresado por el usuario</param>
         /// <returns></returns>
-        public bool procesarHecho(string id_hecho,bool ingresado_por_usuario)
+        private bool procesarHecho(string id_hecho,bool ingresado_por_usuario)
         {
             //Actualizando Hecho
             Hecho hecho = base_conocimiento.extraerHecho(id_hecho);
@@ -533,7 +533,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
         /// </summary>
         /// <param name="id_variable">Id de la variable a buscar</param>
         /// <returns>True|False según corresponda</returns>
-        public bool variableConocida(string id_variable)
+        private bool variableConocida(string id_variable)
         {
             foreach (string item in lista_variables_conocidas)
             {
@@ -548,7 +548,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
         /// </summary>
         /// <param name="id_regla_validada">Id regla validada</param>
         /// <param name="regla_validada">Establece si la regla fue validada por el usuario</param>
-        public void actualizarValidaciónDeRegla(string id_regla_validada, bool regla_validada)
+        private void actualizarValidaciónDeRegla(string id_regla_validada, bool regla_validada)
         {
             if (regla_validada)//Si la regla se valida
             {
@@ -568,7 +568,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
         /// Método que descarta las reglas que contengan al hecho en el consecuente de las listas CANDIDATAS y DISPONIBLES
         /// </summary>
         /// <param name="id_hecho_consecuente"></param>
-        public void descartarReglasConHechoConsecuente(string id_hecho_consecuente)
+        private void descartarReglasConHechoConsecuente(string id_hecho_consecuente)
         {
             bool flag = false;
             string[] reglas_con_hecho_en_el_consecuente = null;
@@ -601,7 +601,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
         /// <param name="id_regla">Id de la regla a validar</param>
         /// <param name="tipo_de_regla">Lista de reglas a buscar</param>
         /// <param name="regla_validada">Id de la egla a validar</param>
-        public void actualizarValidacionInfoRegla(string id_regla, int tipo_de_regla, bool regla_validada)
+        private void actualizarValidacionInfoRegla(string id_regla, int tipo_de_regla, bool regla_validada)
         {
             List<InfoRegla> lista = new List<InfoRegla>();
             switch (tipo_de_regla)
@@ -688,7 +688,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
         /// <param name="tipo_de_regla">Lista en donde se modificara la regla </param>
         /// <param name="sumar_a_antecedentes_conocidos_ingresados_por_usuario">cantidad a sumar en el contador de hechos conocidos ingresados por usuario</param>
         /// <param name="sumar_a_antecedentes_conocidos_inferidos">cantidad a sumar en el contador de hechos conocidos inferidos</param>
-        public void aumentarConteoInfoRegla(string id_regla, int tipo_de_regla, int sumar_a_antecedentes_conocidos_ingresados_por_usuario = 0, int sumar_a_antecedentes_conocidos_inferidos = 0)
+        private void aumentarConteoInfoRegla(string id_regla, int tipo_de_regla, int sumar_a_antecedentes_conocidos_ingresados_por_usuario = 0, int sumar_a_antecedentes_conocidos_inferidos = 0)
         {
             List<InfoRegla> lista = new List<InfoRegla>();
             switch (tipo_de_regla)
@@ -722,7 +722,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
         /// Método que mueve las reglas con el hecho FALSO en el antecedente de DISPONIBLES y CANDIDATAS a ELIMINADA,
         /// </summary>
         /// <param name="id_hecho">Id del hecho FALSO a buscar</param>
-        public void eliminarReglasConHechoFalsoEnElAntecedente(string id_hecho)
+        private void eliminarReglasConHechoFalsoEnElAntecedente(string id_hecho)
         {
             Hecho hecho = base_conocimiento.extraerHecho(id_hecho);
             if (hecho.estado_hecho)
@@ -759,7 +759,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
         /// </summary>
         /// <param name="id_hecho">Id del hecho a evaluar</param>
         /// <returns>Evalucion del hecho (true|false)</returns>
-        public bool actualizarEvaluacionHecho(string id_hecho)
+        private bool actualizarEvaluacionHecho(string id_hecho)
         {
             Hecho hecho = base_conocimiento.extraerHecho(id_hecho);
             Variable variable = base_conocimiento.extraerVariable(hecho.id_variable);
@@ -784,7 +784,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
         /// </summary>
         /// <param name="id_variable"></param>
         /// <param name="respuesta"></param>
-        public void procesarRespuestaVariable(string id_variable, ArrayList respuesta)
+        private void procesarRespuestaVariable(string id_variable, ArrayList respuesta)
         {
             string id_variable_respuesta = (string)respuesta[0];
             if (!id_variable_respuesta.Equals(id_variable))
@@ -831,7 +831,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
         /// Método que elige la mejor REGLA CANDIDATA 
         /// </summary>
         /// <returns>Id regla candidata</returns>
-        public string elegirMejorReglaCandidata()
+        private string elegirMejorReglaCandidata()
         {
             lista_reglas_candidatas.Sort(new InfoRegla());
             if (lista_reglas_candidatas.Count == 0)

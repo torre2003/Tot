@@ -205,7 +205,7 @@ namespace ControlesModuloConsulta
         
         }
 
-        public void comprobarIngreso()
+        private void comprobarIngreso()
         {
             string errores = "";
             marcarControl(false);

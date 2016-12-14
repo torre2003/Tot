@@ -121,7 +121,7 @@ namespace Tot
         /// <summary>
         /// Método que inicializa en motor de inferencia y muestra la ventana inicial
         /// </summary>
-        public void iniciarVentana()
+        private void iniciarVentana()
         {
             
             if (tipo_de_encadenamiento == ENCADENAMIENTO_HACIA_ATRAS)
@@ -166,7 +166,7 @@ namespace Tot
         /// <summary>
         /// Método que muestra la selección del objetivo a buscar en el encadenaiento hacia atrás
         /// </summary>
-        public void iniciarSeleccionDeObjetivo()
+        private void iniciarSeleccionDeObjetivo()
         {
             dialogo = new FormDialogoPanel(ventana_selecion_de_objetivo);
             dialogo.FormClosing += dialogo_FormClosing;
@@ -188,7 +188,7 @@ namespace Tot
         /// <summary>
         /// Método que inicia la inferencia con encadenaiento hacia atrás
         /// </summary>
-        public void iniciarInferenciaEncadenamientoHaciaAtras()
+        private void iniciarInferenciaEncadenamientoHaciaAtras()
         {
             motor_atras.evento_consultar_variable += motor_inferencia_evento_consultar_variable;
             motor_atras.evento_confimar_hecho += motor_inferencia_evento_confimar_hecho;
@@ -200,7 +200,7 @@ namespace Tot
         /// <summary>
         /// Método que inicia la inferencia con encadenaiento hacia adelante
         /// </summary>
-        public void iniciarInferenciaEncadenamientoHaciaAdelante()
+        private void iniciarInferenciaEncadenamientoHaciaAdelante()
         {
             motor_adelante.evento_consultar_variable += motor_inferencia_evento_consultar_variable;
             motor_adelante.evento_confimar_hecho += motor_inferencia_evento_confimar_hecho;
@@ -212,7 +212,7 @@ namespace Tot
         /// <summary>
         /// Método para mostrar el modulo de justificación de la inferencia
         /// </summary>
-        public void mostrarModuloDeJustificación()
+        private void mostrarModuloDeJustificación()
         {
             dialogo = new FormDialogoPanel(ventana_justificacion);
             List<string> log = new List<string>();
@@ -236,7 +236,7 @@ namespace Tot
         }
 
 
-        public bool escribirLogEnArchivo(List<string> log, ProcesadorLoggeoInferencia procesador, bool guardar_variables,bool guardar_hechos, bool guardar_reglas, string ruta_archivo)
+        private bool escribirLogEnArchivo(List<string> log, ProcesadorLoggeoInferencia procesador, bool guardar_variables, bool guardar_hechos, bool guardar_reglas, string ruta_archivo)
         {
             StringBuilder texto_archivo = new StringBuilder();
             for (int i = 0; i < log.Count; i++)
@@ -287,7 +287,7 @@ namespace Tot
             return generarArchivoDeTexto(texto_archivo, ruta_archivo);
         }
 
-        public string extraerDetalleVariable(Variable variable)
+        private string extraerDetalleVariable(Variable variable)
         {
             string texto_retorno = "ID: " + variable.id_variable + " | Nombre : " + variable.nombre_variable;
             switch (variable.tipo_variable)
@@ -321,7 +321,7 @@ namespace Tot
 
 
 
-        public bool generarArchivoDeTexto(StringBuilder texto, string full_path_destino)
+        private bool generarArchivoDeTexto(StringBuilder texto, string full_path_destino)
         {
             if (File.Exists(full_path_destino))
                 File.Delete(full_path_destino);
@@ -340,7 +340,7 @@ namespace Tot
         /// <param name="titulo">Titulo en el cuadro</param>
         /// <param name="pregunta">Pregunta a realizar</param>
         /// <returns>1 = si, 0 = no, -1 cancel</returns>
-        public int preguntasSiNoCancelar(string titulo, string pregunta)
+        private int preguntasSiNoCancelar(string titulo, string pregunta)
         {
             DialogResult result = MessageBox.Show(pregunta, titulo, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)

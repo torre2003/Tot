@@ -10,7 +10,7 @@ namespace SistemaExpertoLib.GestionDelConocimiento
     {
         
         public List<string> comprobarBaseDeConocimiento()
-        {//todo completar implementacion comprobacion
+        {
             List<string> errores_comprobacion = new List<string>();
             try
             {

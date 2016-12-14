@@ -56,6 +56,17 @@ namespace Tot
 
         public GestionadorBaseConocimiento base_conocimiento;
 
+        const int NOMBRE = 1;
+        const int TIPOS_DE_VARIABLE = 2;
+        const int TEXTO_CONSULTA = 3;
+        const int TIPO_NUMERICO = 4;
+        const int RANGOS = 5;
+        const int INGRESO_ELEMENTO = 6;
+        const int LISTA_DE_ELEMENTOS = 7;
+        const int VARIABLE_PREGUNTABLE = 8;
+        const int VARIABLE_INICIAL = 9;
+        const int VARIABLE_OBJETIVO = 10;
+
         /// <summary>
         /// Obtiene o establece la ID de la variable
         /// </summary>
@@ -344,22 +355,13 @@ namespace Tot
 
         }
 
-        const int NOMBRE = 1;
-        const int TIPOS_DE_VARIABLE = 2;
-        const int TEXTO_CONSULTA = 3;
-        const int TIPO_NUMERICO = 4;
-        const int RANGOS = 5;
-        const int INGRESO_ELEMENTO = 6;
-        const int LISTA_DE_ELEMENTOS = 7;
-        const int VARIABLE_PREGUNTABLE = 8;
-        const int VARIABLE_INICIAL = 9;
-        const int VARIABLE_OBJETIVO = 10;
+     
         /// <summary>
         /// Método que resalta los controles 
         /// </summary>
         /// <param name="tipo_de_control">Constante con el tipo de control</param>
         /// <param name="marcado">TRUE para amrcar el control y FALSE para estado normal</param>
-        public void marcarControl(int tipo_de_control, bool marcado)
+        private void marcarControl(int tipo_de_control, bool marcado)
         {
             switch (tipo_de_control)
             {
@@ -452,7 +454,7 @@ namespace Tot
         /// </summary>
         /// <param name="chequear_nombre">Debe chequearse el nombre de la variable en el porceso</param>
         /// <returns>NULL si el chequeo es correcto o lista de errores</returns>
-        public string[] chequeoVariable(bool chequear_nombre)
+        private string[] chequeoVariable(bool chequear_nombre)
         {
             string retorno = "";
             if (nombre.Equals(""))
@@ -570,7 +572,7 @@ namespace Tot
         /// </summary>
         /// <param name="texto_a_procesar">Cadena a procesar</param>
         /// <returns>Texto procesado</returns>
-        public string procesarTexto(string texto_a_procesar)
+        private string procesarTexto(string texto_a_procesar)
         {
             string texto = texto_a_procesar;
             texto = texto.ToLower();
@@ -596,7 +598,7 @@ namespace Tot
         /// Método que ingresa la nueva variable a la base de conocimiento
         /// </summary>
         /// <returns>Id de la variable si la varaible fue agregada correctamente, null en caso contrario</returns>
-        public string agregarNuevaVariable()
+        private string agregarNuevaVariable()
         {
             int tipo_variable = 0;
             if (radioButton_tipo_booleano.Checked)
@@ -664,7 +666,7 @@ namespace Tot
         /// <summary>
         /// Métod que agrega elementos a la lista de elementos de la variable
         /// </summary>
-        public void agregarElementoALista()
+        private void agregarElementoALista()
         {
             marcarControl(INGRESO_ELEMENTO, false);
             marcarControl(LISTA_DE_ELEMENTOS, false);
@@ -700,7 +702,7 @@ namespace Tot
         /// <summary>
         /// Método para eliminar un elemento de la lista de elementos de la variable
         /// </summary>
-        public void eliminarElementoALista()
+        private void eliminarElementoALista()
         {
             marcarControl(INGRESO_ELEMENTO, false);
             marcarControl(LISTA_DE_ELEMENTOS, false);
@@ -743,7 +745,7 @@ namespace Tot
         /// Método que muestra la información de una variable en el control
         /// </summary>
         /// <param name="id_variable"></param>
-        public void mostrarInformaciónVariable(string id_variable)
+        private void mostrarInformaciónVariable(string id_variable)
         {
             limpiarCampos();
             Variable variable = base_conocimiento.leerVariable(id_variable);
@@ -1057,7 +1059,7 @@ namespace Tot
         /// <summary>
         /// Método que limpia las marcas de los campos en el control
         /// </summary>
-        public void limpiarMarcasControl()
+        private void limpiarMarcasControl()
         {
             marcarControl(NOMBRE, false);
             marcarControl(TIPOS_DE_VARIABLE, false);
@@ -1175,7 +1177,7 @@ namespace Tot
         }
 
 
-        public void cambiarEstadoPanelesTipoVariable()
+        private void cambiarEstadoPanelesTipoVariable()
         {
             if (radioButton_tipo_booleano.Checked)
             {

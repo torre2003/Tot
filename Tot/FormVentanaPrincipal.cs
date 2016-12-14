@@ -66,7 +66,7 @@ namespace Tot
         /// <summary>
         /// Método que gestiona la importación de la base de conocimiento
         /// </summary>
-        public void importar()
+        private void importar()
         {
             if (MessageBox.Show("Se perderá la base de conocimiento actual.\n ¿Usted desea continuar?", "Importación base de conocimiento", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 if (openFileDialog_importar.ShowDialog() == DialogResult.OK)
@@ -103,7 +103,7 @@ namespace Tot
         /// <summary>
         /// Método que gestiona la ixportación de la base de conocimiento
         /// </summary>
-        public void exportar()
+        private void exportar()
         {
             if (saveFileDialog_exportar.ShowDialog() == DialogResult.OK)
             {
@@ -131,7 +131,7 @@ namespace Tot
         /// </summary>
         /// <param name="visible"></param>
         /// <returns></returns>
-        public int mostrarVentanaCargandoDesdeHilo(bool visible = false)
+        private int mostrarVentanaCargandoDesdeHilo(bool visible = false)
         {
             //Hacemos la sincronizacion de hilos.
             //Si no estamos en el Hilo Principal.
