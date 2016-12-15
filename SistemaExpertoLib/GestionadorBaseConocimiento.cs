@@ -445,6 +445,10 @@ namespace SistemaExpertoLib.GestionDelConocimiento
             return manejador_archivos.extraerHecho(id_hecho);
         }
 
+        private void eliminarHecho (string id_hecho){
+            manejador_archivos.eliminarHecho(id_hecho);
+        }
+
         /// <summary>
         /// Agrega un nuevo hecho de tipo BOLEANO a la base de conocimiento
         /// </summary>

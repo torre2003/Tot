@@ -8,80 +8,9 @@ namespace SistemaExpertoLib.GestionDelConocimiento
 {
     public partial class GestionadorBaseConocimiento
     {
-        
-        public List<string> comprobarBaseDeConocimiento()
-        {
-            List<string> errores_comprobacion = new List<string>();
-            try
-            {
-                errores_comprobacion.AddRange(comprobarIntegridadVariables());
-                errores_comprobacion.AddRange(comprobarIntegridadReglas());
-
-                if (errores_comprobacion.Count == 0)
-                    errores_comprobacion.AddRange(comprobarAmbiguedadRecursivaEnReglas());
-                //La unicidad de las reglas se comprueba cuando se ingresan las reglas a la base conocimiento
-            }
-            catch (Exception)
-            {
-                errores_comprobacion = new List<string>();
-                errores_comprobacion.Add("Base de conocimiento corrupta, crear una nueva.");
-                return errores_comprobacion;
-            }
-
-            if (errores_comprobacion.Count == 0)
-            {
-                metadatosCambiarChequeoBaseConocimiento(true);
-                return null;
-            }
-            metadatosCambiarChequeoBaseConocimiento(false);
-            return errores_comprobacion;
-        }
-
-        /// <summary>
-        /// método que comprueba la integridad de las variables
-        /// </summary>
-        /// <returns>Lista de errores encontrados</returns>
-        private List<string> comprobarIntegridadVariables()
-        {
-            List<string> errores_comprobacion = new List<string>();
-            string[] variables = this.manejador_archivos.listarArchivosEnDirectorio(AccesoDatos.VARIABLE);
-            for (int i = 0; i < variables.Length; i++)
-            {
-                Variable variable = manejador_archivos.extraerVariable(variables[i]);
-                if (!variable.chequeo_de_consistencia)
-                    errores_comprobacion.Add("Variable no chequeada : "+ variable.id_variable + ":(" + variable.nombre_variable + ")");
-                if (!variable.id_variable.Equals(variables[i]))
-                {
-                    errores_comprobacion.Add("Variable corrupta(Eliminada): " + variable.id_variable + ":(" + variable.nombre_variable + ")");
-                    manejador_archivos.eliminarVariable(variables[i]);
-                }
-                    
-            }
-            return errores_comprobacion;
-        }
-
-        /// <summary>
-        /// método que comprueba la integridad de las reglas
-        /// </summary>
-        /// <returns>Lista de errores encontrados</returns>
-        private List<string> comprobarIntegridadReglas()
-        {
-            List<string> errores_comprobacion = new List<string>();
-            string[] reglas = this.manejador_archivos.listarArchivosEnDirectorio(AccesoDatos.REGLA);
-            for (int i = 0; i < reglas.Length; i++)
-            {
-                Regla regla = manejador_archivos.extraerRegla(reglas[i]);
-                if (!regla.chequeo_de_consistencia)
-                    errores_comprobacion.Add("Regla no chequeada "+regla.id_regla+" : "+regla);
-                if (!regla.id_regla.Equals(reglas[i]))
-                {
-                    errores_comprobacion.Add("Regla corrupta (Eliminada)" + regla.id_regla + " : " + regla);
-                    manejador_archivos.eliminarRegla(reglas[i]);
-                }
-                    
-            }
-            return errores_comprobacion;
-        }
+        //***************************************************************************************
+        //     Struct
+        //***************************************************************************************
 
         struct InfoVariable
         {
@@ -128,7 +57,89 @@ namespace SistemaExpertoLib.GestionDelConocimiento
                 reglas_en_conflicto.Add(id_regla);
             }
         }
+        //***************************************************************************************
+        //     Métodos
+        //***************************************************************************************
+        public List<string> comprobarBaseDeConocimiento()
+        {
+            List<string> errores_comprobacion = new List<string>();
+            limpiarHechosNoUtilizadosBaseDeConociento();
+            try
+            {
+                errores_comprobacion.AddRange(comprobarIntegridadVariables());
+                errores_comprobacion.AddRange(comprobarIntegridadReglas());
 
+                if (errores_comprobacion.Count == 0)
+                    errores_comprobacion.AddRange(comprobarAmbiguedadRecursivaEnReglas());
+                //La unicidad de las reglas se comprueba cuando se ingresan las reglas a la base conocimiento
+            }
+            catch (Exception)
+            {
+                errores_comprobacion = new List<string>();
+                errores_comprobacion.Add("Base de conocimiento corrupta, crear una nueva.");
+                return errores_comprobacion;
+            }
+
+            if (errores_comprobacion.Count == 0)
+            {
+                metadatosCambiarChequeoBaseConocimiento(true);
+                return null;
+            }
+            metadatosCambiarChequeoBaseConocimiento(false);
+            
+            return errores_comprobacion;
+        }
+
+        /// <summary>
+        /// método que comprueba la integridad de las variables
+        /// </summary>
+        /// <returns>Lista de errores encontrados</returns>
+        private List<string> comprobarIntegridadVariables()
+        {
+            List<string> errores_comprobacion = new List<string>();
+            string[] variables = this.manejador_archivos.listarArchivosEnDirectorio(AccesoDatos.VARIABLE);
+            for (int i = 0; i < variables.Length; i++)
+            {
+                Variable variable = manejador_archivos.extraerVariable(variables[i]);
+                if (!variable.chequeo_de_consistencia)
+                    errores_comprobacion.Add("Variable no chequeada : "+ variable.id_variable + ":(" + variable.nombre_variable + ")");
+                if (!variable.id_variable.Equals(variables[i]))
+                {
+                    errores_comprobacion.Add("Variable corrupta(Eliminada): " + variable.id_variable + ":(" + variable.nombre_variable + ")");
+                    manejador_archivos.eliminarVariable(variables[i]);
+                }
+            }
+            return errores_comprobacion;
+        }
+
+        /// <summary>
+        /// método que comprueba la integridad de las reglas
+        /// </summary>
+        /// <returns>Lista de errores encontrados</returns>
+        private List<string> comprobarIntegridadReglas()
+        {
+            List<string> errores_comprobacion = new List<string>();
+            string[] reglas = this.manejador_archivos.listarArchivosEnDirectorio(AccesoDatos.REGLA);
+            for (int i = 0; i < reglas.Length; i++)
+            {
+                Regla regla = manejador_archivos.extraerRegla(reglas[i]);
+                if (!regla.chequeo_de_consistencia)
+                    errores_comprobacion.Add("Regla no chequeada "+regla.id_regla+" : "+regla);
+                if (!regla.id_regla.Equals(reglas[i]))
+                {
+                    errores_comprobacion.Add("Regla corrupta (Eliminada)" + regla.id_regla + " : " + regla);
+                    manejador_archivos.eliminarRegla(reglas[i]);
+                }
+                    
+            }
+            return errores_comprobacion;
+        }
+
+      
+        /// <summary>
+        /// Método que comprueba la ambiguedad recursiva de las reglas
+        /// </summary>
+        /// <returns></returns>
         private List<string> comprobarAmbiguedadRecursivaEnReglas(){
             List<string> errores_comprobacion = new List<string>();
             List<InfoVariable> info_variables = new List<InfoVariable>();
@@ -279,6 +290,18 @@ namespace SistemaExpertoLib.GestionDelConocimiento
             return errores_comprobacion;
         }
 
-        
+        /// <summary>
+        /// Método que limpia los hechos no utilizados de la base de conocimiento
+        /// </summary>
+        private void limpiarHechosNoUtilizadosBaseDeConociento()
+        {
+            string[] lista_de_hechos = listarHechos();
+            for (int i = 0; i < lista_de_hechos.Length; i++)
+			{
+			    string[] reglas_con_hecho = listarReglasConHecho(lista_de_hechos[i]);
+                if (reglas_con_hecho == null)
+                    eliminarHecho(lista_de_hechos[i]);
+			}
+        }
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormVentanaConfiguracionLogInferencia));
             this.panel_formato_variable = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.radioButton_regla_id_contenido = new System.Windows.Forms.RadioButton();
@@ -309,6 +310,7 @@
             this.Controls.Add(this.button_aceptar);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.panel_externo_controles);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(600, 570);
             this.MinimizeBox = false;

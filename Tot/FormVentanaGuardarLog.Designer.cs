@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormVentanaGuardarLog));
             this.radioButton_normal = new System.Windows.Forms.RadioButton();
             this.radioButton_completo = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -178,6 +179,7 @@
             this.Controls.Add(this.button_aceptar);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormVentanaGuardarLog";
             this.Text = "Guardar Log";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormVentanaGuardarLog_FormClosing);

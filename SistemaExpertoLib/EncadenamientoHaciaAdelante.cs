@@ -298,7 +298,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
         public void inferencia()
         {
             //Procesando las variables de inicio
-            agregarLog("Consultando variables de inicio al usuario");
+            agregarLog(ConstantesShell.LOG_INFO + "|" + ConstantesShell.LOG_INFO_CONSULTANDO_VARIABLES_DE_INICIO);
             foreach (string id_variable_de_inicio in lista_variables_de_inicio)
             {
                 ArrayList respuesta = evento_consultar_variable(id_variable_de_inicio);
@@ -308,6 +308,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
                     return;
                 }
                 procesarRespuestaVariable(id_variable_de_inicio, respuesta);
+                agregarLog(ConstantesShell.LOG_INFO + "|" + ConstantesShell.LOG_INFO_PROCESANDO_HECHOS_ASOCIADOS);
                 string[] hechos_asociados = buscarHechosConVariable(id_variable_de_inicio);
                 if(hechos_asociados != null)
                     for (int i = 0; i < hechos_asociados.Length; i++)
@@ -315,34 +316,38 @@ namespace SistemaExpertoLib.MotorDeInferencia
             }
             //Proceso de encadenamiento hacia adelante
             string id_mejor_regla = elegirMejorReglaCandidata();
-            agregarLog("Regla elegida = "+id_mejor_regla);
+            agregarLog(ConstantesShell.LOG_REGLA + "|" + id_mejor_regla + "|" + ConstantesShell.LOG_ACCION_ELEGIDA_MEJOR_REGLA);
+            //agregarLog("Regla elegida = "+id_mejor_regla);
             while (id_mejor_regla != null)
             {
+
                 InfoRegla info_regla = rescatarInformacionRegla(id_mejor_regla, ConstantesShell.REGLAS_CANDIDATAS);
                 Regla mejor_regla = base_conocimiento.extraerRegla(info_regla.id_regla);
                 if (info_regla.puntaje_regla == 0)//Indica que todos los antecedentes son conocidos
                 {
                     int[] respuesta_validacion_regla = evento_confimar_hecho(mejor_regla.id_hecho_consecuente,mejor_regla.id_regla);
-
+                    agregarLog(ConstantesShell.LOG_REGLA + "|" + mejor_regla.id_regla + "|" + ConstantesShell.LOG_ACCION_VALIDANDO_REGLA);
                     // Analizando confirmaciones de hecho
                     if (respuesta_validacion_regla[0] == ConstantesShell.HECHO_CONFIRMADO)//Si el hecho es validado por el usuario
                     {
+                        agregarLog(ConstantesShell.LOG_INFO + "|" + ConstantesShell.LOG_INFO_REGLA_VALIDADA);
                         actualizarVariableHechoInferido(mejor_regla.id_hecho_consecuente);//actualizamos la variable asocidada al hecho inferido
                         actualizarValidaciónDeRegla(mejor_regla.id_regla, true);//Actualizamos la validación de la regla regla
-                        agregarLog("REGLA " + mejor_regla.id_regla + " VALIDADA");
+                        //agregarLog("REGLA " + mejor_regla.id_regla + " VALIDADA");
                         Hecho hecho_validado = base_conocimiento.extraerHecho(mejor_regla.id_hecho_consecuente);
                         string id_variable_hecho_inferido = hecho_validado.id_variable;
                         string[] hechos_asociados = buscarHechosConVariable(id_variable_hecho_inferido);
-                        agregarLog("Procesando hechos asociados a la variable   "+hecho_validado.nombre_variable+"   del hecho consecuente");
+                        //agregarLog("Procesando hechos asociados a la variable   "+hecho_validado.nombre_variable+"   del hecho consecuente");
+                        agregarLog(ConstantesShell.LOG_INFO + "|" + ConstantesShell.LOG_INFO_PROCESANDO_HECHOS_ASOCIADOS);
                         if (hechos_asociados != null)
                             for (int i = 0; i < hechos_asociados.Length; i++)
                                 procesarHecho(hechos_asociados[i], false);
-                        
                     }
                     else
                     if (respuesta_validacion_regla[0] == ConstantesShell.HECHO_DESCARTADO)//Si el hecho no es validado por el usuario
                     {
-                        agregarLog("REGLA " + mejor_regla.id_regla + "NO VALIDADA  ->  " + mejor_regla.id_hecho_consecuente);
+                        //agregarLog("REGLA " + mejor_regla.id_regla + "NO VALIDADA  ->  " + mejor_regla.id_hecho_consecuente);
+                        agregarLog(ConstantesShell.LOG_INFO + "|" + ConstantesShell.LOG_INFO_REGLA_NO_VALIDADA);
                         //Como se esta en la validacion de hechos por el usuario, el Hecho NO se marca como falso o se eliminia de la lista de hechos disponibles
                         actualizarValidaciónDeRegla(mejor_regla.id_regla, false);//Actualizamos la validación de la regla regla y elimamos la regla de las reglas Candidatas
                     }
@@ -356,14 +361,16 @@ namespace SistemaExpertoLib.MotorDeInferencia
                         // Analizando solución de problemas
                         if (respuesta_validacion_regla[1] == ConstantesShell.PROBLEMA_SOLUCIONADO)//Si el problema solucionadp
                         {
-                            agregarLog("El problema se SOLUCIONO");
+                            agregarLog(ConstantesShell.LOG_INFO + "|" + ConstantesShell.LOG_INFO_PROBLEMA_SOLUCIONADO); 
+                            //agregarLog("El problema se SOLUCIONO");
                             _codigo_de_salida_proceso = ConstantesShell.INFERENCIA_DETENIDA_PROBLEMA_SOLUCIONADO;
                             return;
                         }
                         else
                         if (respuesta_validacion_regla[1] == ConstantesShell.PROBLEMA_NO_SOLUCIONADO)//Si el problema no se soluciono
                         {
-                            agregarLog("El problema se NO SE SOLUCIONO");
+                            agregarLog(ConstantesShell.LOG_INFO + "|" + ConstantesShell.LOG_INFO_PROBLEMA_SOLUCIONADO);
+                            //agregarLog("El problema se NO SE SOLUCIONO");
                         }
                         else
                         {
@@ -374,12 +381,14 @@ namespace SistemaExpertoLib.MotorDeInferencia
                     // Analizando continuar proceso
                     if (respuesta_validacion_regla[2] == ConstantesShell.CONTINUAR_PROCESO)//Si el problema solucionadp
                     {
-                        agregarLog("CONTINUANDO PROCESO...");
+                        //agregarLog("CONTINUANDO PROCESO...");
+                        agregarLog(ConstantesShell.LOG_INFO + "|" + ConstantesShell.LOG_INFO_CONTINUANDO_PROCESO);
                     }
                     else
                     if (respuesta_validacion_regla[2] == ConstantesShell.DETENER_PROCESO)//Si el problema no se soluciono
                     {
-                        agregarLog("PROCESO DETENIDO...");
+                        //agregarLog("PROCESO DETENIDO...");
+                        agregarLog(ConstantesShell.LOG_INFO + "|" + ConstantesShell.LOG_INFO_PROCESO_DETENIDO);
                         _codigo_de_salida_proceso = ConstantesShell.INFERENCIA_DETENIDA_PROBLEMA_NO_SOLUCIONADO;
                         return;
                     }
@@ -399,11 +408,12 @@ namespace SistemaExpertoLib.MotorDeInferencia
                             ids_hechos_a_preguntar.Add(hecho_desconocido.id_hecho);
                     }
                     //preguntado los hechos al usuario
-                    agregarLog("Preguntando hechos al usuario ");
+                    //agregarLog("Preguntando hechos al usuario ");
+                    agregarLog(ConstantesShell.LOG_INFO + "|" + ConstantesShell.LOG_INFO_CONSULTANDO_HECHOS);
                     foreach (string id_hecho_consultado in ids_hechos_a_preguntar)
                     {
                         Hecho hecho_actual = base_conocimiento.extraerHecho(id_hecho_consultado);
-
+                        agregarLog(ConstantesShell.LOG_HECHO + "|" + hecho_actual.id_hecho + "|" + ConstantesShell.LOG_ACCION_CONSULTANDO_HECHO);
                         //Si no se conoce la variable asociada al hecho se pregunta al usuario
                         if (!variableConocida(hecho_actual.id_variable))
                         {
@@ -416,22 +426,27 @@ namespace SistemaExpertoLib.MotorDeInferencia
                             procesarRespuestaVariable(hecho_actual.id_variable, respuesta);
                             //Actualizando todos los hechos asociados a la variable
                             string[] hechos_asociados = buscarHechosConVariable(hecho_actual.id_variable);
-                            agregarLog("Procesando hechos asociados a la variable del hecho consecuente");
+                            //agregarLog("Procesando hechos asociados a la variable del hecho consecuente");
+                            agregarLog(ConstantesShell.LOG_INFO + "|" + ConstantesShell.LOG_INFO_PROCESANDO_HECHOS_ASOCIADOS);
                             if (hechos_asociados != null)
                                 for (int i = 0; i < hechos_asociados.Length; i++)
                                     procesarHecho(hechos_asociados[i], true);
                         }
                         else
                         {
-                            agregarLog("Variable " + hecho_actual.id_variable + " conocida -> " + hecho_actual.id_hecho + " conocido");
+                            //agregarLog("Variable " + hecho_actual.id_variable + " conocida -> " + hecho_actual.id_hecho + " conocido");
+                            agregarLog(ConstantesShell.LOG_VARIABLE + "|" + hecho_actual.id_variable + "|" + ConstantesShell.LOG_INFO_VARIABLE_CONOCIDA);
                         }
                     }
                 }
                 //Selecionamos la mejor regla despues del proceso de encadenamiento
                 id_mejor_regla = elegirMejorReglaCandidata();
-                agregarLog("Regla elegida = " + id_mejor_regla);
+                //agregarLog("Regla elegida = " + id_mejor_regla);
+                if (id_mejor_regla != null)
+                    agregarLog(ConstantesShell.LOG_REGLA + "|" + id_mejor_regla + "|" + ConstantesShell.LOG_ACCION_ELEGIDA_MEJOR_REGLA);
             }
-            agregarLog("PROCESO INFERENCIA TERMINADO SIN SOLUCIONAR PROBLEMA (NO HAY MAS REGLAS APLICABLES EN LA BASE DE CONOCIMIENTO)");
+            //agregarLog("PROCESO INFERENCIA TERMINADO SIN SOLUCIONAR PROBLEMA (NO HAY MAS REGLAS APLICABLES EN LA BASE DE CONOCIMIENTO)");
+            agregarLog(ConstantesShell.LOG_INFO + "|" + ConstantesShell.LOG_INFO_TERMINO_DE_INFERENCIA_REGLAS_AGOTADAS);
             _codigo_de_salida_proceso = ConstantesShell.INFERENCIA_DETENIDA_PROBLEMA_NO_SOLUCIONADO;
         }
 
@@ -450,13 +465,13 @@ namespace SistemaExpertoLib.MotorDeInferencia
             base_conocimiento.actualizarHecho(hecho);
             if (hecho.estado_hecho)//Si hecho evaluado VERDADERO
             {
-                agregarLog("Procesando hecho : " + id_hecho + " : (" + hecho + ") -->VERDADERO");
+               // agregarLog("Procesando hecho : " + id_hecho + " : (" + hecho + ") -->VERDADERO");
                 moverHecho(id_hecho, ConstantesShell.HECHOS_DISPONIBLES, ConstantesShell.HECHOS_VERDADEROS);
                 actualizarReglasConHechoVerdaderoAntecedente(hecho.id_hecho, ingresado_por_usuario,true);
             }
             else//Si el hecho es evaluado FALSO
             {
-                agregarLog("Procesando hecho : " + id_hecho + " : (" + hecho + ") -->FALSO");
+               // agregarLog("Procesando hecho : " + id_hecho + " : (" + hecho + ") -->FALSO");
                 moverHecho(id_hecho, ConstantesShell.HECHOS_DISPONIBLES, ConstantesShell.HECHOS_FALSOS);
                 eliminarReglasConHechoFalsoEnElAntecedente(id_hecho);
             }
@@ -475,18 +490,19 @@ namespace SistemaExpertoLib.MotorDeInferencia
             {
                 case Variable.BOOLEANO:
                     actualizarVariable(hecho.id_variable, hecho.valor_booleano);
+                    agregarLog(ConstantesShell.LOG_VARIABLE + "|" + hecho.id_variable + "|" + ConstantesShell.LOG_ACCION_PROCESANDO_RESPUESTA + "|" + hecho.valor_booleano);
                     break;
                 case Variable.NUMERICO:
                     actualizarVariable(hecho.id_variable, hecho.valor_numerico);
+                    agregarLog(ConstantesShell.LOG_VARIABLE + "|" + hecho.id_variable + "|" + ConstantesShell.LOG_ACCION_PROCESANDO_RESPUESTA + "|" + hecho.valor_numerico);
                     break;
                 case Variable.LISTA:
                     actualizarVariable(hecho.id_variable, hecho.valor_lista_hecho);
+                    agregarLog(ConstantesShell.LOG_VARIABLE + "|" + hecho.id_variable + "|" + ConstantesShell.LOG_ACCION_PROCESANDO_RESPUESTA + "|" + hecho.valor_lista_hecho);
                     break;
             }
         }
-
-
-
+        
         /// <summary>
         /// Método que actualiza la variable segun su valor 
         /// </summary>
@@ -498,7 +514,8 @@ namespace SistemaExpertoLib.MotorDeInferencia
             variable.valor_booleano_actual = valor;
             base_conocimiento.actualizarVariable(variable);
             lista_variables_conocidas.Add(id_variable);
-            agregarLog("Variable" +id_variable + " conocida");
+            //agregarLog("Variable" +id_variable + " conocida");
+            agregarLog(ConstantesShell.LOG_VARIABLE + "|" + id_variable + "|" + ConstantesShell.LOG_ACCION_INGRESANDO_A_VARIABLES_CONOCIDAS);
         }
 
         /// <summary>
@@ -512,7 +529,8 @@ namespace SistemaExpertoLib.MotorDeInferencia
             variable.valor_numerico_actual = valor;
             base_conocimiento.actualizarVariable(variable);
             lista_variables_conocidas.Add(id_variable);
-            agregarLog("Variable" + id_variable + " conocida");
+            //agregarLog("Variable" + id_variable + " conocida");
+            agregarLog(ConstantesShell.LOG_VARIABLE + "|" + id_variable + "|" + ConstantesShell.LOG_ACCION_INGRESANDO_A_VARIABLES_CONOCIDAS);
         }
         /// <summary>
         /// Método que actualiza la variable segun su valor 
@@ -525,7 +543,8 @@ namespace SistemaExpertoLib.MotorDeInferencia
             variable.valor_lista_actual = valor;
             base_conocimiento.actualizarVariable(variable);
             lista_variables_conocidas.Add(id_variable);
-            agregarLog("Variable" + id_variable + " conocida");
+            //agregarLog("Variable" + id_variable + " conocida");
+            agregarLog(ConstantesShell.LOG_VARIABLE + "|" + id_variable + "|" + ConstantesShell.LOG_ACCION_INGRESANDO_A_VARIABLES_CONOCIDAS);
         }
 
         /// <summary>
@@ -570,6 +589,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
         /// <param name="id_hecho_consecuente"></param>
         private void descartarReglasConHechoConsecuente(string id_hecho_consecuente)
         {
+            
             bool flag = false;
             string[] reglas_con_hecho_en_el_consecuente = null;
             //Buscando en candidatas
@@ -577,7 +597,8 @@ namespace SistemaExpertoLib.MotorDeInferencia
             if (reglas_con_hecho_en_el_consecuente != null)
             {
                 flag = true;
-                agregarLog(id_hecho_consecuente + " : Eliminado las reglas con el hecho en consecuente");
+                //agregarLog(id_hecho_consecuente + " : Eliminado las reglas con el hecho en consecuente");
+                agregarLog(ConstantesShell.LOG_INFO + "|" + ConstantesShell.LOG_INFO_DESCARTANDO_REGLAS_DE_IGUAL_CONSECUENTE);
                 for (int i = 0; i < reglas_con_hecho_en_el_consecuente.Length; i++)
                     moverRegla(reglas_con_hecho_en_el_consecuente[i], ConstantesShell.REGLAS_CANDIDATAS, ConstantesShell.REGLAS_ELIMINADAS);
             }
@@ -587,7 +608,8 @@ namespace SistemaExpertoLib.MotorDeInferencia
             if (reglas_con_hecho_en_el_consecuente != null)
             {
                 if (!flag)
-                    agregarLog(id_hecho_consecuente + " : Eliminado las reglas con el hecho en consecuente");
+                    agregarLog(ConstantesShell.LOG_INFO + "|" + ConstantesShell.LOG_INFO_DESCARTANDO_REGLAS_DE_IGUAL_CONSECUENTE);
+                    //agregarLog(id_hecho_consecuente + " : Eliminado las reglas con el hecho en consecuente");
                 for (int i = 0; i < reglas_con_hecho_en_el_consecuente.Length; i++)
                     moverRegla(reglas_con_hecho_en_el_consecuente[i], ConstantesShell.REGLAS_DISPONIBLES, ConstantesShell.REGLAS_ELIMINADAS);
             }
@@ -790,7 +812,8 @@ namespace SistemaExpertoLib.MotorDeInferencia
             if (!id_variable_respuesta.Equals(id_variable))
                 throw new System.ArgumentException("La variable de respuesta no corresponde a la variable procesada", "PrcesarRespuestaVariable");
             Variable variable = base_conocimiento.extraerVariable(id_variable);
-            agregarLog("Procesando variable : " + id_variable + " - " + variable.nombre_variable);
+            //agregarLog("Procesando variable : " + id_variable + " - " + variable.nombre_variable);
+            agregarLog(ConstantesShell.LOG_VARIABLE + "|" + id_variable + "|" + ConstantesShell.LOG_ACCION_PROCESANDO_RESPUESTA + "|" + respuesta[1]);
             string tipo_valor = respuesta[1].GetType() + "";
             if (tipo_valor.Equals("System.Boolean"))
             {
@@ -799,7 +822,8 @@ namespace SistemaExpertoLib.MotorDeInferencia
                     throw new System.ArgumentException("tipos de variable incompatibles", "ProcesarRespuestaVariable");
                 variable.valor_booleano_actual = valor_respuesta;
                 base_conocimiento.actualizarVariable(variable);
-                lista_variables_conocidas.Add(id_variable);
+                //lista_variables_conocidas.Add(id_variable);
+                agregarLog(ConstantesShell.LOG_VARIABLE + "|" + id_variable + "|" + ConstantesShell.LOG_ACCION_INGRESANDO_A_VARIABLES_CONOCIDAS);
                 return;
             }
             else
@@ -810,7 +834,8 @@ namespace SistemaExpertoLib.MotorDeInferencia
                     throw new System.ArgumentException("tipos de variable incompatibles", "ProcesarRespuestaVariable");
                 variable.valor_lista_actual = valor_respuesta;
                 base_conocimiento.actualizarVariable(variable);
-                lista_variables_conocidas.Add(id_variable);
+                //lista_variables_conocidas.Add(id_variable);
+                agregarLog(ConstantesShell.LOG_VARIABLE + "|" + id_variable + "|" + ConstantesShell.LOG_ACCION_INGRESANDO_A_VARIABLES_CONOCIDAS);
                 return;
             }
             else
@@ -821,7 +846,8 @@ namespace SistemaExpertoLib.MotorDeInferencia
                     throw new System.ArgumentException("tipos de variable incompatibles", "ProcesarRespuestaVariable");
                 variable.valor_numerico_actual = valor_respuesta;
                 base_conocimiento.actualizarVariable(variable);
-                lista_variables_conocidas.Add(id_variable);
+                //lista_variables_conocidas.Add(id_variable);
+                agregarLog(ConstantesShell.LOG_VARIABLE + "|" + id_variable + "|" + ConstantesShell.LOG_ACCION_INGRESANDO_A_VARIABLES_CONOCIDAS);
                 return;
             }
             throw new System.ArgumentException("El tipo de respuesta no corresponde", "ProcesarRespuestaVariable");
@@ -1000,7 +1026,8 @@ namespace SistemaExpertoLib.MotorDeInferencia
             }
             lista_hacia.Add(regla_buscada);
 
-            string log = id_regla + ":De " + tipo_lista_desde + " a " + tipo_lista_hacia;
+            //string log = id_regla + ":De " + tipo_lista_desde + " a " + tipo_lista_hacia;
+            string log = ConstantesShell.LOG_REGLA + "|" + id_regla + "|" + ConstantesShell.LOG_ACCION_MOVER_REGLA + "|" + desde + "|" + hacia;
             agregarLog(log);
         }
 
@@ -1063,7 +1090,8 @@ namespace SistemaExpertoLib.MotorDeInferencia
             lista_desde.Remove(hecho_buscado);
             lista_hacia.Add(hecho_buscado);
 
-            string log = id_hecho + ":De " + tipo_lista_desde + " a " + tipo_lista_hacia;
+            //string log = id_hecho + ":De " + tipo_lista_desde + " a " + tipo_lista_hacia;
+            string log = ConstantesShell.LOG_HECHO + "|" + id_hecho + "|" + ConstantesShell.LOG_ACCION_MOVER_HECHO + "|" + desde + "|" + hacia;
             agregarLog(log);
         }
 

@@ -39,10 +39,7 @@ namespace Tot
             
         }
 
-        void control_configuracion_evento_aceptar()
-        {
-            this.Visible = false;
-        }
+
 
         /// <summary>
         /// Método que completa la ventana según los metadatos de la base de conocimieno
@@ -88,6 +85,11 @@ namespace Tot
             {
                 control_configuracion.liberarRecursosImagenLogo();
             }
+        }
+
+        void control_configuracion_evento_aceptar()
+        {
+            this.Visible = false;
         }
     }
 }

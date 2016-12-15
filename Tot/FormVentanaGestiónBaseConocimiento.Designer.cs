@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormVentanaGestiónBaseConocimiento));
             this.tabControl_gestion_conocimiento = new System.Windows.Forms.TabControl();
             this.tabPage_variables = new System.Windows.Forms.TabPage();
             this.control_gestion_variables = new Tot.ControlGestionVariables();
@@ -189,6 +190,7 @@
             this.ClientSize = new System.Drawing.Size(789, 671);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.tabControl_gestion_conocimiento);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(805, 709);
             this.MinimumSize = new System.Drawing.Size(805, 709);

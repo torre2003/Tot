@@ -130,7 +130,8 @@ namespace Tot
             textBox_info_continuando_proceso.Text = procesador.texto_log_info_continuando_proceso;
             textBox_info_proceso_detenido.Text = procesador.texto_log_info_proceso_detenido;
             textBox_info_termino_inferencia_reglas_agotadas.Text = procesador.texto_log_info_termino_de_inferencia_reglas_agotadas;
-
+            textBox_info_consultando_variables_inicio.Text = procesador.texto_log_info_consultando_variables_de_inicio;
+            textBox_info_procesando_hechos_asociados.Text = procesador.texto_log_info_procesando_hechos_asociados;
             //Mostrando checks
 
             checkBox_log_info.Checked =  procesador.mostrar_log_info ;
@@ -161,6 +162,8 @@ namespace Tot
             checkBox_info_continuando_proceso.Checked = procesador.mostrar_log_info_continuando_proceso;
             checkBox_info_proceso_detenido.Checked = procesador.mostrar_log_info_proceso_detenido;
             checkBox_info_termino_inferencia_reglas_agotadas.Checked = procesador.mostrar_log_info_termino_de_inferencia_reglas_agotadas;
+            checkBox_info_consultando_variables_inicio.Checked = procesador.mostrar_log_info_consultando_variables_de_inicio;
+            checkBox_info_procesando_hechos_asociados.Checked = procesador.mostrar_log_info_procesando_hechos_asociados;
 
         }
         
@@ -258,7 +261,8 @@ namespace Tot
             procesador.texto_log_info_continuando_proceso = textBox_info_continuando_proceso.Text ;				
             procesador.texto_log_info_proceso_detenido = textBox_info_proceso_detenido.Text ;		
             procesador.texto_log_info_termino_de_inferencia_reglas_agotadas = textBox_info_termino_inferencia_reglas_agotadas.Text ;
-
+            procesador.texto_log_info_consultando_variables_de_inicio = textBox_info_consultando_variables_inicio.Text;
+            procesador.texto_log_info_procesando_hechos_asociados = textBox_info_procesando_hechos_asociados.Text;
             //Mostrando checks
 
             procesador.mostrar_log_info  = checkBox_log_info.Checked ;				  
@@ -289,8 +293,8 @@ namespace Tot
             procesador.mostrar_log_info_continuando_proceso = checkBox_info_continuando_proceso.Checked ;				
             procesador.mostrar_log_info_proceso_detenido = checkBox_info_proceso_detenido.Checked ;
             procesador.mostrar_log_info_termino_de_inferencia_reglas_agotadas = checkBox_info_termino_inferencia_reglas_agotadas.Checked;
-
-
+            procesador.mostrar_log_info_consultando_variables_de_inicio = checkBox_info_consultando_variables_inicio.Checked;
+            procesador.mostrar_log_info_procesando_hechos_asociados = checkBox_info_procesando_hechos_asociados.Checked;
             return procesador;
         }
 

@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="SistemaExpertoLib.AccesoDatos">
+    <Position X="13" Y="8.25" Width="6" />
+    <TypeIdentifier>
+      <HashCode>iAACEAEgAAABwAwAEDQGACQAACigAAABEAAhCEACQAA=</HashCode>
+      <FileName>AccesoDatos.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SistemaExpertoLib.Hecho">
+    <Position X="0.5" Y="0.5" Width="5.5" />
+    <TypeIdentifier>
+      <HashCode>KAIASIAAJAIBAiAMiHAJQAANACIgDIAIAASAAFwAAAA=</HashCode>
+      <FileName>Hecho.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SistemaExpertoLib.MetadatosBaseDeConocimiento">
+    <Position X="11.25" Y="0.5" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>QAAARQAAAgAAEAAAAAAAAAAAQAAAAAAAAAAACAQJAAI=</HashCode>
+      <FileName>MetadatosBaseDeConocimiento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SistemaExpertoLib.ProcesadorLoggeoInferencia">
+    <Position X="4.75" Y="11.25" Width="4" />
+    <TypeIdentifier>
+      <HashCode>SAopADgAOOnHH0DMBDCxEoQGCIYgSAwBQIRIWjQpypI=</HashCode>
+      <FileName>ProcesadorLoggeoInferencia.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SistemaExpertoLib.Regla">
+    <Position X="9" Y="11.25" Width="4" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Struct Name="SistemaExpertoLib.Regla.DatosHechos">
+        <TypeIdentifier>
+          <NewMemberFileName>Regla.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>kIAQACAAgAAgAAAMgBgQgAAgAAAEAJBAAADAAAAAAAI=</HashCode>
+      <FileName>Regla.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SistemaExpertoLib.Variable">
+    <Position X="0.5" Y="10.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAQBABCCRAAQIArHBBoQAIkIQDRQACAWgAAxCkBA=</HashCode>
+      <FileName>Variable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SistemaExpertoLib.MotorDeInferencia.ConstantesShell">
+    <Position X="20" Y="0.5" Width="5.5" />
+    <TypeIdentifier>
+      <HashCode>ACCCYgRAAAQAGFiAbAIggSIQQGCAAmAABKAkAEIIQAI=</HashCode>
+      <FileName>DelegadosYConstantes.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SistemaExpertoLib.MotorDeInferencia.EncadenamientoHaciaAdelante">
+    <Position X="6.25" Y="0.5" Width="4.75" />
+    <NestedTypes>
+      <Struct Name="SistemaExpertoLib.MotorDeInferencia.EncadenamientoHaciaAdelante.InfoRegla" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>EncadenamientoHaciaAdelante.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AQAkACBQAgABCASHCQoQSBAAgEAAAAEIYoTAYiBIgAI=</HashCode>
+      <FileName>EncadenamientoHaciaAdelante.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SistemaExpertoLib.MotorDeInferencia.EncadenamientoHaciaAtras">
+    <Position X="20" Y="10.5" Width="5.25" />
+    <NestedTypes>
+      <Struct Name="SistemaExpertoLib.MotorDeInferencia.EncadenamientoHaciaAtras.InfoRegla" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>EncadenamientoHaciaAtras.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Struct>
+      <Struct Name="SistemaExpertoLib.MotorDeInferencia.EncadenamientoHaciaAtras.HechoPila" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>EncadenamientoHaciaAtras.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>hQAEACBQAgQAEASHKQpQSBAAAEAAAgEIIqTAYiJAgAI=</HashCode>
+      <FileName>EncadenamientoHaciaAtras.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SistemaExpertoLib.MotorDeInferencia.LecturaBaseConocimiento">
+    <Position X="11.5" Y="4.25" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AQEAAAAEAAAAACCAAEAAAAAAAQAAAAAAAAQgABAAAAA=</HashCode>
+      <FileName>LecturaBaseConocimiento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SistemaExpertoLib.GestionDelConocimiento.GestionadorBaseConocimiento">
+    <Position X="26" Y="0.5" Width="7" />
+    <NestedTypes>
+      <Struct Name="SistemaExpertoLib.GestionDelConocimiento.GestionadorBaseConocimiento.InfoVariable" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>GestionadorBaseConocimiento2.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AQNXQAGEIyBgYDqADERAAAggSYBgEAEBIE4BAgQERDI=</HashCode>
+      <FileName>GestionadorBaseConocimiento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Delegate Name="SistemaExpertoLib.MotorDeInferencia.DelegadoConsultarVariable">
+    <Position X="16.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DelegadosYConstantes.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="SistemaExpertoLib.MotorDeInferencia.DelegadoInformacionInferencia">
+    <Position X="16.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DelegadosYConstantes.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

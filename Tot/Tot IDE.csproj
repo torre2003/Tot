@@ -188,6 +188,57 @@
   <ItemGroup>
     <None Include="Resources\loadong.gif" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Save32_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1481792915_Edit_page.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1481792918_Exit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1481792919_New_file.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1481792921_Export.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1481792923_Import.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1481792925_Red_book.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1481793263_Settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1481793265_Tools.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1481793329_Curve_points.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1481793333_Help_book.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1481793337_Touch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1481793340_Play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1481793627_Pinion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1481793629_Folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1481793630_Color_balance.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1481793632_Clipboard.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

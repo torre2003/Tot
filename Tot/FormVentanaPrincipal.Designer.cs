@@ -28,7 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormVentanaPrincipal));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.motorDeInferenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFileDialog_importar = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog_exportar = new System.Windows.Forms.SaveFileDialog();
             this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuevaBaseDeConocimientoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configuraciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -41,11 +45,8 @@
             this.gestiónDelConocimientoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem_editor_base_conocimiento = new System.Windows.Forms.ToolStripMenuItem();
             this.configuraciónBaseDeConocimientoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.motorDeInferenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.iniciarInferenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configuraciónLogDeInferenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openFileDialog_importar = new System.Windows.Forms.OpenFileDialog();
-            this.saveFileDialog_exportar = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,6 +62,26 @@
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
+            // motorDeInferenciaToolStripMenuItem
+            // 
+            this.motorDeInferenciaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.iniciarInferenciaToolStripMenuItem,
+            this.configuraciónLogDeInferenciaToolStripMenuItem});
+            this.motorDeInferenciaToolStripMenuItem.Image = global::Tot.Properties.Resources._1481793627_Pinion;
+            this.motorDeInferenciaToolStripMenuItem.Name = "motorDeInferenciaToolStripMenuItem";
+            this.motorDeInferenciaToolStripMenuItem.Size = new System.Drawing.Size(139, 20);
+            this.motorDeInferenciaToolStripMenuItem.Text = "Motor de inferencia";
+            // 
+            // openFileDialog_importar
+            // 
+            this.openFileDialog_importar.Filter = "Base de conocimiento|*.Tot;";
+            this.openFileDialog_importar.InitialDirectory = "Environment.SpecialFolder.Desktop";
+            // 
+            // saveFileDialog_exportar
+            // 
+            this.saveFileDialog_exportar.DefaultExt = "Tot";
+            this.saveFileDialog_exportar.Filter = "Base de conocimiento|*.Tot;";
+            // 
             // archivoToolStripMenuItem
             // 
             this.archivoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -72,12 +93,14 @@
             this.ToolStripMenuItemexportarBaseDeConocimiento,
             this.toolStripSeparator3,
             this.ToolStripMenuItem_salir});
+            this.archivoToolStripMenuItem.Image = global::Tot.Properties.Resources._1481793329_Curve_points;
             this.archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
-            this.archivoToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
+            this.archivoToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
             this.archivoToolStripMenuItem.Text = "Archivo";
             // 
             // nuevaBaseDeConocimientoToolStripMenuItem
             // 
+            this.nuevaBaseDeConocimientoToolStripMenuItem.Image = global::Tot.Properties.Resources._1481792919_New_file;
             this.nuevaBaseDeConocimientoToolStripMenuItem.Name = "nuevaBaseDeConocimientoToolStripMenuItem";
             this.nuevaBaseDeConocimientoToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
             this.nuevaBaseDeConocimientoToolStripMenuItem.Text = "Nueva base de conocimiento";
@@ -106,6 +129,7 @@
             // 
             // ToolStripMenuItemimportarBaseDeConocimiento
             // 
+            this.ToolStripMenuItemimportarBaseDeConocimiento.Image = global::Tot.Properties.Resources._1481792923_Import;
             this.ToolStripMenuItemimportarBaseDeConocimiento.Name = "ToolStripMenuItemimportarBaseDeConocimiento";
             this.ToolStripMenuItemimportarBaseDeConocimiento.Size = new System.Drawing.Size(270, 22);
             this.ToolStripMenuItemimportarBaseDeConocimiento.Text = "Importar base de conocimiento";
@@ -113,6 +137,7 @@
             // 
             // ToolStripMenuItemexportarBaseDeConocimiento
             // 
+            this.ToolStripMenuItemexportarBaseDeConocimiento.Image = global::Tot.Properties.Resources._1481792921_Export;
             this.ToolStripMenuItemexportarBaseDeConocimiento.Name = "ToolStripMenuItemexportarBaseDeConocimiento";
             this.ToolStripMenuItemexportarBaseDeConocimiento.Size = new System.Drawing.Size(270, 22);
             this.ToolStripMenuItemexportarBaseDeConocimiento.Text = "Exportar base de conocimiento";
@@ -125,6 +150,7 @@
             // 
             // ToolStripMenuItem_salir
             // 
+            this.ToolStripMenuItem_salir.Image = global::Tot.Properties.Resources._1481792918_Exit;
             this.ToolStripMenuItem_salir.Name = "ToolStripMenuItem_salir";
             this.ToolStripMenuItem_salir.Size = new System.Drawing.Size(270, 22);
             this.ToolStripMenuItem_salir.Text = "Salir";
@@ -135,12 +161,14 @@
             this.gestiónDelConocimientoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolStripMenuItem_editor_base_conocimiento,
             this.configuraciónBaseDeConocimientoToolStripMenuItem});
+            this.gestiónDelConocimientoToolStripMenuItem.Image = global::Tot.Properties.Resources._1481792925_Red_book;
             this.gestiónDelConocimientoToolStripMenuItem.Name = "gestiónDelConocimientoToolStripMenuItem";
-            this.gestiónDelConocimientoToolStripMenuItem.Size = new System.Drawing.Size(155, 20);
+            this.gestiónDelConocimientoToolStripMenuItem.Size = new System.Drawing.Size(171, 20);
             this.gestiónDelConocimientoToolStripMenuItem.Text = "Gestión del conocimiento";
             // 
             // ToolStripMenuItem_editor_base_conocimiento
             // 
+            this.ToolStripMenuItem_editor_base_conocimiento.Image = global::Tot.Properties.Resources._1481792915_Edit_page;
             this.ToolStripMenuItem_editor_base_conocimiento.Name = "ToolStripMenuItem_editor_base_conocimiento";
             this.ToolStripMenuItem_editor_base_conocimiento.Size = new System.Drawing.Size(270, 22);
             this.ToolStripMenuItem_editor_base_conocimiento.Text = "Editar base conocimiento";
@@ -148,22 +176,15 @@
             // 
             // configuraciónBaseDeConocimientoToolStripMenuItem
             // 
+            this.configuraciónBaseDeConocimientoToolStripMenuItem.Image = global::Tot.Properties.Resources._1481793263_Settings;
             this.configuraciónBaseDeConocimientoToolStripMenuItem.Name = "configuraciónBaseDeConocimientoToolStripMenuItem";
             this.configuraciónBaseDeConocimientoToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
             this.configuraciónBaseDeConocimientoToolStripMenuItem.Text = "Configuración base de conocimiento";
             this.configuraciónBaseDeConocimientoToolStripMenuItem.Click += new System.EventHandler(this.configuraciónToolStripMenuItem_Click);
             // 
-            // motorDeInferenciaToolStripMenuItem
-            // 
-            this.motorDeInferenciaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.iniciarInferenciaToolStripMenuItem,
-            this.configuraciónLogDeInferenciaToolStripMenuItem});
-            this.motorDeInferenciaToolStripMenuItem.Name = "motorDeInferenciaToolStripMenuItem";
-            this.motorDeInferenciaToolStripMenuItem.Size = new System.Drawing.Size(123, 20);
-            this.motorDeInferenciaToolStripMenuItem.Text = "Motor de inferencia";
-            // 
             // iniciarInferenciaToolStripMenuItem
             // 
+            this.iniciarInferenciaToolStripMenuItem.Image = global::Tot.Properties.Resources._1481793337_Touch;
             this.iniciarInferenciaToolStripMenuItem.Name = "iniciarInferenciaToolStripMenuItem";
             this.iniciarInferenciaToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
             this.iniciarInferenciaToolStripMenuItem.Text = "Iniciar inferencia";
@@ -171,20 +192,11 @@
             // 
             // configuraciónLogDeInferenciaToolStripMenuItem
             // 
+            this.configuraciónLogDeInferenciaToolStripMenuItem.Image = global::Tot.Properties.Resources._1481793265_Tools;
             this.configuraciónLogDeInferenciaToolStripMenuItem.Name = "configuraciónLogDeInferenciaToolStripMenuItem";
             this.configuraciónLogDeInferenciaToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
             this.configuraciónLogDeInferenciaToolStripMenuItem.Text = "Configuración log de inferencia";
             this.configuraciónLogDeInferenciaToolStripMenuItem.Click += new System.EventHandler(this.configuraciónLogInferenciaToolStripMenuItem_Click);
-            // 
-            // openFileDialog_importar
-            // 
-            this.openFileDialog_importar.Filter = "Base de conocimiento|*.Tot;";
-            this.openFileDialog_importar.InitialDirectory = "Environment.SpecialFolder.Desktop";
-            // 
-            // saveFileDialog_exportar
-            // 
-            this.saveFileDialog_exportar.DefaultExt = "Tot";
-            this.saveFileDialog_exportar.Filter = "Base de conocimiento|*.Tot;";
             // 
             // FormVentanaPrincipal
             // 
@@ -192,6 +204,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(913, 747);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.Name = "FormVentanaPrincipal";
             this.Text = "Tot ";

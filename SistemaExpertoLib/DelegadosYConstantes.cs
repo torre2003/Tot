@@ -61,6 +61,8 @@ namespace SistemaExpertoLib.MotorDeInferencia
         public const int LOG_INFO_SIN_REGLAS_PARA_INFERIR_HECHO             = 125;
         public const int LOG_INFO_VARIABLE_CONOCIDA                         = 126;
         public const int LOG_INFO_CONSULTANDO_HECHOS                        = 127;
+        public const int LOG_INFO_CONSULTANDO_VARIABLES_DE_INICIO           = 128;
+        public const int LOG_INFO_PROCESANDO_HECHOS_ASOCIADOS               = 129;
 
         /*   
         public const int LOG_REGLAS_DISPONIBLES                         = 110;

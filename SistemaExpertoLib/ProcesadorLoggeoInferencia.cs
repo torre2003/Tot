@@ -352,7 +352,18 @@ namespace SistemaExpertoLib
         /// texto log info info
         /// </summary>
         public string texto_log_info_termino_de_inferencia_reglas_agotadas { get; set; }
-        
+        /// <summary>
+        /// Obtiene o establece
+        /// texto log info info
+        /// </summary>
+        public string texto_log_info_consultando_variables_de_inicio { get; set; }
+        /// <summary>
+        /// Obtiene o establece
+        /// texto log info info
+        /// </summary>
+        public string texto_log_info_procesando_hechos_asociados { get; set; }
+
+
         #endregion 
         //Establece que información se muestra en el procesamiento 
         #region MOSTRAR INFO
@@ -468,6 +479,17 @@ namespace SistemaExpertoLib
         /// Obtiene o establece si el tipo de loggeo debe mostrarse al procesarse
         /// </summary>
         public bool mostrar_log_info_termino_de_inferencia_reglas_agotadas { get; set; }
+        /// <summary>
+        /// Obtiene o establece si el tipo de loggeo debe mostrarse al procesarse
+        /// </summary>
+        public bool mostrar_log_info_consultando_variables_de_inicio { get; set; }
+        /// <summary>
+        /// Obtiene o establece si el tipo de loggeo debe mostrarse al procesarse
+        /// </summary>
+        public bool mostrar_log_info_procesando_hechos_asociados { get; set; }
+
+        
+        
         #endregion
         public MotorDeInferencia.LecturaBaseConocimiento base_conocimiento;
 
@@ -581,7 +603,9 @@ namespace SistemaExpertoLib
             texto_log_info_problema_no_solucionado                      = "El problema NO se ha solucionado";
             texto_log_info_continuando_proceso                          = "continuando proceso de inferencia";
             texto_log_info_proceso_detenido                             = "proceso detenido por usuario";
-            texto_log_info_termino_de_inferencia_reglas_agotadas         = "Proceso terminado, no existen mas reglas en la base de conocimiento.";
+            texto_log_info_termino_de_inferencia_reglas_agotadas        = "Proceso terminado, no existen mas reglas en la base de conocimiento.";
+            texto_log_info_consultando_variables_de_inicio              = "Consultando variables de inicio.";
+            texto_log_info_procesando_hechos_asociados                  = "Procesando hechos asociados";
         }
 
         /// <summary>
@@ -618,6 +642,8 @@ namespace SistemaExpertoLib
             mostrar_log_info_continuando_proceso = true;
             mostrar_log_info_proceso_detenido = true;
             mostrar_log_info_termino_de_inferencia_reglas_agotadas = true;
+            mostrar_log_info_consultando_variables_de_inicio = true;
+            mostrar_log_info_procesando_hechos_asociados = true;
 
         }
         
@@ -729,6 +755,10 @@ namespace SistemaExpertoLib
                                     return texto_log_info_proceso_detenido;
                                 case ConstantesShell.LOG_INFO_TERMINO_DE_INFERENCIA_REGLAS_AGOTADAS:
                                     return texto_log_info_termino_de_inferencia_reglas_agotadas;
+                                case ConstantesShell.LOG_INFO_CONSULTANDO_VARIABLES_DE_INICIO:
+                                    return texto_log_info_consultando_variables_de_inicio;
+                                case ConstantesShell.LOG_INFO_PROCESANDO_HECHOS_ASOCIADOS:
+                                    return texto_log_info_procesando_hechos_asociados;
                             }
                         }
                         else
@@ -778,7 +808,9 @@ namespace SistemaExpertoLib
                 case ConstantesShell.LOG_INFO_CONTINUANDO_PROCESO: return mostrar_log_info_continuando_proceso;
                 case ConstantesShell.LOG_INFO_PROCESO_DETENIDO: return mostrar_log_info_proceso_detenido;
                 case ConstantesShell.LOG_INFO_TERMINO_DE_INFERENCIA_REGLAS_AGOTADAS: return mostrar_log_info_termino_de_inferencia_reglas_agotadas;
-                case ConstantesShell.LOG_ACCION_INGRESANDO_A_VARIABLES_CONOCIDAS: return mostrar_log_accion_ingresando_a_variables_conocidas; 
+                case ConstantesShell.LOG_ACCION_INGRESANDO_A_VARIABLES_CONOCIDAS: return mostrar_log_accion_ingresando_a_variables_conocidas;
+                case ConstantesShell.LOG_INFO_CONSULTANDO_VARIABLES_DE_INICIO: return mostrar_log_info_consultando_variables_de_inicio;
+                case ConstantesShell.LOG_INFO_PROCESANDO_HECHOS_ASOCIADOS: return mostrar_log_info_procesando_hechos_asociados; 
             }
             throw new System.ArgumentException("Opcion de loggeo invalida", "omitir info");
         }
