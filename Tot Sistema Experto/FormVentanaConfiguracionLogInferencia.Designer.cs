@@ -1,4 +1,4 @@
-﻿namespace Tot
+﻿namespace Tot_Sistema_Experto
 {
     partial class FormVentanaConfiguracionLogInferencia
     {
@@ -52,8 +52,8 @@
             this.button_aceptar = new System.Windows.Forms.Button();
             this.button_cancelar = new System.Windows.Forms.Button();
             this.button_por_defecto = new System.Windows.Forms.Button();
-            this.button_importar = new System.Windows.Forms.Button();
             this.button_exportar = new System.Windows.Forms.Button();
+            this.button_importar = new System.Windows.Forms.Button();
             this.panel_formato_variable.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -301,25 +301,25 @@
             this.button_por_defecto.UseVisualStyleBackColor = true;
             this.button_por_defecto.Click += new System.EventHandler(this.button_por_defecto_Click);
             // 
-            // button_importar
-            // 
-            this.button_importar.Location = new System.Drawing.Point(79, 468);
-            this.button_importar.Name = "button_importar";
-            this.button_importar.Size = new System.Drawing.Size(164, 23);
-            this.button_importar.TabIndex = 10;
-            this.button_importar.Text = "Importar configuración";
-            this.button_importar.UseVisualStyleBackColor = true;
-            this.button_importar.Click += new System.EventHandler(this.button_importar_Click);
-            // 
             // button_exportar
             // 
-            this.button_exportar.Location = new System.Drawing.Point(249, 467);
+            this.button_exportar.Location = new System.Drawing.Point(247, 467);
             this.button_exportar.Name = "button_exportar";
             this.button_exportar.Size = new System.Drawing.Size(164, 23);
-            this.button_exportar.TabIndex = 9;
+            this.button_exportar.TabIndex = 7;
             this.button_exportar.Text = "Exportar configuración";
             this.button_exportar.UseVisualStyleBackColor = true;
             this.button_exportar.Click += new System.EventHandler(this.button_exportar_Click);
+            // 
+            // button_importar
+            // 
+            this.button_importar.Location = new System.Drawing.Point(77, 468);
+            this.button_importar.Name = "button_importar";
+            this.button_importar.Size = new System.Drawing.Size(164, 23);
+            this.button_importar.TabIndex = 8;
+            this.button_importar.Text = "Importar configuración";
+            this.button_importar.UseVisualStyleBackColor = true;
+            this.button_importar.Click += new System.EventHandler(this.button_importar_Click);
             // 
             // FormVentanaConfiguracionLogInferencia
             // 
@@ -382,8 +382,8 @@
         private System.Windows.Forms.Button button_aceptar;
         private System.Windows.Forms.Button button_cancelar;
         private System.Windows.Forms.Button button_por_defecto;
-        private System.Windows.Forms.Button button_importar;
         private System.Windows.Forms.Button button_exportar;
+        private System.Windows.Forms.Button button_importar;
 
     }
 }

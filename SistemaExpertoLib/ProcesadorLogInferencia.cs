@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SistemaExpertoLib
 {
     [Serializable()]
-    public class ProcesadorLoggeoInferencia
+    public class ProcesadorLogInferencia
     {
         //--------------------------------------------------------------------------------------------
         //     Atributos
@@ -514,7 +514,7 @@ namespace SistemaExpertoLib
         /// <summary>
         /// Constructor
         /// </summary>
-        public ProcesadorLoggeoInferencia()
+        public ProcesadorLogInferencia()
         {
             textoLogPorDefecto();
             mostrarInfosPorDefecto();
@@ -525,7 +525,7 @@ namespace SistemaExpertoLib
         /// Constructor
         /// </summary>
         /// <param name="ruta_base_conocimiento">Ruta de la base de conocimiento</param>
-        public ProcesadorLoggeoInferencia(string ruta_base_conocimiento)
+        public ProcesadorLogInferencia(string ruta_base_conocimiento)
         {
             textoLogPorDefecto();
             mostrarInfosPorDefecto();
@@ -903,6 +903,102 @@ namespace SistemaExpertoLib
                     return regla.id_regla + "  " + regla;
             }
             throw new System.ArgumentException("Opcion invalida", "formatearAtributo");
+        }
+
+        public override bool Equals(object obj)
+        {
+            string tipo = ""+obj.GetType();
+            if (!tipo.Equals("SistemaExpertoLib.ProcesadorLogInferencia")) return false;
+            ProcesadorLogInferencia procesador = (ProcesadorLogInferencia)obj;
+
+            if (_formato_variables != procesador._formato_variables) return false;
+            if (_formato_hecho != procesador._formato_hecho) return false;
+            if (_formato_reglas != procesador._formato_reglas) return false;
+
+
+            if (!texto_reglas_disponibles.Equals(procesador.texto_reglas_disponibles)) return false;
+            if (!texto_reglas_candidatas.Equals(procesador.texto_reglas_candidatas)) return false;
+            if (!texto_reglas_eliminadas.Equals(procesador.texto_reglas_eliminadas)) return false;
+            if (!texto_hechos_disponibles.Equals(procesador.texto_hechos_disponibles)) return false;
+            if (!texto_hechos_verdaderos.Equals(procesador.texto_hechos_verdaderos)) return false;
+            if (!texto_hechos_falsos.Equals(procesador.texto_hechos_falsos)) return false;
+            if (!texto_log_info.Equals(procesador.texto_log_info)) return false;
+            if (!texto_log_variable.Equals(procesador.texto_log_variable)) return false;
+            if (!texto_log_hecho.Equals(procesador.texto_log_hecho)) return false;
+            if (!texto_log_regla.Equals(procesador.texto_log_regla)) return false;
+            if (!texto_log_nivel_hecho.Equals(procesador.texto_log_nivel_hecho)) return false;
+            if (!texto_log_accion_mover_hecho_inicial.Equals(procesador.texto_log_accion_mover_hecho_inicial)) return false;
+            if (!texto_log_accion_mover_hecho_central.Equals(procesador.texto_log_accion_mover_hecho_central)) return false;
+            if (!texto_log_accion_mover_hecho_final.Equals(procesador.texto_log_accion_mover_hecho_final)) return false;
+            if (!texto_log_accion_mover_regla_inicial.Equals(procesador.texto_log_accion_mover_regla_inicial)) return false;
+            if (!texto_log_accion_mover_regla_central.Equals(procesador.texto_log_accion_mover_regla_central)) return false;
+            if (!texto_log_accion_mover_regla_final.Equals(procesador.texto_log_accion_mover_regla_final)) return false;
+            if (!texto_log_accion_ingresando_a_variables_conocidas_inicial.Equals(procesador.texto_log_accion_ingresando_a_variables_conocidas_inicial)) return false;
+            if (!texto_log_accion_ingresando_a_variables_conocidas_final.Equals(procesador.texto_log_accion_ingresando_a_variables_conocidas_final)) return false;
+            if (!texto_log_accion_elegida_mejor_regla_inicial.Equals(procesador.texto_log_accion_elegida_mejor_regla_inicial)) return false;
+            if (!texto_log_accion_elegida_mejor_regla_final.Equals(procesador.texto_log_accion_elegida_mejor_regla_final)) return false;
+            if (!texto_log_accion_consultando_hechos_inicial.Equals(procesador.texto_log_accion_consultando_hechos_inicial)) return false;
+            if (!texto_log_accion_consultando_hechos_final.Equals(procesador.texto_log_accion_consultando_hechos_final)) return false;
+            if (!texto_log_accion_ingresando_hecho_a_pila_objetivos_inicial.Equals(procesador.texto_log_accion_ingresando_hecho_a_pila_objetivos_inicial)) return false;
+            if (!texto_log_accion_ingresando_hecho_a_pila_objetivos_final.Equals(procesador.texto_log_accion_ingresando_hecho_a_pila_objetivos_final)) return false;
+            if (!texto_log_accion_hecho_objetivo_principal_inicial.Equals(procesador.texto_log_accion_hecho_objetivo_principal_inicial)) return false;
+            if (!texto_log_accion_hecho_objetivo_principal_final.Equals(procesador.texto_log_accion_hecho_objetivo_principal_final)) return false;
+            if (!texto_log_accion_hecho_objetivo_actual_inicial.Equals(procesador.texto_log_accion_hecho_objetivo_actual_inicial)) return false;
+            if (!texto_log_accion_hecho_objetivo_actual_final.Equals(procesador.texto_log_accion_hecho_objetivo_actual_final)) return false;
+            if (!texto_log_accion_quitando_hecho_de_pila_objetivos_inicial.Equals(procesador.texto_log_accion_quitando_hecho_de_pila_objetivos_inicial)) return false;
+            if (!texto_log_accion_quitando_hecho_de_pila_objetivos_final.Equals(procesador.texto_log_accion_quitando_hecho_de_pila_objetivos_final)) return false;
+            if (!texto_log_accion_procesando_respuesta_inicial.Equals(procesador.texto_log_accion_procesando_respuesta_inicial)) return false;
+            if (!texto_log_accion_procesando_respuesta_medio.Equals(procesador.texto_log_accion_procesando_respuesta_medio)) return false;
+            if (!texto_log_accion_validando_regla_inicial.Equals(procesador.texto_log_accion_validando_regla_inicial)) return false;
+            if (!texto_log_accion_validando_regla_final.Equals(procesador.texto_log_accion_validando_regla_final)) return false;
+            if (!texto_log_info_sin_reglas_para_inferir_hecho_inicial.Equals(procesador.texto_log_info_sin_reglas_para_inferir_hecho_inicial)) return false;
+            if (!texto_log_info_sin_reglas_para_inferir_hecho_final.Equals(procesador.texto_log_info_sin_reglas_para_inferir_hecho_final)) return false;
+            if (!texto_log_info_variable_conocida_inicial.Equals(procesador.texto_log_info_variable_conocida_inicial)) return false;
+            if (!texto_log_info_variable_conocida_final.Equals(procesador.texto_log_info_variable_conocida_final)) return false;
+            if (!texto_log_info_consultando_hechos.Equals(procesador.texto_log_info_consultando_hechos)) return false;
+            if (!texto_log_info_analizando_hechos_inferidos_regla.Equals(procesador.texto_log_info_analizando_hechos_inferidos_regla)) return false;
+            if (!texto_log_info_regla_validada.Equals(procesador.texto_log_info_regla_validada)) return false;
+            if (!texto_log_info_regla_no_validada.Equals(procesador.texto_log_info_regla_no_validada)) return false;
+            if (!texto_log_info_descartando_reglas_de_igual_consecuente.Equals(procesador.texto_log_info_descartando_reglas_de_igual_consecuente)) return false;
+            if (!texto_log_info_problema_solucionado.Equals(procesador.texto_log_info_problema_solucionado)) return false;
+            if (!texto_log_info_problema_no_solucionado.Equals(procesador.texto_log_info_problema_no_solucionado)) return false;
+            if (!texto_log_info_continuando_proceso.Equals(procesador.texto_log_info_continuando_proceso)) return false;
+            if (!texto_log_info_proceso_detenido.Equals(procesador.texto_log_info_proceso_detenido)) return false;
+            if (!texto_log_info_termino_de_inferencia_reglas_agotadas.Equals(procesador.texto_log_info_termino_de_inferencia_reglas_agotadas)) return false;
+            if (!texto_log_info_consultando_variables_de_inicio.Equals(procesador.texto_log_info_consultando_variables_de_inicio)) return false;
+            if (!texto_log_info_procesando_hechos_asociados.Equals(procesador.texto_log_info_procesando_hechos_asociados)) return false;
+
+            if (mostrar_log_info != procesador.mostrar_log_info) return false;
+            if (mostrar_log_variable != procesador.mostrar_log_variable) return false;
+            if (mostrar_log_hecho != procesador.mostrar_log_hecho) return false;
+            if (mostrar_log_regla != procesador.mostrar_log_regla) return false;
+            if (mostrar_log_nivel_hecho != procesador.mostrar_log_nivel_hecho) return false;
+            if (mostrar_log_accion_mover_hecho != procesador.mostrar_log_accion_mover_hecho) return false;
+            if (mostrar_log_accion_mover_regla != procesador.mostrar_log_accion_mover_regla) return false;
+            if (mostrar_log_accion_ingresando_a_variables_conocidas != procesador.mostrar_log_accion_ingresando_a_variables_conocidas) return false;
+            if (mostrar_log_accion_elegida_mejor_regla != procesador.mostrar_log_accion_elegida_mejor_regla) return false;
+            if (mostrar_log_accion_consultando_hecho != procesador.mostrar_log_accion_consultando_hecho) return false;
+            if (mostrar_log_accion_ingresando_hecho_a_pila_objetivos != procesador.mostrar_log_accion_ingresando_hecho_a_pila_objetivos) return false;
+            if (mostrar_log_accion_hecho_objetivo_principal != procesador.mostrar_log_accion_hecho_objetivo_principal) return false;
+            if (mostrar_log_accion_hecho_objetivo_actual != procesador.mostrar_log_accion_hecho_objetivo_actual) return false;
+            if (mostrar_log_accion_quitando_hecho_de_pila_objetivos != procesador.mostrar_log_accion_quitando_hecho_de_pila_objetivos) return false;
+            if (mostrar_log_accion_procesando_respuesta != procesador.mostrar_log_accion_procesando_respuesta) return false;
+            if (mostrar_log_accion_validando_regla != procesador.mostrar_log_accion_validando_regla) return false;
+            if (mostrar_log_info_sin_reglas_para_inferir_hecho != procesador.mostrar_log_info_sin_reglas_para_inferir_hecho) return false;
+            if (mostrar_log_info_variable_conocida != procesador.mostrar_log_info_variable_conocida) return false;
+            if (mostrar_log_info_consultando_hechos != procesador.mostrar_log_info_consultando_hechos) return false;
+            if (mostrar_log_info_analizando_hechos_inferidos_regla != procesador.mostrar_log_info_analizando_hechos_inferidos_regla) return false;
+            if (mostrar_log_info_regla_validada != procesador.mostrar_log_info_regla_validada) return false;
+            if (mostrar_log_info_regla_no_validada != procesador.mostrar_log_info_regla_no_validada) return false;
+            if (mostrar_log_info_descartando_reglas_de_igual_consecuente != procesador.mostrar_log_info_descartando_reglas_de_igual_consecuente) return false;
+            if (mostrar_log_info_problema_solucionado != procesador.mostrar_log_info_problema_solucionado) return false;
+            if (mostrar_log_info_problema_no_solucionado != procesador.mostrar_log_info_problema_no_solucionado) return false;
+            if (mostrar_log_info_continuando_proceso != procesador.mostrar_log_info_continuando_proceso) return false;
+            if (mostrar_log_info_proceso_detenido != procesador.mostrar_log_info_proceso_detenido) return false;
+            if (mostrar_log_info_termino_de_inferencia_reglas_agotadas != procesador.mostrar_log_info_termino_de_inferencia_reglas_agotadas) return false;
+            if (mostrar_log_info_consultando_variables_de_inicio != procesador.mostrar_log_info_consultando_variables_de_inicio) return false;
+            if (mostrar_log_info_procesando_hechos_asociados != procesador.mostrar_log_info_procesando_hechos_asociados) return false;
+            return true;
         }
     }
 }

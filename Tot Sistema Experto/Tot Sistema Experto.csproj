@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BB27D0B7-570B-47DF-AF28-6B04EDE939B9}</ProjectGuid>
+    <ProjectGuid>{ED91E323-601F-425D-8BC2-70D0CAB7BDA7}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tot</RootNamespace>
-    <AssemblyName>Tot</AssemblyName>
+    <RootNamespace>Tot_Sistema_Experto</RootNamespace>
+    <AssemblyName>Tot Sistema Experto</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,9 +30,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>tot48x48.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ionic.Zip">
@@ -62,12 +59,6 @@
     <Compile Include="FormVentanaCargando.Designer.cs">
       <DependentUpon>FormVentanaCargando.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormVentanaConfiguracion.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormVentanaConfiguracion.Designer.cs">
-      <DependentUpon>FormVentanaConfiguracion.cs</DependentUpon>
-    </Compile>
     <Compile Include="FormVentanaConfiguracionLogInferencia.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,12 +67,6 @@
     </Compile>
     <Compile Include="FormVentanaConfiguracionLogInferencia2.cs">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormVentanaGestiónBaseConocimiento.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormVentanaGestiónBaseConocimiento.Designer.cs">
-      <DependentUpon>FormVentanaGestiónBaseConocimiento.cs</DependentUpon>
     </Compile>
     <Compile Include="FormVentanaGuardarLog.cs">
       <SubType>Form</SubType>
@@ -105,14 +90,8 @@
     <EmbeddedResource Include="FormVentanaCargando.resx">
       <DependentUpon>FormVentanaCargando.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormVentanaConfiguracion.resx">
-      <DependentUpon>FormVentanaConfiguracion.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FormVentanaConfiguracionLogInferencia.resx">
       <DependentUpon>FormVentanaConfiguracionLogInferencia.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormVentanaGestiónBaseConocimiento.resx">
-      <DependentUpon>FormVentanaGestiónBaseConocimiento.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormVentanaGuardarLog.resx">
       <DependentUpon>FormVentanaGuardarLog.cs</DependentUpon>
@@ -122,18 +101,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -148,102 +127,22 @@
       <Project>{1a4288d2-3197-4bb8-b0a5-ccb7d1ee8ae7}</Project>
       <Name>ControlesModuloConsulta</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ControlesModuloGestionBaseConocimiento\ControlesModuloGestionBaseConocimiento.csproj">
-      <Project>{4f0f6f1f-5301-45d5-9fc8-895e900d81ff}</Project>
-      <Name>ControlesModuloGestionBaseConocimiento</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SistemaExpertoLib\SistemaExpertoLib.csproj">
       <Project>{cc17b513-73d1-4fae-9824-3ddf51b9d217}</Project>
       <Name>SistemaExpertoLib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TextRuler\TextRuler.csproj">
-      <Project>{2b29c912-8bda-4260-a486-111becccc196}</Project>
-      <Name>TextRuler</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Folder-Page-White.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\lupa_documentos.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\lupa_documentos - 32 x 32.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\lupa_imagenes - 32x 32.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\add124x124 .png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\add60x60.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\remove60x60.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\basurero 32x32.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\update_256x256.png" />
+    <None Include="Resources\logo default.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\loadong.gif" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Save32_32.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\1481792915_Edit_page.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\1481792918_Exit.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\1481792919_New_file.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\1481792921_Export.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\1481792923_Import.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\1481792925_Red_book.png" />
+    <None Include="Resources\loadong1.gif" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\1481793263_Settings.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\1481793265_Tools.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\1481793329_Curve_points.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\1481793333_Help_book.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\1481793337_Touch.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\1481793340_Play.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\1481793627_Pinion.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\1481793629_Folder.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\1481793630_Color_balance.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\1481793632_Clipboard.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="tot48x48.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

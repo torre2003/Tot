@@ -25,7 +25,7 @@ namespace Tot
         GestionadorBaseConocimiento base_conocimiento;
         GestionConfiguracionInternaTot configuracion_interna;
         FormVentanaConfiguracion ventana_configuracion;
-        FormVentanaConfiguracionLogInferencia ventana_configuracion_loggeo; 
+        FormVentanaConfiguracionLogInferencia ventana_configuracion_log; 
         FormVentanaGestiónBaseConocimiento ventana_gestion_de_conocimiento;
         FormVentanaCargando ventana_cargando = new FormVentanaCargando();
 
@@ -42,8 +42,8 @@ namespace Tot
             ventana_configuracion = new FormVentanaConfiguracion(base_conocimiento);
             ventana_configuracion.MdiParent = this;
 
-            ventana_configuracion_loggeo = new FormVentanaConfiguracionLogInferencia(configuracion_interna);
-            ventana_configuracion_loggeo.MdiParent = this;
+            ventana_configuracion_log = new FormVentanaConfiguracionLogInferencia(configuracion_interna);
+            ventana_configuracion_log.MdiParent = this;
 
             if (!base_conocimiento.existe_base_de_conocimiento)
             {
@@ -55,7 +55,7 @@ namespace Tot
             }
 
             if (!configuracion_interna.existe_archivo_configuracion)
-                configuracion_interna.ingresarProcesadorDeLoggeo(new ProcesadorLoggeoInferencia());
+                configuracion_interna.ingresarProcesadorDeLoggeo(new ProcesadorLogInferencia());
             
             ventana_gestion_de_conocimiento = new FormVentanaGestiónBaseConocimiento(base_conocimiento);
             ventana_gestion_de_conocimiento.MdiParent = this;
@@ -210,8 +210,8 @@ namespace Tot
 
         private void configuraciónLogInferenciaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ventana_configuracion_loggeo.Visible = true;
-            ventana_configuracion_loggeo.mostrarConfiguracionProcesadorLoggeo(configuracion_interna.extraerProcesadorDeLoggeo());
+            ventana_configuracion_log.Visible = true;
+            ventana_configuracion_log.mostrarConfiguracionProcesadorLoggeo(configuracion_interna.extraerProcesadorDeLoggeo());
         }
 
 

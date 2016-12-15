@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Tot
+namespace Tot_Sistema_Experto
 {
     public class GestionMotorInferencia
 {
@@ -476,6 +476,30 @@ namespace Tot
 
         void ventana_justificacion_evento_guardar()
         {
+            System.Windows.Forms.SaveFileDialog saveFileDialog_guardar_log = new SaveFileDialog();
+            saveFileDialog_guardar_log.DefaultExt = "txt";
+            saveFileDialog_guardar_log.Filter = "Archivos de texto |*.txt;";
+            saveFileDialog_guardar_log.InitialDirectory = "Environment.SpecialFolder.Desktop";
+
+            if (saveFileDialog_guardar_log.ShowDialog() == DialogResult.OK)
+            {
+                _procesador_log_inferencia.mostrarInfosPorDefecto();
+                List<string> log = new List<string>();
+                if (tipo_de_encadenamiento == ENCADENAMIENTO_HACIA_ATRAS)
+                    log = motor_atras.loggeo_inferencia;
+                else
+                    log = motor_adelante.loggeo_inferencia;
+                bool flag = escribirLogEnArchivo(log, _procesador_log_inferencia,true,true,true,saveFileDialog_guardar_log.FileName);
+                if (flag)
+                    MessageBox.Show("El archivo ha sido guardado satisfactoriamente.", "Guardando Log de inferencia", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else
+                    MessageBox.Show("Problemas con la creación del archivo", "Guardando Log de inferencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
+            
+            
+            
+            /*
             FormVentanaGuardarLog ventana_guardar_log = new FormVentanaGuardarLog();
             ventana_guardar_log.ShowDialog(ventana_padre);
             if (ventana_guardar_log.DialogResult == DialogResult.OK)
@@ -493,6 +517,7 @@ namespace Tot
                 else
                     MessageBox.Show("Problemas con la creación del archivo", "Guardando Log de inferencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            /**/ 
             
         }
     }

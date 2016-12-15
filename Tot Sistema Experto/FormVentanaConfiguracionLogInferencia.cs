@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Tot
+namespace Tot_Sistema_Experto
 {
     public partial class FormVentanaConfiguracionLogInferencia : Form
     {
@@ -334,6 +334,7 @@ namespace Tot
                 mostrarConfiguracionProcesadorLoggeo(new ProcesadorLogInferencia());
         }
 
+        
         private void button_aceptar_Click(object sender, EventArgs e)
         {
             if (!procesador_historico.Equals(extraerConfiguracionLoggeo()))
@@ -346,23 +347,42 @@ namespace Tot
                     procesador_historico = null;
                 }
                 else
-                    if (result == DialogResult.No)
-                    {
-                        this.Visible = false;
-                        procesador_historico = null;
-                    }
+                if (result == DialogResult.No)
+                {
+                    this.Visible = false;
+                    procesador_historico = null;
+                }
             }
             else
             {
                 this.Visible = false;
                 procesador_historico = null;
             }
+            
         }
 
         private void button_cancelar_Click(object sender, EventArgs e)
         {
             this.Visible = false;
             procesador_historico = null;
+        }
+
+        private void button_exportar_Click(object sender, EventArgs e)
+        {
+            if (configuracion_interna.existe_archivo_configuracion)
+            {
+                string archivo_configuracion = configuracion_interna.ruta_archivos_configuracion + configuracion_interna.archivo_configuracion_log;
+                System.Windows.Forms.SaveFileDialog saveFileDialog_guardar_log = new SaveFileDialog();
+                saveFileDialog_guardar_log.DefaultExt = "conf";
+                saveFileDialog_guardar_log.Filter = "Archivos de configuración |*.conf;";
+                saveFileDialog_guardar_log.InitialDirectory = "Environment.SpecialFolder.Desktop";
+
+                if (saveFileDialog_guardar_log.ShowDialog() == DialogResult.OK)
+                {
+                    File.Copy(archivo_configuracion,saveFileDialog_guardar_log.FileName,true);
+                    MessageBox.Show("Configuracíón exportada correctamente.", "Exportando configuración", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
         }
 
         private void button_importar_Click(object sender, EventArgs e)
@@ -378,24 +398,6 @@ namespace Tot
                 File.Copy(openFileDialog_guardar_log.FileName, archivo_configuracion, true);
                 mostrarConfiguracionProcesadorLoggeo(configuracion_interna.extraerProcesadorDeLoggeo());
                 MessageBox.Show("Configuracíón importada y guardada correctamente.", "Importando configuración", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-
-        private void button_exportar_Click(object sender, EventArgs e)
-        {
-            if (configuracion_interna.existe_archivo_configuracion)
-            {
-                string archivo_configuracion = configuracion_interna.ruta_archivos_configuracion + configuracion_interna.archivo_configuracion_log;
-                System.Windows.Forms.SaveFileDialog saveFileDialog_guardar_log = new SaveFileDialog();
-                saveFileDialog_guardar_log.DefaultExt = "conf";
-                saveFileDialog_guardar_log.Filter = "Archivos de configuración |*.conf;";
-                saveFileDialog_guardar_log.InitialDirectory = "Environment.SpecialFolder.Desktop";
-
-                if (saveFileDialog_guardar_log.ShowDialog() == DialogResult.OK)
-                {
-                    File.Copy(archivo_configuracion, saveFileDialog_guardar_log.FileName, true);
-                    MessageBox.Show("Configuracíón exportada correctamente.", "Exportando configuración", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
             }
         }
 

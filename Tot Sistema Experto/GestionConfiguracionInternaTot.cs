@@ -7,7 +7,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tot
+namespace Tot_Sistema_Experto
 {
     public class GestionConfiguracionInternaTot
     {
@@ -25,6 +25,9 @@ namespace Tot
         {
             if (File.Exists(ruta_archivos_configuracion + archivo_configuracion_log))
                 File.Delete(ruta_archivos_configuracion + archivo_configuracion_log);
+            DirectoryInfo directorio_base_conocimiento = new DirectoryInfo(ruta_archivos_configuracion);
+            if (!directorio_base_conocimiento.Exists)
+                directorio_base_conocimiento.Create();
             using (Stream stream = File.OpenWrite(ruta_archivos_configuracion + archivo_configuracion_log))
             {
                 BinaryFormatter serializer = new BinaryFormatter();
