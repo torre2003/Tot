@@ -8,9 +8,10 @@
     <OutputType>Library</OutputType>
     <RootNamespace>CEditor</RootNamespace>
     <AssemblyName>C-Editor</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <NoWin32Manifest>False</NoWin32Manifest>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -66,9 +67,26 @@
     <Compile Include="C-Editor.Designer.cs">
       <DependentUpon>C-Editor.cs</DependentUpon>
     </Compile>
+    <Compile Include="C-EditorInputBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="C-EditorInputBox.Designer.cs">
+      <DependentUpon>C-EditorInputBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListaVariables.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ListaVariables.Designer.cs">
+      <DependentUpon>ListaVariables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\SistemaExpertoLib\SistemaExpertoLib.csproj">
+      <Project>{CC17B513-73D1-4FAE-9824-3DDF51B9D217}</Project>
+      <Name>SistemaExpertoLib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
     <None Include="lib\Microsoft.Msagl.dll" />
@@ -78,6 +96,12 @@
   <ItemGroup>
     <EmbeddedResource Include="C-Editor.resx">
       <DependentUpon>C-Editor.Designer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="C-EditorInputBox.resx">
+      <DependentUpon>C-EditorInputBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListaVariables.resx">
+      <DependentUpon>ListaVariables.Designer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

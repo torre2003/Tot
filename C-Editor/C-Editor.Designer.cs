@@ -9,14 +9,15 @@
 using Microsoft.Msagl.GraphViewerGdi;
 namespace CEditor
 {
-	partial class C_Editor
+	partial class CEditor
 	{
 		/// <summary>
 		/// Designer variable used to keep track of non-visual components.
 		/// </summary>
 		private System.ComponentModel.IContainer components = null;
 		
-		private GViewer viewer;
+		private GViewer gViewer;
+		private System.Windows.Forms.Timer timerAddEdge;
 		
 		/// <summary>
 		/// Disposes resources used by the control.
@@ -39,57 +40,68 @@ namespace CEditor
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(C_Editor));
-			this.viewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
+			this.components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CEditor));
+			this.gViewer = new Microsoft.Msagl.GraphViewerGdi.GViewer();
+			this.timerAddEdge = new System.Windows.Forms.Timer(this.components);
 			this.SuspendLayout();
 			// 
-			// viewer
+			// gViewer
 			// 
-			this.viewer.ArrowheadLength = 10D;
-			this.viewer.AsyncLayout = false;
-			this.viewer.AutoScroll = true;
-			this.viewer.BackColor = System.Drawing.Color.White;
-			this.viewer.BackwardEnabled = false;
-			this.viewer.BuildHitTree = true;
-			this.viewer.CurrentLayoutMethod = Microsoft.Msagl.GraphViewerGdi.LayoutMethod.SugiyamaScheme;
-			this.viewer.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.viewer.EdgeInsertButtonVisible = true;
-			this.viewer.FileName = "";
-			this.viewer.ForwardEnabled = true;
-			this.viewer.Graph = null;
-			this.viewer.InsertingEdge = false;
-			this.viewer.LayoutAlgorithmSettingsButtonVisible = false;
-			this.viewer.LayoutEditingEnabled = true;
-			this.viewer.Location = new System.Drawing.Point(0, 0);
-			this.viewer.LooseOffsetForRouting = 0.25D;
-			this.viewer.MouseHitDistance = 0.05D;
-			this.viewer.Name = "viewer";
-			this.viewer.NavigationVisible = true;
-			this.viewer.NeedToCalculateLayout = true;
-			this.viewer.OffsetForRelaxingInRouting = 0.6D;
-			this.viewer.PaddingForEdgeRouting = 8D;
-			this.viewer.PanButtonPressed = false;
-			this.viewer.SaveAsImageEnabled = false;
-			this.viewer.SaveAsMsaglEnabled = true;
-			this.viewer.SaveButtonVisible = true;
-			this.viewer.SaveGraphButtonVisible = true;
-			this.viewer.SaveInVectorFormatEnabled = false;
-			this.viewer.Size = new System.Drawing.Size(725, 426);
-			this.viewer.TabIndex = 0;
-			this.viewer.TightOffsetForRouting = 0.125D;
-			this.viewer.ToolBarIsVisible = true;
-			this.viewer.Transform = ((Microsoft.Msagl.Core.Geometry.Curves.PlaneTransformation)(resources.GetObject("viewer.Transform")));
-			this.viewer.UndoRedoButtonsVisible = true;
-			this.viewer.WindowZoomButtonPressed = false;
-			this.viewer.ZoomF = 1D;
-			this.viewer.ZoomWindowThreshold = 0.05D;
+			this.gViewer.AllowDrop = true;
+			this.gViewer.ArrowheadLength = 10D;
+			this.gViewer.AsyncLayout = false;
+			this.gViewer.AutoScroll = true;
+			this.gViewer.BackColor = System.Drawing.Color.White;
+			this.gViewer.BackwardEnabled = true;
+			this.gViewer.BuildHitTree = true;
+			this.gViewer.CurrentLayoutMethod = Microsoft.Msagl.GraphViewerGdi.LayoutMethod.SugiyamaScheme;
+			this.gViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.gViewer.EdgeInsertButtonVisible = true;
+			this.gViewer.FileName = "";
+			this.gViewer.ForwardEnabled = true;
+			this.gViewer.Graph = null;
+			this.gViewer.InsertingEdge = false;
+			this.gViewer.LayoutAlgorithmSettingsButtonVisible = false;
+			this.gViewer.LayoutEditingEnabled = true;
+			this.gViewer.Location = new System.Drawing.Point(0, 0);
+			this.gViewer.LooseOffsetForRouting = 0.25D;
+			this.gViewer.MouseHitDistance = 0.05D;
+			this.gViewer.Name = "gViewer";
+			this.gViewer.NavigationVisible = true;
+			this.gViewer.NeedToCalculateLayout = true;
+			this.gViewer.OffsetForRelaxingInRouting = 0.6D;
+			this.gViewer.PaddingForEdgeRouting = 8D;
+			this.gViewer.PanButtonPressed = false;
+			this.gViewer.SaveAsImageEnabled = false;
+			this.gViewer.SaveAsMsaglEnabled = false;
+			this.gViewer.SaveButtonVisible = false;
+			this.gViewer.SaveGraphButtonVisible = false;
+			this.gViewer.SaveInVectorFormatEnabled = false;
+			this.gViewer.Size = new System.Drawing.Size(725, 426);
+			this.gViewer.TabIndex = 0;
+			this.gViewer.TightOffsetForRouting = 0.125D;
+			this.gViewer.ToolBarIsVisible = true;
+			this.gViewer.Transform = ((Microsoft.Msagl.Core.Geometry.Curves.PlaneTransformation)(resources.GetObject("gViewer.Transform")));
+			this.gViewer.UndoRedoButtonsVisible = true;
+			this.gViewer.WindowZoomButtonPressed = false;
+			this.gViewer.ZoomF = 1D;
+			this.gViewer.ZoomWindowThreshold = 0.05D;
+			this.gViewer.EdgeAdded += new System.EventHandler(this.GViewerEdgeAdded);
+			this.gViewer.DoubleClick += new System.EventHandler(this.GViewerDoubleClick);
+			this.gViewer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ViewerKeyDown);
 			// 
-			// C_Editor
+			// timerAddEdge
+			// 
+			this.timerAddEdge.Tick += new System.EventHandler(this.TimerTick);
+			// 
+			// CEditor
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.viewer);
-			this.Name = "C_Editor";
+			this.AutoScroll = true;
+			this.Controls.Add(this.gViewer);
+			this.Name = "CEditor";
 			this.Size = new System.Drawing.Size(725, 426);
 			this.ResumeLayout(false);
 

@@ -8,8 +8,9 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>C_Editor_Test</RootNamespace>
     <AssemblyName>C-Editor_Test</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -64,6 +65,10 @@
     <ProjectReference Include="..\C-Editor\C-Editor.csproj">
       <Project>{E60625F8-5B99-4EE3-BCA5-22C544F712EA}</Project>
       <Name>C-Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SistemaExpertoLib\SistemaExpertoLib.csproj">
+      <Project>{CC17B513-73D1-4FAE-9824-3DDF51B9D217}</Project>
+      <Name>SistemaExpertoLib</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

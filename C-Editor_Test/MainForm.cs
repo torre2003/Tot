@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using SistemaExpertoLib.GestionDelConocimiento;
 
 namespace C_Editor_Test
 {
@@ -20,21 +21,41 @@ namespace C_Editor_Test
 	{
 		public MainForm()
 		{
-			//
-			// The InitializeComponent() call is required for Windows Forms designer support.
-			//
+
 			InitializeComponent();
 			
-			c_Editor1.NombreContexto = "variable 1" ;
-			//c_Editor1.AgregarVariable("variable 1");
-	
+			var gbc = new GestionadorBaseConocimiento();
+			if (!gbc.existe_base_de_conocimiento){
+                gbc.iniciarNuevaBaseDeConocimiento();
+                MessageBox.Show("La base de conocimiento no ha sido creada.\n Se ha creado una nueva base de conocimiento vacia", "Gestión Base de conocimiento", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
 			
+			c_Editor1.BaseConocimiento = gbc;
+			listaVariables.BaseConocimiento = gbc;
+			listaVariables.MostrarVariables();
+			c_Editor1.NombreContexto = "Contexto1" ;
 			//c_Editor1.dibujar();
+
 		}
-		void C_Editor1Changed(object sender, EventArgs e)
+		//------------------------------------------------------------------------------------------------
+		void ListaVariablesVariableDoubleClick(SistemaExpertoLib.Variable variable, MouseEventArgs e){
+			
+			c_Editor1.AgregarVariable(variable);
+		}
+		//------------------------------------------------------------------------------------------------
+		void ListaVariablesEstablecerConsecuente(SistemaExpertoLib.Variable variable, EventArgs e){
+
+			if(!c_Editor1.EstablecerConsecuente(variable))
+				MessageBox.Show("No se puede establer "+variable.nombre_variable+" como consecuente debido a que está establecida como antecedente");
+		}
+		void ExportarReglasToolStripMenuItemClick(object sender, EventArgs e)
 		{
-	
+			c_Editor1.ExportarReglas();
 		}
+		//------------------------------------------------------------------------------------------------
+
+
+
 
 	}
 }
