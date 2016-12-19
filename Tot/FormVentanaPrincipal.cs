@@ -223,6 +223,16 @@ namespace Tot
                 MessageBox.Show("La nueva base de conocimiento ha sido creada correctamente", "Gestión Base de conocimiento", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ventana_configuracion.completarVentana();
                 ventana_configuracion.Show();
+
+                if (!configuracion_interna.existe_archivo_configuracion)
+                    configuracion_interna.ingresarProcesadorDeLoggeo(new ProcesadorLogInferencia());
+
+                
+
+                configuracion_interna.inicializarCarpetaDiagramas(base_conocimiento.ruta_carpeta_base_conocimiento);
+                ventana_editor_grafico.Dispose();
+                ventana_editor_grafico = new FormVentanaEditorGrafico(base_conocimiento);
+                ventana_editor_grafico.MdiParent = this;
             }
         }
 
