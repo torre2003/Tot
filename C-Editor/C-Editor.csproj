@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectGuid>{E60625F8-5B99-4EE3-BCA5-22C544F712EA}</ProjectGuid>
+    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>Library</OutputType>
+    <RootNamespace>CEditor</RootNamespace>
+    <AssemblyName>C-Editor</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <NoWin32Manifest>False</NoWin32Manifest>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <Optimize>False</Optimize>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <Optimize>True</Optimize>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Microsoft.Msagl">
+      <HintPath>lib\Microsoft.Msagl.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Msagl.Drawing">
+      <HintPath>lib\Microsoft.Msagl.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Msagl.GraphViewerGdi">
+      <HintPath>lib\Microsoft.Msagl.GraphViewerGdi.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="C-Editor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="C-Editor.Designer.cs">
+      <DependentUpon>C-Editor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="C-EditorInputBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="C-EditorInputBox.Designer.cs">
+      <DependentUpon>C-EditorInputBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListaVariables.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ListaVariables.Designer.cs">
+      <DependentUpon>ListaVariables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SistemaExpertoLib\SistemaExpertoLib.csproj">
+      <Project>{CC17B513-73D1-4FAE-9824-3DDF51B9D217}</Project>
+      <Name>SistemaExpertoLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="lib\Microsoft.Msagl.dll" />
+    <None Include="lib\Microsoft.Msagl.Drawing.dll" />
+    <None Include="lib\Microsoft.Msagl.GraphViewerGdi.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="C-Editor.resx">
+      <DependentUpon>C-Editor.Designer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="C-EditorInputBox.resx">
+      <DependentUpon>C-EditorInputBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListaVariables.resx">
+      <DependentUpon>ListaVariables.Designer.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
