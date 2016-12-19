@@ -28,6 +28,7 @@ namespace Tot
         FormVentanaConfiguracionLogInferencia ventana_configuracion_log; 
         FormVentanaGestiónBaseConocimiento ventana_gestion_de_conocimiento;
         FormVentanaCargando ventana_cargando = new FormVentanaCargando();
+        FormVentanaEditorGrafico ventana_editor_grafico;
 
         //*******************************************************************************************
         // Métodos
@@ -64,7 +65,14 @@ namespace Tot
             ventana_gestion_de_conocimiento = new FormVentanaGestiónBaseConocimiento(base_conocimiento);
             ventana_gestion_de_conocimiento.MdiParent = this;
            // ventana_cargando.Visible = false;
+           
+           ventana_editor_grafico =new FormVentanaEditorGrafico();
+           ventana_editor_grafico.MdiParent = this;
 
+        }
+        
+        public void mostrarVentanaGestionDeConocimiento(){
+        	ventana_gestion_de_conocimiento.Visible = true;
         }
 
         /// <summary>
@@ -227,6 +235,10 @@ namespace Tot
         {
             new FormVentanaAcercaDe().ShowDialog();
         }
+		void EditorGraficoToolStripMenuItemClick(object sender, EventArgs e)
+		{
+			ventana_editor_grafico.Visible = true;
+		}
 
 
 

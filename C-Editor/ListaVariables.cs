@@ -56,6 +56,8 @@ namespace CEditor
 		[Description("Ocurre al hacer doble click en una variable."), Category("Variables")] 
 		public event ManejadorEventoDobleClickVariable VariableDoubleClick;
 		protected virtual void OnItemDoubleClick(MouseEventArgs e) {		
+			if(SelectedItems.Count==0)
+				return;
 			var idVariable = SelectedItems[0].SubItems[indiceIdVariable].Text;
 			var variable = BaseConocimiento.leerVariable(idVariable);
 			if (VariableDoubleClick != null)
@@ -68,6 +70,8 @@ namespace CEditor
 		[Description("Ocurre al hacer click en una variable."), Category("Variables")] 
 		public event ManejadorEventoClickVariable VariableClick;
 		protected virtual void OnItemClick(MouseEventArgs e) {		
+			if(SelectedItems.Count==0)
+				return;
 			var idVariable = SelectedItems[0].SubItems[indiceIdVariable].Text;
 			var variable = BaseConocimiento.leerVariable(idVariable);
 			if (VariableClick != null)
@@ -80,6 +84,8 @@ namespace CEditor
 		[Description("Ocurre al establecer una variable como consecuente."), Category("Variables")] 
 		public event ManejadorEventoEstablecerConsecuente EstablecerConsecuente;
 		protected virtual void OnEstablecerConsecuente(EventArgs e) {		
+			if(SelectedItems.Count==0)
+				return;
 			var idVariable = SelectedItems[0].SubItems[indiceIdVariable].Text;
 			var variable = BaseConocimiento.leerVariable(idVariable);
 			if (EstablecerConsecuente != null)
@@ -92,6 +98,8 @@ namespace CEditor
 		[Description("Ocurre al selecionar una variable para editar."), Category("Variables")] 
 		public event ManejadorEventoEditarVariable EditarVariable;
 		protected virtual void OnEditarVariable(EventArgs e) {		
+			if(SelectedItems.Count==0)
+				return;
 			var idVariable = SelectedItems[0].SubItems[indiceIdVariable].Text;
 			var variable = BaseConocimiento.leerVariable(idVariable);
 			if (EditarVariable != null)
@@ -104,6 +112,8 @@ namespace CEditor
 		[Description("Ocurre al arrastrar una variable."), Category("Variables")] 
 		public event ManejadorEventoArrastrarVariable VariableDrag;
 		protected virtual void OnItemDrag(ItemDragEventArgs e) {		
+			if(SelectedItems.Count==0)
+				return;
 			var idVariable = SelectedItems[0].SubItems[indiceIdVariable].Text;
 			var variable = BaseConocimiento.leerVariable(idVariable);
 			if (VariableDrag != null)

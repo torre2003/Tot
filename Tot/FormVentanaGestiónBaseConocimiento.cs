@@ -56,7 +56,10 @@ namespace Tot
             control_gestion_de_reglas.actualizarListaDeReglas();
         }
 
-
+        public void editarVariable(string id_variable, string nombre_variable){
+        	control_gestion_variables.setearVariableAModificar(id_variable,nombre_variable);
+        }
+        
         public void listarHechos()
         {
             listBox_hechos.Items.Clear();
@@ -121,6 +124,7 @@ namespace Tot
             }
                 
         }
+        
 
 
 

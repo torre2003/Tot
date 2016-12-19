@@ -117,38 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="images.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <data name="images.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnExportar.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAADi
-        BAAAAk1TRnQBSQFMAgEBAwEAAQgBAAEIAQABEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
-        AwABEAMAAQEBAAEgBgABEBIAwP9AAMD/QADA/0AABf8CZgL/AmYC/wJmAv8CZgL/AmYC/wJmAv8CZiX/
-        AfUCwwH/AegCbwX/AfUCwwH/AegCbwH/AegCbwH/AegCbwH/AegCbwH/AegCbwH/AegCbwH/AegCbwH/
-        AegCbwH/AegCbwH/AegCbw7/AqoC/wKqAv8CqgL/AukC/wLeAv8C+wL/AssG/wKcAv8CnAL/ApwC/wKc
-        Av8CxQX/QAAF/wIAEv8CAAL/AgAJ/wIvCv8CuQL/ApEK/wHsAowB/wHUAgAF/wHsAo0B/wHUAgAB/wHU
-        AgAB/wHUAgAB/wHUAgAB/wHUAgAB/wHUAgAB/wHUAgAB/wHUAgAB/wHUAgAB/wHUAgAO/wIhAv8CIQL/
-        AiEC/wLKAv8CggL/AugC/wIzBv8CIQL/AiEC/wIhAv8CIQL/AoMF/0AABf8CAAL/AogC/wKIAv8CiAL/
-        AogC/wJdAv8CAAn/Ai8K/wK5Av8CkUv/AiEO/wJSAv8C3R7/Ap8C/wKZAf9AAAX/AgAC/wIAAv8CAAL/
-        AgAC/wIABv8CAAn/AjAK/wK5Av8CkUv/AiEO/wJSAv8C3R7/Ap8C/wKZAf9AAAX/AgAW/wIACf8CMAr/
-        ArkC/wKSCv8B7AKMAf8B1AIABf8B7AKNAf8B1AIAAf8B1AIAAf8B1AIAAf8B1AIAAf8B1AIAAf8B1AIA
-        Af8B1AIAAf8B1AIAAf8B1AIAAf8B1AIACv8CIQ7/AlIC/wLdDv8CIQL/AiEC/wIhAv8CIQL/AlEC/wKZ
-        Af9AAAX/AgAG/wJMAv8CTAL/AkwC/wJMAv8CAAn/AjEK/wK5Av8Ckgr/AfQCwAH/AecCaAX/AfQCwAH/
-        AecCaAH/AecCaAH/AecCaAH/AecCaAH/AecCaAH/AecCaAH/AecCaAH/AecCaAH/AecCaAH/AecCaAr/
-        AiEO/wJSAv8C3Q7/AiEC/wKtAv8CuAL/ArgC/wKIAv8CmQH/QAAF/wIABv8CAAL/AgAC/wIAAv8CAAL/
-        AgAJ/wIxCv8CuQL/ApJL/wIhDv8CUgL/At0O/wIhDv8CnQL/ApkB/0AABf8CAAL/AgAS/wIACf8CxwL/
-        AgAC/wIAAv8CPQ7/AfgC1gH/Ae8CowX/AfgC1gH/Ae8CowH/Ae8CowH/Ae8CowH/Ae8CowH/Ae8CowH/
-        Ae8CowH/Ae8CowH/Ae8CowH/Ae8CowH/Ae8Cowr/AqoC/wJ2Av8CdgL/AnYC/wKdAv8C8g7/ArgC/wJo
-        Av8CagL/AnYC/wKSAv8C1gH/QAAF/wIAAv8CAAL/AggC/wIIAv8CCAL/AggC/wIACf8C9wL/At0C/wLd
-        Av8C5g7/AewCjAH/AdQCAAX/AewCjQH/AdQCAAH/AdQCAAH/AdQCAAH/AdQCAAH/AdQCAAH/AdQCAAH/
-        AdQCAAH/AdQCAAH/AdQCAAH/AdQCAA7/AiEC/wIhAv8CIQL/AsoW/wIhAv8CIQL/AiEC/wKNBf9AAMD/
-        QADA/0AAwP9AAMD/QAABQgFNAT4HAAE+AwABKAMAAUADAAEQAwABAQEAAQEFAAGAFwAD/4EACw==
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAAqRJREFUOE9dkWlPE1EUhv05fFCi0Clu+EUwRkgjYtBECEoIJZISkBKhDFAWQUAE
+        lxBktcViaEOBrlOmCx1GloLUIlMwEJbSMtPpUDCGdCjWcWqrJT55b25yc56cc3LP7J2C3Pfbpy1mpRRR
+        dM1o+wzSDlQtMcslHs8eThCRmphAUvt6Sfc8/H5JLtCAF+FaYLIGMPVlf1v8qOp+jhPeSFlU8JLkAjK1
+        CL3VN12fBuNWXnJ0YNJSKzAFxsNgPKpsNwwPUv6DmODzH6r7Xzs0oFYY9+kZANdy9dVcaz0wVpFkFJ39
+        8iFb1dPsdntigmePmBrrd8hyoIpzqkouVM211HGtDYCiPGm2MdHWdRMaEDu/YjiOhwX22trc1r0DKax2
+        tOyCCryENiQaxdy5ZgBpAHQiDtx+wzJcjS2vEATxR2APSXWDZaGd1pO1oiNniaIqWVuZqBJxTWJAVX5+
+        beIBPFC24vgrEF7yM4pa+wTMupC2FwaXHwcxgUZ8bfwpgNQlzPbyGLxqvDXfia1GR6IOvys664Pr4uOF
+        PHqxgF4oOLHzCXOesiWNWS8OOfghTChrLtna2Y0KXh8FKeW9wqxf9lIayaanc2kkl5l/tKHIUrekhdCc
+        wFzRUJvYS+2zxWGBBaf8/Y2iH8bCY8M9GsqKJGS+75/IpPV3j+DcoReN1MFhTCB9vkm12taRzsAZjD6D
+        0WT+VN0OKHnHY7zAaDo9fkfd00b6Twns+phzTfqEN9+UoqlIGSzNWH11KyS/EZClBmQpweFU7ZsqnDw1
+        Egv7jTNzttERuQ4ymlHbSM1DZugqI0kOR3oF6eRvu4no0v9g+xCEl8Xtwbv46VBxgr4Y0As4aDlnIP/y
+        xubO/0IE9tXlclmtVg1k0hrM4UAmswXZdblwHP8NZlskQqOlBXkAAAAASUVORK5CYII=
 </value>
   </data>
-  <metadata name="menu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>105, 17</value>
+  <metadata name="menuContextos.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
   </metadata>
 </root>

@@ -125,6 +125,12 @@ namespace CEditor
 
 		}
 		//---------------------------------------------------------------------------------
+		public void nuevoGrafico(string contexto){
+			nombreContexto = contexto;
+			grafico = new Graph("graph");
+			OnChanged(EventArgs.Empty);
+		}
+		//---------------------------------------------------------------------------------
 		/// <summary>
 		/// Agrega una variable al conjunto de reglas.
 		/// </summary>
@@ -451,7 +457,7 @@ namespace CEditor
 			}
 		}
 		//---------------------------------------------------------------------------------
-		void actualizar(){
+		public void actualizar(){
 			gViewer.Graph = grafico;
 			gViewer.Refresh();
 			OnChanged(EventArgs.Empty);
@@ -486,8 +492,13 @@ namespace CEditor
 					return;
 				}
 				gViewer.Graph = grafico;
-				gViewer.Refresh();				
-			}			
+				gViewer.Refresh();			
+			}else{
+				grafico = new Microsoft.Msagl.Drawing.Graph("graph");
+				gViewer.Graph = grafico;
+				gViewer.Refresh();
+			}
+			
 		}
 		//---------------------------------------------------------------------------------
 		void cargarConfiguracion(string archivo){
@@ -600,15 +611,23 @@ namespace CEditor
 			var edge = sender as Edge;
 			if(chequearSiEsConsecuente(edge))
 				return ;
+			if(existeConexionAnterior(edge)){
+				removerEdge(edge);
+				return;
+			}
+			if(existeConexionHaciaArriba(edge,edge.TargetNode)){
+				removerEdge(edge);
+				return;
+			}
+			if(existeConexionHaciaCostado(edge,edge.TargetNode)){
+				removerEdge(edge);
+				return;
+			}
+			if(edge.SourceNode.LabelText.Equals(edge.TargetNode.LabelText)){
+				removerEdge(edge);
+				return;
+			}
 			pedirValorAlCrearEdge(edge);
-			if(existeConexionAnterior(edge))
-				removerEdge(edge);
-			if(existeConexionHaciaArriba(edge,edge.TargetNode))
-				removerEdge(edge);
-			if(existeConexionHaciaCostado(edge,edge.TargetNode))
-				removerEdge(edge);
-			if(edge.SourceNode.LabelText.Equals(edge.TargetNode.LabelText))
-				removerEdge(edge);
 		}
 		//---------------------------------------------------------------------------------
 		void TimerTick(object sender, EventArgs e){

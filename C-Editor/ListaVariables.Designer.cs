@@ -107,7 +107,7 @@ namespace CEditor
 			this.editarToolStripMenuItem,
 			this.establecerComoConcecuenteToolStripMenuItem});
 			this.menu.Name = "menu";
-			this.menu.Size = new System.Drawing.Size(235, 70);
+			this.menu.Size = new System.Drawing.Size(235, 48);
 			// 
 			// editarToolStripMenuItem
 			// 

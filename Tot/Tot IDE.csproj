@@ -89,6 +89,10 @@
     <Compile Include="FormVentanaConfiguracionLogInferencia2.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormVentanaEditorGrafico.cs" />
+    <Compile Include="FormVentanaEditorGrafico.Designer.cs">
+      <DependentUpon>FormVentanaEditorGrafico.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormVentanaGestiónBaseConocimiento.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,6 +139,9 @@
     <EmbeddedResource Include="FormVentanaConfiguracionLogInferencia.resx">
       <DependentUpon>FormVentanaConfiguracionLogInferencia.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormVentanaEditorGrafico.resx">
+      <DependentUpon>FormVentanaEditorGrafico.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormVentanaGestiónBaseConocimiento.resx">
       <DependentUpon>FormVentanaGestiónBaseConocimiento.cs</DependentUpon>
     </EmbeddedResource>
@@ -171,6 +178,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\C-Editor\C-Editor.csproj">
+      <Project>{E60625F8-5B99-4EE3-BCA5-22C544F712EA}</Project>
+      <Name>C-Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ControlesModuloConsulta\ControlesModuloConsulta.csproj">
       <Project>{1a4288d2-3197-4bb8-b0a5-ccb7d1ee8ae7}</Project>
       <Name>ControlesModuloConsulta</Name>
