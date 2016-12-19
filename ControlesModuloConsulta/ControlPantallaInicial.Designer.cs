@@ -46,6 +46,7 @@
             // 
             // richTextBox_descripcion
             // 
+            this.richTextBox_descripcion.BackColor = System.Drawing.SystemColors.Window;
             this.richTextBox_descripcion.Location = new System.Drawing.Point(240, 57);
             this.richTextBox_descripcion.Name = "richTextBox_descripcion";
             this.richTextBox_descripcion.ReadOnly = true;

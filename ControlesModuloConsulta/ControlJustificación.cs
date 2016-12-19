@@ -60,6 +60,18 @@ namespace ControlesModuloConsulta
                 textBox_log.AppendText(item+"\n");
             }
         }
+
+        /// <summary>
+        /// Método para agregar una linea al box de loggeo
+        /// </summary>
+        /// <param name="log"></param>
+        public void agregarLineaLog(string log)
+        {
+            textBox_log.AppendText(log+"\n");
+        }
+
+
+
         //*************************************************************************
         // Eventos
         //*************************************************************************

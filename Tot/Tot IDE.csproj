@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BB27D0B7-570B-47DF-AF28-6B04EDE939B9}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tot</RootNamespace>
+    <AssemblyName>Tot</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>tot48x48.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\Extras\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ButtonInformción.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ButtonInformción.Designer.cs">
+      <DependentUpon>ButtonInformción.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormDialogoPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDialogoPanel.Designer.cs">
+      <DependentUpon>FormDialogoPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormVentanaAcercaDe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormVentanaAcercaDe.Designer.cs">
+      <DependentUpon>FormVentanaAcercaDe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormVentanaCargando.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormVentanaCargando.Designer.cs">
+      <DependentUpon>FormVentanaCargando.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormVentanaConfiguracion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormVentanaConfiguracion.Designer.cs">
+      <DependentUpon>FormVentanaConfiguracion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormVentanaConfiguracionLogInferencia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormVentanaConfiguracionLogInferencia.Designer.cs">
+      <DependentUpon>FormVentanaConfiguracionLogInferencia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormVentanaConfiguracionLogInferencia2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormVentanaGestiónBaseConocimiento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormVentanaGestiónBaseConocimiento.Designer.cs">
+      <DependentUpon>FormVentanaGestiónBaseConocimiento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormVentanaGuardarLog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormVentanaGuardarLog.Designer.cs">
+      <DependentUpon>FormVentanaGuardarLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormVentanaIndiceDeAyudas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormVentanaIndiceDeAyudas.Designer.cs">
+      <DependentUpon>FormVentanaIndiceDeAyudas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormVentanaPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormVentanaPrincipal.Designer.cs">
+      <DependentUpon>FormVentanaPrincipal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GestionConfiguracionInternaTot.cs" />
+    <Compile Include="GestionMotorInferencia.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ButtonInformción.resx">
+      <DependentUpon>ButtonInformción.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDialogoPanel.resx">
+      <DependentUpon>FormDialogoPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormVentanaAcercaDe.resx">
+      <DependentUpon>FormVentanaAcercaDe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormVentanaCargando.resx">
+      <DependentUpon>FormVentanaCargando.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormVentanaConfiguracion.resx">
+      <DependentUpon>FormVentanaConfiguracion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormVentanaConfiguracionLogInferencia.resx">
+      <DependentUpon>FormVentanaConfiguracionLogInferencia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormVentanaGestiónBaseConocimiento.resx">
+      <DependentUpon>FormVentanaGestiónBaseConocimiento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormVentanaGuardarLog.resx">
+      <DependentUpon>FormVentanaGuardarLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormVentanaIndiceDeAyudas.resx">
+      <DependentUpon>FormVentanaIndiceDeAyudas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormVentanaPrincipal.resx">
+      <DependentUpon>FormVentanaPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ControlesModuloConsulta\ControlesModuloConsulta.csproj">
+      <Project>{1a4288d2-3197-4bb8-b0a5-ccb7d1ee8ae7}</Project>
+      <Name>ControlesModuloConsulta</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ControlesModuloGestionBaseConocimiento\ControlesModuloGestionBaseConocimiento.csproj">
+      <Project>{4f0f6f1f-5301-45d5-9fc8-895e900d81ff}</Project>
+      <Name>ControlesModuloGestionBaseConocimiento</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SistemaExpertoLib\SistemaExpertoLib.csproj">
+      <Project>{cc17b513-73d1-4fae-9824-3ddf51b9d217}</Project>
+      <Name>SistemaExpertoLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TextRuler\TextRuler.csproj">
+      <Project>{2b29c912-8bda-4260-a486-111becccc196}</Project>
+      <Name>TextRuler</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Folder-Page-White.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lupa_documentos.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lupa_documentos - 32 x 32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lupa_imagenes - 32x 32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add124x124 .png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add60x60.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\remove60x60.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\basurero 32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\update_256x256.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\loadong.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Save32_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1481792915_Edit_page.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1481792918_Exit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1481792919_New_file.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1481792921_Export.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1481792923_Import.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1481792925_Red_book.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1481793263_Settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1481793265_Tools.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1481793329_Curve_points.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1481793333_Help_book.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1481793337_Touch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1481793340_Play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1481793627_Pinion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1481793629_Folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1481793630_Color_balance.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1481793632_Clipboard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1482051749_bookcase 48x48.png" />
+    <None Include="Resources\1482051751_bookcase 32x32.png" />
+    <None Include="Resources\Net Down Solo Color.png" />
+    <None Include="Resources\Net Down Vertical Color.png" />
+    <Content Include="tot48x48.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

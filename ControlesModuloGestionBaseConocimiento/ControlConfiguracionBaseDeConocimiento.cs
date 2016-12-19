@@ -176,6 +176,12 @@ namespace Tot
             MessageBox.Show("Cambios realizados correctamente","Configuración base de conocimiento",MessageBoxButtons.OK,MessageBoxIcon.Information);
         }
 
+        public void liberarRecursosImagenLogo()
+        {
+            if (pictureBox_logo.Image != null)
+                pictureBox_logo.Image.Dispose();
+        }
+
         //*****************************************************************************************
         // Eventos
         //*****************************************************************************************
@@ -201,8 +207,21 @@ namespace Tot
 
         private void button_chequear_base_de_conocimiento_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("implementar comrobacion");
-            check_base_de_conocimiento = base_conocimiento.comprobarBaseDeConocimiento();
+            
+            List<string> errores = base_conocimiento.comprobarBaseDeConocimiento();
+            if (errores == null){
+                check_base_de_conocimiento = true;
+                MessageBox.Show("La base de conocimiento se ha chequeado correctamente.", "Comprobación base de conocimiento", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                check_base_de_conocimiento = false;
+                string texto_errores = "";
+                foreach (string item in errores)
+                    texto_errores += item + "\n";
+                MessageBox.Show(texto_errores, "Comprobación base de conocimiento", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
 
         private void button_descripcion_sistema_experto_Click(object sender, EventArgs e)
