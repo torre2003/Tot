@@ -23,9 +23,10 @@ namespace Tot
             get { return editor_avanzado_rtf._ruta_obligatoria_guardado; }
             set { editor_avanzado_rtf._ruta_obligatoria_guardado = value; }
         }
-
         public bool cancelar_apertura_archivo = false;
+
         public bool modo_lectura = false;
+
 
         //*************************************************************************
         //         Métodos
@@ -35,7 +36,6 @@ namespace Tot
             InitializeComponent();
             iniciarEditorAvanzado();
         }
-
 
         public FormVentanaRTF(bool modo_lectura)
         {
@@ -47,20 +47,16 @@ namespace Tot
 
 
         public void iniciarEditorAvanzado(bool modo_lectura = false)
-
         {
             editor_avanzado_rtf.Dock = System.Windows.Forms.DockStyle.Fill;
             editor_avanzado_rtf.Location = new System.Drawing.Point(0, 0);
             editor_avanzado_rtf.Name = "advancedTextEditor1";
             editor_avanzado_rtf.Size = new System.Drawing.Size(745, 562);
             editor_avanzado_rtf.TabIndex = 0;
-
             editor_avanzado_rtf.modo_lectura = modo_lectura;
-
             this.Controls.Add(editor_avanzado_rtf);
             
         }
-
 
 
         public void abrirArchivo(string ruta)
@@ -112,7 +108,6 @@ namespace Tot
             }
             
         }
-
 
     }
 }

@@ -6,14 +6,21 @@ using System.Threading.Tasks;
 
 namespace SistemaExpertoLib.MotorDeInferencia
 {
+    [Serializable()]
     public class LecturaBaseConocimiento
     {
         AccesoDatos base_conocimiento;
         public bool existe_base_conocimiento
         {
-            get { return base_conocimiento._existe_base_conocimiento; }
+            get { return base_conocimiento.existe_base_conocimiento; }
         }
-        
+
+        public string ruta_base_conocimiento
+        {
+            get { return base_conocimiento.ruta_carpeta_archivos; }
+            set { base_conocimiento.ruta_carpeta_archivos = value; }
+        }
+
         public LecturaBaseConocimiento()
         {
             base_conocimiento = new AccesoDatos();
@@ -65,5 +72,29 @@ namespace SistemaExpertoLib.MotorDeInferencia
             return base_conocimiento.extraerMetadatosBaseConocimiento();
         }
 
+        /// <summary>
+        /// Método que lista todas las variables existentes en la base de conocimiento
+        /// </summary>
+        /// <returns>ids de las variables </returns>
+        public string[] listarVariables()
+        {
+            return base_conocimiento.listarArchivosEnDirectorio(AccesoDatos.VARIABLE);
+        }
+        /// <summary>
+        /// Método que lista todos los hechos existentes en la base de conocimiento
+        /// </summary>
+        /// <returns>ids hechos</returns>
+        public string[] listarHechos()
+        {
+            return base_conocimiento.listarArchivosEnDirectorio(AccesoDatos.HECHO);
+        }
+        /// <summary>
+        /// Método que lista todas las reglas existentes en la base de conocimiento
+        /// </summary>
+        /// <returns>ids regla</returns>
+        public string[] listarReglas()
+        {
+            return base_conocimiento.listarArchivosEnDirectorio(AccesoDatos.REGLA);
+        }
     }
 }

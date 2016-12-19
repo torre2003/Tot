@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace SistemaExpertoLib
 {
+    [Serializable()]
     class AccesoDatos
     {
 
@@ -21,7 +22,19 @@ namespace SistemaExpertoLib
         public const int HECHO = 2;
         public const int REGLA = 3;
 
-        public string ruta_carpeta_archivos = "base conocimiento\\";
+        public string ruta_carpeta_archivos
+        {
+            get
+            {
+                return _ruta_carpeta_archivos;
+            }
+            set
+            {
+                _ruta_carpeta_archivos = value;
+                _existe_base_conocimiento = System.IO.Directory.Exists(_ruta_carpeta_archivos);
+            }
+        }
+        string _ruta_carpeta_archivos = "base conocimiento\\";
         private string carpeta_configuracion = "configuracion\\";
         private string carpeta_archivos_rtf = "rtf\\";
         private string archivo_configuracion = "confTot";
@@ -67,7 +80,7 @@ namespace SistemaExpertoLib
             get { return _existe_base_conocimiento; }
         }
 
-        public bool _existe_base_conocimiento = false;
+        bool _existe_base_conocimiento = false;
         //*************************************************************************
         // Métodos
         //*************************************************************************
@@ -113,7 +126,7 @@ namespace SistemaExpertoLib
         {
             if (System.IO.Directory.Exists(ruta_carpeta_archivos))
             {
-                System.IO.Directory.Delete(ruta_carpeta_archivos);
+                System.IO.Directory.Delete(ruta_carpeta_archivos,true);
             }
             _existe_base_conocimiento = false;
         }
@@ -498,7 +511,7 @@ namespace SistemaExpertoLib
         /// Método para eliminar el archivo de configuracion de la base de conocimiento,
         /// ALERTA! LA BASE DE CONOCIMIENTO NO PUEDE QUEDAR SIN ARCHIVO DE CONFIGURACIÓN
         /// </summary>
-        public void eliminarRegla()
+        public void eliminarArchivoDeConfiguracion()
         {
             if (File.Exists(ruta_archivo_configuracion))
                 File.Delete(ruta_archivo_configuracion);

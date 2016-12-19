@@ -118,34 +118,97 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="lupa_imagenes - 32x 32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\lupa_imagenes - 32x 32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Net Down Solo Color" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Net Down Solo Color.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="remove60x60" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\remove60x60.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Save32_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Save32_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="lupa_documentos - 32 x 32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\lupa_documentos - 32 x 32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="1481793627_Pinion" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1481793627_Pinion.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1481792923_Import" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1481792923_Import.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="add60x60" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\add60x60.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Folder-Page-White" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Folder-Page-White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="lupa_documentos" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\lupa_documentos.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="add124x124 " type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\add124x124 .png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="1481793630_Color_balance" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1481793630_Color_balance.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="update_256x256" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\update_256x256.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="basurero 32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\basurero 32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="lupa_documentos - 32 x 32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lupa_documentos - 32 x 32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Folder-Page-White" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Folder-Page-White.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1481793333_Help_book" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1481793333_Help_book.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1482051751_bookcase 32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1482051751_bookcase 32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1481793340_Play" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1481793340_Play.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1481792919_New_file" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1481792919_New_file.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1481793263_Settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1481793263_Settings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="remove60x60" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\remove60x60.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1481793337_Touch" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1481793337_Touch.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="lupa_documentos" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lupa_documentos.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1481793329_Curve_points" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1481793329_Curve_points.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1481792918_Exit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1481792918_Exit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1482051749_bookcase 48x48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1482051749_bookcase 48x48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1481792915_Edit_page" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1481792915_Edit_page.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1481792925_Red_book" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1481792925_Red_book.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="loadong" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\loadong.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="lupa_imagenes - 32x 32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lupa_imagenes - 32x 32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1481792921_Export" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1481792921_Export.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1481793629_Folder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1481793629_Folder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1481793632_Clipboard" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1481793632_Clipboard.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1481793265_Tools" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1481793265_Tools.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="add124x124 " type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\add124x124 .png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="basurero 32x32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\basurero 32x32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Net Down Vertical Color" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Net Down Vertical Color.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -75,6 +75,27 @@ namespace SistemaExpertoLib
         int _tipo_variable;
 
         /// <summary>
+        /// Obtiene el valor de la variable según su tipo
+        /// </summary>
+        public object valor_variable
+        {
+            get
+            {
+                switch (this.tipo_variable)
+                {
+                    case Variable.BOOLEANO:
+                        return valor_booleano_actual;
+                    case Variable.NUMERICO:
+                        return valor_numerico_actual;
+                    case Variable.LISTA:
+                        return valor_lista_actual;
+                    default:
+                        return null;
+                }
+            }
+        }
+
+        /// <summary>
         /// Valor BOOLEANO actual en la memoria de trabajo
         /// </summary>
         public bool valor_booleano_actual

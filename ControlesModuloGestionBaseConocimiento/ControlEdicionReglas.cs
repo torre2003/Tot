@@ -22,7 +22,7 @@ namespace Tot
         {
             public string id;
             public string nombre;
-
+            public bool preguntable_al_usuario;
             public override string ToString()
             {
                 return nombre;
@@ -201,7 +201,7 @@ namespace Tot
         /// </summary>
         /// <param name="id_variable">Id de la variable selecionada</param>
         /// <param name="id_controles">Id a inscribir en los controles</param>
-        public void agregarControlesTipoVariable(string id_variable, string id_controles)
+        private void agregarControlesTipoVariable(string id_variable, string id_controles)
         {
             Variable variable = base_conocimiento.leerVariable(id_variable);
             if (variable.tipo_variable == Variable.BOOLEANO)
@@ -307,7 +307,7 @@ namespace Tot
         /// Método que agrega una fila de controles en base a lectura de un hecho
         /// </summary>
         /// <param name="id_hecho">Identificador del hecho a mostrar</param>
-        public void agregarFilaDeControlesEstablecidaAntecedentes(string id_hecho)
+        private void agregarFilaDeControlesEstablecidaAntecedentes(string id_hecho)
         {
             Hecho hecho = base_conocimiento.leerHecho(id_hecho);
             if (hecho == null)
@@ -362,7 +362,7 @@ namespace Tot
         /// Método que agrega los controles al antecedente en base a hecho
         /// </summary>
         /// <param name="id_hecho">Identificador del hecho a mostrar</param>
-        public void agregarFilaDeControlesEstablecidaConsecuente(string id_hecho)
+        private void agregarFilaDeControlesEstablecidaConsecuente(string id_hecho)
         {
             Hecho hecho = base_conocimiento.leerHecho(id_hecho);
             if (hecho == null)
@@ -425,7 +425,7 @@ namespace Tot
         /// Metodo para eliminar una fila de controles pertenenciente a una varaible
         /// </summary>
         /// <param name="id">Id de la fila de controles</param>
-        public void eliminarFilaDeControlesVariable(string id)
+        private void eliminarFilaDeControlesVariable(string id)
         {
             object aux_elim = null;
             foreach (ComboBox item in lista_de_combo_box_variable)
@@ -459,7 +459,7 @@ namespace Tot
         /// Metodo para eliminar los controles tipo de una variable  (condicion y valor condicion)
         /// </summary>
         /// <param name="id">Id de la fila de controles</param>
-        public void eliminarControlesTipoVariable(string id)
+        private void eliminarControlesTipoVariable(string id)
         {
             object aux_elim = null;
             foreach (ComboBox item in lista_de_combo_box_condicion)
@@ -526,7 +526,7 @@ namespace Tot
         /// <summary>
         /// Metodo que dibuja los controles en el control
         /// </summary>
-        public void dibujarControles()
+        private void dibujarControles()
         {
             ultima_posicion_y = posicion_base_y;
             foreach (Label item in lista_labels_iniciales)
@@ -576,7 +576,7 @@ namespace Tot
         /// Método que dibuja los controles adicionales al combobox de varaible
         /// </summary>
         /// <param name="id"></param>
-        public void dibujarDetalleControl(string id)
+        private void dibujarDetalleControl(string id)
         {
             //Condicion
             foreach (ComboBox item in lista_de_combo_box_condicion)
@@ -669,7 +669,8 @@ namespace Tot
                 ElementoComboBox elemento = new ElementoComboBox()
                 {
                     id = variable.id_variable,
-                    nombre = variable.nombre_variable
+                    nombre = variable.nombre_variable,
+                    preguntable_al_usuario = variable.variable_preguntable_al_usuario
                 };
             //    lista_de_variables[i] = elemento;
                 aux_lista_variables.Add(elemento);
@@ -687,12 +688,16 @@ namespace Tot
         /// <summary>
         /// Actualiza las varaibles del comboBox Entoces
         /// </summary>
-        public void actualizarListaComboBoxEntonces()
+        private void actualizarListaComboBoxEntonces()
         {
             //combo_box.SelectedIndexChanged += seleccionDeVariableComboBox_SelectedIndexChanged;
             comboBox_var_entonces.Items.Clear();
             for (int i = 0; i < lista_de_variables.Length; i++)
-                comboBox_var_entonces.Items.Add(lista_de_variables[i]);
+            {
+                if (!lista_de_variables[i].preguntable_al_usuario)
+                    comboBox_var_entonces.Items.Add(lista_de_variables[i]);
+            }
+                
         }
 
 
@@ -717,7 +722,7 @@ namespace Tot
         /// Metodo para mostrar los controles de Entonces segun el tipo de variable seleccionada
         /// </summary>
         /// <param name="id_variable"></param>
-        public void mostrarControlesTipoEntonces(string id_variable)
+        private void mostrarControlesTipoEntonces(string id_variable)
         {
 
 
@@ -858,7 +863,7 @@ namespace Tot
         /// <summary>
         /// Método que elimina los controles asociados a entonces
         /// </summary>
-        public void eliminarControlesEntonces()
+        private void eliminarControlesEntonces()
         {
             this.panel_entonces.Controls.Remove(comboBox_var_entonces);
             this.panel_entonces.Controls.Remove(comboBox_lista_entonces);
@@ -889,7 +894,7 @@ namespace Tot
         /// Método que habilita o desabilita los controles para edicion
         /// </summary>
         /// <param name="habilitado">True para habilitar controles</param>
-        public void habilitarEdicionDeControles(bool habilitado)
+        private void habilitarEdicionDeControles(bool habilitado)
         {
             button_aceptar.Visible = habilitado;
             button_cancelar.Visible = habilitado;
@@ -986,7 +991,7 @@ namespace Tot
         /// Método que hace las comprobaciones pertinentes de la regla especificada
         /// </summary>
         /// <returns>Texto con los errores encontrados</returns>
-        public string comprobacionesRegla()
+        private string comprobacionesRegla()
         {
             string texto_retorno = "";
             if (lista_de_combo_box_variable.Count == 0)
@@ -1059,7 +1064,7 @@ namespace Tot
         /// Método que comprueba si algun combobox no tiene una variable asignada
         /// </summary>
         /// <returns>una cadena vacia si todo esta correcto, texto de error en caso contrario</returns>
-        public string comprobarVariablesEnBlanco()
+        private string comprobarVariablesEnBlanco()
         {
             string texto_retorno = "";
             //comprobaciones para antecedentes
@@ -1091,7 +1096,7 @@ namespace Tot
         /// Método que compruueba la asignación de condiciones a las variables 
         /// </summary>
         /// <returns>una cadena vacia si todo esta correcto, texto de error en caso contrario</returns>
-        public string comprobarCondicionesEnBlanco()
+        private string comprobarCondicionesEnBlanco()
         {
             string texto_retorno = "";
             //comprobaciones para antecedentes
@@ -1126,7 +1131,7 @@ namespace Tot
         /// Método que compruueba la asignación valores a las variables de tipo LISTA y NUMERICO
         /// </summary>
         /// <returns>una cadena vacia si todo esta correcto, texto de error en caso contrario</returns>
-        public string comprobarValoresEnBlanco()
+        private string comprobarValoresEnBlanco()
         {
             string texto_retorno = "";
             //comprobaciones para antecedentes
@@ -1188,7 +1193,7 @@ namespace Tot
         /// Método que comprueba el ingreso de las variables numericas
         /// </summary>
         /// <returns>una cadena vacia si todo esta correcto, texto de error en caso contrario</returns>
-        public string comprobarEscrituraVariablesNumericas()
+        private string comprobarEscrituraVariablesNumericas()
         {
             //antecedentes
             string texto_retorno = "";
@@ -1354,7 +1359,7 @@ namespace Tot
         /// </summary>
         /// <param name="id_interna">Id interna del control (Control.Name)</param>
         /// <returns>id de la variable</returns>
-        public string extraerIdVariable(string id_interna)
+        private string extraerIdVariable(string id_interna)
         {
             foreach (ComboBox combo in lista_de_combo_box_variable)
             {
@@ -1377,7 +1382,7 @@ namespace Tot
         /// Método que comprueba que la variable del consecuente no se encuentre en el antecedente
         /// </summary>
         /// <returns>una cadena vacia si todo esta correcto, texto de error en caso contrario</returns>
-        public string comprobarVariableAntecedente()
+        private string comprobarVariableAntecedente()
         {
             string texto_retorno = "";
             bool flag = false;
@@ -1409,7 +1414,7 @@ namespace Tot
         /// Método que comprueba la coherencia de las variables repetidas
         /// </summary>
         /// <returns>una cadena vacia si todo esta correcto, texto de error en caso contrario</returns>
-        public string comprobadorDeCoherenciaDeVariablesRepetidas()
+        private string comprobadorDeCoherenciaDeVariablesRepetidas()
         {
             string texto_retorno = "";
             bool flag_variables_ingresadas = true;
@@ -1487,7 +1492,7 @@ namespace Tot
         /// <param name="nombre_variable">Nombre de la variable a analizar</param>
         /// <param name="conteo_variable">Nuemro de veces que la varaible apararece en los antecedentes</param>
         /// <returns></returns>
-        public string comprobadorDeVariablesBooleanas(string id_variable, string nombre_variable, int conteo_variable)
+        private string comprobadorDeVariablesBooleanas(string id_variable, string nombre_variable, int conteo_variable)
         {
             if (conteo_variable > 1)
             {
@@ -1504,7 +1509,7 @@ namespace Tot
         /// <param name="nombre_variable">Nombre de la variable a analizar</param>
         /// <param name="conteo_variable">Nuemro de veces que la varaible apararece en los antecedentes</param>
         /// <returns></returns>
-        public string comprobadorDeVariablesLista(string id_variable, string nombre_variable, int conteo_variable)
+        private string comprobadorDeVariablesLista(string id_variable, string nombre_variable, int conteo_variable)
         {
             ArrayList lista_de_instancias = new ArrayList();
             foreach (ComboBox combo_variable in lista_de_combo_box_variable)
@@ -1629,7 +1634,7 @@ namespace Tot
         /// <param name="nombre_variable">Nombre de la variable a analizar</param>
         /// <param name="conteo_variable">Nuemro de veces que la varaible apararece en los antecedentes</param>
         /// <returns></returns>
-        public string comprobadorDeVariablesNumerica(string id_variable, string nombre_variable, int conteo_variable)
+        private string comprobadorDeVariablesNumerica(string id_variable, string nombre_variable, int conteo_variable)
         {
             string condicion_a = null;
             string condicion_b = null;
@@ -1775,7 +1780,7 @@ namespace Tot
         /// Método que agrupa todos los hechos declarados como antecedente en un arraylist de arraylist{id_variable,condicion,valor} 
         /// </summary>
         /// <returns>ArrayList con la agrupacion de hechos</returns>
-        public ArrayList agruparHechosAntecedenteEnArrayList()
+        private ArrayList agruparHechosAntecedenteEnArrayList()
         {
             ArrayList lista_de_hechos = new ArrayList();
             foreach (ComboBox combo_variable in lista_de_combo_box_variable)
@@ -1834,7 +1839,7 @@ namespace Tot
         /// Método que agrupa el hecho consecuente en un ArrayList{id_variable,condicion,valor} 
         /// </summary>
         /// <returns>ArrayList con la agrupacion del hecho consecuente</returns>
-        public ArrayList agruparHechoConsecuenteEnArrayList()
+        private ArrayList agruparHechoConsecuenteEnArrayList()
         {
             ArrayList consecuente = new ArrayList();
 
@@ -1919,6 +1924,18 @@ namespace Tot
             if (evento_habilitar_controles != null)
                 evento_habilitar_controles(true);
         }
+
+        /// <summary>
+        /// Método que limpia el control 
+        /// </summary>
+        public void limpiarControEdicionGestionRegla()
+        {
+            limpiarControles();
+            this.Visible = false;
+            tipo_tarea = DESABILITADO;
+            if (evento_habilitar_controles != null)
+                evento_habilitar_controles(true);
+        }
         //*************************************************************************
         // Eventos
         //*************************************************************************
@@ -1984,6 +2001,7 @@ namespace Tot
                     limpiarControles();
                     tipo_tarea = DESABILITADO;
                     this.Visible = false;
+                    base_conocimiento.metadatosDesmarcarChequeoBaseConocimiento();
                 }
                 if (evento_habilitar_controles != null)
                     evento_habilitar_controles(true);
@@ -2011,6 +2029,7 @@ namespace Tot
                     if (evento_habilitar_controles != null)
                         evento_habilitar_controles(true);
                 }
+                base_conocimiento.metadatosDesmarcarChequeoBaseConocimiento();
             }
         }
         private void numeric_KeyPress(object sender, KeyPressEventArgs e)

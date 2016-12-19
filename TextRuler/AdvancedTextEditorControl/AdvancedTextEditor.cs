@@ -16,7 +16,6 @@ namespace TextRuler.AdvancedTextEditorControl
         string _path = "";
         public string _ruta_obligatoria_guardado = "";
         int checkPrint = 0;        
-
         public bool modo_lectura 
         {
             get
@@ -31,6 +30,7 @@ namespace TextRuler.AdvancedTextEditorControl
         }
         bool _modo_lectura = false;
 
+
         private void habilitarEdicion(bool habilitado)
         {
             TextEditor.ReadOnly = !habilitado;
@@ -39,6 +39,9 @@ namespace TextRuler.AdvancedTextEditorControl
             TextEditorMenu.Enabled = habilitado;
             //TextEditor.Enabled = habilitado;
         }
+
+
+
 
         private string GetFilePath()
         {
@@ -152,7 +155,6 @@ namespace TextRuler.AdvancedTextEditorControl
             this.TextEditor.SelectionListType = pls;
         }
 
-
         public void abrirArchivo(string file)
         {
             try
@@ -180,7 +182,6 @@ namespace TextRuler.AdvancedTextEditorControl
                 Clear();
             }
         }
-
 
         private void Open()
         {
@@ -214,7 +215,6 @@ namespace TextRuler.AdvancedTextEditorControl
             try
             {
                 if (_ruta_obligatoria_guardado == "")
-
                 {
                     MessageBox.Show("No se ha establecido la ruta del archivo RTF","Guardando Archivo",MessageBoxButtons.OK,MessageBoxIcon.Error);
                     /*
@@ -230,7 +230,6 @@ namespace TextRuler.AdvancedTextEditorControl
                 }
                 else
                 {
-
                     this.TextEditor.SaveFile(_ruta_obligatoria_guardado, RichTextBoxStreamType.RichText);
                     MessageBox.Show("Archivo guardado correctamente.", "Editor rtf", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -1046,7 +1045,6 @@ namespace TextRuler.AdvancedTextEditorControl
 
         private void mnuSave_Click(object sender, EventArgs e)
         {
-
             GuardadoObligatorio();
             //Save(false);
         }

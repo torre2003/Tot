@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{ED91E323-601F-425D-8BC2-70D0CAB7BDA7}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tot_Sistema_Experto</RootNamespace>
+    <AssemblyName>Tot Sistema Experto</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\Extras\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FormDialogoPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDialogoPanel.Designer.cs">
+      <DependentUpon>FormDialogoPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormVentanaCargando.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormVentanaCargando.Designer.cs">
+      <DependentUpon>FormVentanaCargando.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormVentanaConfiguracionLogInferencia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormVentanaConfiguracionLogInferencia.Designer.cs">
+      <DependentUpon>FormVentanaConfiguracionLogInferencia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormVentanaConfiguracionLogInferencia2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormVentanaGuardarLog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormVentanaGuardarLog.Designer.cs">
+      <DependentUpon>FormVentanaGuardarLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormVentanaPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormVentanaPrincipal.Designer.cs">
+      <DependentUpon>FormVentanaPrincipal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GestionConfiguracionInternaTot.cs" />
+    <Compile Include="GestionMotorInferencia.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormDialogoPanel.resx">
+      <DependentUpon>FormDialogoPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormVentanaCargando.resx">
+      <DependentUpon>FormVentanaCargando.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormVentanaConfiguracionLogInferencia.resx">
+      <DependentUpon>FormVentanaConfiguracionLogInferencia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormVentanaGuardarLog.resx">
+      <DependentUpon>FormVentanaGuardarLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormVentanaPrincipal.resx">
+      <DependentUpon>FormVentanaPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ControlesModuloConsulta\ControlesModuloConsulta.csproj">
+      <Project>{1a4288d2-3197-4bb8-b0a5-ccb7d1ee8ae7}</Project>
+      <Name>ControlesModuloConsulta</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SistemaExpertoLib\SistemaExpertoLib.csproj">
+      <Project>{cc17b513-73d1-4fae-9824-3ddf51b9d217}</Project>
+      <Name>SistemaExpertoLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo default.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\loadong.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\loadong1.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1481793263_Settings.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

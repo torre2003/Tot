@@ -43,6 +43,7 @@
             // panel_externo_variable
             // 
             this.panel_externo_variable.AutoScroll = true;
+            this.panel_externo_variable.BackColor = System.Drawing.SystemColors.Window;
             this.panel_externo_variable.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel_externo_variable.Controls.Add(this.panel_interno_variable);
             this.panel_externo_variable.Location = new System.Drawing.Point(45, 100);
@@ -90,6 +91,7 @@
             // panel_externo_estados
             // 
             this.panel_externo_estados.AutoScroll = true;
+            this.panel_externo_estados.BackColor = System.Drawing.SystemColors.Window;
             this.panel_externo_estados.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel_externo_estados.Controls.Add(this.panel_interno_estados);
             this.panel_externo_estados.Location = new System.Drawing.Point(45, 304);

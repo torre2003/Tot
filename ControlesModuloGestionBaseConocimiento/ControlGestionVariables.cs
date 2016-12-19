@@ -56,6 +56,17 @@ namespace Tot
 
         public GestionadorBaseConocimiento base_conocimiento;
 
+        const int NOMBRE = 1;
+        const int TIPOS_DE_VARIABLE = 2;
+        const int TEXTO_CONSULTA = 3;
+        const int TIPO_NUMERICO = 4;
+        const int RANGOS = 5;
+        const int INGRESO_ELEMENTO = 6;
+        const int LISTA_DE_ELEMENTOS = 7;
+        const int VARIABLE_PREGUNTABLE = 8;
+        const int VARIABLE_INICIAL = 9;
+        const int VARIABLE_OBJETIVO = 10;
+
         /// <summary>
         /// Obtiene o establece la ID de la variable
         /// </summary>
@@ -228,6 +239,7 @@ namespace Tot
             }
         }
 
+        
        
         const int DESABILITADO = 0;
         const int AGREGANDO = 1;
@@ -337,28 +349,20 @@ namespace Tot
             rango_limitado = false;
             variable_de_inicio = false;
             variable_preguntable_al_usuario = false;
+            variable_objetivo = false;
             radioButton_cardinal.Checked = false;
             radioButton_Continuo.Checked = false;
             cambiarEstadoPanelesTipoVariable();
 
         }
 
-        const int NOMBRE = 1;
-        const int TIPOS_DE_VARIABLE = 2;
-        const int TEXTO_CONSULTA = 3;
-        const int TIPO_NUMERICO = 4;
-        const int RANGOS = 5;
-        const int INGRESO_ELEMENTO = 6;
-        const int LISTA_DE_ELEMENTOS = 7;
-        const int VARIABLE_PREGUNTABLE = 8;
-        const int VARIABLE_INICIAL = 9;
-        const int VARIABLE_OBJETIVO = 10;
+     
         /// <summary>
         /// Método que resalta los controles 
         /// </summary>
         /// <param name="tipo_de_control">Constante con el tipo de control</param>
         /// <param name="marcado">TRUE para amrcar el control y FALSE para estado normal</param>
-        public void marcarControl(int tipo_de_control, bool marcado)
+        private void marcarControl(int tipo_de_control, bool marcado)
         {
             switch (tipo_de_control)
             {
@@ -451,7 +455,7 @@ namespace Tot
         /// </summary>
         /// <param name="chequear_nombre">Debe chequearse el nombre de la variable en el porceso</param>
         /// <returns>NULL si el chequeo es correcto o lista de errores</returns>
-        public string[] chequeoVariable(bool chequear_nombre)
+        private string[] chequeoVariable(bool chequear_nombre)
         {
             string retorno = "";
             if (nombre.Equals(""))
@@ -569,7 +573,7 @@ namespace Tot
         /// </summary>
         /// <param name="texto_a_procesar">Cadena a procesar</param>
         /// <returns>Texto procesado</returns>
-        public string procesarTexto(string texto_a_procesar)
+        private string procesarTexto(string texto_a_procesar)
         {
             string texto = texto_a_procesar;
             texto = texto.ToLower();
@@ -595,7 +599,7 @@ namespace Tot
         /// Método que ingresa la nueva variable a la base de conocimiento
         /// </summary>
         /// <returns>Id de la variable si la varaible fue agregada correctamente, null en caso contrario</returns>
-        public string agregarNuevaVariable()
+        private string agregarNuevaVariable()
         {
             int tipo_variable = 0;
             if (radioButton_tipo_booleano.Checked)
@@ -663,7 +667,7 @@ namespace Tot
         /// <summary>
         /// Métod que agrega elementos a la lista de elementos de la variable
         /// </summary>
-        public void agregarElementoALista()
+        private void agregarElementoALista()
         {
             marcarControl(INGRESO_ELEMENTO, false);
             marcarControl(LISTA_DE_ELEMENTOS, false);
@@ -699,7 +703,7 @@ namespace Tot
         /// <summary>
         /// Método para eliminar un elemento de la lista de elementos de la variable
         /// </summary>
-        public void eliminarElementoALista()
+        private void eliminarElementoALista()
         {
             marcarControl(INGRESO_ELEMENTO, false);
             marcarControl(LISTA_DE_ELEMENTOS, false);
@@ -742,7 +746,7 @@ namespace Tot
         /// Método que muestra la información de una variable en el control
         /// </summary>
         /// <param name="id_variable"></param>
-        public void mostrarInformaciónVariable(string id_variable)
+        private void mostrarInformaciónVariable(string id_variable)
         {
             limpiarCampos();
             Variable variable = base_conocimiento.leerVariable(id_variable);
@@ -820,8 +824,9 @@ namespace Tot
                 {
                     base_conocimiento.desmarcarChequeoDeConsistenciaEnHechosYReglas(id_variable, true);
                     base_conocimiento.eliminarVariable(id_variable);
-                    MessageBox.Show("La variable ha sido eliminada correctamente,\n Se han marcado las reglas afectadas", "Eliminando variable", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("La variable ha sido eliminada correctamente,\n -Se han marcado las reglas afectadas\n -Se debe comprobar la consistencia de la base de conocimiento", "Eliminando variable", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     eliminarRTF(id_variable);
+                    base_conocimiento.metadatosDesmarcarChequeoBaseConocimiento();
                     return true;
                     /*
                     int opcion = preguntasSiNoCancelar("Eliminando variables", "¿Desea eliminar los hechos asociados a la variable?");
@@ -853,7 +858,7 @@ namespace Tot
         private bool modificandoVariable(string id_variable)
         {
             Variable variable = base_conocimiento.leerVariable(id_variable);
-            bool flag = false;
+            bool flag_de_hechos = false;//indica si la modificacion afecta a algún hecho
             string[] opciones_nuevas = null;
             string[] opciones_antiguas = null;
             if (variable.tipo_variable == Variable.NUMERICO)
@@ -862,7 +867,7 @@ namespace Tot
                 {
                     string[] lista_de_hechos = base_conocimiento.listarHechosConVariable(id_variable);
                     if (lista_de_hechos != null)
-                        flag = true;
+                        flag_de_hechos = true;
                 }
                 if (variable.rango_limitado == false && rango_limitado)//si se ha establecido un rango a la variable
                 {
@@ -870,7 +875,7 @@ namespace Tot
                     double max = Double.Parse(rango_max);
                     string[] lista_de_hechos = base_conocimiento.listarHechosConVariable(id_variable, min, max);
                     if (lista_de_hechos != null)
-                        flag = true;
+                        flag_de_hechos = true;
                 }
                 if (variable.rango_limitado)//si han cambiado los rangos de la variable
                 {
@@ -880,7 +885,7 @@ namespace Tot
                     {
                         string[] lista_de_hechos = base_conocimiento.listarHechosConVariable(id_variable, min, max);
                         if (lista_de_hechos != null)
-                            flag = true;
+                            flag_de_hechos = true;
                     }
                 }
             }
@@ -911,19 +916,19 @@ namespace Tot
                             opciones_antiguas[j] = "";
                     }//solo quedan las opciones agregadas en opciones nuevas y eliminadas en opciones antiguas
 
-                    for (int q = 0; q < opciones_antiguas.Length && !flag; q++) //buscando si algun elemento eliminado influye en un hecho
+                    for (int q = 0; q < opciones_antiguas.Length && !flag_de_hechos; q++) //buscando si algun elemento eliminado influye en un hecho
                     {
                         if (!opciones_antiguas.Equals(""))
                         {
                             string[] lista_de_hechos_con_elemento = base_conocimiento.listarHechosConVariable(id_variable, opciones_antiguas[q]);
                             if (lista_de_hechos_con_elemento != null)
-                                flag = true;
+                                flag_de_hechos = true;
                         }
                     }
                 }
 
 
-            if (flag)
+            if (flag_de_hechos)
             {
                 if (1 != preguntasSiNoCancelar("Modificando variable", "Las modificaciones afectarán hechos y reglas,\n ¿Usted desea continuar?"))
                     return false;
@@ -931,6 +936,8 @@ namespace Tot
             else
                 if (1 != preguntasSiNoCancelar("Modificando variable", "Se modificara la variable,\n ¿Usted desea continuar?"))
                     return false;
+            if(flag_de_hechos)
+                base_conocimiento.metadatosDesmarcarChequeoBaseConocimiento();
             base_conocimiento.modificarMetadatosVariable(id_variable, variable_de_inicio, variable_preguntable_al_usuario,variable_objetivo, nombre, texto_consulta, null, ruta_archivo_imagen);
             if (variable.tipo_variable == Variable.NUMERICO)
             {
@@ -1053,7 +1060,7 @@ namespace Tot
         /// <summary>
         /// Método que limpia las marcas de los campos en el control
         /// </summary>
-        public void limpiarMarcasControl()
+        private void limpiarMarcasControl()
         {
             marcarControl(NOMBRE, false);
             marcarControl(TIPOS_DE_VARIABLE, false);
@@ -1063,6 +1070,7 @@ namespace Tot
             marcarControl(INGRESO_ELEMENTO, false);
             marcarControl(LISTA_DE_ELEMENTOS, false);
             marcarControl(VARIABLE_INICIAL, false);
+            marcarControl(VARIABLE_PREGUNTABLE, false);
             marcarControl(LISTA_DE_ELEMENTOS, false);
             marcarControl(VARIABLE_OBJETIVO, false);
         }
@@ -1138,7 +1146,39 @@ namespace Tot
                 base_conocimiento.modificarRutasArchivosVariable(id_variable, ruta_archivo_variable);
             }
         }
+        /// <summary>
+        /// Método para limpiar el control
+        /// </summary>
+        public void limpiarControlGestionVariables()
+        {
+            limpiarCampos();
+            controlesHabilitados(false);
+            tipo_tarea = DESABILITADO;
+            id_variable_en_tarea = null;
+            limpiarArchivoTemporalRTF();
+        }
 
+        /// <summary>
+        /// Método que habilita el panel para modificar la variable especificada
+        /// </summary>
+        /// <param name="id_variable">Id de la variable a modificar</param>
+        /// <param name="nombre_variable">Nombre de la variable a modificar</param>
+        public void setearVariableAModificar(string id_variable,string nombre_variable)
+        {
+            if (id_variable != null && tipo_tarea == DESABILITADO)
+            {
+                mostrarInformaciónVariable(id_variable);
+                id_variable_en_tarea = id_variable;
+                nombre_variable_en_tarea = nombre_variable;
+                tipo_tarea = MODIFICANDO;
+                controlesHabilitados(true, true);
+                limpiarMarcasControl();
+            }
+            else
+            {
+                MessageBox.Show("No se ha seleccionado ninguna variable", "Eliminando variable", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         //*************************************************************************
         // Eventos
@@ -1161,7 +1201,7 @@ namespace Tot
         }
 
 
-        public void cambiarEstadoPanelesTipoVariable()
+        private void cambiarEstadoPanelesTipoVariable()
         {
             if (radioButton_tipo_booleano.Checked)
             {

@@ -27,13 +27,13 @@ namespace Tot
                 string retorno = "";
                 retorno += prefijo;
                 if (prefijo != null && !prefijo.Equals(""))
-                    retorno += "\t";
+                    retorno += "  ";
                 retorno += id;
                 if (id != null && !id.Equals(""))
-                    retorno += "\t";
+                    retorno += "  ";
                 retorno += nombre;
                 if (nombre != null && !nombre.Equals(""))
-                    retorno += "\t";
+                    retorno += "  ";
                 if (sufijo != null)
                     retorno += sufijo;
                 return retorno;
@@ -123,8 +123,8 @@ namespace Tot
                     };
                     string aux = "";
                     if (!regla.chequeo_de_consistencia)
-                        aux += "\t(No Chequeado)";
-                    elemento.sufijo = aux;
+                        aux += "(No Chequeado)";
+                    elemento.prefijo = aux;
                     //listBox_reglas.Items.Add(elemento);
                     aux_reglas.Add(elemento);
                 }
@@ -145,6 +145,11 @@ namespace Tot
             button_agregar.Enabled = habilitar;
             button_modificar.Enabled = habilitar;
             button_eliminar.Enabled = habilitar;
+        }
+
+        public void limpiarControlGestionRegla()
+        {
+            control_edicion_de_reglas.limpiarControEdicionGestionRegla();
         }
 
         //*************************************************************************************************
@@ -178,6 +183,7 @@ namespace Tot
                 ElementoListBox elemento = (ElementoListBox)listBox_reglas.SelectedItem;
                 control_edicion_de_reglas.iniciarTareaEliminarRegla(elemento.id);
                 listBox_reglas.SelectedItem = null;
+                base_conocimiento.metadatosDesmarcarChequeoBaseConocimiento();
             }
             else
             {

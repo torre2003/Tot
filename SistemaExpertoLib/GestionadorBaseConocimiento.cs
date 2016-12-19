@@ -98,7 +98,7 @@ namespace SistemaExpertoLib.GestionDelConocimiento
         /// <summary>
         /// Método que actualiza las varaibles internas del objeto
         /// </summary>
-        private void actualizarEstadisticas()
+        public void actualizarEstadisticas()
         {
             string[] lista_de_variables = manejador_archivos.listarArchivosEnDirectorio(AccesoDatos.VARIABLE);
             string[] lista_de_hechos = manejador_archivos.listarArchivosEnDirectorio(AccesoDatos.HECHO);
@@ -108,6 +108,9 @@ namespace SistemaExpertoLib.GestionDelConocimiento
             cantidad_de_hechos = lista_de_hechos.Length;
             cantidad_de_reglas = lista_de_reglas.Length;
 
+            ultima_id_variables = 0;
+            ultima_id_hecho     = 0;
+            ultima_id_regla     = 0;
 
             for (int i = 0; i < lista_de_variables.Length; i++)
             {
@@ -117,7 +120,7 @@ namespace SistemaExpertoLib.GestionDelConocimiento
                     if (ultima_id_variables < numero_variable)
                         ultima_id_variables = numero_variable;
                 }
-                catch (Exception) { }
+                catch (Exception) {}
             }
 
             for (int i = 0; i < lista_de_hechos.Length; i++)
@@ -440,6 +443,10 @@ namespace SistemaExpertoLib.GestionDelConocimiento
         public Hecho leerHecho(string id_hecho)
         {
             return manejador_archivos.extraerHecho(id_hecho);
+        }
+
+        private void eliminarHecho (string id_hecho){
+            manejador_archivos.eliminarHecho(id_hecho);
         }
 
         /// <summary>
