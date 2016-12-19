@@ -11,6 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using Microsoft.Msagl.Drawing;
@@ -21,7 +22,6 @@ using SistemaExpertoLib.GestionDelConocimiento;
 namespace CEditor
 {
 
-	
 	
 	/// <summary>
 	/// Editor gráfico de reglas.
@@ -36,6 +36,13 @@ namespace CEditor
 		/// </summary>
 		[BrowsableAttribute(false)]
 		public GestionadorBaseConocimiento BaseConocimiento {get;set;}
+		//---------------------------------------------------------------------------------
+		List<CRegla> reglas;
+		public List<CRegla> Reglas{
+			get{
+				return reglas;
+			}
+		}
 		//---------------------------------------------------------------------------------
 		Variable consecuente;
 		/// <summary>
@@ -107,6 +114,9 @@ namespace CEditor
 	    }
 		
 	//***  METODOS  *******************************************************************************************//	
+		/// <summary>
+		/// Crea un nuevo objeto de la clase CEditor.
+		/// </summary>
 		public CEditor(){
 
 			InitializeComponent();
@@ -128,35 +138,11 @@ namespace CEditor
 			nodo.UserData = new CEditorVariable(variable);
 			if(consecuente == null)
 				consecuente = variable;
-			if(variable.id_variable.Equals(consecuente.id_variable))
+			if(variable.id_variable.Equals(consecuente.id_variable)){
 				nodo.Attr.FillColor = ColorConsecuente;
+				(nodo.UserData as CEditorVariable).EsConsecuente = true;
+			}
 			actualizar();			
-		}
-		//---------------------------------------------------------------------------------
-		/// <summary>
-		/// Exporta la reglas a la base de conocimiento para que estén disponibles en el sistema.
-		/// </summary>
-		public void ExportarReglas(){
-			
-			var nodosIniciales = new List<Node>();
-			foreach(var nodo in grafico.Nodes){
-				bool tieneAntecesores = false;
-				foreach(var inEdge in nodo.InEdges){
-					tieneAntecesores = true;
-					break;
-				}
-				if(!tieneAntecesores)
-					nodosIniciales.Add(nodo);
-			}
-			var reglas = new ArrayList();
-			foreach(var nodo in nodosIniciales){
-				var regla = new ArrayList();
-				regla.Add((nodo.UserData as CEditorVariable).Variable.id_variable);
-				foreach(var outEdge in nodo.OutEdges){
-				
-				}
-			}
-
 		}
 		//---------------------------------------------------------------------------------
 		/// <summary>
@@ -177,14 +163,160 @@ namespace CEditor
 						cVar.Valor = null;
 						dNodo.Node.Attr.FillColor = Color.White;
 						dNodo.Node.LabelText = cVar.Variable.nombre_variable;
+						(dNodo.Node.UserData as CEditorVariable).EsConsecuente = false;
 					}
-					if(cVar.Variable.id_variable.Equals(nuevoConsecuente.id_variable))
-					   dNodo.Node.Attr.FillColor = ColorConsecuente;
+					if(cVar.Variable.id_variable.Equals(nuevoConsecuente.id_variable)){
+					   	dNodo.Node.Attr.FillColor = ColorConsecuente;
+						(dNodo.Node.UserData as CEditorVariable).EsConsecuente = true;
+					}
 				}
 			}
 			consecuente = nuevoConsecuente;
 			actualizar();
 			return true;
+		}
+		//---------------------------------------------------------------------------------
+		/// <summary>
+		/// Exporta la reglas a la base de conocimiento para que estén disponibles en el sistema.
+		/// </summary>
+		/// <returns>true si la operacion se realizó con éxito, false en caso contrario.</returns>
+		public bool ExportarReglas(){
+			
+			//-- Chequeo de nodos consecuente -----------
+			foreach(var nodo in grafico.Nodes){
+				var cev = nodo.UserData as CEditorVariable ;
+				if(cev.EsConsecuente && cev.Valor == null )
+					return false ;
+			}
+			
+			//-- recuperacion de nodos iniciales -----------
+			var nodosIniciales = new List<Node>();
+			foreach(var nodo in grafico.Nodes){
+				bool tieneAntecesores = false;
+				foreach(var inEdge in nodo.InEdges){
+					tieneAntecesores = true;
+					break;
+				}
+				if(!tieneAntecesores)
+					nodosIniciales.Add(nodo);
+			}
+			
+			//-- inicio de proceso recursivo ----------------
+			reglas = new List<CRegla>();
+			int nivel = 0;
+			foreach(var nodo in nodosIniciales){
+								
+				var variable = (nodo.UserData as CEditorVariable).Variable;				
+				var tipo = variable.tipo_variable;
+				foreach(var outEdge in nodo.OutEdges){
+					var regla = new CRegla();
+					var antecedente = new ArrayList();
+					antecedente.Add(variable.id_variable);
+					switch(tipo){
+						case Variable.BOOLEANO:
+							var condicionBool = outEdge.UserData as string ;
+							antecedente.Add(condicionBool);
+							break;
+						case Variable.LISTA:
+							var condicionList = outEdge.UserData as string[] ;
+							antecedente.Add(condicionList[0]);
+							antecedente.Add(condicionList[1]);
+							break;
+						case Variable.NUMERICO:
+							var condicionNum = outEdge.UserData as CValorNumerico ;
+							if(condicionNum.Comparador.Equals("ENTRE")){
+								var antecedente2 = new ArrayList();
+								antecedente2.Add(variable.id_variable);
+								antecedente2.Add("MAYOR O IGUAL");
+								antecedente2.Add(condicionNum.Valor);
+								regla.Antecedentes.Add(antecedente2);
+								
+								antecedente.Add("MENOR O IGUAL");
+								antecedente.Add(condicionNum.ValorAux);								
+							}else{
+								antecedente.Add(condicionNum.Comparador);
+								antecedente.Add(condicionNum.Valor);
+							}
+							break;
+					}
+					regla.Antecedentes.Add(antecedente);
+					analizar(outEdge.TargetNode, regla.Clone() as CRegla, reglas, nivel+1);
+				}
+				
+			}
+			return true;
+
+		}
+		//---------------------------------------------------------------------------------
+		void analizar(Node nodo, CRegla regla, List<CRegla>reglas, int nivel){	
+			
+			var cev = (nodo.UserData as CEditorVariable);
+			//-- nodo consecuente -----------------------------------
+			if(cev.EsConsecuente){
+				regla.Consecuente = new ArrayList();
+				switch(cev.Variable.tipo_variable){
+					case Variable.BOOLEANO:
+						regla.Consecuente.Add(cev.Variable.id_variable);
+						regla.Consecuente.Add(cev.Valor);
+						break;
+					case Variable.LISTA:
+						regla.Consecuente.Add(cev.Variable.id_variable);
+						regla.Consecuente.Add(cev.Condicion);
+						regla.Consecuente.Add(cev.Valor);
+						break;
+					case Variable.NUMERICO:
+						regla.Consecuente.Add(cev.Variable.id_variable);
+						regla.Consecuente.Add(cev.Condicion);
+						regla.Consecuente.Add(cev.ValorNum);
+						break;				
+				}
+				reglas.Add(regla);
+				return ;
+			}
+			//-- nodo antecedentes -----------------------------------			
+			var variable = cev.Variable;				
+			var tipo = variable.tipo_variable;
+			int numOutEdge = 0;
+			foreach(var outEdge in nodo.OutEdges){
+				numOutEdge++;
+				var antecedente = new ArrayList();
+				antecedente.Add(variable.id_variable);
+				switch(tipo){
+					case Variable.BOOLEANO:
+						var condicionBool = outEdge.UserData as string ;
+						antecedente.Add(condicionBool);
+						break;
+					case Variable.LISTA:
+						var condicionList = outEdge.UserData as string[] ;
+						antecedente.Add(condicionList[0]);
+						antecedente.Add(condicionList[1]);
+						break;
+					case Variable.NUMERICO:
+						var condicionNum = outEdge.UserData as CValorNumerico ;
+						if(condicionNum.Comparador.Equals("ENTRE")){
+							var antecedente2 = new ArrayList();
+							antecedente2.Add(variable.id_variable);
+							antecedente2.Add("MAYOR O IGUAL");
+							antecedente2.Add(condicionNum.Valor);
+							regla.Antecedentes.Add(antecedente2);
+							
+							antecedente.Add("MENOR O IGUAL");
+							antecedente.Add(condicionNum.Valor);								
+						}else{
+							antecedente.Add(condicionNum.Comparador);
+							antecedente.Add(condicionNum.Valor);
+						}
+						break;
+				}
+				if(numOutEdge==1)
+					regla.Antecedentes.Add(antecedente);
+				else{
+					regla.Antecedentes.RemoveAt(nivel);
+					regla.Antecedentes.Add(antecedente);
+				}
+				analizar(outEdge.TargetNode, regla.Clone() as CRegla, reglas, nivel+1);
+			}			
+			return;	
 		}
 		//---------------------------------------------------------------------------------
 		bool puedeSerConsecuente(string idVariable){
@@ -267,7 +399,19 @@ namespace CEditor
 				var result = inputbox.ShowDialog();				
 				if(result == DialogResult.OK){				
 					removerEdge(edge);
-					grafico.AddEdge(edge.Source,inputbox.Valor,edge.Target);
+					var arco = grafico.AddEdge(edge.Source,inputbox.Valor,edge.Target);
+					arco.Label.FontSize = 9;
+					switch(((edge.SourceNode as Node).UserData as CEditorVariable).Variable.tipo_variable){
+						case Variable.BOOLEANO :
+							arco.UserData = inputbox.ValorBooleano;
+							break;
+						case Variable.LISTA:
+							arco.UserData = inputbox.ValorLista;
+							break;
+						case Variable.NUMERICO:
+							arco.UserData = inputbox.ValorNumerico;
+							break;
+					}
 				}else{
 					removerEdge(edge);
 				}
@@ -378,18 +522,34 @@ namespace CEditor
         	if(sel == null)
 				return ;
         	var inputbox = new CEditorInputBox();
+        	//--click en un nodo ------------
 			var dNodo = sel as DNode;
 			if (dNodo != null) {
-				var ud = dNodo.Node.UserData as CEditorVariable;
-				if(ud.Variable.id_variable.Equals(consecuente.id_variable)){
-					inputbox.EstablecerOpcionesSegunNodo(dNodo.Node);
+				var cev = dNodo.Node.UserData as CEditorVariable;
+				if(cev.Variable.id_variable.Equals(consecuente.id_variable)){
+					inputbox.EstablecerOpcionesSegunNodo(dNodo.Node, true);
 					var result = inputbox.ShowDialog();				
 					if(result == DialogResult.OK){
-						dNodo.Node.LabelText = ud.Variable.nombre_variable + " : " +inputbox.Valor ;	
-						((CEditorVariable)dNodo.Node.UserData).Valor = inputbox.Valor;
+						dNodo.Node.LabelText = cev.Variable.nombre_variable + " ES " +inputbox.Valor ;
+						switch(cev.Variable.tipo_variable){
+							case Variable.BOOLEANO:
+								cev.Valor = inputbox.ValorBooleano;
+								break;
+							case Variable.LISTA:								
+								cev.Condicion = inputbox.ValorLista[0];
+								cev.Valor = inputbox.ValorLista[1];
+								break;
+							case Variable.NUMERICO:
+								var valorNumerico = inputbox.ValorNumerico as CValorNumerico;
+								cev.Condicion = valorNumerico.Comparador;
+								cev.ValorNum = valorNumerico.Valor ;
+								break;
+						}
+						cev.EsConsecuente = true;
 					}
 				}
 			}
+			//--click en un arco ------------
 			var edge = sel as DEdge ;
         	if(edge != null){        		
 				var source = edge.Edge.Source;
@@ -401,7 +561,19 @@ namespace CEditor
 				if(result == DialogResult.OK){
 					var viewerEdge = sel as IViewerEdge;					
 					gViewer.RemoveEdge(viewerEdge, false);					
-					grafico.AddEdge(source, inputbox.Valor.ToString(), target);
+					var arco = grafico.AddEdge(source, inputbox.Valor.ToString(), target);
+					arco.Label.FontSize = 9;
+					switch(((edge.Edge.SourceNode as Node).UserData as CEditorVariable).Variable.tipo_variable){
+						case Variable.BOOLEANO :
+							arco.UserData = inputbox.ValorBooleano;
+							break;
+						case Variable.LISTA:
+							arco.UserData = inputbox.ValorLista;
+							break;
+						case Variable.NUMERICO:
+							arco.UserData = inputbox.ValorNumerico;
+							break;
+					}
 				}
         	}
 			actualizar();
@@ -444,21 +616,91 @@ namespace CEditor
 			timerAddEdge.Enabled = false;
 		}
 		//---------------------------------------------------------------------------------
-	}		
+	}
 	/*************************************************************************************************/	
 	[Serializable]
-	public class CEditorVariable{
+	/// <summary>
+	/// Estructura para representar un regla obtenida desde el grafico.
+	/// </summary>
+	public class CRegla : ICloneable{
+		/// <summary>
+		/// Arraylist que especifica los antecedentes de una regla
+		/// </summary>
+		public ArrayList Antecedentes {get;set;}
+		/// <summary>
+		/// ArrayList que especifica la variable consecuente de la regla.
+		/// </summary>
+		public ArrayList Consecuente {get;set;}
+		//----------------------------------------------------------------------
+		/// <summary>
+		/// Crea un nuevo objeto CRegla.
+		/// </summary>
+		public CRegla(){
+			Antecedentes = new ArrayList();
+			Consecuente = new ArrayList();
+		}
+		//----------------------------------------------------------------------
+		public override string ToString(){
+			string salida = "" ;
+			foreach(var antecedente in Antecedentes){
+				salida += "<" +string.Join(" ", (antecedente as ArrayList).ToArray()) +">" ;
+			}
+			if(Consecuente.Count>0)
+				salida += " => <" +string.Join(" ", Consecuente.ToArray()) +">";				
+			return salida;
+		}
+		//----------------------------------------------------------------------
+		public object Clone(){
+            return Copiadora.Copiar(this);
+        }
+	}
+	/*************************************************************************************************/	
+	[Serializable]
+	class CEditorVariable{
+		public string Condicion {get;set;}
 		public string Valor {get;set;}
+		public double ValorNum {get;set;}
+		public bool EsConsecuente {get;set;}
 		public Variable Variable{get;set;}
 		public CEditorVariable(Variable variable){
 			Variable = variable;
+			EsConsecuente = false;
 		}
+		public override string ToString(){
+			return string.Format("{4} [EsConsecuente={3}, Condicion={0}, Valor={1}, ValorNum={2}]", Condicion, Valor, ValorNum, EsConsecuente, Variable.nombre_variable);
+		}
+ 
 	}
 	/*************************************************************************************************/
 	[Serializable]
-	public class CEditorConfiguracion{
+	class CEditorConfiguracion{
 		public Variable Consecuente{get;set;}
 	}
+	/*************************************************************************************************/
+	/// <summary>
+    /// Realiza una clonación de un objeto de estructura compleja
+    /// </summary>
+    public static class Copiadora{
+        public static T Copiar<T>(T fuente){
+            //Verificamos que sea serializable antes de hacer la copia
+            if (!typeof(T).IsSerializable){
+                throw new ArgumentException("El tipo de dato debe ser serializable.", "fuente");
+            }
+            if (Object.ReferenceEquals(fuente, null)){
+                return default(T);
+            }
+            //Creamos un stream en memoria
+            var formatter = new BinaryFormatter();
+            Stream stream = new MemoryStream();
+            using (stream){
+                formatter.Serialize(stream, fuente);
+                stream.Seek(0, SeekOrigin.Begin);
+                //Deserializamos la porcón de memoria en el nuevo objeto
+                return (T)formatter.Deserialize(stream);
+            }
+        }
+    }
+
 	/*** Delegados ***********************************************************************************/	
 	public delegate void ManejadorEventoCambio(object sender, EventArgs e);	
 	/*************************************************************************************************/

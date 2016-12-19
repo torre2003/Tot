@@ -18,11 +18,14 @@ namespace CEditor
 	/// <summary>
 	/// Description of Form1.
 	/// </summary>
-	public partial class CEditorInputBox : Form {
+	partial class CEditorInputBox : Form {
 		
-		const string VERDADERO = "si";
-		const string FALSO = "no";
-		const int ENTRE = 5;
+		string VERDADERO ;
+		string FALSO ;
+		string COMPARADOR_LISTA ;
+		string[] OPCIONES_NUMERICO ;
+		string[] OPCIONES_NUMERICO_CONSECUENTE ;
+		int INDICE_OPCION_NUMERICO_RANGO ;
 		Variable variable;
 		Node nodo;
 		//---------------------------------------------------------------------------------
@@ -52,39 +55,47 @@ namespace CEditor
 						valor = rbNo.Checked ? FALSO : VERDADERO;
 						break;
 					case Variable.NUMERICO:						
-						valor = cmbComparador.SelectedItem.ToString() + " " + numValor.Value.ToString();
-						if(cmbComparador.SelectedIndex == ENTRE)
-							valor += " y " + numValorAux.Value.ToString();
+						
+						if(cmbComparador.SelectedIndex == INDICE_OPCION_NUMERICO_RANGO)
+							valor = cmbComparador.SelectedItem.ToString()+" "+ numValor.Value.ToString()+" Y "+numValorAux.Value.ToString();
+						else
+							valor = cmbComparador.SelectedItem.ToString() + " QUE " + numValor.Value.ToString();
 						break;
 				}				
-				return valor;
+				return valor.ToLower();
 			}
 		}
 		//---------------------------------------------------------------------------------
-		string valorLista;
-		/// <summary>
-		/// Devuelve la opcion selecionada para variables tipo "LISTA".
-		/// </summary>
-		public string ValorLista {
-			get {
-				if(variable == null)
-					throw new Exception("No se ha definido un nodo.");
-				valorLista = variable.tipo_variable == Variable.LISTA ? cmbLista.SelectedItem.ToString() : null;
-				return valorLista;
-			}
-		}
-		//---------------------------------------------------------------------------------
-		bool valorBinario;
+		string valorBooleano;
 		/// <summary>
 		/// Devuelve el valor binario selecionado por el usuario para variables tipo "BOOLEANO"
 		/// </summary>
-		public bool ValorBinario {
+		public string ValorBooleano {
 			get {
 				if(variable == null)
 					throw new Exception("No se ha definido un nodo.");
-				if(variable.tipo_variable == Variable.BOOLEANO)
-					valorBinario = !rbNo.Checked;
-				return valorBinario;
+				if(variable.tipo_variable == Variable.BOOLEANO){
+					valorBooleano = rbSi.Checked ? VERDADERO : FALSO ;
+				}
+				return valorBooleano;
+			}
+		}
+		//---------------------------------------------------------------------------------
+		string[] valorLista;
+		/// <summary>
+		/// Devuelve la opcion selecionada para variables tipo "LISTA".
+		/// </summary>
+		public string[] ValorLista {
+			get {
+				if(variable == null)
+					throw new Exception("No se ha definido un nodo.");
+				if(variable.tipo_variable == Variable.LISTA){
+					valorLista =new string[2];
+					valorLista[0] = COMPARADOR_LISTA ;
+					valorLista[1] = variable.tipo_variable == Variable.LISTA ? cmbLista.SelectedItem.ToString() : null;
+					
+				}
+				return valorLista;
 			}
 		}
 		//---------------------------------------------------------------------------------
@@ -97,6 +108,7 @@ namespace CEditor
 				if(variable == null)
 					throw new Exception("No se ha definido un nodo.");
 				if(variable.tipo_variable == Variable.NUMERICO){
+					valorNumerico = new CValorNumerico();
 					valorNumerico.Valor = (double) numValor.Value ;
 					valorNumerico.ValorAux = (double) numValorAux.Value ;
 					valorNumerico.Comparador = cmbComparador.SelectedItem.ToString();
@@ -108,9 +120,28 @@ namespace CEditor
 		public CEditorInputBox(){
 			
 			InitializeComponent();
+			
+			//-- opciones variables booleanas ---- 
+			FALSO = Hecho.OPCIONES_BOOLEANO[0] ;
+			VERDADERO = Hecho.OPCIONES_BOOLEANO[1] ;
+			
+			//-- opcion variable lista (no soporta 'NO ES') ---- 
+			COMPARADOR_LISTA = Hecho.OPCIONES_LISTA[0] ;
+			
+			//-- opciones  variables numericas -------------
+			OPCIONES_NUMERICO = new string[Hecho.OPCIONES_NUMERICO.Length + 1] ;
+			INDICE_OPCION_NUMERICO_RANGO = Hecho.OPCIONES_NUMERICO.Length ;
+			for(var i = 0 ; i< Hecho.OPCIONES_NUMERICO.Length ; i++)
+				OPCIONES_NUMERICO[i] = Hecho.OPCIONES_NUMERICO[i] ;	
+			
+			OPCIONES_NUMERICO[INDICE_OPCION_NUMERICO_RANGO] = "ENTRE";
+			OPCIONES_NUMERICO_CONSECUENTE = new string[1];
+			OPCIONES_NUMERICO_CONSECUENTE[0] = "IGUAL";
+			
 		}
 		//---------------------------------------------------------------------------------
-		public bool EstablecerOpcionesSegunNodo(Node nodo){
+		public bool EstablecerOpcionesSegunNodo(Node nodo, bool esConsecuente = false){
+			
 			this.nodo = nodo;
 			variable = (Variable)((CEditorVariable)nodo.UserData).Variable;
 			Text = "Variable: "+variable.nombre_variable;
@@ -120,14 +151,18 @@ namespace CEditor
 				case Variable.LISTA:
 					return generarContenidoLista();
 				case Variable.NUMERICO:
-					return generarContenidoNumerico();
+					return generarContenidoNumerico(esConsecuente);
 			}
 			return false;
 		}
 		//---------------------------------------------------------------------------------
-		bool generarContenidoNumerico(){
+		bool generarContenidoNumerico(bool esConsecuente = false){
 			
 			this.tblPanelMain.Controls.Add(this.tblPanelRango, 1, 1);
+			if(esConsecuente)
+				this.cmbComparador.Items.AddRange(OPCIONES_NUMERICO_CONSECUENTE);
+			else
+				this.cmbComparador.Items.AddRange(OPCIONES_NUMERICO);				
 			cmbComparador.SelectedIndex = 0;
 			if(variable.rango_limitado){
 				numValor.Minimum = (decimal)variable.rango_limite_inferior ;
@@ -142,16 +177,19 @@ namespace CEditor
 		//---------------------------------------------------------------------------------
 		bool generarContenidoBinario(){
 			
-			this.tblPanelMain.Controls.Add(this.pnlBinario, 1, 1);
+			this.tblPanelMain.Controls.Add(this.pnlBinario, 1, 1);				
+			this.rbSi.Text = VERDADERO;
+			this.rbNo.Text = FALSO;
+			
 			int count = 1;
 			foreach(var outEdge in nodo.OutEdges){
 				if(count > 2)
 					return false;
-				if(outEdge.LabelText !=null && outEdge.LabelText.Equals(VERDADERO)){
+				if(outEdge.LabelText !=null && outEdge.LabelText.Equals(VERDADERO.ToLower())){
 					rbSi.Enabled = false;
 					rbNo.Checked = true;
 				}
-				if(outEdge.LabelText !=null && outEdge.LabelText.Equals(FALSO)){
+				if(outEdge.LabelText !=null && outEdge.LabelText.Equals(FALSO.ToLower())){
 					rbSi.Checked = true;
 					rbNo.Enabled = false;
 				}
@@ -184,13 +222,14 @@ namespace CEditor
 		//---------------------------------------------------------------------------------
 		void CmbComparadorSelectedIndexChanged(object sender, EventArgs e){
 			
-			numValorAux.Enabled = cmbComparador.SelectedIndex == ENTRE ? true : false;
+			numValorAux.Enabled = cmbComparador.SelectedIndex == INDICE_OPCION_NUMERICO_RANGO ? true : false;
 		}
 		//---------------------------------------------------------------------------------
 	}
 	
 	/*************************************************************/
-	public struct CValorNumerico{
+	[Serializable]
+	class CValorNumerico{
 		public string Comparador{get;set;}
 		public double Valor{get;set;}
 		public double ValorAux{get;set;}

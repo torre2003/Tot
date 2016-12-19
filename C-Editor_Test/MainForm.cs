@@ -50,7 +50,8 @@ namespace C_Editor_Test
 		}
 		void ExportarReglasToolStripMenuItemClick(object sender, EventArgs e)
 		{
-			c_Editor1.ExportarReglas();
+			if(!c_Editor1.ExportarReglas())
+				MessageBox.Show("Verifique la variable consecuente tenga todos los valores asociados");
 		}
 		//------------------------------------------------------------------------------------------------
 

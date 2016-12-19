@@ -55,21 +55,21 @@ namespace CEditor
 			this.tblPanelButtons = new System.Windows.Forms.TableLayoutPanel();
 			this.btnAceptar = new System.Windows.Forms.Button();
 			this.btnCancelar = new System.Windows.Forms.Button();
+			this.pnlBinario = new System.Windows.Forms.TableLayoutPanel();
+			this.rbSi = new System.Windows.Forms.RadioButton();
+			this.rbNo = new System.Windows.Forms.RadioButton();
 			this.tblPanelRango = new System.Windows.Forms.TableLayoutPanel();
 			this.cmbComparador = new System.Windows.Forms.ComboBox();
 			this.numValor = new System.Windows.Forms.NumericUpDown();
 			this.numValorAux = new System.Windows.Forms.NumericUpDown();
 			this.label1 = new System.Windows.Forms.Label();
-			this.pnlBinario = new System.Windows.Forms.TableLayoutPanel();
-			this.rbSi = new System.Windows.Forms.RadioButton();
-			this.rbNo = new System.Windows.Forms.RadioButton();
 			this.cmbLista = new System.Windows.Forms.ComboBox();
 			this.tblPanelMain.SuspendLayout();
 			this.tblPanelButtons.SuspendLayout();
+			this.pnlBinario.SuspendLayout();
 			this.tblPanelRango.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numValor)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numValorAux)).BeginInit();
-			this.pnlBinario.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tblPanelMain
@@ -80,6 +80,7 @@ namespace CEditor
 			this.tblPanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
 			this.tblPanelMain.Controls.Add(this.lblVariable, 0, 0);
 			this.tblPanelMain.Controls.Add(this.tblPanelButtons, 1, 2);
+			//this.tblPanelMain.Controls.Add(this.pnlBinario, 1, 1);
 			this.tblPanelMain.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tblPanelMain.Location = new System.Drawing.Point(0, 0);
 			this.tblPanelMain.Name = "tblPanelMain";
@@ -138,6 +139,43 @@ namespace CEditor
 			this.btnCancelar.Text = "Cancelar";
 			this.btnCancelar.UseVisualStyleBackColor = true;
 			// 
+			// pnlBinario
+			// 
+			this.pnlBinario.ColumnCount = 2;
+			this.pnlBinario.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+			this.pnlBinario.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+			this.pnlBinario.Controls.Add(this.rbSi, 1, 0);
+			this.pnlBinario.Controls.Add(this.rbNo, 1, 1);
+			this.pnlBinario.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.pnlBinario.Location = new System.Drawing.Point(102, 53);
+			this.pnlBinario.Name = "pnlBinario";
+			this.pnlBinario.RowCount = 2;
+			this.pnlBinario.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.pnlBinario.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.pnlBinario.Size = new System.Drawing.Size(292, 59);
+			this.pnlBinario.TabIndex = 4;
+			// 
+			// rbSi
+			// 
+			this.rbSi.Checked = true;
+			this.rbSi.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.rbSi.Location = new System.Drawing.Point(90, 3);
+			this.rbSi.Name = "rbSi";
+			this.rbSi.Size = new System.Drawing.Size(199, 23);
+			this.rbSi.TabIndex = 0;
+			this.rbSi.TabStop = true;
+			this.rbSi.UseVisualStyleBackColor = true;
+			// 
+			// rbNo
+			// 
+			this.rbNo.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.rbNo.Location = new System.Drawing.Point(90, 32);
+			this.rbNo.Name = "rbNo";
+			this.rbNo.Size = new System.Drawing.Size(199, 24);
+			this.rbNo.TabIndex = 1;
+			this.rbNo.TabStop = true;
+			this.rbNo.UseVisualStyleBackColor = true;
+			// 
 			// tblPanelRango
 			// 
 			this.tblPanelRango.ColumnCount = 3;
@@ -160,13 +198,6 @@ namespace CEditor
 			// cmbComparador
 			// 
 			this.cmbComparador.FormattingEnabled = true;
-			this.cmbComparador.Items.AddRange(new object[] {
-			"=",
-			">",
-			">=",
-			"<",
-			"<=",
-			"Entre"});
 			this.cmbComparador.Location = new System.Drawing.Point(3, 32);
 			this.cmbComparador.Name = "cmbComparador";
 			this.cmbComparador.Size = new System.Drawing.Size(91, 21);
@@ -198,44 +229,6 @@ namespace CEditor
 			this.label1.Text = "Comparador";
 			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
-			// pnlBinario
-			// 
-			this.pnlBinario.ColumnCount = 2;
-			this.pnlBinario.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.pnlBinario.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.pnlBinario.Controls.Add(this.rbSi, 0, 0);
-			this.pnlBinario.Controls.Add(this.rbNo, 1, 0);
-			this.pnlBinario.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.pnlBinario.Location = new System.Drawing.Point(102, 53);
-			this.pnlBinario.Name = "pnlBinario";
-			this.pnlBinario.RowCount = 1;
-			this.pnlBinario.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.pnlBinario.Size = new System.Drawing.Size(292, 59);
-			this.pnlBinario.TabIndex = 4;
-			// 
-			// rbSi
-			// 
-			this.rbSi.Checked = true;
-			this.rbSi.Dock = System.Windows.Forms.DockStyle.Right;
-			this.rbSi.Location = new System.Drawing.Point(102, 3);
-			this.rbSi.Name = "rbSi";
-			this.rbSi.Size = new System.Drawing.Size(41, 53);
-			this.rbSi.TabIndex = 0;
-			this.rbSi.TabStop = true;
-			this.rbSi.Text = "Si";
-			this.rbSi.UseVisualStyleBackColor = true;
-			// 
-			// rbNo
-			// 
-			this.rbNo.Dock = System.Windows.Forms.DockStyle.Left;
-			this.rbNo.Location = new System.Drawing.Point(149, 3);
-			this.rbNo.Name = "rbNo";
-			this.rbNo.Size = new System.Drawing.Size(68, 53);
-			this.rbNo.TabIndex = 1;
-			this.rbNo.TabStop = true;
-			this.rbNo.Text = "No";
-			this.rbNo.UseVisualStyleBackColor = true;
-			// 
 			// cmbLista
 			// 
 			this.cmbLista.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -262,10 +255,10 @@ namespace CEditor
 			this.Text = "Form1";
 			this.tblPanelMain.ResumeLayout(false);
 			this.tblPanelButtons.ResumeLayout(false);
+			this.pnlBinario.ResumeLayout(false);
 			this.tblPanelRango.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.numValor)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numValorAux)).EndInit();
-			this.pnlBinario.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
