@@ -532,6 +532,11 @@ namespace SistemaExpertoLib.MotorDeInferencia
                         else//Si todos los hechos son conocidos en la regla
                         {
                             int[] respuesta_validacion_regla = evento_confimar_hecho(mejor_regla.id_hecho_consecuente,mejor_regla.id_regla);
+                            if (respuesta_validacion_regla == null)
+                            {
+                                _codigo_de_salida_proceso = ConstantesShell.INFERENCIA_DETENIDA_POR_EL_USUARIO;
+                                return;
+                            }
                             agregarLog(ConstantesShell.LOG_REGLA + "|" + mejor_regla.id_regla + "|" + ConstantesShell.LOG_ACCION_VALIDANDO_REGLA);
                             // Analizando confirmaciones de hecho
                             if (respuesta_validacion_regla[0] == ConstantesShell.HECHO_CONFIRMADO)//Si el hecho es validado por el usuario

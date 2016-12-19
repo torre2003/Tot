@@ -649,7 +649,7 @@ namespace SistemaExpertoLib.GestionDelConocimiento
         /// </summary>
         /// <param name="antecedentes">Se debe completar segun corresponda la variableArrayList[ArrayList[id_variable string ,codicion string ],ArrayList[id_variable string ,codicion string ,valor double],ArrayList[id_variable string ,codicion string ,valor string] ]</param>
         /// <param name="consecuente">Se debe completar solo un array list correspondiente a la variable consecuente</param>
-        /// <returns>null si la regla ya se encuentra en la base de conocimiento </returns>
+        /// <returns>id de la regla creada|null si la regla ya se encuentra en la base de conocimiento </returns>
         public string agregarNuevaRegla (ArrayList antecedentes, ArrayList consecuente)
         {
             if (antecedentes.Count == 0 || consecuente == null || consecuente.Count == 0)

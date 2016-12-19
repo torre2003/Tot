@@ -87,7 +87,7 @@ namespace ControlesModuloConsulta
         /// Método que inicia la consulta para comprobar un hecho
         /// </summary>
         /// <param name="hecho_a_validar">Hecho a comprobar</param>
-        /// <param name="ruta_rtf_descripcion">rutda de rtf a mostrar en pantalla, (Rtf correspondiente a la varaible del hecho)</param>
+        /// <param name="ruta_rtf_descripcion">ruta de rtf a mostrar en pantalla, (Rtf correspondiente a la varaible del hecho)</param>
         public void inciarConsultaHecho(string id_regla,Hecho hecho_a_validar,Hecho[] antecedentes, string ruta_rtf_descripcion)
         {
             limpiarControl();
