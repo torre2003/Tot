@@ -102,6 +102,11 @@ namespace Tot
                                 zip.ExtractAll(ruta_absoluta);
                                 base_conocimiento.actualizarEstadisticas();
                                 MessageBox.Show("Se ha importado correctamente la base de conocimiento", "Importando base de conocimiento", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                ventana_editor_grafico.Visible = false;
+                                ventana_editor_grafico.Dispose();
+                                configuracion_interna.inicializarCarpetaDiagramas(base_conocimiento.ruta_carpeta_base_conocimiento);
+                                ventana_editor_grafico = new FormVentanaEditorGrafico(base_conocimiento);
+                                ventana_editor_grafico.MdiParent = this;
                             }
                             catch (Exception e )
                             {

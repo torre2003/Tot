@@ -130,7 +130,7 @@ namespace Tot
             // 
             // button_aceptar
             // 
-            this.button_aceptar.Location = new System.Drawing.Point(350, 538);
+            this.button_aceptar.Location = new System.Drawing.Point(300, 538);
             this.button_aceptar.Name = "button_aceptar";
             this.button_aceptar.Size = new System.Drawing.Size(75, 23);
             this.button_aceptar.TabIndex = 1;

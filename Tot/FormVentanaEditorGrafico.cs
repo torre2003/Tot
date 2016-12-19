@@ -55,7 +55,7 @@ namespace Tot
 		void ListaVariablesEstablecerConsecuente(SistemaExpertoLib.Variable variable, EventArgs e)
 		{
 			if (!c_Editor1.EstablecerConsecuente(variable))
-				MessageBox.Show("No se puede establer " + variable.nombre_variable + " como consecuente debido a que está establecida como antecedente");
+				MessageBox.Show("No se puede establecer " + variable.nombre_variable + " como consecuente debido a que está establecida como antecedente");
 		}
 		//--------------------------------------------------------------------------------------------
 		void ListaVariablesVariableDoubleClick(SistemaExpertoLib.Variable variable, MouseEventArgs e)

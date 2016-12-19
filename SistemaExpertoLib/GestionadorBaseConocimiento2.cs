@@ -146,7 +146,7 @@ namespace SistemaExpertoLib.GestionDelConocimiento
                     string[] antecedentes = regla.listarAntecedentes();
                     for (int k = 0; k < antecedentes.Length && !existen_variables_de_inicio_en_los_antecedentes; k++)
                     {
-                        Hecho hecho_antecedente = manejador_archivos.extraerHecho(antecedentes[i]);
+                        Hecho hecho_antecedente = manejador_archivos.extraerHecho(antecedentes[k]);
                         if (hecho_antecedente.hecho_preguntable_al_usuario)
                             existen_variables_de_inicio_en_los_antecedentes = true;
                     }
