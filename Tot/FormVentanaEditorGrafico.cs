@@ -85,11 +85,12 @@ namespace Tot
 			foreach(var regla in Reglas){
 				var result = baseConocimiento.agregarNuevaRegla(regla.Antecedentes, regla.Consecuente);
 				if(result != null)
-					log += result +"\n" ;
-				else
-					log += "regla existente\n" ;
-			}
-			
+					log += "Regla agregada : " +result +"\n" ;
+				else{
+					var idRegla = baseConocimiento.comprobarReglaExistente(regla.Antecedentes,regla.Consecuente);
+					log += "Regla existente : "+idRegla+ ":"+baseConocimiento.leerRegla(idRegla).ToString()+"\n" ;
+				}
+			}			
 			MessageBox.Show(log,"Reglas");
 		}
 		//--------------------------------------------------------------------------------------------
