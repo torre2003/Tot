@@ -47,10 +47,10 @@ bld/
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
 
-<<<<<<< HEAD
+
 *_i.c
 *_p.c
-=======
+
 # NUNIT
 *.VisualState.xml
 TestResult.xml
@@ -67,7 +67,7 @@ artifacts/
 *_i.c
 *_p.c
 *_i.h
->>>>>>> 7d12ee83c83ce760df95ef7688020384213c4a1e
+
 *.ilk
 *.meta
 *.obj
