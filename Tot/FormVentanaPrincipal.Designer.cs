@@ -30,9 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormVentanaPrincipal));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.motorDeInferenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openFileDialog_importar = new System.Windows.Forms.OpenFileDialog();
-            this.saveFileDialog_exportar = new System.Windows.Forms.SaveFileDialog();
             this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuevaBaseDeConocimientoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configuraciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,8 +42,14 @@
             this.gestiónDelConocimientoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItem_editor_base_conocimiento = new System.Windows.Forms.ToolStripMenuItem();
             this.configuraciónBaseDeConocimientoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.motorDeInferenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.iniciarInferenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configuraciónLogDeInferenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.acercaDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.acercaDeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFileDialog_importar = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog_exportar = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,32 +58,13 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.archivoToolStripMenuItem,
             this.gestiónDelConocimientoToolStripMenuItem,
-            this.motorDeInferenciaToolStripMenuItem});
+            this.motorDeInferenciaToolStripMenuItem,
+            this.acercaDeToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(913, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // motorDeInferenciaToolStripMenuItem
-            // 
-            this.motorDeInferenciaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.iniciarInferenciaToolStripMenuItem,
-            this.configuraciónLogDeInferenciaToolStripMenuItem});
-            this.motorDeInferenciaToolStripMenuItem.Image = global::Tot.Properties.Resources._1481793627_Pinion;
-            this.motorDeInferenciaToolStripMenuItem.Name = "motorDeInferenciaToolStripMenuItem";
-            this.motorDeInferenciaToolStripMenuItem.Size = new System.Drawing.Size(139, 20);
-            this.motorDeInferenciaToolStripMenuItem.Text = "Motor de inferencia";
-            // 
-            // openFileDialog_importar
-            // 
-            this.openFileDialog_importar.Filter = "Base de conocimiento|*.Tot;";
-            this.openFileDialog_importar.InitialDirectory = "Environment.SpecialFolder.Desktop";
-            // 
-            // saveFileDialog_exportar
-            // 
-            this.saveFileDialog_exportar.DefaultExt = "Tot";
-            this.saveFileDialog_exportar.Filter = "Base de conocimiento|*.Tot;";
             // 
             // archivoToolStripMenuItem
             // 
@@ -182,6 +166,16 @@
             this.configuraciónBaseDeConocimientoToolStripMenuItem.Text = "Configuración base de conocimiento";
             this.configuraciónBaseDeConocimientoToolStripMenuItem.Click += new System.EventHandler(this.configuraciónToolStripMenuItem_Click);
             // 
+            // motorDeInferenciaToolStripMenuItem
+            // 
+            this.motorDeInferenciaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.iniciarInferenciaToolStripMenuItem,
+            this.configuraciónLogDeInferenciaToolStripMenuItem});
+            this.motorDeInferenciaToolStripMenuItem.Image = global::Tot.Properties.Resources._1481793627_Pinion;
+            this.motorDeInferenciaToolStripMenuItem.Name = "motorDeInferenciaToolStripMenuItem";
+            this.motorDeInferenciaToolStripMenuItem.Size = new System.Drawing.Size(139, 20);
+            this.motorDeInferenciaToolStripMenuItem.Text = "Motor de inferencia";
+            // 
             // iniciarInferenciaToolStripMenuItem
             // 
             this.iniciarInferenciaToolStripMenuItem.Image = global::Tot.Properties.Resources._1481793337_Touch;
@@ -197,6 +191,42 @@
             this.configuraciónLogDeInferenciaToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
             this.configuraciónLogDeInferenciaToolStripMenuItem.Text = "Configuración log de inferencia";
             this.configuraciónLogDeInferenciaToolStripMenuItem.Click += new System.EventHandler(this.configuraciónLogInferenciaToolStripMenuItem_Click);
+            // 
+            // acercaDeToolStripMenuItem
+            // 
+            this.acercaDeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aToolStripMenuItem,
+            this.acercaDeToolStripMenuItem1});
+            this.acercaDeToolStripMenuItem.Image = global::Tot.Properties.Resources._1481793333_Help_book;
+            this.acercaDeToolStripMenuItem.Name = "acercaDeToolStripMenuItem";
+            this.acercaDeToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
+            this.acercaDeToolStripMenuItem.Text = "Ayuda";
+            // 
+            // aToolStripMenuItem
+            // 
+            this.aToolStripMenuItem.Image = global::Tot.Properties.Resources._1482051751_bookcase_32x32;
+            this.aToolStripMenuItem.Name = "aToolStripMenuItem";
+            this.aToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.aToolStripMenuItem.Text = "Indice de ayuda";
+            this.aToolStripMenuItem.Click += new System.EventHandler(this.aToolStripMenuItem_Click);
+            // 
+            // acercaDeToolStripMenuItem1
+            // 
+            this.acercaDeToolStripMenuItem1.Image = global::Tot.Properties.Resources.Net_Down_Solo_Color;
+            this.acercaDeToolStripMenuItem1.Name = "acercaDeToolStripMenuItem1";
+            this.acercaDeToolStripMenuItem1.Size = new System.Drawing.Size(157, 22);
+            this.acercaDeToolStripMenuItem1.Text = "Acerca de..";
+            this.acercaDeToolStripMenuItem1.Click += new System.EventHandler(this.acercaDeToolStripMenuItem1_Click);
+            // 
+            // openFileDialog_importar
+            // 
+            this.openFileDialog_importar.Filter = "Base de conocimiento|*.Tot;";
+            this.openFileDialog_importar.InitialDirectory = "Environment.SpecialFolder.Desktop";
+            // 
+            // saveFileDialog_exportar
+            // 
+            this.saveFileDialog_exportar.DefaultExt = "Tot";
+            this.saveFileDialog_exportar.Filter = "Base de conocimiento|*.Tot;";
             // 
             // FormVentanaPrincipal
             // 
@@ -235,5 +265,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem configuraciónBaseDeConocimientoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem configuraciónLogDeInferenciaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem acercaDeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem acercaDeToolStripMenuItem1;
     }
 }

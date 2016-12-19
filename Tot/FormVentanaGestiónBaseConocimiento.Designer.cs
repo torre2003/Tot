@@ -31,15 +31,19 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormVentanaGestiónBaseConocimiento));
             this.tabControl_gestion_conocimiento = new System.Windows.Forms.TabControl();
             this.tabPage_variables = new System.Windows.Forms.TabPage();
+            this.buttonInformación_lista_de_variables = new Tot.ButtonInformación();
+            this.buttonInformación_detalle_variable = new Tot.ButtonInformación();
             this.control_gestion_variables = new Tot.ControlGestionVariables();
             this.tabPage_hechos = new System.Windows.Forms.TabPage();
+            this.buttonInformación_lista_de_hechos = new Tot.ButtonInformación();
             this.button_cheuquear_hechos = new System.Windows.Forms.Button();
             this.button_update = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.listBox_hechos = new System.Windows.Forms.ListBox();
             this.tabPage_reglas = new System.Windows.Forms.TabPage();
+            this.buttonInformación_edicion_de_reglas = new Tot.ButtonInformación();
+            this.buttonInformación_lista_de_reglas = new Tot.ButtonInformación();
             this.control_gestion_de_reglas = new Tot.ControlGestionReglas();
-            this.button1 = new System.Windows.Forms.Button();
             this.tabControl_gestion_conocimiento.SuspendLayout();
             this.tabPage_variables.SuspendLayout();
             this.tabPage_hechos.SuspendLayout();
@@ -61,6 +65,8 @@
             // 
             // tabPage_variables
             // 
+            this.tabPage_variables.Controls.Add(this.buttonInformación_lista_de_variables);
+            this.tabPage_variables.Controls.Add(this.buttonInformación_detalle_variable);
             this.tabPage_variables.Controls.Add(this.control_gestion_variables);
             this.tabPage_variables.Location = new System.Drawing.Point(4, 22);
             this.tabPage_variables.Name = "tabPage_variables";
@@ -70,6 +76,22 @@
             this.tabPage_variables.Text = "Variables";
             this.tabPage_variables.UseVisualStyleBackColor = true;
             this.tabPage_variables.Enter += new System.EventHandler(this.tabPage_variables_Enter);
+            // 
+            // buttonInformación_lista_de_variables
+            // 
+            this.buttonInformación_lista_de_variables.Location = new System.Drawing.Point(204, 3);
+            this.buttonInformación_lista_de_variables.Name = "buttonInformación_lista_de_variables";
+            this.buttonInformación_lista_de_variables.ruta_rtf_ayuda = "files\\\\ayuda\\\\lista_de_variables.rtf";
+            this.buttonInformación_lista_de_variables.Size = new System.Drawing.Size(32, 32);
+            this.buttonInformación_lista_de_variables.TabIndex = 2;
+            // 
+            // buttonInformación_detalle_variable
+            // 
+            this.buttonInformación_detalle_variable.Location = new System.Drawing.Point(655, 26);
+            this.buttonInformación_detalle_variable.Name = "buttonInformación_detalle_variable";
+            this.buttonInformación_detalle_variable.ruta_rtf_ayuda = "files\\\\ayuda\\\\gestion_variables.rtf";
+            this.buttonInformación_detalle_variable.Size = new System.Drawing.Size(32, 32);
+            this.buttonInformación_detalle_variable.TabIndex = 1;
             // 
             // control_gestion_variables
             // 
@@ -95,6 +117,7 @@
             // 
             // tabPage_hechos
             // 
+            this.tabPage_hechos.Controls.Add(this.buttonInformación_lista_de_hechos);
             this.tabPage_hechos.Controls.Add(this.button_cheuquear_hechos);
             this.tabPage_hechos.Controls.Add(this.button_update);
             this.tabPage_hechos.Controls.Add(this.label1);
@@ -107,6 +130,14 @@
             this.tabPage_hechos.Text = "Hechos";
             this.tabPage_hechos.UseVisualStyleBackColor = true;
             this.tabPage_hechos.Enter += new System.EventHandler(this.tabPage_hechos_Enter);
+            // 
+            // buttonInformación_lista_de_hechos
+            // 
+            this.buttonInformación_lista_de_hechos.Location = new System.Drawing.Point(741, 12);
+            this.buttonInformación_lista_de_hechos.Name = "buttonInformación_lista_de_hechos";
+            this.buttonInformación_lista_de_hechos.ruta_rtf_ayuda = "files\\\\ayuda\\\\lista_de_hechos.rtf";
+            this.buttonInformación_lista_de_hechos.Size = new System.Drawing.Size(32, 32);
+            this.buttonInformación_lista_de_hechos.TabIndex = 4;
             // 
             // button_cheuquear_hechos
             // 
@@ -150,6 +181,8 @@
             // 
             // tabPage_reglas
             // 
+            this.tabPage_reglas.Controls.Add(this.buttonInformación_edicion_de_reglas);
+            this.tabPage_reglas.Controls.Add(this.buttonInformación_lista_de_reglas);
             this.tabPage_reglas.Controls.Add(this.control_gestion_de_reglas);
             this.tabPage_reglas.Location = new System.Drawing.Point(4, 22);
             this.tabPage_reglas.Name = "tabPage_reglas";
@@ -159,6 +192,22 @@
             this.tabPage_reglas.Text = "Reglas";
             this.tabPage_reglas.UseVisualStyleBackColor = true;
             this.tabPage_reglas.Enter += new System.EventHandler(this.tabPage_reglas_Enter);
+            // 
+            // buttonInformación_edicion_de_reglas
+            // 
+            this.buttonInformación_edicion_de_reglas.Location = new System.Drawing.Point(49, 238);
+            this.buttonInformación_edicion_de_reglas.Name = "buttonInformación_edicion_de_reglas";
+            this.buttonInformación_edicion_de_reglas.ruta_rtf_ayuda = "files\\\\ayuda\\\\edicion_reglas.rtf";
+            this.buttonInformación_edicion_de_reglas.Size = new System.Drawing.Size(32, 32);
+            this.buttonInformación_edicion_de_reglas.TabIndex = 2;
+            // 
+            // buttonInformación_lista_de_reglas
+            // 
+            this.buttonInformación_lista_de_reglas.Location = new System.Drawing.Point(134, 8);
+            this.buttonInformación_lista_de_reglas.Name = "buttonInformación_lista_de_reglas";
+            this.buttonInformación_lista_de_reglas.ruta_rtf_ayuda = "files\\\\ayuda\\\\lista_de_reglas.rtf";
+            this.buttonInformación_lista_de_reglas.Size = new System.Drawing.Size(32, 32);
+            this.buttonInformación_lista_de_reglas.TabIndex = 1;
             // 
             // control_gestion_de_reglas
             // 
@@ -174,21 +223,11 @@
             this.control_gestion_de_reglas.Size = new System.Drawing.Size(789, 584);
             this.control_gestion_de_reglas.TabIndex = 0;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(572, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(8, 8);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // FormVentanaGestiónBaseConocimiento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(789, 671);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.tabControl_gestion_conocimiento);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -215,13 +254,18 @@
         private System.Windows.Forms.TabPage tabPage_variables;
         private System.Windows.Forms.TabPage tabPage_hechos;
         private System.Windows.Forms.TabPage tabPage_reglas;
-        private System.Windows.Forms.Button button1;
         private ControlGestionVariables control_gestion_variables;
         private ControlGestionReglas control_gestion_de_reglas;
         private System.Windows.Forms.Button button_update;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListBox listBox_hechos;
         private System.Windows.Forms.Button button_cheuquear_hechos;
+        private ButtonInformación buttonInformación_detalle_variable;
+        private ButtonInformación buttonInformación_lista_de_variables;
+        private ButtonInformación buttonInformación_edicion_de_reglas;
+        private ButtonInformación buttonInformación_lista_de_reglas;
+        private ButtonInformación buttonInformación_lista_de_hechos;
+        
 
     }
 }

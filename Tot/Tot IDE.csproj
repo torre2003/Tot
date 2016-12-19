@@ -50,11 +50,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ButtonInformción.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ButtonInformción.Designer.cs">
+      <DependentUpon>ButtonInformción.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormDialogoPanel.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormDialogoPanel.Designer.cs">
       <DependentUpon>FormDialogoPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormVentanaAcercaDe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormVentanaAcercaDe.Designer.cs">
+      <DependentUpon>FormVentanaAcercaDe.cs</DependentUpon>
     </Compile>
     <Compile Include="FormVentanaCargando.cs">
       <SubType>Form</SubType>
@@ -89,6 +101,12 @@
     <Compile Include="FormVentanaGuardarLog.Designer.cs">
       <DependentUpon>FormVentanaGuardarLog.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormVentanaIndiceDeAyudas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormVentanaIndiceDeAyudas.Designer.cs">
+      <DependentUpon>FormVentanaIndiceDeAyudas.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormVentanaPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,8 +117,14 @@
     <Compile Include="GestionMotorInferencia.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ButtonInformción.resx">
+      <DependentUpon>ButtonInformción.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormDialogoPanel.resx">
       <DependentUpon>FormDialogoPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormVentanaAcercaDe.resx">
+      <DependentUpon>FormVentanaAcercaDe.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormVentanaCargando.resx">
       <DependentUpon>FormVentanaCargando.cs</DependentUpon>
@@ -116,6 +140,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormVentanaGuardarLog.resx">
       <DependentUpon>FormVentanaGuardarLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormVentanaIndiceDeAyudas.resx">
+      <DependentUpon>FormVentanaIndiceDeAyudas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormVentanaPrincipal.resx">
       <DependentUpon>FormVentanaPrincipal.cs</DependentUpon>
@@ -243,6 +270,10 @@
     <None Include="Resources\1481793632_Clipboard.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\1482051749_bookcase 48x48.png" />
+    <None Include="Resources\1482051751_bookcase 32x32.png" />
+    <None Include="Resources\Net Down Solo Color.png" />
+    <None Include="Resources\Net Down Vertical Color.png" />
     <Content Include="tot48x48.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -40,7 +40,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
                 InfoRegla a = x;
                 InfoRegla b = y;
 
-                //1°Privilegio a las variables con menor puntaje
+                //1°Privilegio a las reglas con menor puntaje
                 if (a.puntaje_regla < b.puntaje_regla)
                     return -1;
                 if (a.puntaje_regla > b.puntaje_regla)
@@ -577,7 +577,7 @@ namespace SistemaExpertoLib.MotorDeInferencia
                                 if (respuesta_validacion_regla[1] == ConstantesShell.PROBLEMA_NO_SOLUCIONADO)//Si el problema no se soluciono
                                 {
                                     //agregarLog("El problema se NO SE SOLUCIONO");
-                                    agregarLog(ConstantesShell.LOG_INFO + "|" + ConstantesShell.LOG_INFO_PROBLEMA_SOLUCIONADO);
+                                    agregarLog(ConstantesShell.LOG_INFO + "|" + ConstantesShell.LOG_INFO_PROBLEMA_NO_SOLUCIONADO);
                                 }
                                 else
                                 {

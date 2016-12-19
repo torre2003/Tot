@@ -22,7 +22,7 @@ namespace Tot
         {
             public string id;
             public string nombre;
-
+            public bool preguntable_al_usuario;
             public override string ToString()
             {
                 return nombre;
@@ -669,7 +669,8 @@ namespace Tot
                 ElementoComboBox elemento = new ElementoComboBox()
                 {
                     id = variable.id_variable,
-                    nombre = variable.nombre_variable
+                    nombre = variable.nombre_variable,
+                    preguntable_al_usuario = variable.variable_preguntable_al_usuario
                 };
             //    lista_de_variables[i] = elemento;
                 aux_lista_variables.Add(elemento);
@@ -692,7 +693,11 @@ namespace Tot
             //combo_box.SelectedIndexChanged += seleccionDeVariableComboBox_SelectedIndexChanged;
             comboBox_var_entonces.Items.Clear();
             for (int i = 0; i < lista_de_variables.Length; i++)
-                comboBox_var_entonces.Items.Add(lista_de_variables[i]);
+            {
+                if (!lista_de_variables[i].preguntable_al_usuario)
+                    comboBox_var_entonces.Items.Add(lista_de_variables[i]);
+            }
+                
         }
 
 

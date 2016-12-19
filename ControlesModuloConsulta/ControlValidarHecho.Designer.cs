@@ -60,6 +60,7 @@
             // 
             // richTextBox_descripcion
             // 
+            this.richTextBox_descripcion.BackColor = System.Drawing.SystemColors.Window;
             this.richTextBox_descripcion.Location = new System.Drawing.Point(27, 45);
             this.richTextBox_descripcion.Name = "richTextBox_descripcion";
             this.richTextBox_descripcion.ReadOnly = true;
@@ -112,6 +113,8 @@
             // 
             // textBox_hecho_a_validar
             // 
+            this.textBox_hecho_a_validar.BackColor = System.Drawing.SystemColors.Window;
+            this.textBox_hecho_a_validar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox_hecho_a_validar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.textBox_hecho_a_validar.Location = new System.Drawing.Point(149, 313);
             this.textBox_hecho_a_validar.Name = "textBox_hecho_a_validar";
@@ -186,10 +189,12 @@
             // panel_antededentes_ext
             // 
             this.panel_antededentes_ext.AutoScroll = true;
+            this.panel_antededentes_ext.BackColor = System.Drawing.SystemColors.Window;
+            this.panel_antededentes_ext.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel_antededentes_ext.Controls.Add(this.panel_antecedentes_int);
             this.panel_antededentes_ext.Location = new System.Drawing.Point(149, 202);
             this.panel_antededentes_ext.Name = "panel_antededentes_ext";
-            this.panel_antededentes_ext.Size = new System.Drawing.Size(424, 100);
+            this.panel_antededentes_ext.Size = new System.Drawing.Size(426, 100);
             this.panel_antededentes_ext.TabIndex = 22;
             // 
             // panel_antecedentes_int
@@ -223,6 +228,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Window;
             this.Controls.Add(this.label_id_regla);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.panel_antededentes_ext);

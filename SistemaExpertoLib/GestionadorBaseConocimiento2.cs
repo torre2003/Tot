@@ -63,12 +63,11 @@ namespace SistemaExpertoLib.GestionDelConocimiento
         public List<string> comprobarBaseDeConocimiento()
         {
             List<string> errores_comprobacion = new List<string>();
-            limpiarHechosNoUtilizadosBaseDeConociento();
             try
             {
                 errores_comprobacion.AddRange(comprobarIntegridadVariables());
                 errores_comprobacion.AddRange(comprobarIntegridadReglas());
-
+                errores_comprobacion.AddRange(comprobarUnicidadReglas());
                 if (errores_comprobacion.Count == 0)
                     errores_comprobacion.AddRange(comprobarAmbiguedadRecursivaEnReglas());
                 //La unicidad de las reglas se comprueba cuando se ingresan las reglas a la base conocimiento
@@ -83,6 +82,7 @@ namespace SistemaExpertoLib.GestionDelConocimiento
             if (errores_comprobacion.Count == 0)
             {
                 metadatosCambiarChequeoBaseConocimiento(true);
+                limpiarHechosNoUtilizadosBaseDeConociento();
                 return null;
             }
             metadatosCambiarChequeoBaseConocimiento(false);
@@ -120,6 +120,8 @@ namespace SistemaExpertoLib.GestionDelConocimiento
         {
             List<string> errores_comprobacion = new List<string>();
             string[] reglas = this.manejador_archivos.listarArchivosEnDirectorio(AccesoDatos.REGLA);
+            bool existen_variables_de_inicio_en_los_antecedentes = false;
+            bool existen_variables_objetivo_en_el_consecuente = false;
             for (int i = 0; i < reglas.Length; i++)
             {
                 Regla regla = manejador_archivos.extraerRegla(reglas[i]);
@@ -130,11 +132,61 @@ namespace SistemaExpertoLib.GestionDelConocimiento
                     errores_comprobacion.Add("Regla corrupta (Eliminada)" + regla.id_regla + " : " + regla);
                     manejador_archivos.eliminarRegla(reglas[i]);
                 }
-                    
+                Hecho hecho_consecuente = manejador_archivos.extraerHecho(regla.id_hecho_consecuente);
+                if (hecho_consecuente.hecho_objetivo)
+                    existen_variables_objetivo_en_el_consecuente= true;
+                if (hecho_consecuente.hecho_preguntable_al_usuario)
+                {
+                    errores_comprobacion.Add("Regla " + regla.id_regla + "(Consecuente preguntable al usuario) : " + regla);
+                    regla.chequeo_de_consistencia = false;
+                    manejador_archivos.actualizarRegla(regla);
+                }
+                if (!existen_variables_de_inicio_en_los_antecedentes)
+                {
+                    string[] antecedentes = regla.listarAntecedentes();
+                    for (int k = 0; k < antecedentes.Length && !existen_variables_de_inicio_en_los_antecedentes; k++)
+                    {
+                        Hecho hecho_antecedente = manejador_archivos.extraerHecho(antecedentes[i]);
+                        if (hecho_antecedente.hecho_preguntable_al_usuario)
+                            existen_variables_de_inicio_en_los_antecedentes = true;
+                    }
+                }
             }
+            if (leerMetadatos().tipo_de_encadenamiento == MetadatosBaseDeConocimiento.ENCADENAMIENTO_HACIA_ADELANTE
+                && !existen_variables_de_inicio_en_los_antecedentes)
+                errores_comprobacion.Add("No existen reglas con variables de inicio en el antecedente");
+            if (leerMetadatos().tipo_de_encadenamiento == MetadatosBaseDeConocimiento.ENCADENAMIENTO_HACIA_ATRAS
+                && !existen_variables_objetivo_en_el_consecuente)
+                errores_comprobacion.Add("No existen reglas con variables objetivo en su consecuente.");
             return errores_comprobacion;
         }
 
+
+        /// <summary>
+        /// método que comprueba que cada regla sea unica en la base de conocimiento
+        /// </summary>
+        /// <returns>Lista de errores encontrados</returns>
+        private List<string> comprobarUnicidadReglas()
+        {
+            List<string> errores_comprobacion = new List<string>();
+            string[] reglas = this.manejador_archivos.listarArchivosEnDirectorio(AccesoDatos.REGLA);
+            for (int i = 0; i < reglas.Length; i++)
+            {
+                for (int j = 0; j < reglas.Length; j++)
+                {
+                    if (i != j)
+                    {
+                        Regla regla_a = manejador_archivos.extraerRegla(reglas[i]);
+                        Regla regla_b = manejador_archivos.extraerRegla(reglas[j]);
+                        if (regla_a.Equals(regla_b))
+                        {
+                            errores_comprobacion.Add("Reglas " + regla_a.id_regla + " y "+ regla_b.id_regla + "   repetidas.");
+                        }
+                    }
+                }
+            }
+            return errores_comprobacion;
+        }
       
         /// <summary>
         /// Método que comprueba la ambiguedad recursiva de las reglas

@@ -7,7 +7,7 @@
       <FileName>AccesoDatos.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SistemaExpertoLib.Hecho">
+  <Class Name="SistemaExpertoLib.Hecho" Collapsed="true">
     <Position X="0.5" Y="0.5" Width="5.5" />
     <TypeIdentifier>
       <HashCode>KAIASIAAJAIBAiAMiHAJQAANACIgDIAIAASAAFwAAAA=</HashCode>
@@ -21,11 +21,11 @@
       <FileName>MetadatosBaseDeConocimiento.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SistemaExpertoLib.ProcesadorLoggeoInferencia">
-    <Position X="4.75" Y="11.25" Width="4" />
+  <Class Name="SistemaExpertoLib.ProcesadorLogInferencia" Collapsed="true">
+    <Position X="0.5" Y="2" Width="4" />
     <TypeIdentifier>
-      <HashCode>SAopADgAOOnHH0DMBDCxEoQGCIYgSAwBQIRIWjQpypI=</HashCode>
-      <FileName>ProcesadorLoggeoInferencia.cs</FileName>
+      <HashCode>aAopAHgAOOnHH0DMhDCxEoQGCIakSAwBQIRIWjQpypI=</HashCode>
+      <FileName>ProcesadorLogInferencia.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SistemaExpertoLib.Regla">
@@ -45,8 +45,8 @@
       <FileName>Regla.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SistemaExpertoLib.Variable">
-    <Position X="0.5" Y="10.75" Width="3.5" />
+  <Class Name="SistemaExpertoLib.Variable" Collapsed="true">
+    <Position X="0.5" Y="1.25" Width="3.5" />
     <TypeIdentifier>
       <HashCode>ACAAAQBABCCRAAQIArHBBoQAIkIQDRQACAWgAAxCkBA=</HashCode>
       <FileName>Variable.cs</FileName>
@@ -55,12 +55,12 @@
   <Class Name="SistemaExpertoLib.MotorDeInferencia.ConstantesShell">
     <Position X="20" Y="0.5" Width="5.5" />
     <TypeIdentifier>
-      <HashCode>ACCCYgRAAAQAGFiAbAIggSIQQGCAAmAABKAkAEIIQAI=</HashCode>
+      <HashCode>ACCCYgRAAAQAGFiAbAIggSIQQHCAEmAABKAkAEIIQAI=</HashCode>
       <FileName>DelegadosYConstantes.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SistemaExpertoLib.MotorDeInferencia.EncadenamientoHaciaAdelante">
-    <Position X="6.25" Y="0.5" Width="4.75" />
+    <Position X="0.5" Y="3.25" Width="4.75" />
     <NestedTypes>
       <Struct Name="SistemaExpertoLib.MotorDeInferencia.EncadenamientoHaciaAdelante.InfoRegla" Collapsed="true">
         <TypeIdentifier>
@@ -111,7 +111,7 @@
       </Struct>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AQNXQAGEIyBgYDqADERAAAggSYBgEAEBIE4BAgQERDI=</HashCode>
+      <HashCode>ASNXQAGEIyBgYDqADERAACggSYBgEAEBIF4BAgQERDI=</HashCode>
       <FileName>GestionadorBaseConocimiento.cs</FileName>
     </TypeIdentifier>
   </Class>

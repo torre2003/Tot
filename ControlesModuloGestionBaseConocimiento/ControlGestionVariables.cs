@@ -239,6 +239,7 @@ namespace Tot
             }
         }
 
+        
        
         const int DESABILITADO = 0;
         const int AGREGANDO = 1;
@@ -1156,6 +1157,29 @@ namespace Tot
             id_variable_en_tarea = null;
             limpiarArchivoTemporalRTF();
         }
+
+        /// <summary>
+        /// Método que habilita el panel para modificar la variable especificada
+        /// </summary>
+        /// <param name="id_variable">Id de la variable a modificar</param>
+        /// <param name="nombre_variable">Nombre de la variable a modificar</param>
+        public void setearVariableAModificar(string id_variable,string nombre_variable)
+        {
+            if (id_variable != null && tipo_tarea == DESABILITADO)
+            {
+                mostrarInformaciónVariable(id_variable);
+                id_variable_en_tarea = id_variable;
+                nombre_variable_en_tarea = nombre_variable;
+                tipo_tarea = MODIFICANDO;
+                controlesHabilitados(true, true);
+                limpiarMarcasControl();
+            }
+            else
+            {
+                MessageBox.Show("No se ha seleccionado ninguna variable", "Eliminando variable", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         //*************************************************************************
         // Eventos
         //*************************************************************************

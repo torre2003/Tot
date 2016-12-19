@@ -54,6 +54,7 @@
             this.button_por_defecto = new System.Windows.Forms.Button();
             this.button_importar = new System.Windows.Forms.Button();
             this.button_exportar = new System.Windows.Forms.Button();
+            this.buttonInformación_configuracion = new Tot.ButtonInformación();
             this.panel_formato_variable.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -321,12 +322,21 @@
             this.button_exportar.UseVisualStyleBackColor = true;
             this.button_exportar.Click += new System.EventHandler(this.button_exportar_Click);
             // 
+            // buttonInformación_configuracion
+            // 
+            this.buttonInformación_configuracion.Location = new System.Drawing.Point(156, 0);
+            this.buttonInformación_configuracion.Name = "buttonInformación_configuracion";
+            this.buttonInformación_configuracion.ruta_rtf_ayuda = "files\\\\ayuda\\\\configuracion_log_de_inferencia.rtf";
+            this.buttonInformación_configuracion.Size = new System.Drawing.Size(32, 32);
+            this.buttonInformación_configuracion.TabIndex = 11;
+            // 
             // FormVentanaConfiguracionLogInferencia
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(584, 532);
+            this.Controls.Add(this.buttonInformación_configuracion);
             this.Controls.Add(this.button_importar);
             this.Controls.Add(this.button_exportar);
             this.Controls.Add(this.button_por_defecto);
@@ -384,6 +394,7 @@
         private System.Windows.Forms.Button button_por_defecto;
         private System.Windows.Forms.Button button_importar;
         private System.Windows.Forms.Button button_exportar;
+        private ButtonInformación buttonInformación_configuracion;
 
     }
 }

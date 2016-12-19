@@ -223,6 +223,26 @@ namespace Tot.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _1482051749_bookcase_48x48 {
+            get {
+                object obj = ResourceManager.GetObject("1482051749_bookcase 48x48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _1482051751_bookcase_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("1482051751_bookcase 32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap add124x124_ {
             get {
                 object obj = ResourceManager.GetObject("add124x124 ", resourceCulture);
@@ -296,6 +316,26 @@ namespace Tot.Properties {
         internal static System.Drawing.Bitmap lupa_imagenes___32x_32 {
             get {
                 object obj = ResourceManager.GetObject("lupa_imagenes - 32x 32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Net_Down_Solo_Color {
+            get {
+                object obj = ResourceManager.GetObject("Net Down Solo Color", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Net_Down_Vertical_Color {
+            get {
+                object obj = ResourceManager.GetObject("Net Down Vertical Color", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

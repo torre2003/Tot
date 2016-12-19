@@ -34,6 +34,10 @@ namespace Tot
         //*******************************************************************************************
         public FormVentanaPrincipal()
         {
+
+           // new FormVentanaAcercaDe().ShowDialog();
+          //  System.Environment.Exit(0);
+            
             InitializeComponent();
 
             base_conocimiento = new GestionadorBaseConocimiento();
@@ -212,6 +216,16 @@ namespace Tot
         {
             ventana_configuracion_log.Visible = true;
             ventana_configuracion_log.mostrarConfiguracionProcesadorLoggeo(configuracion_interna.extraerProcesadorDeLoggeo());
+        }
+
+        private void aToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FormVentanaIndiceDeAyudas().ShowDialog();
+        }
+
+        private void acercaDeToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            new FormVentanaAcercaDe().ShowDialog();
         }
 
 

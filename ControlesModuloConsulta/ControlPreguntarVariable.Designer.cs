@@ -54,6 +54,7 @@
             // 
             // textBox_pregunta
             // 
+            this.textBox_pregunta.BackColor = System.Drawing.SystemColors.Window;
             this.textBox_pregunta.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.textBox_pregunta.Location = new System.Drawing.Point(39, 87);
             this.textBox_pregunta.Multiline = true;
@@ -64,6 +65,7 @@
             // 
             // richTextBox_descripcion_variable
             // 
+            this.richTextBox_descripcion_variable.BackColor = System.Drawing.SystemColors.Window;
             this.richTextBox_descripcion_variable.Location = new System.Drawing.Point(39, 187);
             this.richTextBox_descripcion_variable.Name = "richTextBox_descripcion_variable";
             this.richTextBox_descripcion_variable.ReadOnly = true;
