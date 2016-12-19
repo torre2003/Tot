@@ -13,10 +13,20 @@ namespace Tot
     {
         public string ruta_archivos_configuracion   = "files\\";
         public string archivo_configuracion_log     = "log.conf";
+        public string ruta_carpeta_diagramas        = "\\DirEditorCache";
         public bool existe_archivo_configuracion
         {
             get { return File.Exists(ruta_archivos_configuracion + archivo_configuracion_log); }
         }
+
+        public void inicializarCarpetaDiagramas(string ruta_base_conocimiento)
+        {
+            DirectoryInfo directorio = new DirectoryInfo(ruta_base_conocimiento+ruta_carpeta_diagramas);
+            if (!directorio.Exists)
+                directorio.Create();
+        }
+
+
         /// <summary>
         /// Método para ingresar un nuevo procesador de logeo a la carpeta de configuración
         /// </summary>

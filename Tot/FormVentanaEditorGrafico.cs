@@ -22,16 +22,11 @@ namespace Tot
 
 		string nombreContextoAnterior = "";
 		GestionadorBaseConocimiento baseConocimiento ;
-		public FormVentanaEditorGrafico()
+		public FormVentanaEditorGrafico(GestionadorBaseConocimiento baseConocimiento)
 		{
 
 			InitializeComponent();
-			baseConocimiento = new GestionadorBaseConocimiento();
-			if (!baseConocimiento.existe_base_de_conocimiento) {
-				baseConocimiento.iniciarNuevaBaseDeConocimiento();
-				MessageBox.Show("La base de conocimiento no ha sido creada.\n Se ha creado una nueva base de conocimiento vacia", "Gestión Base de conocimiento", MessageBoxButtons.OK, MessageBoxIcon.Information);
-			}
-			
+            this.baseConocimiento = baseConocimiento;
 			c_Editor1.BaseConocimiento = baseConocimiento;
 			c_Editor1.RutaCache = baseConocimiento.ruta_carpeta_base_conocimiento + "\\DirEditorCache";
 			listaVariables.BaseConocimiento = baseConocimiento;
@@ -48,6 +43,7 @@ namespace Tot
 				var fileName = fi.Name.Split('.');
 				lstContextos.Items.Add(fileName[0]);
 			}
+            
 		}
 		//--------------------------------------------------------------------------------------------
 		void FormVentanaEditorGraficoFormClosing(object sender, FormClosingEventArgs e)

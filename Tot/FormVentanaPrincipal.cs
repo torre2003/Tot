@@ -65,9 +65,10 @@ namespace Tot
             ventana_gestion_de_conocimiento = new FormVentanaGestiónBaseConocimiento(base_conocimiento);
             ventana_gestion_de_conocimiento.MdiParent = this;
            // ventana_cargando.Visible = false;
-           
-           ventana_editor_grafico =new FormVentanaEditorGrafico();
-           ventana_editor_grafico.MdiParent = this;
+
+            configuracion_interna.inicializarCarpetaDiagramas(base_conocimiento.ruta_carpeta_base_conocimiento);
+            ventana_editor_grafico = new FormVentanaEditorGrafico(base_conocimiento);
+            ventana_editor_grafico.MdiParent = this;
 
         }
         
